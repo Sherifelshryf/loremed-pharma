@@ -32,12 +32,7 @@ export function Footer() {
     <footer className="relative overflow-hidden bg-primary-950 text-white">
       {/* decorative mark */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden opacity-[0.06]">
-        <LogoMark
-          purple="#ffffff"
-          orange="#ffffff"
-          decorative
-          className="absolute -bottom-24 -end-16 h-[32rem] rotate-6"
-        />
+        <LogoMark className="absolute -bottom-24 -end-16 h-[32rem] rotate-6" />
       </div>
       <div
         aria-hidden

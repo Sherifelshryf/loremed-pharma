@@ -17,7 +17,7 @@ export function QualityAssurance() {
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -left-24 top-0 h-96 w-96 rounded-full bg-primary-700/30 blur-3xl" />
         <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-secondary-500/15 blur-3xl" />
-        <LogoMark purple="#ffffff" orange="#EC691D" decorative className="absolute -left-10 bottom-0 hidden h-80 opacity-[0.06] lg:block" />
+        <LogoMark className="absolute -left-10 bottom-0 hidden h-80 opacity-[0.06] lg:block" />
       </div>
 
       <Container className="relative">

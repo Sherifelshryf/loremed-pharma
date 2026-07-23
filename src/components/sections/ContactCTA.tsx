@@ -15,12 +15,7 @@ export function ContactCTA() {
             <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-primary-900 to-primary-950" />
             <div className="absolute -right-16 -top-16 h-96 w-96 rounded-full bg-secondary-500/25 blur-3xl" />
             <div className="absolute -left-20 bottom-0 h-80 w-80 rounded-full bg-primary-600/40 blur-3xl" />
-            <LogoMark
-              purple="#ffffff"
-              orange="#EC691D"
-              decorative
-              className="absolute -bottom-20 end-6 hidden h-96 opacity-[0.06] lg:block"
-            />
+            <LogoMark className="absolute -bottom-20 end-6 hidden h-96 opacity-[0.06] lg:block" />
           </div>
 
           <div className="relative mx-auto max-w-3xl text-center">
