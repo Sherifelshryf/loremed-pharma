@@ -6,23 +6,14 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Search, ChevronDown } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { primaryNav } from '@/content/site';
+import { NAV_T } from '@/content/navKeys';
 import { useI18n } from '@/i18n/LanguageProvider';
-import type { TranslationKey } from '@/i18n/dictionaries';
 import { Logo } from '@/components/logo/Logo';
 import { Button } from '@/components/ui/Button';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { SearchDialog } from './SearchDialog';
 import { MobileMenu } from './MobileMenu';
 import { cn } from '@/lib/utils';
-
-const NAV_T: Record<string, TranslationKey> = {
-  Home: 'nav.home',
-  Products: 'nav.products',
-  About: 'nav.about',
-  Quality: 'nav.quality',
-  'R&D': 'nav.research',
-  Contact: 'nav.contact',
-};
 
 export function Navbar() {
   const { t } = useI18n();
@@ -134,8 +125,8 @@ export function Navbar() {
               <LanguageSwitcher />
             </div>
             <div className="hidden sm:block">
-              <Button href="/contact" size="sm" variant="primary" className="ms-1">
-                {t('cta.contact')}
+              <Button href="/products" size="sm" variant="primary" className="ms-1">
+                {t('cta.explore')}
               </Button>
             </div>
             <button
@@ -171,6 +162,7 @@ export function Navbar() {
 }
 
 function MegaMenu({ label, onNavigate }: { label: string; onNavigate: () => void }) {
+  const { locale, t } = useI18n();
   const item = primaryNav.find((n) => n.label === label);
   if (!item?.children?.length) return null;
 
@@ -197,10 +189,10 @@ function MegaMenu({ label, onNavigate }: { label: string; onNavigate: () => void
                 aria-hidden
                 className="absolute -right-8 -top-10 h-40 w-40 rounded-full bg-white/10 blur-2xl"
               />
-              <span className="text-eyebrow uppercase text-white/70">{item.label}</span>
+              <span className="text-eyebrow uppercase text-white/70">{t(NAV_T[item.label] ?? 'nav.home')}</span>
               <span className="mt-8">
-                <span className="block text-xl font-semibold">{featured.label}</span>
-                <span className="mt-1 block text-sm text-white/70">{featured.description}</span>
+                <span className="block text-xl font-semibold">{featured.label[locale]}</span>
+                <span className="mt-1 block text-sm text-white/70">{featured.description?.[locale]}</span>
               </span>
             </Link>
             <ul className="col-span-2 grid grid-cols-2 gap-1">
@@ -212,10 +204,10 @@ function MegaMenu({ label, onNavigate }: { label: string; onNavigate: () => void
                     className="group flex h-full flex-col gap-1 rounded-2xl p-4 transition-colors hover:bg-primary-50"
                   >
                     <span className="font-medium text-ink transition-colors group-hover:text-primary-800">
-                      {child.label}
+                      {child.label[locale]}
                     </span>
                     {child.description && (
-                      <span className="text-sm leading-snug text-ink-muted">{child.description}</span>
+                      <span className="text-sm leading-snug text-ink-muted">{child.description[locale]}</span>
                     )}
                   </Link>
                 </li>

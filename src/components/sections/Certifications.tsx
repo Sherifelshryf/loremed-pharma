@@ -1,19 +1,37 @@
+'use client';
+
 import { standards } from '@/content/company';
 import { Container, SectionHeading } from '@/components/ui/Section';
 import { Stagger, StaggerItem } from '@/components/ui/motion';
+import { useI18n } from '@/i18n/LanguageProvider';
+
+const copy = {
+  eyebrow: { en: 'Standards & compliance', ar: 'المعايير والامتثال' },
+  titlePre: { en: 'Held to the standards the', ar: 'ملتزمون بالمعايير التي' },
+  titleAccent: { en: 'world expects', ar: 'يتوقعها العالم' },
+  lead: {
+    en: 'Our quality and operations are built around the internationally recognised frameworks that define modern pharmaceutical practice.',
+    ar: 'تُبنى جودتنا وعملياتنا حول الأطر المعترف بها دوليًا التي تُحدّد الممارسات الصيدلانية الحديثة.',
+  },
+  footnote: {
+    en: 'Codes shown represent the standards and regulatory frameworks that guide Loremed’s quality system and product development.',
+    ar: 'الرموز الموضحة تمثل المعايير والأطر التنظيمية التي توجّه نظام الجودة وتطوير المنتجات لدى لوريمد.',
+  },
+};
 
 export function Certifications() {
+  const { locale } = useI18n();
   return (
     <section id="certifications" className="section relative overflow-hidden">
       <Container>
         <SectionHeading
-          eyebrow="Standards & compliance"
+          eyebrow={copy.eyebrow[locale]}
           title={
             <>
-              Held to the standards the <span className="text-gradient">world expects</span>
+              {copy.titlePre[locale]} <span className="text-gradient">{copy.titleAccent[locale]}</span>
             </>
           }
-          lead="Our quality and operations are built around the internationally recognised frameworks that define modern pharmaceutical practice."
+          lead={copy.lead[locale]}
           align="center"
           className="mx-auto max-w-3xl"
         />
@@ -27,12 +45,12 @@ export function Certifications() {
                 </span>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="font-semibold text-ink">{s.title}</h3>
+                    <h3 className="font-semibold text-ink">{s.title[locale]}</h3>
                   </div>
                   <span className="mt-0.5 inline-block rounded-md bg-secondary-50 px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-secondary-700">
                     {s.code}
                   </span>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">{s.body}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">{s.body[locale]}</p>
                 </div>
               </div>
             </StaggerItem>
@@ -40,8 +58,7 @@ export function Certifications() {
         </Stagger>
 
         <p className="mx-auto mt-10 max-w-2xl text-center text-xs leading-relaxed text-ink-muted">
-          Codes shown represent the standards and regulatory frameworks that guide Loremed’s quality
-          system and product development.
+          {copy.footnote[locale]}
         </p>
       </Container>
     </section>

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { primaryNav, site } from '@/content/site';
+import { NAV_T } from '@/content/navKeys';
 import { useI18n } from '@/i18n/LanguageProvider';
 import { Logo } from '@/components/logo/Logo';
 import { Button } from '@/components/ui/Button';
@@ -12,7 +13,7 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 import { cn } from '@/lib/utils';
 
 export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   const [expanded, setExpanded] = useState<string | null>(null);
 
   useEffect(() => {
@@ -73,13 +74,13 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
                           onClick={onClose}
                           className="flex-1 py-3.5 ps-3 text-lg font-medium text-ink"
                         >
-                          {item.label}
+                          {t(NAV_T[item.label] ?? 'nav.home')}
                         </Link>
                         {hasChildren && (
                           <button
                             onClick={() => setExpanded(isOpen ? null : item.label)}
                             className="grid h-11 w-11 place-items-center rounded-full text-ink-soft hover:bg-neutral-100"
-                            aria-label={`Toggle ${item.label}`}
+                            aria-label={`${t('nav.menu')}: ${t(NAV_T[item.label] ?? 'nav.home')}`}
                             aria-expanded={isOpen}
                           >
                             <ChevronDown className={cn('h-5 w-5 transition-transform', isOpen && 'rotate-180')} />
@@ -102,7 +103,7 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
                                   onClick={onClose}
                                   className="block rounded-xl px-3 py-2.5 text-[0.95rem] text-ink-soft hover:bg-primary-50 hover:text-primary-800"
                                 >
-                                  {child.label}
+                                  {child.label[locale]}
                                 </Link>
                               </li>
                             ))}
@@ -117,8 +118,8 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
 
             <div className="space-y-4 border-t border-line px-5 py-5">
               <LanguageSwitcher className="w-full justify-center" />
-              <Button href="/contact" onClick={onClose} className="w-full" variant="primary">
-                {t('cta.contact')}
+              <Button href="/products" onClick={onClose} className="w-full" variant="primary">
+                {t('cta.explore')}
               </Button>
               <p className="text-center text-sm text-ink-muted">{site.email}</p>
             </div>

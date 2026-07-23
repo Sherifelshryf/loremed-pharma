@@ -3,9 +3,12 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
+import { useI18n } from '@/i18n/LanguageProvider';
+import type { Bi } from '@/i18n/dictionaries';
 import { cn } from '@/lib/utils';
 
-export function Accordion({ items }: { items: { q: string; a: string }[] }) {
+export function Accordion({ items }: { items: { q: Bi; a: Bi }[] }) {
+  const { locale } = useI18n();
   const [open, setOpen] = useState<number | null>(0);
 
   return (
@@ -20,7 +23,7 @@ export function Accordion({ items }: { items: { q: string; a: string }[] }) {
               aria-expanded={isOpen}
             >
               <span className={cn('text-lg font-medium', isOpen ? 'text-primary-800' : 'text-ink')}>
-                {item.q}
+                {item.q[locale]}
               </span>
               <span
                 className={cn(
@@ -42,7 +45,7 @@ export function Accordion({ items }: { items: { q: string; a: string }[] }) {
                   transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                   className="overflow-hidden"
                 >
-                  <p className="px-6 pb-6 text-ink-soft sm:px-8">{item.a}</p>
+                  <p className="px-6 pb-6 text-ink-soft sm:px-8">{item.a[locale]}</p>
                 </motion.div>
               )}
             </AnimatePresence>

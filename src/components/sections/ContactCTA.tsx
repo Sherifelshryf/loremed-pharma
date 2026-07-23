@@ -1,11 +1,25 @@
+'use client';
+
 import { Mail, MapPin, ArrowRight } from 'lucide-react';
 import { site } from '@/content/site';
 import { Container } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/motion';
 import { LogoMark } from '@/components/logo/Logo';
+import { useI18n } from '@/i18n/LanguageProvider';
+
+const copy = {
+  eyebrow: { en: 'Let’s talk', ar: 'لنتحدث' },
+  titlePre: { en: 'Building healthier lives,', ar: 'نبني حياة أكثر صحة،' },
+  titleAccent: { en: 'together', ar: 'معًا' },
+  lead: {
+    en: 'Whether you’re a distributor, a healthcare professional or simply curious about our products — our team would love to hear from you.',
+    ar: 'سواء كنت موزّعًا أو أخصائي رعاية صحية أو مجرد فضولي بشأن منتجاتنا — يسعد فريقنا بالتواصل معك.',
+  },
+};
 
 export function ContactCTA() {
+  const { locale, t } = useI18n();
   return (
     <section id="contact" className="section relative">
       <Container>
@@ -20,27 +34,23 @@ export function ContactCTA() {
 
           <div className="relative mx-auto max-w-3xl text-center">
             <Reveal>
-              <span className="text-eyebrow uppercase text-secondary-300">Let&rsquo;s talk</span>
+              <span className="text-eyebrow uppercase text-secondary-300">{copy.eyebrow[locale]}</span>
             </Reveal>
             <Reveal delay={0.05}>
               <h2 className="mt-5 text-display-md text-white sm:text-display-lg">
-                Building healthier lives,{' '}
-                <span className="text-gradient-orange">together</span>
+                {copy.titlePre[locale]} <span className="text-gradient-orange">{copy.titleAccent[locale]}</span>
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
-              <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/65">
-                Whether you&rsquo;re a distributor, a healthcare professional or simply curious about our
-                products — our team would love to hear from you.
-              </p>
+              <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/65">{copy.lead[locale]}</p>
             </Reveal>
             <Reveal delay={0.15}>
               <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
                 <Button href="/contact" size="lg" variant="secondary" withArrow>
-                  Contact us
+                  {t('cta.contact')}
                 </Button>
                 <Button href="/products" size="lg" variant="inverse-outline">
-                  View products
+                  {t('cta.explore')}
                 </Button>
               </div>
             </Reveal>

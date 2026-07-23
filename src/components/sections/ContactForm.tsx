@@ -6,24 +6,51 @@ import { useRef, useState, type FormEvent } from 'react';
 import { useI18n } from '@/i18n/LanguageProvider';
 import { cn } from '@/lib/utils';
 
-const departments = ['Sales', 'Medical Information', 'Export', 'Human Resources', 'Support'];
+const departments = [
+  { value: 'Sales', label: { en: 'Sales', ar: 'المبيعات' } },
+  { value: 'Medical Information', label: { en: 'Medical Information', ar: 'المعلومات الطبية' } },
+  { value: 'Export', label: { en: 'Export', ar: 'التصدير' } },
+  { value: 'Human Resources', label: { en: 'Human Resources', ar: 'الموارد البشرية' } },
+  { value: 'Support', label: { en: 'Support', ar: 'الدعم' } },
+];
 
 type Errors = Partial<Record<'name' | 'email' | 'department' | 'message', string>>;
 
+const errorCopy = {
+  name: { en: 'Please enter your name.', ar: 'يرجى إدخال اسمك.' },
+  email: { en: 'Please enter your email.', ar: 'يرجى إدخال بريدك الإلكتروني.' },
+  emailInvalid: { en: 'Please enter a valid email address.', ar: 'يرجى إدخال بريد إلكتروني صحيح.' },
+  department: { en: 'Please choose a department.', ar: 'يرجى اختيار قسم.' },
+  message: { en: 'Please add a short message.', ar: 'يرجى إضافة رسالة قصيرة.' },
+};
+
+const copy = {
+  chooseDepartment: { en: 'Choose a department', ar: 'اختر قسمًا' },
+  subjectPlaceholder: { en: 'How can we help?', ar: 'كيف يمكننا مساعدتك؟' },
+  messagePlaceholder: { en: 'Tell us a little about your enquiry…', ar: 'أخبرنا قليلاً عن استفسارك…' },
+  requiredSuffix: { en: 'fields.', ar: 'حقول إلزامية.' },
+  successTitle: { en: 'Message received', ar: 'تم استلام رسالتك' },
+  successBody: {
+    en: 'Thank you for reaching out to Loremed. The right team will get back to you shortly.',
+    ar: 'شكرًا لتواصلك مع لوريمد. سيتواصل معك الفريق المعني قريبًا.',
+  },
+  sendAnother: { en: 'Send another message', ar: 'إرسال رسالة أخرى' },
+};
+
 export function ContactForm() {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   const [errors, setErrors] = useState<Errors>({});
   const [submitted, setSubmitted] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   function validate(data: FormData): Errors {
     const e: Errors = {};
-    if (!String(data.get('name') || '').trim()) e.name = 'Please enter your name.';
+    if (!String(data.get('name') || '').trim()) e.name = errorCopy.name[locale];
     const email = String(data.get('email') || '').trim();
-    if (!email) e.email = 'Please enter your email.';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = 'Please enter a valid email address.';
-    if (!String(data.get('department') || '')) e.department = 'Please choose a department.';
-    if (!String(data.get('message') || '').trim()) e.message = 'Please add a short message.';
+    if (!email) e.email = errorCopy.email[locale];
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = errorCopy.emailInvalid[locale];
+    if (!String(data.get('department') || '')) e.department = errorCopy.department[locale];
+    if (!String(data.get('message') || '').trim()) e.message = errorCopy.message[locale];
     return e;
   }
 
@@ -61,10 +88,8 @@ export function ContactForm() {
             <span className="grid h-16 w-16 place-items-center rounded-full bg-success-500 text-white">
               <Check className="h-8 w-8" strokeWidth={3} />
             </span>
-            <h3 className="mt-6 text-2xl font-semibold text-ink">Message received</h3>
-            <p className="mt-2 max-w-sm text-ink-soft">
-              Thank you for reaching out to Loremed. The right team will get back to you shortly.
-            </p>
+            <h3 className="mt-6 text-2xl font-semibold text-ink">{copy.successTitle[locale]}</h3>
+            <p className="mt-2 max-w-sm text-ink-soft">{copy.successBody[locale]}</p>
             <button
               onClick={() => {
                 setSubmitted(false);
@@ -72,7 +97,7 @@ export function ContactForm() {
               }}
               className="mt-8 text-sm font-medium text-primary-700 underline-offset-4 hover:underline"
             >
-              Send another message
+              {copy.sendAnother[locale]}
             </button>
           </motion.div>
         ) : (
@@ -101,11 +126,11 @@ export function ContactForm() {
               <Field label={t('contact.department')} required error={errors.department}>
                 <select name="department" className={cn(fieldClass(!!errors.department), 'appearance-none')} aria-invalid={!!errors.department} defaultValue="">
                   <option value="" disabled>
-                    Choose a department
+                    {copy.chooseDepartment[locale]}
                   </option>
                   {departments.map((d) => (
-                    <option key={d} value={d}>
-                      {d}
+                    <option key={d.value} value={d.value}>
+                      {d.label[locale]}
                     </option>
                   ))}
                 </select>
@@ -113,11 +138,11 @@ export function ContactForm() {
             </div>
 
             <Field label={t('contact.subject')}>
-              <input name="subject" type="text" className={fieldClass(false)} placeholder="How can we help?" />
+              <input name="subject" type="text" className={fieldClass(false)} placeholder={copy.subjectPlaceholder[locale]} />
             </Field>
 
             <Field label={t('contact.message')} required error={errors.message}>
-              <textarea name="message" rows={5} className={cn(fieldClass(!!errors.message), 'resize-none')} aria-invalid={!!errors.message} placeholder="Tell us a little about your enquiry…" />
+              <textarea name="message" rows={5} className={cn(fieldClass(!!errors.message), 'resize-none')} aria-invalid={!!errors.message} placeholder={copy.messagePlaceholder[locale]} />
             </Field>
 
             <button
@@ -128,7 +153,7 @@ export function ContactForm() {
               {t('contact.send')}
             </button>
             <p className="text-xs text-ink-muted">
-              <span className="text-danger-600">*</span> {t('contact.required')} fields.
+              <span className="text-danger-600">*</span> {t('contact.required')} {copy.requiredSuffix[locale]}
             </p>
           </motion.form>
         )}

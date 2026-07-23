@@ -1,5 +1,8 @@
 export type Locale = 'en' | 'ar';
 
+/** Bilingual text pair — every localisable content field carries an English and Arabic form. */
+export type Bi = { en: string; ar: string };
+
 export const localeMeta: Record<Locale, { label: string; native: string; dir: 'ltr' | 'rtl' }> = {
   en: { label: 'English', native: 'English', dir: 'ltr' },
   ar: { label: 'Arabic', native: 'العربية', dir: 'rtl' },

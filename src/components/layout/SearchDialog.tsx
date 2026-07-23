@@ -6,13 +6,20 @@ import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { products, categories } from '@/content/products';
 import { primaryNav } from '@/content/site';
+import { NAV_T } from '@/content/navKeys';
 import { useI18n } from '@/i18n/LanguageProvider';
 import { cn } from '@/lib/utils';
 
-type Result = { label: string; href: string; group: string; sub?: string };
+type Result = { label: string; href: string; group: string; kind: 'product' | 'category' | 'page'; sub?: string };
+
+const groupLabels = {
+  Products: { en: 'Products', ar: 'المنتجات' },
+  Categories: { en: 'Categories', ar: 'الفئات' },
+  Pages: { en: 'Pages', ar: 'الصفحات' },
+};
 
 export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -20,22 +27,25 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
     const productResults: Result[] = products.map((p) => ({
       label: p.name,
       href: `/products/${p.slug}`,
-      group: 'Products',
+      group: groupLabels.Products[locale],
+      kind: 'product',
       sub: p.tagline,
     }));
     const categoryResults: Result[] = categories.map((c) => ({
-      label: c.label,
+      label: c.label[locale],
       href: `/products?category=${c.id}`,
-      group: 'Categories',
-      sub: c.description,
+      group: groupLabels.Categories[locale],
+      kind: 'category',
+      sub: c.description[locale],
     }));
     const pageResults: Result[] = primaryNav.map((n) => ({
-      label: n.label,
+      label: t(NAV_T[n.label] ?? 'nav.home'),
       href: n.href,
-      group: 'Pages',
+      group: groupLabels.Pages[locale],
+      kind: 'page',
     }));
     return [...productResults, ...categoryResults, ...pageResults];
-  }, []);
+  }, [locale, t]);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -122,7 +132,7 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
                       <span
                         className={cn(
                           'grid h-9 w-9 shrink-0 place-items-center rounded-xl text-xs font-bold',
-                          r.group === 'Products'
+                          r.kind === 'product'
                             ? 'bg-secondary-50 text-secondary-600'
                             : 'bg-primary-50 text-primary-700',
                         )}

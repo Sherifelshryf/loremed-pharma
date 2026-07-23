@@ -3,6 +3,7 @@ import { Home, Search } from 'lucide-react';
 import { Container } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { LogoBloom, GradientOrb, GridField } from '@/components/graphics/BrandBackdrop';
+import { L } from '@/i18n/Localized';
 
 export default function NotFound() {
   return (
@@ -16,21 +17,29 @@ export default function NotFound() {
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
-            <p className="text-eyebrow uppercase text-secondary-600">Error 404</p>
+            <p className="text-eyebrow uppercase text-secondary-600">
+              <L text={{ en: 'Error 404', ar: 'خطأ 404' }} />
+            </p>
             <h1 className="mt-4 text-display-lg text-ink sm:text-display-xl">
-              This page took a <span className="text-gradient">different path</span>
+              <L text={{ en: 'This page took a', ar: 'سلكت هذه الصفحة' }} />{' '}
+              <span className="text-gradient"><L text={{ en: 'different path', ar: 'مسارًا مختلفًا' }} /></span>
             </h1>
             <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-soft">
-              The page you’re looking for doesn’t exist or has moved. Let’s get you back to something useful.
+              <L
+                text={{
+                  en: 'The page you’re looking for doesn’t exist or has moved. Let’s get you back to something useful.',
+                  ar: 'الصفحة التي تبحث عنها غير موجودة أو تم نقلها. دعنا نعيدك إلى شيء مفيد.',
+                }}
+              />
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button href="/" variant="primary" withArrow>
                 <Home className="h-4 w-4" />
-                Back home
+                <L text={{ en: 'Back home', ar: 'العودة للرئيسية' }} />
               </Button>
               <Button href="/products" variant="outline">
                 <Search className="h-4 w-4" />
-                Browse products
+                <L text={{ en: 'Browse products', ar: 'تصفّح المنتجات' }} />
               </Button>
             </div>
           </div>

@@ -6,9 +6,18 @@ import { useCallback, useEffect, useState } from 'react';
 import { testimonials } from '@/content/company';
 import { Container, Eyebrow } from '@/components/ui/Section';
 import { Reveal } from '@/components/ui/motion';
+import { useI18n } from '@/i18n/LanguageProvider';
 import { cn } from '@/lib/utils';
 
+const copy = {
+  eyebrow: { en: 'Voices from the field', ar: 'أصوات من الميدان' },
+  prev: { en: 'Previous testimonial', ar: 'الشهادة السابقة' },
+  next: { en: 'Next testimonial', ar: 'الشهادة التالية' },
+  goTo: { en: 'Go to testimonial', ar: 'الانتقال إلى الشهادة' },
+};
+
 export function Testimonials() {
+  const { locale } = useI18n();
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
   const [dir, setDir] = useState(1);
@@ -40,7 +49,7 @@ export function Testimonials() {
           onMouseLeave={() => setPaused(false)}
         >
           <Reveal>
-            <Eyebrow className="justify-center">Voices from the field</Eyebrow>
+            <Eyebrow className="justify-center">{copy.eyebrow[locale]}</Eyebrow>
           </Reveal>
 
           <div className="relative mt-10 min-h-[16rem]">
@@ -56,11 +65,11 @@ export function Testimonials() {
                 className="mt-6"
               >
                 <p className="text-balance text-2xl font-medium leading-snug text-ink sm:text-[1.75rem] sm:leading-snug">
-                  &ldquo;{active.quote}&rdquo;
+                  &ldquo;{active.quote[locale]}&rdquo;
                 </p>
                 <footer className="mt-8">
-                  <div className="font-semibold text-primary-800">{active.name}</div>
-                  <div className="text-sm text-ink-muted">{active.role}</div>
+                  <div className="font-semibold text-primary-800">{active.name[locale]}</div>
+                  <div className="text-sm text-ink-muted">{active.role[locale]}</div>
                 </footer>
               </motion.blockquote>
             </AnimatePresence>
@@ -71,7 +80,7 @@ export function Testimonials() {
             <button
               onClick={() => go(index - 1)}
               className="grid h-11 w-11 place-items-center rounded-full border border-line text-ink-soft transition-all hover:border-primary-300 hover:bg-primary-50 hover:text-primary-800"
-              aria-label="Previous testimonial"
+              aria-label={copy.prev[locale]}
             >
               <ArrowLeft className="h-4 w-4 rtl:rotate-180" />
             </button>
@@ -80,7 +89,7 @@ export function Testimonials() {
                 <button
                   key={i}
                   onClick={() => go(i)}
-                  aria-label={`Go to testimonial ${i + 1}`}
+                  aria-label={`${copy.goTo[locale]} ${i + 1}`}
                   aria-current={i === index}
                   className={cn(
                     'h-2 rounded-full transition-all duration-300',
@@ -92,7 +101,7 @@ export function Testimonials() {
             <button
               onClick={() => go(index + 1)}
               className="grid h-11 w-11 place-items-center rounded-full border border-line text-ink-soft transition-all hover:border-primary-300 hover:bg-primary-50 hover:text-primary-800"
-              aria-label="Next testimonial"
+              aria-label={copy.next[locale]}
             >
               <ArrowRight className="h-4 w-4 rtl:rotate-180" />
             </button>

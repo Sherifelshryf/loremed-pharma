@@ -3,9 +3,10 @@ import { ChevronRight, Home } from 'lucide-react';
 import { Container, Eyebrow } from '@/components/ui/Section';
 import { Reveal } from '@/components/ui/motion';
 import { GridField, GradientOrb } from '@/components/graphics/BrandBackdrop';
+import { L } from '@/i18n/Localized';
 import { cn } from '@/lib/utils';
 
-export type Crumb = { label: string; href: string };
+export type Crumb = { label: React.ReactNode; href: string };
 
 export function PageHero({
   eyebrow,
@@ -15,9 +16,9 @@ export function PageHero({
   align = 'left',
   children,
 }: {
-  eyebrow: string;
+  eyebrow: React.ReactNode;
   title: React.ReactNode;
-  lead?: string;
+  lead?: React.ReactNode;
   crumbs: Crumb[];
   align?: 'left' | 'center';
   children?: React.ReactNode;
@@ -40,7 +41,9 @@ export function PageHero({
                 <li>
                   <Link href="/" className="inline-flex items-center gap-1 transition-colors hover:text-primary-700">
                     <Home className="h-3.5 w-3.5" />
-                    <span className="sr-only sm:not-sr-only">Home</span>
+                    <span className="sr-only sm:not-sr-only">
+                      <L text={{ en: 'Home', ar: 'الرئيسية' }} />
+                    </span>
                   </Link>
                 </li>
                 {crumbs.map((c, i) => (

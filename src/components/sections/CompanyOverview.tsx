@@ -1,23 +1,43 @@
+'use client';
+
 import { Check, TrendingUp } from 'lucide-react';
 import { about } from '@/content/company';
 import { Button } from '@/components/ui/Button';
 import { Container, Eyebrow } from '@/components/ui/Section';
 import { Reveal, Parallax } from '@/components/ui/motion';
 import { GradientOrb } from '@/components/graphics/BrandBackdrop';
+import { useI18n } from '@/i18n/LanguageProvider';
+
+const copy = {
+  eyebrow: { en: 'Who we are', ar: 'من نحن' },
+  titlePre: { en: 'A young company with a', ar: 'شركة فتية بطموح' },
+  titleAccent: { en: 'world-class', ar: 'عالمي المستوى' },
+  titlePost: { en: 'ambition', ar: '' },
+  visualLabel: { en: 'Our growth ambition', ar: 'طموحنا في النمو' },
+  visualHeading: { en: 'Building momentum, year on year', ar: 'بناء الزخم، عامًا بعد عام' },
+  footnotePre: { en: 'From our first formulations toward a pipeline more than', ar: 'من أولى تركيباتنا نحو خط أبحاث يضم أكثر من' },
+  footnoteAccent: { en: 'thirty', ar: 'ثلاثين' },
+  footnotePost: {
+    en: 'strong — a deliberate, quality-led expansion across six therapeutic areas.',
+    ar: 'تركيبة — توسّع مدروس وقائم على الجودة عبر ستة مجالات علاجية.',
+  },
+  cta: { en: 'About Loremed', ar: 'عن لوريمد' },
+};
 
 const highlights = [
-  'Pharmaceutical precision, from lab to label',
-  'Trusted botanicals meet modern nutrition science',
-  'A range built around real families',
+  { en: 'Pharmaceutical precision, from lab to label', ar: 'دقة صيدلانية، من المعمل إلى الملصق' },
+  { en: 'Trusted botanicals meet modern nutrition science', ar: 'مستخلصات نباتية موثوقة تلتقي بعلوم التغذية الحديثة' },
+  { en: 'A range built around real families', ar: 'نطاق منتجات مصمَّم من أجل العائلات الحقيقية' },
 ];
 
 const roadmap = [
-  { year: '2023', value: 10, label: 'formulations' },
-  { year: '2024', value: 20, label: 'formulations' },
-  { year: '2025', value: 30, label: 'formulations' },
+  { year: '2023', value: 10 },
+  { year: '2024', value: 20 },
+  { year: '2025', value: 30 },
 ];
 
 export function CompanyOverview() {
+  const { locale } = useI18n();
   return (
     <section id="overview" className="section relative overflow-hidden">
       <Container>
@@ -25,28 +45,28 @@ export function CompanyOverview() {
           {/* Copy */}
           <div>
             <Reveal>
-              <Eyebrow>Who we are</Eyebrow>
+              <Eyebrow>{copy.eyebrow[locale]}</Eyebrow>
             </Reveal>
             <Reveal delay={0.05}>
               <h2 className="mt-4 text-display-md sm:text-display-lg">
-                A young company with a{' '}
-                <span className="text-gradient">world-class</span> ambition
+                {copy.titlePre[locale]} <span className="text-gradient">{copy.titleAccent[locale]}</span>{' '}
+                {copy.titlePost[locale]}
               </h2>
             </Reveal>
             {about.story.map((p, i) => (
               <Reveal key={i} delay={0.1 + i * 0.05}>
-                <p className="mt-5 text-lg leading-relaxed text-ink-soft">{p}</p>
+                <p className="mt-5 text-lg leading-relaxed text-ink-soft">{p[locale]}</p>
               </Reveal>
             ))}
 
             <Reveal delay={0.2}>
               <ul className="mt-8 space-y-3">
                 {highlights.map((h) => (
-                  <li key={h} className="flex items-start gap-3">
+                  <li key={h.en} className="flex items-start gap-3">
                     <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-success-50 text-success-600">
                       <Check className="h-3.5 w-3.5" strokeWidth={3} />
                     </span>
-                    <span className="text-ink-soft">{h}</span>
+                    <span className="text-ink-soft">{h[locale]}</span>
                   </li>
                 ))}
               </ul>
@@ -55,7 +75,7 @@ export function CompanyOverview() {
             <Reveal delay={0.28}>
               <div className="mt-9">
                 <Button href="/about" variant="primary" withArrow>
-                  About Loremed
+                  {copy.cta[locale]}
                 </Button>
               </div>
             </Reveal>
@@ -73,9 +93,9 @@ export function CompanyOverview() {
                     </span>
                     <div>
                       <p className="text-sm font-semibold uppercase tracking-wider text-ink-muted">
-                        Our growth ambition
+                        {copy.visualLabel[locale]}
                       </p>
-                      <p className="text-lg font-semibold text-ink">Building momentum, year on year</p>
+                      <p className="text-lg font-semibold text-ink">{copy.visualHeading[locale]}</p>
                     </div>
                   </div>
 
@@ -94,9 +114,9 @@ export function CompanyOverview() {
                     ))}
                   </div>
                   <p className="mt-8 border-t border-line pt-6 text-sm leading-relaxed text-ink-soft">
-                    From our first formulations toward a pipeline more than{' '}
-                    <span className="font-semibold text-primary-800">thirty</span> strong — a deliberate,
-                    quality-led expansion across six therapeutic areas.
+                    {copy.footnotePre[locale]}{' '}
+                    <span className="font-semibold text-primary-800">{copy.footnoteAccent[locale]}</span>{' '}
+                    {copy.footnotePost[locale]}
                   </p>
                 </div>
               </div>

@@ -3,7 +3,14 @@
  * Product names and categories are taken from the real Loremed range;
  * formulations are described in line with each product's active ingredient.
  * CMS-ready: every field maps cleanly to a headless schema.
+ *
+ * Note: product-specific fields below (name, tagline, description,
+ * keyIngredients, benefits, usage, ageGroup, pack, form) are medical/
+ * regulatory content and are intentionally kept English-only. Category
+ * taxonomy and status labels are UI chrome and are bilingual.
  */
+
+import type { Bi } from '@/i18n/dictionaries';
 
 export type ProductStatus = 'available' | 'under-registration';
 
@@ -37,20 +44,62 @@ export type Product = {
 
 export const categories: {
   id: ProductCategory;
-  label: string;
-  description: string;
+  label: Bi;
+  description: Bi;
 }[] = [
-  { id: 'immune-support', label: 'Immune Support', description: 'Elderberry, black seed, honey & zinc formulas that help the body defend itself.' },
-  { id: 'respiratory-care', label: 'Respiratory Care', description: 'Ivy leaf and botanical syrups that soothe coughs and support clear airways.' },
-  { id: 'vitamins-minerals', label: 'Vitamins & Minerals', description: 'Everyday essential nutrition — from daily multivitamins to targeted iron support.' },
-  { id: 'kids-health', label: 'Kids Health', description: 'Gentle, great-tasting formulas designed around the needs of growing children.' },
-  { id: 'omega-brain', label: 'Omega & Brain Health', description: 'High-purity omega-3 concentrates for heart, brain and vision.' },
-  { id: 'dermatology', label: 'Dermatology & Skin', description: 'Dermatologically-guided lotions that protect and restore the skin barrier.' },
+  {
+    id: 'immune-support',
+    label: { en: 'Immune Support', ar: 'دعم المناعة' },
+    description: {
+      en: 'Elderberry & zinc formulas that help the body defend itself.',
+      ar: 'تركيبات بالبلسان والزنك تساعد الجسم على الدفاع عن نفسه.',
+    },
+  },
+  {
+    id: 'respiratory-care',
+    label: { en: 'Respiratory Care', ar: 'رعاية الجهاز التنفسي' },
+    description: {
+      en: 'Ivy leaf and botanical syrups that soothe coughs and support clear airways.',
+      ar: 'شرابات بأوراق اللبلاب ومستخلصات نباتية تُهدئ السعال وتدعم صفاء المجاري التنفسية.',
+    },
+  },
+  {
+    id: 'vitamins-minerals',
+    label: { en: 'Vitamins & Minerals', ar: 'الفيتامينات والمعادن' },
+    description: {
+      en: 'Everyday essential nutrition — from daily multivitamins to targeted iron support.',
+      ar: 'تغذية أساسية يومية — من الفيتامينات المتعددة اليومية إلى دعم الحديد الموجَّه.',
+    },
+  },
+  {
+    id: 'kids-health',
+    label: { en: 'Kids Health', ar: 'صحة الأطفال' },
+    description: {
+      en: 'Gentle, great-tasting formulas designed around the needs of growing children.',
+      ar: 'تركيبات لطيفة ولذيذة الطعم مصمَّمة حول احتياجات الأطفال في مرحلة النمو.',
+    },
+  },
+  {
+    id: 'omega-brain',
+    label: { en: 'Omega & Brain Health', ar: 'أوميغا وصحة الدماغ' },
+    description: {
+      en: 'High-purity omega-3 concentrates for heart, brain and vision.',
+      ar: 'مركزات أوميغا-3 عالية النقاء لصحة القلب والدماغ والبصر.',
+    },
+  },
+  {
+    id: 'dermatology',
+    label: { en: 'Dermatology & Skin', ar: 'الأمراض الجلدية والبشرة' },
+    description: {
+      en: 'Dermatologically-guided lotions that protect and restore the skin barrier.',
+      ar: 'لوشن موجَّه جلديًا يحمي حاجز البشرة ويُعيد بناءه.',
+    },
+  },
 ];
 
-export const statusLabels: Record<ProductStatus, string> = {
-  available: 'Available Now',
-  'under-registration': 'Under Registration',
+export const statusLabels: Record<ProductStatus, Bi> = {
+  available: { en: 'Available Now', ar: 'متوفر الآن' },
+  'under-registration': { en: 'Under Registration', ar: 'قيد التسجيل' },
 };
 
 export const products: Product[] = [
