@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, FlaskConical, Beaker, Pill, Droplet } from 'lucide-react';
+import { ArrowRight, FlaskConical, Beaker, Gauge, Droplet } from 'lucide-react';
 import { PageHero } from '@/components/layout/PageHero';
 import { ContactCTA } from '@/components/sections/ContactCTA';
 import { Container, SectionHeading, Eyebrow, Badge } from '@/components/ui/Section';
@@ -20,7 +20,7 @@ export const metadata: Metadata = buildMetadata({
 
 const platforms = [
   { icon: Droplet, title: 'Syrups & drops', body: 'Palatable liquid formats engineered for accurate, family-friendly dosing.' },
-  { icon: Pill, title: 'Softgels & tablets', body: 'Solid dose forms with controlled release, stability and clean finishing.' },
+  { icon: Gauge, title: 'Precision dosing', body: 'Dropper and measuring-cup engineering calibrated for accurate, age-based dosing.' },
   { icon: Beaker, title: 'Topical lotions', body: 'Dermatologically-guided emulsions that protect and restore the skin barrier.' },
   { icon: FlaskConical, title: 'Botanical extracts', body: 'Standardised, characterised plant actives that behave the same every batch.' },
 ];

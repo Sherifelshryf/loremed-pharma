@@ -128,7 +128,7 @@ export const standards: { icon: LucideIcon; code: string; title: string; body: s
  *  ------------------------------------------------------------------ */
 export const manufacturingCapabilities: { icon: LucideIcon; title: string; body: string }[] = [
   { icon: Factory, title: 'GMP-grade production', body: 'Controlled environments, validated processes and documented traceability from raw material to finished pack.' },
-  { icon: Beaker, title: 'Multi-form capability', body: 'Syrups, softgels, film-coated tablets, drops and topical lotions produced on modern lines.' },
+  { icon: Beaker, title: 'Multi-form capability', body: 'Syrups, oral drops and topical lotions produced on modern lines.' },
   { icon: ClipboardCheck, title: 'In-process controls', body: 'Continuous checks throughout production keep every batch inside specification.' },
   { icon: Truck, title: 'Cold-chain & logistics', body: 'Storage and distribution designed to protect product integrity all the way to the shelf.' },
 ];
