@@ -207,7 +207,7 @@ export const news: {
     category: 'Regulatory',
     title: 'Three flagship formulas enter final registration',
     excerpt:
-      'Lvylor Advance, Coglern Syrup and SmartOD D advance into the final stages of regulatory registration.',
+      'Ivylor Advance, Coglern Syrup and SmartOD D advance into the final stages of regulatory registration.',
   },
   {
     slug: 'quality-systems-milestone',

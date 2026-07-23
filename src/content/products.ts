@@ -85,11 +85,11 @@ export const products: Product[] = [
     ],
     usage:
       'Infants & children 3 months – 1 year: 1 ml once daily, added to juice or water. Children 1–5 years: 1 ml twice daily.',
-    related: ['vitelormed', 'lvylor', 'smartod'],
+    related: ['vitelormed', 'ivylor', 'smartod'],
   },
   {
-    slug: 'lvylor',
-    name: 'Lvylor',
+    slug: 'ivylor',
+    name: 'Ivylor',
     tagline: 'Breathe easier, naturally',
     category: 'respiratory-care',
     status: 'available',
@@ -102,7 +102,7 @@ export const products: Product[] = [
     shortDescription:
       'A natural extract syrup combining ivy leaf, black elderberry and black honey with vitamin C and zinc for cough relief.',
     description:
-      'Lvylor is built around ivy leaf extract, a bronchodilator and mucolytic botanical long valued for respiratory comfort, paired with black elderberry, black honey, vitamin C and zinc. Together they help relieve chesty, productive coughs and support the natural clearing of mucus from the airways — a smooth, family-friendly syrup for the cough and cold season.',
+      'Ivylor is built around ivy leaf extract, a bronchodilator and mucolytic botanical long valued for respiratory comfort, paired with black elderberry, black honey, vitamin C and zinc. Together they help relieve chesty, productive coughs and support the natural clearing of mucus from the airways — a smooth, family-friendly syrup for the cough and cold season.',
     keyIngredients: [
       { name: 'Ivy Leaf Extract', note: 'Bronchodilator, mucolytic & anti-inflammatory' },
       { name: 'Black Elderberry', note: 'Immunostimulant & antioxidant' },
@@ -116,7 +116,7 @@ export const products: Product[] = [
       'Antioxidant and anti-inflammatory botanical blend',
     ],
     usage: '5 ml three times daily.',
-    related: ['lvylor-advance', 'imulormed', 'coglern-syrup'],
+    related: ['ivylor-advance', 'imulormed', 'coglern-syrup'],
   },
   {
     slug: 'vitelormed',
@@ -240,8 +240,8 @@ export const products: Product[] = [
     related: ['imulormed', 'vitelormed', 'welcaderm-lotion'],
   },
   {
-    slug: 'lvylor-advance',
-    name: 'Lvylor Advance',
+    slug: 'ivylor-advance',
+    name: 'Ivylor Advance',
     tagline: 'Extended respiratory support',
     category: 'respiratory-care',
     status: 'under-registration',
@@ -253,7 +253,7 @@ export const products: Product[] = [
     shortDescription:
       'A next-generation ivy leaf, licorice and thyme syrup that supports respiratory system health.',
     description:
-      'Lvylor Advance builds on the trusted Lvylor formula, pairing English ivy leaf extract with licorice root and thyme to offer broader botanical support for the respiratory system. Developed for the moments when the airways need a little more help to clear and settle.',
+      'Ivylor Advance builds on the trusted Ivylor formula, pairing English ivy leaf extract with licorice root and thyme to offer broader botanical support for the respiratory system. Developed for the moments when the airways need a little more help to clear and settle.',
     keyIngredients: [
       { name: 'English Ivy Leaf', note: 'Traditional respiratory botanical' },
       { name: 'Licorice Root', note: 'Soothing botanical support' },
@@ -267,7 +267,7 @@ export const products: Product[] = [
     ],
     usage:
       'Toddlers & children 13 months – under 6 years: ½ teaspoon twice daily. Children 6 – under 12 years: 1 teaspoon twice daily. Adults & adolescents over 12 years: 1 teaspoon three times daily.',
-    related: ['lvylor', 'imulormed', 'coglern-syrup'],
+    related: ['ivylor', 'imulormed', 'coglern-syrup'],
   },
   {
     slug: 'coglern-syrup',
@@ -296,7 +296,7 @@ export const products: Product[] = [
       'Omega-3s may support healthy bone and reduce allergy and insulin-resistance risk',
     ],
     usage: '5 ml once daily.',
-    related: ['smartod', 'imulormed', 'lvylor'],
+    related: ['smartod', 'imulormed', 'ivylor'],
   },
   {
     slug: 'smartod-d',
