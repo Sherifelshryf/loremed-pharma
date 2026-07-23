@@ -26,6 +26,7 @@ export const dictionaries = {
     'nav.openSearch': 'Search',
 
     'cta.explore': 'Buy Products',
+    'cta.navExplore': 'View Products',
     'cta.about': 'About Loremed',
     'cta.contact': 'Contact Us',
     'cta.getInTouch': 'Get in touch',
@@ -130,6 +131,7 @@ export const dictionaries = {
     'nav.openSearch': 'بحث',
 
     'cta.explore': 'اشترِ المنتجات',
+    'cta.navExplore': 'عرض المنتجات',
     'cta.about': 'عن لوريمد',
     'cta.contact': 'تواصل معنا',
     'cta.getInTouch': 'تواصل معنا',

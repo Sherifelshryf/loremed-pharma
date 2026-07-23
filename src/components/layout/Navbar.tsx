@@ -140,7 +140,7 @@ export function Navbar() {
             </div>
             <div className="hidden sm:block">
               <Button href="/products" size="sm" variant="primary" className="ms-1">
-                {t('cta.explore')}
+                {t('cta.navExplore')}
               </Button>
             </div>
             <button
