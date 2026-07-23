@@ -70,7 +70,7 @@ export function SectionHeading({
   className,
   titleClassName,
 }: {
-  eyebrow?: string;
+  eyebrow?: React.ReactNode;
   title: React.ReactNode;
   lead?: React.ReactNode;
   align?: 'left' | 'center';

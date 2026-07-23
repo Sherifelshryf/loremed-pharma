@@ -1,10 +1,25 @@
+'use client';
+
 import { Globe2, MapPin } from 'lucide-react';
 import { partnerships } from '@/content/company';
 import { Container, Eyebrow } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/motion';
+import { useI18n } from '@/i18n/LanguageProvider';
+
+const copy = {
+  eyebrow: { en: 'Global partnerships', ar: 'شراكات عالمية' },
+  titlePre: { en: 'From Egypt to the', ar: 'من مصر إلى' },
+  titleAccent: { en: 'wider region', ar: 'المنطقة الأوسع' },
+  lead: {
+    en: 'We build partnerships that carry Loremed quality further — with documentation and registration engineered to open doors across the Middle East and Africa.',
+    ar: 'نبني شراكات تنقل جودة لوريمد إلى أبعد مدى — بتوثيق وتسجيل مصممَين لفتح الأبواب في جميع أنحاء الشرق الأوسط وأفريقيا.',
+  },
+  cta: { en: 'Become a partner', ar: 'كن شريكًا' },
+};
 
 export function Partnerships() {
+  const { locale } = useI18n();
   return (
     <section id="partnerships" className="section relative overflow-hidden bg-surface-muted">
       <Container>
@@ -12,28 +27,25 @@ export function Partnerships() {
           {/* Copy + regions */}
           <div>
             <Reveal>
-              <Eyebrow>Global partnerships</Eyebrow>
+              <Eyebrow>{copy.eyebrow[locale]}</Eyebrow>
             </Reveal>
             <Reveal delay={0.05}>
               <h2 className="mt-4 text-display-md sm:text-display-lg">
-                From Egypt to the <span className="text-gradient">wider region</span>
+                {copy.titlePre[locale]} <span className="text-gradient">{copy.titleAccent[locale]}</span>
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
-              <p className="mt-5 text-lg leading-relaxed text-ink-soft">
-                We build partnerships that carry Loremed quality further — with documentation and
-                registration engineered to open doors across the Middle East and Africa.
-              </p>
+              <p className="mt-5 text-lg leading-relaxed text-ink-soft">{copy.lead[locale]}</p>
             </Reveal>
 
             <Stagger className="mt-9 grid gap-3 sm:grid-cols-2">
               {partnerships.map((p) => (
-                <StaggerItem key={p.region}>
+                <StaggerItem key={p.region.en}>
                   <div className="flex h-full items-start gap-3 rounded-2xl border border-line bg-white p-5 shadow-soft">
                     <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-secondary-500" />
                     <div>
-                      <h3 className="font-semibold text-ink">{p.region}</h3>
-                      <p className="mt-1 text-sm leading-relaxed text-ink-soft">{p.body}</p>
+                      <h3 className="font-semibold text-ink">{p.region[locale]}</h3>
+                      <p className="mt-1 text-sm leading-relaxed text-ink-soft">{p.body[locale]}</p>
                     </div>
                   </div>
                 </StaggerItem>
@@ -43,7 +55,7 @@ export function Partnerships() {
             <Reveal delay={0.2}>
               <div className="mt-9">
                 <Button href="/contact" variant="primary" withArrow>
-                  Become a partner
+                  {copy.cta[locale]}
                 </Button>
               </div>
             </Reveal>

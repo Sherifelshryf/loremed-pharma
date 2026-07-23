@@ -16,7 +16,7 @@ const socials = [
 ];
 
 export function Footer() {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -53,7 +53,7 @@ export function Footer() {
             {subscribed ? (
               <div className="flex items-center gap-3 rounded-full border border-success-500/40 bg-success-500/10 px-6 py-4 text-sm font-medium text-success-100">
                 <Check className="h-5 w-5 text-success-500" />
-                You’re subscribed — welcome to Loremed.
+                {locale === 'ar' ? 'أنت مشترك الآن — مرحبًا بك في لوريمد.' : 'You’re subscribed — welcome to Loremed.'}
               </div>
             ) : (
               <div className="flex flex-col gap-3 sm:flex-row">
@@ -112,16 +112,16 @@ export function Footer() {
           </div>
 
           {footerNav.map((col) => (
-            <nav key={col.title} aria-label={col.title}>
-              <h4 className="text-sm font-semibold uppercase tracking-wider text-white/40">{col.title}</h4>
+            <nav key={col.title.en} aria-label={col.title[locale]}>
+              <h4 className="text-sm font-semibold uppercase tracking-wider text-white/40">{col.title[locale]}</h4>
               <ul className="mt-4 space-y-2.5">
                 {col.links.map((link) => (
-                  <li key={link.label + link.href}>
+                  <li key={link.label.en + link.href}>
                     <Link
                       href={link.href}
                       className="text-[0.95rem] text-white/70 transition-colors hover:text-white"
                     >
-                      {link.label}
+                      {link.label[locale]}
                     </Link>
                   </li>
                 ))}
@@ -145,13 +145,13 @@ export function Footer() {
           </p>
           <div className="flex items-center gap-6">
             <Link href="/products" className="text-sm text-white/50 transition-colors hover:text-white">
-              Products
+              {t('nav.products')}
             </Link>
             <Link href="/quality" className="text-sm text-white/50 transition-colors hover:text-white">
-              Quality
+              {t('nav.quality')}
             </Link>
             <Link href="/contact" className="text-sm text-white/50 transition-colors hover:text-white">
-              Contact
+              {t('nav.contact')}
             </Link>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

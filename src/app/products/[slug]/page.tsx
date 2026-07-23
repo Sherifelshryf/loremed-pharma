@@ -6,9 +6,11 @@ import { products, getProduct, getCategory, statusLabels } from '@/content/produ
 import { medicalDisclaimer } from '@/content/site';
 import { Container, Eyebrow, Badge } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
-import { ProductVisual, ProductCard, categoryIcons } from '@/components/ui/ProductCard';
+import { ProductVisual, ProductCard } from '@/components/ui/ProductCard';
+import { categoryIcons } from '@/components/ui/categoryIcons';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/motion';
 import { GridField, GradientOrb } from '@/components/graphics/BrandBackdrop';
+import { L } from '@/i18n/Localized';
 import { buildMetadata, productSchema, breadcrumbSchema, JsonLd } from '@/lib/seo';
 import { cn } from '@/lib/utils';
 
@@ -65,7 +67,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
               className="inline-flex items-center gap-2 text-sm font-medium text-ink-muted transition-colors hover:text-primary-700"
             >
               <ArrowLeft className="h-4 w-4 rtl:rotate-180" />
-              All products
+              <L text={{ en: 'All products', ar: 'كل المنتجات' }} />
             </Link>
           </Reveal>
 
@@ -78,7 +80,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                 </div>
                 <div className="absolute -bottom-5 left-6 flex items-center gap-2 rounded-2xl border border-line bg-white px-4 py-2.5 shadow-card">
                   <CatIcon className="h-5 w-5 text-secondary-500" strokeWidth={1.8} />
-                  <span className="text-sm font-medium text-ink">{category?.label}</span>
+                  <span className="text-sm font-medium text-ink">{category && <L text={category.label} />}</span>
                 </div>
               </div>
             </Reveal>
@@ -88,9 +90,9 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
               <Reveal>
                 <div className="flex flex-wrap items-center gap-3">
                   <Badge tone={product.status === 'available' ? 'success' : 'purple'}>
-                    {statusLabels[product.status]}
+                    <L text={statusLabels[product.status]} />
                   </Badge>
-                  <Eyebrow>{category?.label}</Eyebrow>
+                  <Eyebrow>{category && <L text={category.label} />}</Eyebrow>
                 </div>
               </Reveal>
               <Reveal delay={0.05}>
@@ -105,20 +107,20 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
 
               <Reveal delay={0.2}>
                 <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                  <MetaCard icon={Pipette} label="Form" value={product.form} />
-                  <MetaCard icon={Users} label="Suitable for" value={product.ageGroup} />
-                  <MetaCard icon={Package} label="Pack size" value={product.pack} />
+                  <MetaCard icon={Pipette} label={<L text={{ en: 'Form', ar: 'الشكل الدوائي' }} />} value={product.form} />
+                  <MetaCard icon={Users} label={<L text={{ en: 'Suitable for', ar: 'مناسب لـ' }} />} value={product.ageGroup} />
+                  <MetaCard icon={Package} label={<L text={{ en: 'Pack size', ar: 'حجم العبوة' }} />} value={product.pack} />
                 </div>
               </Reveal>
 
               <Reveal delay={0.25}>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Button href="/contact" variant="primary" withArrow>
-                    Enquire about {product.name}
+                    <L text={{ en: 'Enquire about', ar: 'استفسر عن' }} /> {product.name}
                   </Button>
                   <Button href="/contact#departments" variant="outline">
                     <Download className="h-4 w-4" />
-                    Request datasheet
+                    <L text={{ en: 'Request datasheet', ar: 'اطلب النشرة الفنية' }} />
                   </Button>
                 </div>
               </Reveal>
@@ -136,7 +138,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
               <div className="h-full rounded-4xl border border-line bg-surface-muted p-8 sm:p-10">
                 <div className="flex items-center gap-2">
                   <Leaf className="h-5 w-5 text-success-600" />
-                  <h2 className="text-xl font-semibold text-ink">Key ingredients</h2>
+                  <h2 className="text-xl font-semibold text-ink"><L text={{ en: 'Key ingredients', ar: 'المكونات الرئيسية' }} /></h2>
                 </div>
                 <ul className="mt-6 space-y-4">
                   {product.keyIngredients.map((k) => (
@@ -153,7 +155,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
             <Reveal delay={0.05}>
               <div className="flex h-full flex-col gap-6">
                 <div className="rounded-4xl border border-line bg-white p-8 shadow-soft sm:p-10">
-                  <h2 className="text-xl font-semibold text-ink">Benefits</h2>
+                  <h2 className="text-xl font-semibold text-ink"><L text={{ en: 'Benefits', ar: 'الفوائد' }} /></h2>
                   <Stagger className="mt-6 space-y-3">
                     {product.benefits.map((b) => (
                       <StaggerItem key={b}>
@@ -168,7 +170,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                   </Stagger>
                 </div>
                 <div className="rounded-4xl border border-primary-100 bg-primary-50/60 p-8 sm:p-10">
-                  <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-700">How to use</h3>
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-700"><L text={{ en: 'How to use', ar: 'طريقة الاستخدام' }} /></h3>
                   <p className="mt-2 text-ink-soft">{product.usage}</p>
                 </div>
               </div>
@@ -188,14 +190,14 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
             <Container>
               <div className="mb-10 flex items-end justify-between">
                 <div>
-                  <Eyebrow>You might also like</Eyebrow>
-                  <h2 className="mt-3 text-display-sm sm:text-display-md">Related products</h2>
+                  <Eyebrow><L text={{ en: 'You might also like', ar: 'قد يعجبك أيضًا' }} /></Eyebrow>
+                  <h2 className="mt-3 text-display-sm sm:text-display-md"><L text={{ en: 'Related products', ar: 'منتجات ذات صلة' }} /></h2>
                 </div>
                 <Link
                   href="/products"
                   className="hidden items-center gap-1 text-sm font-medium text-primary-700 hover:text-secondary-600 sm:inline-flex"
                 >
-                  View all
+                  <L text={{ en: 'View all', ar: 'عرض الكل' }} />
                   <ArrowRight className="h-4 w-4 rtl:rotate-180" />
                 </Link>
               </div>
@@ -212,7 +214,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
   );
 }
 
-function MetaCard({ icon: Icon, label, value }: { icon: typeof Package; label: string; value: string }) {
+function MetaCard({ icon: Icon, label, value }: { icon: typeof Package; label: React.ReactNode; value: string }) {
   return (
     <div className={cn('rounded-2xl border border-line bg-white p-4 shadow-soft')}>
       <div className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-ink-muted">

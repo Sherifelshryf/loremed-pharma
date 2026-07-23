@@ -11,8 +11,18 @@ import { cn } from '@/lib/utils';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+const copy = {
+  gmpQuality: { en: 'GMP-grade quality', ar: 'جودة بمعايير GMP' },
+  standardisedTitle: { en: 'Standardised botanicals', ar: 'مستخلصات نباتية موحَّدة' },
+  standardisedSub: { en: 'Elderberry · Ivy · Black seed', ar: 'البلسان · اللبلاب · حبة البركة' },
+  pipelineTitle: { en: '30+ in development', ar: 'أكثر من 30 قيد التطوير' },
+  pipelineSub: { en: 'Six therapeutic areas', ar: 'ستة مجالات علاجية' },
+  qualityFirstTitle: { en: 'Quality-first', ar: 'الجودة أولًا' },
+  qualityFirstSub: { en: 'Batch-tested & released', ar: 'اختبار وإفراج لكل دفعة' },
+};
+
 export function Hero() {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   const reduce = useReducedMotion();
 
   const fadeUp = (delay: number) => ({
@@ -82,7 +92,7 @@ export function Hero() {
               <div className="hidden h-12 w-px bg-line sm:block" />
               <div className="flex items-center gap-2">
                 <ShieldCheck className="h-5 w-5 text-success-500" />
-                <span className="text-sm font-medium text-ink-soft">GMP-grade quality</span>
+                <span className="text-sm font-medium text-ink-soft">{copy.gmpQuality[locale]}</span>
               </div>
             </motion.div>
           </div>
@@ -128,24 +138,24 @@ export function Hero() {
               className="-left-4 bottom-16 sm:-left-10"
               delay={0.5}
               icon={<Leaf className="h-4 w-4 text-success-500" />}
-              title="Standardised botanicals"
-              sub="Elderberry · Ivy · Black seed"
+              title={copy.standardisedTitle[locale]}
+              sub={copy.standardisedSub[locale]}
               reduce={reduce}
             />
             <FloatingCard
               className="-right-3 top-14 sm:-right-8"
               delay={0.7}
               icon={<FlaskConical className="h-4 w-4 text-primary-600" />}
-              title="30+ in development"
-              sub="Six therapeutic areas"
+              title={copy.pipelineTitle[locale]}
+              sub={copy.pipelineSub[locale]}
               reduce={reduce}
             />
             <FloatingCard
               className="-right-2 bottom-10 sm:-right-6"
               delay={0.9}
               icon={<Sparkles className="h-4 w-4 text-secondary-500" />}
-              title="Quality-first"
-              sub="Batch-tested & released"
+              title={copy.qualityFirstTitle[locale]}
+              sub={copy.qualityFirstSub[locale]}
               reduce={reduce}
             />
           </motion.div>

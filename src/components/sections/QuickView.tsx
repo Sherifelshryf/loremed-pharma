@@ -6,9 +6,20 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import { getProduct, statusLabels } from '@/content/products';
 import { ProductVisual } from '@/components/ui/ProductCard';
+import { useI18n } from '@/i18n/LanguageProvider';
 import { cn } from '@/lib/utils';
 
+const copy = {
+  close: { en: 'Close', ar: 'إغلاق' },
+  form: { en: 'Form', ar: 'الشكل الدوائي' },
+  for: { en: 'For', ar: 'مناسب لـ' },
+  pack: { en: 'Pack', ar: 'العبوة' },
+  keyBenefits: { en: 'Key benefits', ar: 'الفوائد الرئيسية' },
+  viewFull: { en: 'View full product', ar: 'عرض المنتج بالكامل' },
+};
+
 export function QuickView({ slug, onClose }: { slug: string | null; onClose: () => void }) {
+  const { locale } = useI18n();
   const product = slug ? getProduct(slug) : null;
 
   useEffect(() => {
@@ -46,7 +57,7 @@ export function QuickView({ slug, onClose }: { slug: string | null; onClose: () 
             <button
               onClick={onClose}
               className="absolute end-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full bg-white/90 text-ink-soft shadow-soft backdrop-blur transition-colors hover:text-ink"
-              aria-label="Close"
+              aria-label={copy.close[locale]}
             >
               <X className="h-5 w-5" />
             </button>
@@ -66,19 +77,19 @@ export function QuickView({ slug, onClose }: { slug: string | null; onClose: () 
                     : 'bg-primary-50 text-primary-700',
                 )}
               >
-                {statusLabels[product.status]}
+                {statusLabels[product.status][locale]}
               </span>
               <h2 className="mt-4 text-2xl font-semibold text-ink">{product.name}</h2>
               <p className="mt-1 font-medium text-secondary-600">{product.tagline}</p>
               <p className="mt-4 text-sm leading-relaxed text-ink-soft">{product.description}</p>
 
               <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
-                <Meta icon={Pipette} label="Form" value={product.form} />
-                <Meta icon={Users} label="For" value={product.ageGroup} />
-                <Meta icon={Package} label="Pack" value={product.pack} />
+                <Meta icon={Pipette} label={copy.form[locale]} value={product.form} />
+                <Meta icon={Users} label={copy.for[locale]} value={product.ageGroup} />
+                <Meta icon={Package} label={copy.pack[locale]} value={product.pack} />
               </div>
 
-              <h3 className="mt-6 text-sm font-semibold uppercase tracking-wider text-ink-muted">Key benefits</h3>
+              <h3 className="mt-6 text-sm font-semibold uppercase tracking-wider text-ink-muted">{copy.keyBenefits[locale]}</h3>
               <ul className="mt-3 space-y-2">
                 {product.benefits.slice(0, 4).map((b) => (
                   <li key={b} className="flex items-start gap-2 text-sm text-ink-soft">
@@ -93,7 +104,7 @@ export function QuickView({ slug, onClose }: { slug: string | null; onClose: () 
                 onClick={onClose}
                 className="group mt-7 inline-flex items-center gap-2 rounded-full bg-primary-800 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-primary-700 hover:shadow-glow"
               >
-                View full product
+                {copy.viewFull[locale]}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
               </Link>
             </div>

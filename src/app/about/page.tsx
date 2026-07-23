@@ -8,6 +8,7 @@ import { Reveal, Stagger, StaggerItem } from '@/components/ui/motion';
 import { LogoBloom, GradientOrb } from '@/components/graphics/BrandBackdrop';
 import { about, timeline, leadership } from '@/content/company';
 import { site } from '@/content/site';
+import { L } from '@/i18n/Localized';
 import { buildMetadata, breadcrumbSchema, JsonLd } from '@/lib/seo';
 
 export const metadata: Metadata = buildMetadata({
@@ -22,14 +23,22 @@ export default function AboutPage() {
     <>
       <JsonLd data={breadcrumbSchema([{ name: 'About', url: '/about' }])} />
       <PageHero
-        eyebrow="About Loremed"
+        eyebrow={<L text={{ en: 'About Loremed', ar: 'عن لوريمد' }} />}
         title={
           <>
-            We care about <span className="text-gradient">quality of life</span>
+            <L text={{ en: 'We care about', ar: 'نحن نهتم بـ' }} />{' '}
+            <span className="text-gradient"><L text={{ en: 'quality of life', ar: 'جودة الحياة' }} /></span>
           </>
         }
-        lead="Loremed Pharma pairs pharmaceutical science with genuine human care — building medicines and nutrition that families across the region can trust."
-        crumbs={[{ label: 'About', href: '/about' }]}
+        lead={
+          <L
+            text={{
+              en: 'Loremed Pharma pairs pharmaceutical science with genuine human care — building medicines and nutrition that families across the region can trust.',
+              ar: 'تجمع لوريمد فارما بين العلوم الصيدلانية والاهتمام الإنساني الحقيقي — لبناء أدوية وتغذية تثق بها العائلات في جميع أنحاء المنطقة.',
+            }}
+          />
+        }
+        crumbs={[{ label: <L text={{ en: 'About', ar: 'من نحن' }} />, href: '/about' }]}
       />
 
       {/* Story */}
@@ -38,16 +47,19 @@ export default function AboutPage() {
           <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
             <div>
               <Reveal>
-                <Eyebrow>Our story</Eyebrow>
+                <Eyebrow><L text={{ en: 'Our story', ar: 'قصتنا' }} /></Eyebrow>
               </Reveal>
               <Reveal delay={0.05}>
                 <h2 className="mt-4 text-display-md sm:text-display-lg">
-                  Founded to make <span className="text-gradient">great care accessible</span>
+                  <L text={{ en: 'Founded to make', ar: 'تأسست من أجل' }} />{' '}
+                  <span className="text-gradient">
+                    <L text={{ en: 'great care accessible', ar: 'جعل الرعاية الجيدة في متناول الجميع' }} />
+                  </span>
                 </h2>
               </Reveal>
               {about.story.map((p, i) => (
                 <Reveal key={i} delay={0.1 + i * 0.05}>
-                  <p className="mt-5 text-lg leading-relaxed text-ink-soft">{p}</p>
+                  <p className="mt-5 text-lg leading-relaxed text-ink-soft"><L text={p} /></p>
                 </Reveal>
               ))}
             </div>
@@ -73,8 +85,8 @@ export default function AboutPage() {
                 <span className="relative grid h-14 w-14 place-items-center rounded-2xl bg-white/10">
                   <Compass className="h-6 w-6" />
                 </span>
-                <h3 className="relative mt-6 text-2xl font-semibold text-white">{about.vision.title}</h3>
-                <p className="relative mt-3 text-lg leading-relaxed text-white">{about.vision.body}</p>
+                <h3 className="relative mt-6 text-2xl font-semibold text-white"><L text={about.vision.title} /></h3>
+                <p className="relative mt-3 text-lg leading-relaxed text-white"><L text={about.vision.body} /></p>
               </div>
             </Reveal>
             <Reveal delay={0.05}>
@@ -83,24 +95,29 @@ export default function AboutPage() {
                 <span className="relative grid h-14 w-14 place-items-center rounded-2xl bg-secondary-500 text-white">
                   <Target className="h-6 w-6" />
                 </span>
-                <h3 className="relative mt-6 text-2xl font-semibold text-ink">{about.mission.title}</h3>
-                <p className="relative mt-3 text-lg leading-relaxed text-ink-soft">{about.mission.body}</p>
+                <h3 className="relative mt-6 text-2xl font-semibold text-ink"><L text={about.mission.title} /></h3>
+                <p className="relative mt-3 text-lg leading-relaxed text-ink-soft"><L text={about.mission.body} /></p>
               </div>
             </Reveal>
           </div>
 
           {/* Values */}
           <div className="mt-16">
-            <SectionHeading eyebrow="Our values" title="What we stand for" align="center" className="mx-auto" />
+            <SectionHeading
+              eyebrow={<L text={{ en: 'Our values', ar: 'قيمنا' }} />}
+              title={<L text={{ en: 'What we stand for', ar: 'ما نؤمن به' }} />}
+              align="center"
+              className="mx-auto"
+            />
             <Stagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {about.values.map((v) => (
-                <StaggerItem key={v.title} className="h-full">
+                <StaggerItem key={v.title.en} className="h-full">
                   <div className="h-full rounded-3xl border border-line bg-white p-7 text-center shadow-soft">
                     <span className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-primary-50 to-secondary-50 text-primary-700">
                       <v.icon className="h-6 w-6" strokeWidth={1.7} />
                     </span>
-                    <h4 className="mt-5 text-lg font-semibold text-ink">{v.title}</h4>
-                    <p className="mt-2 text-sm leading-relaxed text-ink-soft">{v.body}</p>
+                    <h4 className="mt-5 text-lg font-semibold text-ink"><L text={v.title} /></h4>
+                    <p className="mt-2 text-sm leading-relaxed text-ink-soft"><L text={v.body} /></p>
                   </div>
                 </StaggerItem>
               ))}
@@ -115,9 +132,21 @@ export default function AboutPage() {
       <section id="timeline" className="section">
         <Container>
           <SectionHeading
-            eyebrow="Our journey"
-            title={<>Momentum, <span className="text-gradient">year on year</span></>}
-            lead="A young company moving with purpose — here's how Loremed has grown."
+            eyebrow={<L text={{ en: 'Our journey', ar: 'مسيرتنا' }} />}
+            title={
+              <>
+                <L text={{ en: 'Momentum,', ar: 'زخم' }} />{' '}
+                <span className="text-gradient"><L text={{ en: 'year on year', ar: 'عامًا بعد عام' }} /></span>
+              </>
+            }
+            lead={
+              <L
+                text={{
+                  en: 'A young company moving with purpose — here’s how Loremed has grown.',
+                  ar: 'شركة فتية تتحرك بهدف واضح — إليك كيف نمت لوريمد.',
+                }}
+              />
+            }
             align="center"
             className="mx-auto"
           />
@@ -135,8 +164,8 @@ export default function AboutPage() {
                         <span className="text-sm font-bold text-secondary-600">{t.year}</span>
                         <span className="h-px flex-1 bg-line" />
                       </div>
-                      <h3 className="mt-2 text-lg font-semibold text-ink">{t.title}</h3>
-                      <p className="mt-1.5 text-ink-soft">{t.body}</p>
+                      <h3 className="mt-2 text-lg font-semibold text-ink"><L text={t.title} /></h3>
+                      <p className="mt-1.5 text-ink-soft"><L text={t.body} /></p>
                     </div>
                   </Reveal>
                 </li>
@@ -150,27 +179,39 @@ export default function AboutPage() {
       <section id="leadership" className="section bg-surface-muted">
         <Container>
           <SectionHeading
-            eyebrow="Leadership"
-            title="The people behind Loremed"
-            lead="An experienced team leading each pillar of the business — from science and quality to commercial growth."
+            eyebrow={<L text={{ en: 'Leadership', ar: 'القيادة' }} />}
+            title={<L text={{ en: 'The people behind Loremed', ar: 'الأشخاص وراء لوريمد' }} />}
+            lead={
+              <L
+                text={{
+                  en: 'An experienced team leading each pillar of the business — from science and quality to commercial growth.',
+                  ar: 'فريق ذو خبرة يقود كل ركيزة من ركائز العمل — من العلم والجودة إلى النمو التجاري.',
+                }}
+              />
+            }
             align="center"
             className="mx-auto"
           />
           <Stagger className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {leadership.map((l) => (
-              <StaggerItem key={l.role} className="h-full">
+              <StaggerItem key={l.role.en} className="h-full">
                 <div className="group h-full rounded-3xl border border-line bg-white p-7 text-center shadow-soft transition-all duration-500 hover:-translate-y-1.5 hover:shadow-lift">
                   <span className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-gradient-to-br from-primary-700 to-primary-900 text-xl font-bold text-white">
                     {l.monogram}
                   </span>
-                  <h3 className="mt-5 font-semibold text-ink">{l.role}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">{l.focus}</p>
+                  <h3 className="mt-5 font-semibold text-ink"><L text={l.role} /></h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-soft"><L text={l.focus} /></p>
                 </div>
               </StaggerItem>
             ))}
           </Stagger>
           <p className="mx-auto mt-10 max-w-xl text-center text-xs text-ink-muted">
-            Loremed’s leadership structure. For media or partnership enquiries, contact us at{' '}
+            <L
+              text={{
+                en: 'Loremed’s leadership structure. For media or partnership enquiries, contact us at',
+                ar: 'الهيكل القيادي للوريمد. لاستفسارات الإعلام أو الشراكة، تواصل معنا عبر',
+              }}
+            />{' '}
             <a href={`mailto:${site.email}`} className="text-primary-700 underline-offset-2 hover:underline">
               {site.email}
             </a>

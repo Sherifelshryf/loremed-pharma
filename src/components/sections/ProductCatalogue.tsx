@@ -5,14 +5,33 @@ import { useSearchParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { products, categories, type ProductCategory, type ProductStatus } from '@/content/products';
 import { Container } from '@/components/ui/Section';
-import { ProductCard, categoryIcons } from '@/components/ui/ProductCard';
+import { ProductCard } from '@/components/ui/ProductCard';
+import { categoryIcons } from '@/components/ui/categoryIcons';
+import { useI18n } from '@/i18n/LanguageProvider';
 import { QuickView } from './QuickView';
 import { cn } from '@/lib/utils';
 
 type CategoryFilter = ProductCategory | 'all';
 type StatusFilter = ProductStatus | 'all';
 
+const copy = {
+  searchPlaceholder: { en: 'Search products & ingredients', ar: 'ابحث عن المنتجات والمكونات' },
+  searchLabel: { en: 'Search products', ar: 'البحث في المنتجات' },
+  status: { en: 'Status', ar: 'الحالة' },
+  statusAll: { en: 'All', ar: 'الكل' },
+  statusAvailable: { en: 'Available', ar: 'متوفر' },
+  statusUnderReg: { en: 'Under Reg.', ar: 'قيد التسجيل' },
+  allProducts: { en: 'All products', ar: 'كل المنتجات' },
+  clearFilters: { en: 'Clear filters', ar: 'مسح الفلاتر' },
+  in: { en: 'in', ar: 'في' },
+  product: { en: 'product', ar: 'منتج' },
+  productsPlural: { en: 'products', ar: 'منتجات' },
+  emptyTitle: { en: 'No products match your filters', ar: 'لا توجد منتجات مطابقة لفلاترك' },
+  emptyBody: { en: 'Try clearing the search or choosing a different category.', ar: 'جرّب مسح البحث أو اختيار فئة مختلفة.' },
+};
+
 export function ProductCatalogue() {
+  const { locale } = useI18n();
   const params = useSearchParams();
   const initialCategory = (params.get('category') as CategoryFilter) || 'all';
   const initialStatus = (params.get('status') as StatusFilter) || 'all';
@@ -55,9 +74,9 @@ export function ProductCatalogue() {
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search products & ingredients"
+                placeholder={copy.searchPlaceholder[locale]}
                 className="h-12 w-full rounded-full border border-line bg-neutral-50 ps-11 pe-4 text-sm outline-none transition-colors focus:border-primary-400 focus:bg-white"
-                aria-label="Search products"
+                aria-label={copy.searchLabel[locale]}
               />
             </div>
 
@@ -65,15 +84,15 @@ export function ProductCatalogue() {
             <div className="flex items-center gap-2">
               <span className="hidden items-center gap-1.5 text-sm text-ink-muted sm:flex">
                 <SlidersHorizontal className="h-4 w-4" />
-                Status
+                {copy.status[locale]}
               </span>
               <div className="inline-flex rounded-full border border-line bg-neutral-50 p-1">
                 {(
                   [
-                    { id: 'all', label: 'All' },
-                    { id: 'available', label: 'Available' },
-                    { id: 'under-registration', label: 'Under Reg.' },
-                  ] as { id: StatusFilter; label: string }[]
+                    { id: 'all', label: copy.statusAll },
+                    { id: 'available', label: copy.statusAvailable },
+                    { id: 'under-registration', label: copy.statusUnderReg },
+                  ] as { id: StatusFilter; label: typeof copy.statusAll }[]
                 ).map((s) => (
                   <button
                     key={s.id}
@@ -83,7 +102,7 @@ export function ProductCatalogue() {
                       status === s.id ? 'bg-primary-800 text-white shadow-sm' : 'text-ink-soft hover:text-primary-800',
                     )}
                   >
-                    {s.label}
+                    {s.label[locale]}
                   </button>
                 ))}
               </div>
@@ -93,14 +112,14 @@ export function ProductCatalogue() {
           {/* Category chips */}
           <div className="mt-4 flex flex-wrap gap-2 border-t border-line pt-4">
             <FilterChip active={category === 'all'} onClick={() => setCategory('all')}>
-              All products
+              {copy.allProducts[locale]}
             </FilterChip>
             {categories.map((c) => {
               const Icon = categoryIcons[c.id];
               return (
                 <FilterChip key={c.id} active={category === c.id} onClick={() => setCategory(c.id)}>
                   <Icon className="h-4 w-4" strokeWidth={1.8} />
-                  {c.label}
+                  {c.label[locale]}
                 </FilterChip>
               );
             })}
@@ -111,10 +130,14 @@ export function ProductCatalogue() {
         <div className="mb-6 flex items-center justify-between">
           <p className="text-sm text-ink-soft">
             <span className="font-semibold text-ink">{filtered.length}</span>{' '}
-            {filtered.length === 1 ? 'product' : 'products'}
+            {filtered.length === 1 ? copy.product[locale] : copy.productsPlural[locale]}
             {category !== 'all' && (
               <>
-                {' '}in <span className="font-medium text-primary-700">{categories.find((c) => c.id === category)?.label}</span>
+                {' '}
+                {copy.in[locale]}{' '}
+                <span className="font-medium text-primary-700">
+                  {categories.find((c) => c.id === category)?.label[locale]}
+                </span>
               </>
             )}
           </p>
@@ -128,7 +151,7 @@ export function ProductCatalogue() {
               className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-muted transition-colors hover:text-danger-600"
             >
               <X className="h-4 w-4" />
-              Clear filters
+              {copy.clearFilters[locale]}
             </button>
           )}
         </div>
@@ -142,8 +165,8 @@ export function ProductCatalogue() {
           </div>
         ) : (
           <div className="rounded-3xl border border-dashed border-line-strong bg-neutral-50 px-8 py-20 text-center">
-            <p className="text-lg font-medium text-ink">No products match your filters</p>
-            <p className="mt-2 text-ink-muted">Try clearing the search or choosing a different category.</p>
+            <p className="text-lg font-medium text-ink">{copy.emptyTitle[locale]}</p>
+            <p className="mt-2 text-ink-muted">{copy.emptyBody[locale]}</p>
           </div>
         )}
       </Container>

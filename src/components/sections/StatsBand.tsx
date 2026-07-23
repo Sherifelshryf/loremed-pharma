@@ -1,9 +1,13 @@
+'use client';
+
 import { stats } from '@/content/company';
 import { Container } from '@/components/ui/Section';
 import { Counter, Reveal } from '@/components/ui/motion';
 import { LogoMark } from '@/components/logo/Logo';
+import { useI18n } from '@/i18n/LanguageProvider';
 
 export function StatsBand() {
+  const { locale } = useI18n();
   return (
     <section className="relative overflow-hidden bg-primary-900 py-16 sm:py-20">
       {/* backdrop */}
@@ -16,13 +20,13 @@ export function StatsBand() {
       <Container className="relative">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((s, i) => (
-            <Reveal key={s.label} delay={i * 0.08}>
+            <Reveal key={s.label.en} delay={i * 0.08}>
               <div className="text-center sm:text-start">
                 <div className="text-5xl font-bold text-white lg:text-6xl">
                   <Counter value={s.value} prefix={s.prefix} suffix={s.suffix} />
                 </div>
                 <div className="mt-3 h-0.5 w-10 rounded-full bg-secondary-500 sm:mx-0 mx-auto" />
-                <p className="mt-4 text-sm leading-relaxed text-white/60">{s.label}</p>
+                <p className="mt-4 text-sm leading-relaxed text-white/60">{s.label[locale]}</p>
               </div>
             </Reveal>
           ))}

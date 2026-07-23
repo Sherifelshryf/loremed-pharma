@@ -4,6 +4,8 @@
  * into a headless CMS (Sanity / Strapi / Contentful) without UI changes.
  */
 
+import type { Bi } from '@/i18n/dictionaries';
+
 export const site = {
   name: 'Loremed Pharma',
   legalName: 'Loremed Pharma',
@@ -34,12 +36,13 @@ export const site = {
 } as const;
 
 export type NavChild = {
-  label: string;
+  label: Bi;
   href: string;
-  description?: string;
+  description?: Bi;
 };
 
 export type NavItem = {
+  /** Plain-string key used to look up the nav.* dictionary entry for top-level items. */
   label: string;
   href: string;
   children?: NavChild[];
@@ -52,84 +55,84 @@ export const primaryNav: NavItem[] = [
     label: 'Products',
     href: '/products',
     children: [
-      { label: 'All Products', href: '/products', description: 'Browse the full Loremed catalogue' },
-      { label: 'Available Now', href: '/products?status=available', description: 'Registered & on the market' },
-      { label: 'Under Registration', href: '/products?status=under-registration', description: 'The next wave of the pipeline' },
-      { label: 'Immune Support', href: '/products?category=immune-support', description: 'Elderberry, black seed & more' },
-      { label: 'Kids Health', href: '/products?category=kids-health', description: 'Gentle formulas for children' },
-      { label: 'Vitamins & Minerals', href: '/products?category=vitamins-minerals', description: 'Everyday essential nutrition' },
+      { label: { en: 'All Products', ar: 'كل المنتجات' }, href: '/products', description: { en: 'Browse the full Loremed catalogue', ar: 'تصفّح كتالوج لوريمد بالكامل' } },
+      { label: { en: 'Available Now', ar: 'متوفر الآن' }, href: '/products?status=available', description: { en: 'Registered & on the market', ar: 'مسجَّل ومتوفر في السوق' } },
+      { label: { en: 'Under Registration', ar: 'قيد التسجيل' }, href: '/products?status=under-registration', description: { en: 'The next wave of the pipeline', ar: 'الموجة القادمة من خط الأبحاث' } },
+      { label: { en: 'Immune Support', ar: 'دعم المناعة' }, href: '/products?category=immune-support', description: { en: 'Elderberry & zinc formulas', ar: 'تركيبات بالبلسان والزنك' } },
+      { label: { en: 'Kids Health', ar: 'صحة الأطفال' }, href: '/products?category=kids-health', description: { en: 'Gentle formulas for children', ar: 'تركيبات لطيفة للأطفال' } },
+      { label: { en: 'Vitamins & Minerals', ar: 'الفيتامينات والمعادن' }, href: '/products?category=vitamins-minerals', description: { en: 'Everyday essential nutrition', ar: 'تغذية أساسية يومية' } },
     ],
   },
   {
     label: 'About',
     href: '/about',
     children: [
-      { label: 'Our Story', href: '/about#story', description: 'Who we are and why we started' },
-      { label: 'Vision & Mission', href: '/about#vision', description: 'The future we are building' },
-      { label: 'Leadership', href: '/about#leadership', description: 'The people behind Loremed' },
-      { label: 'Timeline', href: '/about#timeline', description: 'Our journey, year by year' },
+      { label: { en: 'Our Story', ar: 'قصتنا' }, href: '/about#story', description: { en: 'Who we are and why we started', ar: 'من نحن ولماذا بدأنا' } },
+      { label: { en: 'Vision & Mission', ar: 'الرؤية والرسالة' }, href: '/about#vision', description: { en: 'The future we are building', ar: 'المستقبل الذي نبنيه' } },
+      { label: { en: 'Leadership', ar: 'القيادة' }, href: '/about#leadership', description: { en: 'The people behind Loremed', ar: 'الأشخاص وراء لوريمد' } },
+      { label: { en: 'Timeline', ar: 'المسيرة الزمنية' }, href: '/about#timeline', description: { en: 'Our journey, year by year', ar: 'مسيرتنا، عامًا بعد عام' } },
     ],
   },
   {
     label: 'Quality',
     href: '/quality',
     children: [
-      { label: 'Quality Assurance', href: '/quality#assurance', description: 'How we guarantee every batch' },
-      { label: 'Manufacturing', href: '/quality#manufacturing', description: 'GMP-grade production' },
-      { label: 'Standards & Compliance', href: '/quality#standards', description: 'GMP, ISO & EDA frameworks' },
+      { label: { en: 'Quality Assurance', ar: 'ضمان الجودة' }, href: '/quality#assurance', description: { en: 'How we guarantee every batch', ar: 'كيف نضمن جودة كل دفعة' } },
+      { label: { en: 'Manufacturing', ar: 'التصنيع' }, href: '/quality#manufacturing', description: { en: 'GMP-grade production', ar: 'إنتاج بمعايير GMP' } },
+      { label: { en: 'Standards & Compliance', ar: 'المعايير والامتثال' }, href: '/quality#standards', description: { en: 'GMP, ISO & EDA frameworks', ar: 'أطر GMP وISO وهيئة الدواء' } },
     ],
   },
   {
     label: 'R&D',
     href: '/research',
     children: [
-      { label: 'Research & Innovation', href: '/research#innovation', description: 'Where our science begins' },
-      { label: 'Pipeline', href: '/research#pipeline', description: '30+ formulations in development' },
-      { label: 'Technology', href: '/research#technology', description: 'Formulation & analytical labs' },
+      { label: { en: 'Research & Innovation', ar: 'البحث والابتكار' }, href: '/research#innovation', description: { en: 'Where our science begins', ar: 'حيث يبدأ علمنا' } },
+      { label: { en: 'Pipeline', ar: 'خط الأبحاث' }, href: '/research#pipeline', description: { en: '30+ formulations in development', ar: 'أكثر من 30 تركيبة قيد التطوير' } },
+      { label: { en: 'Technology', ar: 'التقنية' }, href: '/research#technology', description: { en: 'Formulation & analytical labs', ar: 'معامل التركيب والتحليل' } },
     ],
   },
   { label: 'Contact', href: '/contact' },
 ];
 
-export const footerNav = [
+export const footerNav: { title: Bi; links: { label: Bi; href: string }[] }[] = [
   {
-    title: 'Company',
+    title: { en: 'Company', ar: 'الشركة' },
     links: [
-      { label: 'About Loremed', href: '/about' },
-      { label: 'Our Story', href: '/about#story' },
-      { label: 'Leadership', href: '/about#leadership' },
-      { label: 'Careers', href: '/contact#departments' },
-      { label: 'News', href: '/#news' },
+      { label: { en: 'About Loremed', ar: 'عن لوريمد' }, href: '/about' },
+      { label: { en: 'Our Story', ar: 'قصتنا' }, href: '/about#story' },
+      { label: { en: 'Leadership', ar: 'القيادة' }, href: '/about#leadership' },
+      { label: { en: 'Careers', ar: 'الوظائف' }, href: '/contact#departments' },
+      { label: { en: 'News', ar: 'الأخبار' }, href: '/#news' },
     ],
   },
   {
-    title: 'Products',
+    title: { en: 'Products', ar: 'المنتجات' },
     links: [
-      { label: 'All Products', href: '/products' },
-      { label: 'Available Now', href: '/products?status=available' },
-      { label: 'Under Registration', href: '/products?status=under-registration' },
-      { label: 'Immune Support', href: '/products?category=immune-support' },
-      { label: 'Kids Health', href: '/products?category=kids-health' },
+      { label: { en: 'All Products', ar: 'كل المنتجات' }, href: '/products' },
+      { label: { en: 'Available Now', ar: 'متوفر الآن' }, href: '/products?status=available' },
+      { label: { en: 'Under Registration', ar: 'قيد التسجيل' }, href: '/products?status=under-registration' },
+      { label: { en: 'Immune Support', ar: 'دعم المناعة' }, href: '/products?category=immune-support' },
+      { label: { en: 'Kids Health', ar: 'صحة الأطفال' }, href: '/products?category=kids-health' },
     ],
   },
   {
-    title: 'Science',
+    title: { en: 'Science', ar: 'العلوم' },
     links: [
-      { label: 'Quality Assurance', href: '/quality' },
-      { label: 'Manufacturing', href: '/quality#manufacturing' },
-      { label: 'Research & Development', href: '/research' },
-      { label: 'Pipeline', href: '/research#pipeline' },
-      { label: 'For Professionals', href: '/#professionals' },
+      { label: { en: 'Quality Assurance', ar: 'ضمان الجودة' }, href: '/quality' },
+      { label: { en: 'Manufacturing', ar: 'التصنيع' }, href: '/quality#manufacturing' },
+      { label: { en: 'Research & Development', ar: 'البحث والتطوير' }, href: '/research' },
+      { label: { en: 'Pipeline', ar: 'خط الأبحاث' }, href: '/research#pipeline' },
+      { label: { en: 'For Professionals', ar: 'لأخصائيي الرعاية الصحية' }, href: '/#professionals' },
     ],
   },
   {
-    title: 'Contact',
+    title: { en: 'Contact', ar: 'تواصل معنا' },
     links: [
-      { label: 'Contact Us', href: '/contact' },
-      { label: 'Sales', href: '/contact#departments' },
-      { label: 'Medical Information', href: '/contact#departments' },
-      { label: 'Export', href: '/contact#departments' },
-      { label: 'Support', href: '/contact#departments' },
+      { label: { en: 'Contact Us', ar: 'تواصل معنا' }, href: '/contact' },
+      { label: { en: 'Sales', ar: 'المبيعات' }, href: '/contact#departments' },
+      { label: { en: 'Medical Information', ar: 'المعلومات الطبية' }, href: '/contact#departments' },
+      { label: { en: 'Export', ar: 'التصدير' }, href: '/contact#departments' },
+      { label: { en: 'Support', ar: 'الدعم' }, href: '/contact#departments' },
     ],
   },
 ];

@@ -1,28 +1,13 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Eye, Wind, Zap, Baby, Brain, Droplets, ShieldPlus } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
+import { ArrowRight, Eye } from 'lucide-react';
 import type { Product, ProductCategory } from '@/content/products';
-import { statusLabels } from '@/content/products';
+import { statusLabels, categories } from '@/content/products';
+import { categoryIcons } from './categoryIcons';
+import { useI18n } from '@/i18n/LanguageProvider';
 import { cn } from '@/lib/utils';
-
-export const categoryIcons: Record<ProductCategory, LucideIcon> = {
-  'immune-support': ShieldPlus,
-  'respiratory-care': Wind,
-  'vitamins-minerals': Zap,
-  'kids-health': Baby,
-  'omega-brain': Brain,
-  dermatology: Droplets,
-};
-
-const categoryLabels: Record<ProductCategory, string> = {
-  'immune-support': 'Immune Support',
-  'respiratory-care': 'Respiratory Care',
-  'vitamins-minerals': 'Vitamins & Minerals',
-  'kids-health': 'Kids Health',
-  'omega-brain': 'Omega & Brain',
-  dermatology: 'Dermatology',
-};
 
 /** Product visual — shows product image if available, otherwise falls back to branded gradient. */
 export function ProductVisual({
@@ -93,6 +78,8 @@ export function ProductCard({
   onQuickView?: (slug: string) => void;
   className?: string;
 }) {
+  const { locale, t } = useI18n();
+  const categoryLabel = categories.find((c) => c.id === product.category)?.label[locale] ?? product.category;
   return (
     <article
       className={cn(
@@ -119,13 +106,13 @@ export function ProductCard({
               product.status === 'available' ? 'bg-success-500' : 'bg-secondary-400',
             )}
           />
-          {statusLabels[product.status]}
+          {statusLabels[product.status][locale]}
         </span>
         {onQuickView && (
           <button
             onClick={() => onQuickView(product.slug)}
             className="absolute right-4 top-4 grid h-9 w-9 translate-y-1 place-items-center rounded-full bg-white/90 text-primary-800 opacity-0 shadow-soft backdrop-blur transition-all duration-300 hover:bg-white group-hover:translate-y-0 group-hover:opacity-100"
-            aria-label={`Quick view ${product.name}`}
+            aria-label={`${t('cta.quickView')} ${product.name}`}
           >
             <Eye className="h-4 w-4" />
           </button>
@@ -134,7 +121,7 @@ export function ProductCard({
 
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ink-muted">
-          <span className="text-secondary-600">{categoryLabels[product.category]}</span>
+          <span className="text-secondary-600">{categoryLabel}</span>
           <span className="text-line-strong">·</span>
           <span>{product.form}</span>
         </div>
@@ -149,7 +136,7 @@ export function ProductCard({
         <div className="mt-5 flex items-center justify-between border-t border-line pt-4">
           <span className="text-xs text-ink-muted">{product.ageGroup}</span>
           <span className="inline-flex items-center gap-1 text-sm font-medium text-primary-700 transition-colors group-hover:text-secondary-600">
-            View product
+            {t('cta.viewProduct')}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
           </span>
         </div>
