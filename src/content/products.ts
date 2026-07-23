@@ -231,7 +231,7 @@ export const products: Product[] = [
   },
   {
     slug: 'smartod',
-    name: 'SmartOD',
+    name: 'Smartod',
     tagline: 'Pure omega-3 for heart & mind',
     category: 'omega-brain',
     status: 'available',
@@ -244,7 +244,7 @@ export const products: Product[] = [
     shortDescription:
       'DHA, vitamin E and vitamin D drops for early brain health, immunity and healthy growth.',
     description:
-      'SmartOD combines DHA with vitamin E and vitamin D in an easy-to-dose liquid drop. Formulated for the earliest stages of life, it supports brain health and mood, healthy bone and tooth development, and the normal function of the immune system.',
+      'Smartod combines DHA with vitamin E and vitamin D in an easy-to-dose liquid drop. Formulated for the earliest stages of life, it supports brain health and mood, healthy bone and tooth development, and the normal function of the immune system.',
     keyIngredients: [
       { name: 'DHA', note: 'Enhances brain health and mood; supports better sleep' },
       { name: 'Vitamin D', note: 'Supports bone, tooth and immune development' },
@@ -349,7 +349,7 @@ export const products: Product[] = [
   },
   {
     slug: 'smartod-d',
-    name: 'SmartOD D',
+    name: 'Smartod D',
     tagline: 'Vitamin D3, drop by drop',
     category: 'vitamins-minerals',
     status: 'under-registration',
@@ -361,7 +361,7 @@ export const products: Product[] = [
     shortDescription:
       'A vitamin D3 drop formula that supports bone and immune health from six months of age.',
     description:
-      'SmartOD D delivers vitamin D3 (cholecalciferol) in an easy-to-dose liquid drop — supporting healthy bone development and normal immune function for infants, children and adults alike.',
+      'Smartod D delivers vitamin D3 (cholecalciferol) in an easy-to-dose liquid drop — supporting healthy bone development and normal immune function for infants, children and adults alike.',
     keyIngredients: [
       { name: 'Vitamin D3 (Cholecalciferol)', note: 'Supports bone and immune health' },
     ],

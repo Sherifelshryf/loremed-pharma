@@ -430,8 +430,8 @@ export const news: {
     category: { en: 'Regulatory', ar: 'تنظيمي' },
     title: { en: 'Three flagship formulas enter final registration', ar: 'ثلاث تركيبات رائدة تدخل المراحل النهائية للتسجيل' },
     excerpt: {
-      en: 'Ivylor Advance, Coglern Syrup and SmartOD D advance into the final stages of regulatory registration.',
-      ar: 'تتقدم Ivylor Advance وCoglern Syrup وSmartOD D إلى المراحل النهائية من التسجيل التنظيمي.',
+      en: 'Ivylor Advance, Coglern Syrup and Smartod D advance into the final stages of regulatory registration.',
+      ar: 'تتقدم Ivylor Advance وCoglern Syrup وSmartod D إلى المراحل النهائية من التسجيل التنظيمي.',
     },
   },
   {
