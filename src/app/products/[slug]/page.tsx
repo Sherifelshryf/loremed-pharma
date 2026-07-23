@@ -8,6 +8,7 @@ import { Container, Eyebrow, Badge } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { ProductVisual, ProductCard } from '@/components/ui/ProductCard';
 import { categoryIcons } from '@/components/ui/categoryIcons';
+import { AddToCartBox } from '@/components/sections/AddToCartBox';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/motion';
 import { GridField, GradientOrb } from '@/components/graphics/BrandBackdrop';
 import { L } from '@/i18n/Localized';
@@ -113,9 +114,17 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                 </div>
               </Reveal>
 
+              {product.status === 'available' && (
+                <Reveal delay={0.2}>
+                  <div className="mt-8">
+                    <AddToCartBox product={product} />
+                  </div>
+                </Reveal>
+              )}
+
               <Reveal delay={0.25}>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <Button href="/contact" variant="primary" withArrow>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <Button href="/contact" variant={product.status === 'available' ? 'outline' : 'primary'} withArrow={product.status !== 'available'}>
                     <L text={{ en: 'Enquire about', ar: 'استفسر عن' }} /> {product.name}
                   </Button>
                   <Button href="/contact#departments" variant="outline">

@@ -17,10 +17,10 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <FeaturedProducts />
       <CompanyOverview />
       <StatsBand />
       <WhyLoremed />
-      <FeaturedProducts />
       <Manufacturing />
       <Research />
       <QualityAssurance />
