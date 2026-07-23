@@ -22,7 +22,7 @@ export const dictionaries = {
     'nav.close': 'Close',
     'nav.openSearch': 'Search',
 
-    'cta.explore': 'Explore Products',
+    'cta.explore': 'View Products',
     'cta.about': 'About Loremed',
     'cta.contact': 'Contact Us',
     'cta.getInTouch': 'Get in touch',
@@ -86,7 +86,7 @@ export const dictionaries = {
     'nav.close': 'إغلاق',
     'nav.openSearch': 'بحث',
 
-    'cta.explore': 'استكشف المنتجات',
+    'cta.explore': 'عرض المنتجات',
     'cta.about': 'عن لوريمد',
     'cta.contact': 'تواصل معنا',
     'cta.getInTouch': 'تواصل معنا',

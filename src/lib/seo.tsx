@@ -52,7 +52,7 @@ export const organizationSchema = {
     addressRegion: site.address.region,
     addressCountry: site.address.country,
   },
-  sameAs: [site.social.facebook, site.social.twitter, site.social.youtube, site.social.linkedin],
+  sameAs: [site.social.facebook, site.social.youtube, site.social.linkedin],
   areaServed: ['Egypt', 'Middle East', 'Africa'],
   knowsAbout: [
     'Pharmaceuticals',

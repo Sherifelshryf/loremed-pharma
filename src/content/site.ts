@@ -28,9 +28,8 @@ export const site = {
   },
   social: {
     facebook: 'https://www.facebook.com/loremedpharma/',
-    twitter: 'https://twitter.com/',
     youtube: 'https://www.youtube.com/',
-    linkedin: 'https://www.linkedin.com/',
+    linkedin: 'https://www.linkedin.com/in/loremed-pharma-497361399/',
   },
 } as const;
 

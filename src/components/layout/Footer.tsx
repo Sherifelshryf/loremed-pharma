@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Facebook, Twitter, Youtube, Linkedin, ArrowUp, Mail, Check, ArrowRight } from 'lucide-react';
+import { Facebook, Youtube, Linkedin, ArrowUp, Mail, Check, ArrowRight } from 'lucide-react';
 import { useState, type FormEvent } from 'react';
 import { footerNav, site, medicalDisclaimer } from '@/content/site';
 import { useI18n } from '@/i18n/LanguageProvider';
@@ -12,7 +12,6 @@ import { cn } from '@/lib/utils';
 const socials = [
   { icon: Facebook, href: site.social.facebook, label: 'Facebook' },
   { icon: Linkedin, href: site.social.linkedin, label: 'LinkedIn' },
-  { icon: Twitter, href: site.social.twitter, label: 'Twitter / X' },
   { icon: Youtube, href: site.social.youtube, label: 'YouTube' },
 ];
 

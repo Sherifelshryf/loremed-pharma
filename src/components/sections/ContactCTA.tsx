@@ -40,7 +40,7 @@ export function ContactCTA() {
                   Contact us
                 </Button>
                 <Button href="/products" size="lg" variant="inverse-outline">
-                  Explore products
+                  View products
                 </Button>
               </div>
             </Reveal>

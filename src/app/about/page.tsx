@@ -73,8 +73,8 @@ export default function AboutPage() {
                 <span className="relative grid h-14 w-14 place-items-center rounded-2xl bg-white/10">
                   <Compass className="h-6 w-6" />
                 </span>
-                <h3 className="relative mt-6 text-2xl font-semibold">{about.vision.title}</h3>
-                <p className="relative mt-3 text-lg leading-relaxed text-white/70">{about.vision.body}</p>
+                <h3 className="relative mt-6 text-2xl font-semibold text-white">{about.vision.title}</h3>
+                <p className="relative mt-3 text-lg leading-relaxed text-white">{about.vision.body}</p>
               </div>
             </Reveal>
             <Reveal delay={0.05}>
