@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Loremed Pharma — Global Styles
+   ============================================================ */
+
+:root {
+  --brand-purple: #322353;
+  --brand-orange: #ec691d;
+  --nav-height: 5rem;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  * {
+    @apply border-line;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  body {
+    @apply bg-surface text-ink font-sans antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Arabic / RTL typography */
+  [dir='rtl'] body {
+    @apply font-arabic;
+  }
+
+  h1, h2, h3, h4, h5 {
+    @apply font-display text-ink;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: rgba(236, 105, 29, 0.22);
+    color: var(--brand-purple);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand-orange);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Refined scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d0cfdd;
+    border-radius: 999px;
+    border: 3px solid #ffffff;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b9a9db;
+  }
+}
+
+@layer components {
+  /* Section rhythm */
+  .section {
+    @apply relative py-20 sm:py-24 lg:py-32;
+  }
+  .section-tight {
+    @apply relative py-16 sm:py-20 lg:py-24;
+  }
+
+  /* Eyebrow / kicker label */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-eyebrow uppercase text-secondary-600;
+  }
+
+  /* Gradient brand text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(115deg, #322353 0%, #543e84 55%, #ec691d 115%);
+  }
+  .text-gradient-orange {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(120deg, #ec691d 0%, #f18841 100%);
+  }
+
+  /* Glass card */
+  .glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+  }
+  .glass-dark {
+    background: rgba(35, 26, 59, 0.55);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+  }
+
+  /* Hairline top highlight for premium cards */
+  .card-premium {
+    @apply relative rounded-3xl border border-line bg-white shadow-card;
+  }
+
+  /* Fine dotted / grid background */
+  .bg-dots {
+    background-image: radial-gradient(rgba(50, 35, 83, 0.09) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(50, 35, 83, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(50, 35, 83, 0.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  /* Marquee helpers */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+
+  /* Link underline animation */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1.5px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.4s var(--ease-out-expo);
+  }
+  .link-underline:hover {
+    background-size: 100% 1.5px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .content-visibility-auto {
+    content-visibility: auto;
+  }
+  /* Logical padding that flips for RTL is handled by Tailwind ps-/pe- utilities */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Content fades in as the loading screen exits (JS-only; no-JS stays visible) */
+#main {
+  transition: opacity 0.85s ease 0.05s;
+}
+html[data-loading='true'] #main {
+  opacity: 0;
+}
+
+/* Respect reduced motion globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

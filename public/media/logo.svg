@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 340" fill="none">
+  <!--
+    Mark geometry:
+    L vertical bar: x=20, y=20, w=52, h=192  (bottom at y=212)
+    L horizontal bar: x=20, y=160, w=136, h=52  (right edge at x=156)
+    D bowl: flat edge at x=72 (right of L vertical bar inner edge), center-y at y=112
+    Radius = 84  =>  top of bowl y=28, bottom y=196
+    Orange quarter: top-left to top-right arc (upper semicircle portion)
+    Purple quarter: bottom arc
+  -->
+
+  <!-- L vertical bar -->
+  <rect x="20" y="20" width="52" height="192" rx="7" fill="#2D1F63"/>
+  <!-- L horizontal bar -->
+  <rect x="20" y="160" width="136" height="52" rx="7" fill="#2D1F63"/>
+
+  <!--
+    D bowl: center (72, 112), radius 84
+    Orange: upper-right quarter — from (72,28) arc to (156,112)
+    Then back down to (72,112) to close
+  -->
+  <path d="M72 28 L72 112 L156 112 A84 84 0 0 0 72 28 Z" fill="#E8611A"/>
+
+  <!--
+    Purple: lower-right quarter — from (72,112) to (156,112) arc to (72,196)
+    Then back up to (72,112) to close
+  -->
+  <path d="M72 112 L156 112 A84 84 0 0 1 72 196 Z" fill="#2D1F63"/>
+
+  <!-- Wordmark -->
+  <text
+    x="16"
+    y="295"
+    font-family="'Arial Black', Arial, 'Helvetica Neue', sans-serif"
+    font-weight="900"
+    font-size="68"
+    fill="#2D1F63"
+    xml:space="preserve"
+  >LOREME<tspan fill="#E8611A">D</tspan></text>
+</svg>
