@@ -2,11 +2,14 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Eye } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, Eye, ShoppingCart, Check } from 'lucide-react';
 import type { Product, ProductCategory } from '@/content/products';
 import { statusLabels, categories } from '@/content/products';
 import { categoryIcons } from './categoryIcons';
+import { site } from '@/content/site';
 import { useI18n } from '@/i18n/LanguageProvider';
+import { useCart } from '@/cart/CartProvider';
 import { cn } from '@/lib/utils';
 
 /** Product visual — shows product image if available, otherwise falls back to branded gradient. */
@@ -79,7 +82,18 @@ export function ProductCard({
   className?: string;
 }) {
   const { locale, t } = useI18n();
+  const { addItem } = useCart();
+  const [added, setAdded] = useState(false);
   const categoryLabel = categories.find((c) => c.id === product.category)?.label[locale] ?? product.category;
+
+  function handleAddToCart(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    addItem(product.slug);
+    setAdded(true);
+    window.setTimeout(() => setAdded(false), 1500);
+  }
+
   return (
     <article
       className={cn(
@@ -133,13 +147,36 @@ export function ProductCard({
         <p className="mt-1 text-sm font-medium text-secondary-600">{product.tagline}</p>
         <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">{product.shortDescription}</p>
 
-        <div className="mt-5 flex items-center justify-between border-t border-line pt-4">
-          <span className="text-xs text-ink-muted">{product.ageGroup}</span>
-          <span className="inline-flex items-center gap-1 text-sm font-medium text-primary-700 transition-colors group-hover:text-secondary-600">
-            {t('cta.viewProduct')}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
-          </span>
-        </div>
+        {product.status === 'available' ? (
+          <div className="mt-5 flex items-center justify-between gap-3 border-t border-line pt-4">
+            <div>
+              <div className="text-xs text-ink-muted">{product.ageGroup}</div>
+              <div className="mt-0.5 text-base font-bold text-ink">
+                {site.currency[locale]} {product.price}
+              </div>
+            </div>
+            <button
+              onClick={handleAddToCart}
+              className={cn(
+                'relative z-10 inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-all',
+                added
+                  ? 'bg-success-500 text-white'
+                  : 'bg-primary-800 text-white hover:bg-primary-700 hover:shadow-glow',
+              )}
+            >
+              {added ? <Check className="h-4 w-4" /> : <ShoppingCart className="h-4 w-4" />}
+              {added ? t('cta.added') : t('cta.addToCart')}
+            </button>
+          </div>
+        ) : (
+          <div className="mt-5 flex items-center justify-between border-t border-line pt-4">
+            <span className="text-xs text-ink-muted">{product.ageGroup}</span>
+            <span className="inline-flex items-center gap-1 text-sm font-medium text-primary-700 transition-colors group-hover:text-secondary-600">
+              {t('cta.viewProduct')}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+            </span>
+          </div>
+        )}
       </div>
     </article>
   );

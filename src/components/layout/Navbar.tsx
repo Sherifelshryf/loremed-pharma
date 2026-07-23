@@ -3,11 +3,12 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Search, ChevronDown } from 'lucide-react';
+import { Search, ChevronDown, ShoppingCart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { primaryNav } from '@/content/site';
 import { NAV_T } from '@/content/navKeys';
 import { useI18n } from '@/i18n/LanguageProvider';
+import { useCart } from '@/cart/CartProvider';
 import { Logo } from '@/components/logo/Logo';
 import { Button } from '@/components/ui/Button';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -17,6 +18,7 @@ import { cn } from '@/lib/utils';
 
 export function Navbar() {
   const { t } = useI18n();
+  const { count } = useCart();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -121,6 +123,18 @@ export function Navbar() {
             >
               <Search className="h-[1.15rem] w-[1.15rem]" />
             </button>
+            <Link
+              href="/order"
+              className="relative grid h-10 w-10 place-items-center rounded-full text-ink-soft transition-colors hover:bg-neutral-100 hover:text-primary-800"
+              aria-label={t('nav.cart')}
+            >
+              <ShoppingCart className="h-[1.1rem] w-[1.1rem]" />
+              {count > 0 && (
+                <span className="absolute -top-0.5 end-0 grid h-4 min-w-4 place-items-center rounded-full bg-secondary-500 px-1 text-[0.65rem] font-bold text-white">
+                  {count}
+                </span>
+              )}
+            </Link>
             <div className="hidden md:block">
               <LanguageSwitcher />
             </div>

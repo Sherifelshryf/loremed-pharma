@@ -1,12 +1,14 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { X, Check, ArrowRight, Package, Users, Pipette } from 'lucide-react';
+import { X, Check, ArrowRight, Package, Users, Pipette, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getProduct, statusLabels } from '@/content/products';
 import { ProductVisual } from '@/components/ui/ProductCard';
+import { site } from '@/content/site';
 import { useI18n } from '@/i18n/LanguageProvider';
+import { useCart } from '@/cart/CartProvider';
 import { cn } from '@/lib/utils';
 
 const copy = {
@@ -19,8 +21,14 @@ const copy = {
 };
 
 export function QuickView({ slug, onClose }: { slug: string | null; onClose: () => void }) {
-  const { locale } = useI18n();
+  const { locale, t } = useI18n();
+  const { addItem } = useCart();
+  const [added, setAdded] = useState(false);
   const product = slug ? getProduct(slug) : null;
+
+  useEffect(() => {
+    setAdded(false);
+  }, [slug]);
 
   useEffect(() => {
     if (slug) {
@@ -81,6 +89,11 @@ export function QuickView({ slug, onClose }: { slug: string | null; onClose: () 
               </span>
               <h2 className="mt-4 text-2xl font-semibold text-ink">{product.name}</h2>
               <p className="mt-1 font-medium text-secondary-600">{product.tagline}</p>
+              {product.status === 'available' && (
+                <p className="mt-2 text-lg font-bold text-ink">
+                  {site.currency[locale]} {product.price}
+                </p>
+              )}
               <p className="mt-4 text-sm leading-relaxed text-ink-soft">{product.description}</p>
 
               <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
@@ -99,14 +112,34 @@ export function QuickView({ slug, onClose }: { slug: string | null; onClose: () 
                 ))}
               </ul>
 
-              <Link
-                href={`/products/${product.slug}`}
-                onClick={onClose}
-                className="group mt-7 inline-flex items-center gap-2 rounded-full bg-primary-800 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-primary-700 hover:shadow-glow"
-              >
-                {copy.viewFull[locale]}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
-              </Link>
+              <div className="mt-7 flex flex-wrap items-center gap-3">
+                {product.status === 'available' && (
+                  <button
+                    onClick={() => {
+                      addItem(product.slug);
+                      setAdded(true);
+                      window.setTimeout(() => setAdded(false), 1500);
+                    }}
+                    className={cn(
+                      'inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all',
+                      added
+                        ? 'bg-success-500 text-white'
+                        : 'bg-primary-800 text-white hover:bg-primary-700 hover:shadow-glow',
+                    )}
+                  >
+                    {added ? <Check className="h-4 w-4" /> : <ShoppingCart className="h-4 w-4" />}
+                    {added ? t('cta.added') : t('cta.addToCart')}
+                  </button>
+                )}
+                <Link
+                  href={`/products/${product.slug}`}
+                  onClick={onClose}
+                  className="group inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-medium text-ink transition-all hover:border-primary-300 hover:bg-primary-50"
+                >
+                  {copy.viewFull[locale]}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
+                </Link>
+              </div>
             </div>
           </motion.div>
         </motion.div>

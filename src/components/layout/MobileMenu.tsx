@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown, X } from 'lucide-react';
+import { ChevronDown, X, ShoppingCart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { primaryNav, site } from '@/content/site';
 import { NAV_T } from '@/content/navKeys';
 import { useI18n } from '@/i18n/LanguageProvider';
+import { useCart } from '@/cart/CartProvider';
 import { Logo } from '@/components/logo/Logo';
 import { Button } from '@/components/ui/Button';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -14,6 +15,7 @@ import { cn } from '@/lib/utils';
 
 export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { locale, t } = useI18n();
+  const { count } = useCart();
   const [expanded, setExpanded] = useState<string | null>(null);
 
   useEffect(() => {
@@ -52,13 +54,28 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
           >
             <div className="flex items-center justify-between border-b border-line px-5 py-4">
               <Logo />
-              <button
-                onClick={onClose}
-                className="grid h-10 w-10 place-items-center rounded-full text-ink-soft hover:bg-neutral-100"
-                aria-label={t('nav.close')}
-              >
-                <X className="h-5 w-5" />
-              </button>
+              <div className="flex items-center gap-1">
+                <Link
+                  href="/order"
+                  onClick={onClose}
+                  className="relative grid h-10 w-10 place-items-center rounded-full text-ink-soft hover:bg-neutral-100"
+                  aria-label={t('nav.cart')}
+                >
+                  <ShoppingCart className="h-5 w-5" />
+                  {count > 0 && (
+                    <span className="absolute -top-0.5 end-0 grid h-4 min-w-4 place-items-center rounded-full bg-secondary-500 px-1 text-[0.65rem] font-bold text-white">
+                      {count}
+                    </span>
+                  )}
+                </Link>
+                <button
+                  onClick={onClose}
+                  className="grid h-10 w-10 place-items-center rounded-full text-ink-soft hover:bg-neutral-100"
+                  aria-label={t('nav.close')}
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
             </div>
 
             <nav className="flex-1 overflow-y-auto px-3 py-4" aria-label="Mobile">

@@ -40,6 +40,8 @@ export type Product = {
   related: string[];
   featured?: boolean;
   image?: string;
+  /** Price in EGP. Placeholder pricing — update with real prices before launch. */
+  price: number;
 };
 
 export const categories: {
@@ -115,6 +117,7 @@ export const products: Product[] = [
     accent: 'orange',
     featured: true,
     image: '/media/Imulormed.jpg',
+    price: 180,
     shortDescription:
       'A botanical immune formula combining elderberry extract with vitamin C, zinc, folic acid and vitamin B12.',
     description:
@@ -148,6 +151,7 @@ export const products: Product[] = [
     accent: 'purple',
     featured: true,
     image: '/media/ivylor.png',
+    price: 160,
     shortDescription:
       'A natural extract syrup combining ivy leaf, black elderberry and black honey with vitamin C and zinc for cough relief.',
     description:
@@ -179,6 +183,7 @@ export const products: Product[] = [
     accent: 'purple',
     featured: true,
     image: '/media/Vitelormed.jpg',
+    price: 210,
     shortDescription:
       'A comprehensive multivitamin and multimineral syrup for the growth and development the whole family needs.',
     description:
@@ -210,6 +215,7 @@ export const products: Product[] = [
     pack: 'Dropper bottle',
     accent: 'orange',
     image: '/media/Ferolormed.jpg',
+    price: 150,
     shortDescription:
       'A well-tolerated iron formula with folate and vitamin C to support healthy red blood cell production.',
     description:
@@ -241,6 +247,7 @@ export const products: Product[] = [
     accent: 'orange',
     featured: true,
     image: '/media/smartodkids.png',
+    price: 240,
     shortDescription:
       'DHA, vitamin E and vitamin D drops for early brain health, immunity and healthy growth.',
     description:
@@ -270,6 +277,7 @@ export const products: Product[] = [
     pack: '200 ml bottle',
     accent: 'purple',
     image: '/media/welcaderm.png',
+    price: 195,
     shortDescription:
       'A dermatologically-guided moisturising lotion that soothes and rebuilds dry, sensitive skin.',
     description:
@@ -299,6 +307,7 @@ export const products: Product[] = [
     pack: '120 ml bottle with dosing cup',
     accent: 'orange',
     image: '/media/ivyloradvance.png',
+    price: 190,
     shortDescription:
       'A next-generation ivy leaf, licorice and thyme syrup that supports respiratory system health.',
     description:
@@ -329,6 +338,7 @@ export const products: Product[] = [
     pack: '150 ml bottle with dosing cup',
     accent: 'purple',
     image: '/media/coglern.png',
+    price: 230,
     shortDescription:
       'A children’s syrup with high-strength omega-3 (EPA & DHA) and marigold flower extract to support learning and growth.',
     description:
@@ -358,6 +368,7 @@ export const products: Product[] = [
     pack: 'Dropper bottle',
     accent: 'orange',
     image: '/media/smartodd.png',
+    price: 170,
     shortDescription:
       'A vitamin D3 drop formula that supports bone and immune health from six months of age.',
     description:
