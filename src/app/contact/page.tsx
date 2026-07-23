@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Mail, MapPin, Clock, Facebook, Linkedin, Twitter, Youtube, Briefcase, Stethoscope, Globe2, Users, LifeBuoy, Navigation } from 'lucide-react';
+import { Mail, MapPin, Clock, Facebook, Linkedin, Youtube, Briefcase, Stethoscope, Globe2, Users, LifeBuoy, Navigation } from 'lucide-react';
 import { PageHero } from '@/components/layout/PageHero';
 import { ContactForm } from '@/components/sections/ContactForm';
 import { Container, SectionHeading, Eyebrow } from '@/components/ui/Section';
@@ -27,7 +27,6 @@ const departments = [
 const socials = [
   { icon: Facebook, href: site.social.facebook, label: 'Facebook' },
   { icon: Linkedin, href: site.social.linkedin, label: 'LinkedIn' },
-  { icon: Twitter, href: site.social.twitter, label: 'Twitter / X' },
   { icon: Youtube, href: site.social.youtube, label: 'YouTube' },
 ];
 

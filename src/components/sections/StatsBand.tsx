@@ -10,12 +10,7 @@ export function StatsBand() {
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -left-24 -top-24 h-96 w-96 rounded-full bg-primary-700/40 blur-3xl" />
         <div className="absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-secondary-500/15 blur-3xl" />
-        <LogoMark
-          purple="#ffffff"
-          orange="#EC691D"
-          decorative
-          className="absolute -bottom-16 end-8 hidden h-72 opacity-[0.07] lg:block"
-        />
+        <LogoMark className="absolute -bottom-16 end-8 hidden h-72 opacity-[0.07] lg:block" />
       </div>
 
       <Container className="relative">

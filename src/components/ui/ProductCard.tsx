@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Eye, Wind, Pill, Baby, Brain, Droplets, ShieldPlus } from 'lucide-react';
+import { ArrowRight, Eye, Wind, Zap, Baby, Brain, Droplets, ShieldPlus } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { Product, ProductCategory } from '@/content/products';
 import { statusLabels } from '@/content/products';
@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 export const categoryIcons: Record<ProductCategory, LucideIcon> = {
   'immune-support': ShieldPlus,
   'respiratory-care': Wind,
-  'vitamins-minerals': Pill,
+  'vitamins-minerals': Zap,
   'kids-health': Baby,
   'omega-brain': Brain,
   dermatology: Droplets,
