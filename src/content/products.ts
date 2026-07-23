@@ -65,6 +65,7 @@ export const products: Product[] = [
     pack: '120 ml bottle with dosing cup',
     accent: 'orange',
     featured: true,
+    image: '/media/Imulormed.jpg',
     shortDescription:
       'A botanical immune syrup combining black elderberry, black seed and honey with vitamin C and zinc.',
     description:
@@ -124,6 +125,7 @@ export const products: Product[] = [
     pack: '30 tablets',
     accent: 'purple',
     featured: true,
+    image: '/media/Vitelormed.jpg',
     shortDescription:
       'A comprehensive multivitamin and multimineral complex for everyday energy and wellbeing.',
     description:
@@ -153,6 +155,7 @@ export const products: Product[] = [
     ageGroup: 'Adults',
     pack: '30 tablets',
     accent: 'orange',
+    image: '/media/Ferolormed.jpg',
     shortDescription:
       'A well-tolerated iron formula with folic acid and vitamin B12 to support healthy red blood cells.',
     description:
@@ -212,6 +215,7 @@ export const products: Product[] = [
     ageGroup: 'All ages',
     pack: '200 ml bottle',
     accent: 'purple',
+    image: '/media/welcaderm.png',
     shortDescription:
       'A dermatologically-guided moisturising lotion that soothes and rebuilds dry, sensitive skin.',
     description:
@@ -240,6 +244,7 @@ export const products: Product[] = [
     ageGroup: 'Adults & children 4+',
     pack: '120 ml bottle with dosing cup',
     accent: 'orange',
+    image: '/media/ivyloradvance.png',
     shortDescription:
       'A next-generation ivy leaf and thyme syrup for more persistent, stubborn coughs.',
     description:
