@@ -428,10 +428,10 @@ export const news: {
     slug: 'new-registrations-under-review',
     date: '2026-03-02',
     category: { en: 'Regulatory', ar: 'تنظيمي' },
-    title: { en: 'Three flagship formulas enter final registration', ar: 'ثلاث تركيبات رائدة تدخل المراحل النهائية للتسجيل' },
+    title: { en: 'Two flagship formulas enter final registration', ar: 'تركيبتان رائدتان تدخلان المراحل النهائية للتسجيل' },
     excerpt: {
-      en: 'Ivylor Advance, Coglern Syrup and Smartod D advance into the final stages of regulatory registration.',
-      ar: 'تتقدم Ivylor Advance وCoglern Syrup وSmartod D إلى المراحل النهائية من التسجيل التنظيمي.',
+      en: 'Imulormed and Ferolormed advance into the final stages of regulatory registration.',
+      ar: 'يتقدم Imulormed وFerolormed إلى المراحل النهائية من التسجيل التنظيمي.',
     },
   },
   {
