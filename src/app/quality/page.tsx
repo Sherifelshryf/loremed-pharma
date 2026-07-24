@@ -84,7 +84,7 @@ export default function QualityPage() {
           <L
             text={{
               en: 'From the first raw material to the sealed pack, every Loremed product is built and verified to standards that protect the families who use it.',
-              ar: 'من أول مادة خام إلى العبوة المختومة، يُبنى كل منتج من لوريمد ويُتحقق منه وفق معايير تحمي العائلات التي تستخدمه.',
+              ar: 'من أول مادة خام إلى العبوة المختومة، يُبنى كل منتج من لورميد ويُتحقق منه وفق معايير تحمي العائلات التي تستخدمه.',
             }}
           />
         }
@@ -106,7 +106,7 @@ export default function QualityPage() {
               <L
                 text={{
                   en: 'Quality is not a final checkpoint — it is engineered into every stage of how a Loremed product comes to life.',
-                  ar: 'الجودة ليست نقطة تفتيش أخيرة — بل هي مصمَّمة في كل مرحلة من مراحل إنتاج منتج لوريمد.',
+                  ar: 'الجودة ليست نقطة تفتيش أخيرة — بل هي مصمَّمة في كل مرحلة من مراحل إنتاج منتج لورميد.',
                 }}
               />
             }
@@ -221,7 +221,7 @@ export default function QualityPage() {
             <L
               text={{
                 en: 'Codes shown represent the standards and regulatory frameworks that guide Loremed’s quality system and product development.',
-                ar: 'الرموز الموضحة تمثل المعايير والأطر التنظيمية التي توجّه نظام الجودة وتطوير المنتجات لدى لوريمد.',
+                ar: 'الرموز الموضحة تمثل المعايير والأطر التنظيمية التي توجّه نظام الجودة وتطوير المنتجات لدى لورميد.',
               }}
             />
           </p>

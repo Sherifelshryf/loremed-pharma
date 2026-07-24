@@ -59,7 +59,7 @@ export const primaryNav: NavItem[] = [
     label: 'Products',
     href: '/products',
     children: [
-      { label: { en: 'All Products', ar: 'كل المنتجات' }, href: '/products', description: { en: 'Browse the full Loremed catalogue', ar: 'تصفّح كتالوج لوريمد بالكامل' } },
+      { label: { en: 'All Products', ar: 'كل المنتجات' }, href: '/products', description: { en: 'Browse the full Loremed catalogue', ar: 'تصفّح كتالوج لورميد بالكامل' } },
       { label: { en: 'Available Now', ar: 'متوفر الآن' }, href: '/products?status=available', description: { en: 'Registered & on the market', ar: 'مسجَّل ومتوفر في السوق' } },
       { label: { en: 'Under Registration', ar: 'قيد التسجيل' }, href: '/products?status=under-registration', description: { en: 'The next wave of the pipeline', ar: 'الموجة القادمة من خط الأبحاث' } },
       { label: { en: 'Immune Support', ar: 'دعم المناعة' }, href: '/products?category=immune-support', description: { en: 'Elderberry & zinc formulas', ar: 'تركيبات بالبلسان والزنك' } },
@@ -73,7 +73,7 @@ export const primaryNav: NavItem[] = [
     children: [
       { label: { en: 'Our Story', ar: 'قصتنا' }, href: '/about#story', description: { en: 'Who we are and why we started', ar: 'من نحن ولماذا بدأنا' } },
       { label: { en: 'Vision & Mission', ar: 'الرؤية والرسالة' }, href: '/about#vision', description: { en: 'The future we are building', ar: 'المستقبل الذي نبنيه' } },
-      { label: { en: 'Leadership', ar: 'القيادة' }, href: '/about#leadership', description: { en: 'The people behind Loremed', ar: 'الأشخاص وراء لوريمد' } },
+      { label: { en: 'Leadership', ar: 'القيادة' }, href: '/about#leadership', description: { en: 'The people behind Loremed', ar: 'الأشخاص وراء لورميد' } },
       { label: { en: 'Timeline', ar: 'المسيرة الزمنية' }, href: '/about#timeline', description: { en: 'Our journey, year by year', ar: 'مسيرتنا، عامًا بعد عام' } },
     ],
   },
@@ -102,7 +102,7 @@ export const footerNav: { title: Bi; links: { label: Bi; href: string }[] }[] = 
   {
     title: { en: 'Company', ar: 'الشركة' },
     links: [
-      { label: { en: 'About Loremed', ar: 'عن لوريمد' }, href: '/about' },
+      { label: { en: 'About Loremed', ar: 'عن لورميد' }, href: '/about' },
       { label: { en: 'Our Story', ar: 'قصتنا' }, href: '/about#story' },
       { label: { en: 'Leadership', ar: 'القيادة' }, href: '/about#leadership' },
       { label: { en: 'Careers', ar: 'الوظائف' }, href: '/contact#departments' },

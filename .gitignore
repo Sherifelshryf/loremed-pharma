@@ -30,3 +30,11 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# local Claude Code skill tooling
+/.agents
+/.claude
+skills-lock.json
+
+# generated brag video project (not site code)
+/brag-output

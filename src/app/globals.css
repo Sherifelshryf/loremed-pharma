@@ -24,6 +24,14 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  /* Decorative blurs/watermarks bleed past the right edge by design; without this
+     they widen the scrollable area and make mobile browsers zoom the whole page
+     out. `clip` (not `hidden`) contains that bleed without breaking position:sticky. */
+  html,
+  body {
+    overflow-x: clip;
+  }
+
   html.lenis,
   html.lenis body {
     height: auto;

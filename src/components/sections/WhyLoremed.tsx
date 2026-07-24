@@ -7,7 +7,7 @@ import { DotField } from '@/components/graphics/BrandBackdrop';
 import { useI18n } from '@/i18n/LanguageProvider';
 
 const copy = {
-  eyebrow: { en: 'Why Loremed', ar: 'لماذا لوريمد' },
+  eyebrow: { en: 'Why Loremed', ar: 'لماذا لورميد' },
   titlePre: { en: 'Reasons the region is coming to', ar: 'الأسباب التي تجعل المنطقة' },
   titleAccent: { en: 'trust us', ar: 'تثق بنا' },
   lead: {

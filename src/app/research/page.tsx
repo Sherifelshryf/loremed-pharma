@@ -53,14 +53,14 @@ export default function ResearchPage() {
         title={
           <>
             <L text={{ en: 'Where every product', ar: 'حيث يبدأ' }} />{' '}
-            <span className="text-gradient"><L text={{ en: 'begins', ar: 'كل منتج لوريمد' }} /></span>
+            <span className="text-gradient"><L text={{ en: 'begins', ar: 'كل منتج لورميد' }} /></span>
           </>
         }
         lead={
           <L
             text={{
               en: 'Loremed R&D turns active ingredients and trusted botanicals into stable, effective, great-to-take products — and keeps a pipeline of thirty-plus formulations moving forward.',
-              ar: 'يحوّل قسم الأبحاث والتطوير لدى لوريمد المواد الفعّالة والمستخلصات النباتية الموثوقة إلى منتجات مستقرة وفعّالة وسهلة التناول — ويدفع خط أبحاث يضم أكثر من ثلاثين تركيبة إلى الأمام.',
+              ar: 'يحوّل قسم الأبحاث والتطوير لدى لورميد المواد الفعّالة والمستخلصات النباتية الموثوقة إلى منتجات مستقرة وفعّالة وسهلة التناول — ويدفع خط أبحاث يضم أكثر من ثلاثين تركيبة إلى الأمام.',
             }}
           />
         }
@@ -206,7 +206,7 @@ export default function ResearchPage() {
               <L
                 text={{
                   en: 'Focused domains where Loremed builds depth — from immune and respiratory care to omega nutrition and dermatology.',
-                  ar: 'مجالات مركّزة تبني فيها لوريمد عمقًا معرفيًا — من رعاية المناعة والجهاز التنفسي إلى تغذية الأوميغا والعناية بالبشرة.',
+                  ar: 'مجالات مركّزة تبني فيها لورميد عمقًا معرفيًا — من رعاية المناعة والجهاز التنفسي إلى تغذية الأوميغا والعناية بالبشرة.',
                 }}
               />
             }

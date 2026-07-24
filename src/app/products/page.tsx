@@ -45,7 +45,7 @@ export default function ProductsPage() {
           <L
             text={{
               en: 'From daily essentials to targeted therapeutic support — every Loremed formula is built on standardised actives, honest labels and GMP-grade quality.',
-              ar: 'من الأساسيات اليومية إلى الدعم العلاجي الموجَّه — كل تركيبة من لوريمد مبنية على مواد فعّالة موحَّدة، وملصقات صادقة، وجودة بمعايير GMP.',
+              ar: 'من الأساسيات اليومية إلى الدعم العلاجي الموجَّه — كل تركيبة من لورميد مبنية على مواد فعّالة موحَّدة، وملصقات صادقة، وجودة بمعايير GMP.',
             }}
           />
         }

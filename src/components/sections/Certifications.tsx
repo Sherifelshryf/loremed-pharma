@@ -15,7 +15,7 @@ const copy = {
   },
   footnote: {
     en: 'Codes shown represent the standards and regulatory frameworks that guide Loremed’s quality system and product development.',
-    ar: 'الرموز الموضحة تمثل المعايير والأطر التنظيمية التي توجّه نظام الجودة وتطوير المنتجات لدى لوريمد.',
+    ar: 'الرموز الموضحة تمثل المعايير والأطر التنظيمية التي توجّه نظام الجودة وتطوير المنتجات لدى لورميد.',
   },
 };
 

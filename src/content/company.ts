@@ -93,7 +93,7 @@ export const about = {
   story: [
     {
       en: 'Loremed Pharma was founded on a simple conviction: that world-class medicine and nutrition should be within reach of every family in our region.',
-      ar: 'تأسست لوريمد فارما على قناعة بسيطة: أن الدواء والتغذية بمستوى عالمي يجب أن يكونا في متناول كل أسرة في منطقتنا.',
+      ar: 'تأسست لورميد فارما على قناعة بسيطة: أن الدواء والتغذية بمستوى عالمي يجب أن يكونا في متناول كل أسرة في منطقتنا.',
     },
     {
       en: 'We are a young, fast-moving pharmaceutical and nutraceutical company — combining the rigour of pharmaceutical science with the warmth of products people actually enjoy taking. From our first formulations to a pipeline now more than thirty strong, our growth has been guided by one measure of success: the quality of life we help create.',
@@ -144,7 +144,7 @@ export const about = {
 export const timeline: { year: string; title: Bi; body: Bi }[] = [
   {
     year: '2023',
-    title: { en: 'Loremed is founded', ar: 'تأسيس لوريمد' },
+    title: { en: 'Loremed is founded', ar: 'تأسيس لورميد' },
     body: {
       en: 'The company is established with a clear ambition: rapid, responsible growth in pharmaceuticals and nutrition.',
       ar: 'تأسست الشركة بطموح واضح: نمو سريع ومسؤول في مجالي الأدوية والتغذية.',
@@ -193,7 +193,7 @@ export const leadership: { role: Bi; monogram: string; focus: Bi }[] = [
     monogram: 'MD',
     focus: {
       en: 'Sets the strategic direction and stewards Loremed’s long-term growth and culture.',
-      ar: 'يضع الاتجاه الاستراتيجي ويقود نمو لوريمد وثقافتها على المدى الطويل.',
+      ar: 'يضع الاتجاه الاستراتيجي ويقود نمو لورميد وثقافتها على المدى الطويل.',
     },
   },
   {
@@ -217,7 +217,7 @@ export const leadership: { role: Bi; monogram: string; focus: Bi }[] = [
     monogram: 'CD',
     focus: {
       en: 'Builds the partnerships and channels that put Loremed products in patients’ hands.',
-      ar: 'يبني الشراكات والقنوات التي تضع منتجات لوريمد في متناول المرضى.',
+      ar: 'يبني الشراكات والقنوات التي تضع منتجات لورميد في متناول المرضى.',
     },
   },
 ];
@@ -381,7 +381,7 @@ export const testimonials: { quote: Bi; name: Bi; role: Bi }[] = [
   {
     quote: {
       en: 'The consistency batch-to-batch is what earns my trust. Loremed’s standardised botanicals behave exactly as expected, which makes them easy to recommend.',
-      ar: 'الثبات من دفعة إلى أخرى هو ما يكسبني ثقتي. المستخلصات النباتية الموحدة من لوريمد تتصرف تمامًا كما هو متوقع، ما يجعل التوصية بها أمرًا سهلاً.',
+      ar: 'الثبات من دفعة إلى أخرى هو ما يكسبني ثقتي. المستخلصات النباتية الموحدة من لورميد تتصرف تمامًا كما هو متوقع، ما يجعل التوصية بها أمرًا سهلاً.',
     },
     name: { en: 'Community Pharmacist', ar: 'صيدلي مجتمعي' },
     role: { en: 'Independent Pharmacy', ar: 'صيدلية مستقلة' },
@@ -397,7 +397,7 @@ export const testimonials: { quote: Bi; name: Bi; role: Bi }[] = [
   {
     quote: {
       en: 'From documentation to delivery, Loremed operates like a much larger company. They make it straightforward to bring quality products to our market.',
-      ar: 'من التوثيق إلى التسليم، تعمل لوريمد كشركة أكبر بكثير من حجمها. إنهم يجعلون إدخال منتجات عالية الجودة إلى سوقنا أمرًا بسيطًا.',
+      ar: 'من التوثيق إلى التسليم، تعمل لورميد كشركة أكبر بكثير من حجمها. إنهم يجعلون إدخال منتجات عالية الجودة إلى سوقنا أمرًا بسيطًا.',
     },
     name: { en: 'Regional Distribution Partner', ar: 'شريك توزيع إقليمي' },
     role: { en: 'Gulf Healthcare Distributor', ar: 'موزّع رعاية صحية خليجي' },
@@ -418,7 +418,7 @@ export const news: {
     slug: 'pipeline-passes-thirty-formulations',
     date: '2026-05-18',
     category: { en: 'Research & Development', ar: 'البحث والتطوير' },
-    title: { en: 'Loremed pipeline passes thirty formulations', ar: 'خط أبحاث لوريمد يتجاوز ثلاثين تركيبة' },
+    title: { en: 'Loremed pipeline passes thirty formulations', ar: 'خط أبحاث لورميد يتجاوز ثلاثين تركيبة' },
     excerpt: {
       en: 'Our R&D pipeline now spans more than thirty products across six therapeutic areas, from immune support to dermatology.',
       ar: 'يمتد خط أبحاثنا وتطويرنا الآن ليشمل أكثر من ثلاثين منتجًا عبر ستة مجالات علاجية، من دعم المناعة إلى العناية بالبشرة.',
@@ -441,7 +441,7 @@ export const news: {
     title: { en: 'Quality systems reach a new benchmark', ar: 'أنظمة الجودة تبلغ معيارًا جديدًا' },
     excerpt: {
       en: 'Loremed strengthens its GMP-grade quality framework with expanded in-house analytical testing capability.',
-      ar: 'تعزز لوريمد إطار عملها للجودة بمعايير GMP من خلال توسيع قدرات الاختبار التحليلي الداخلية.',
+      ar: 'تعزز لورميد إطار عملها للجودة بمعايير GMP من خلال توسيع قدرات الاختبار التحليلي الداخلية.',
     },
   },
   {
@@ -451,7 +451,7 @@ export const news: {
     title: { en: 'New distribution partnerships across the Gulf', ar: 'شراكات توزيع جديدة في جميع أنحاء الخليج' },
     excerpt: {
       en: 'Fresh agreements extend Loremed’s reach across the GCC, bringing our nutrition range to new communities.',
-      ar: 'تعزز اتفاقيات جديدة حضور لوريمد في دول مجلس التعاون الخليجي، لتصل تشكيلة منتجاتنا الغذائية إلى مجتمعات جديدة.',
+      ar: 'تعزز اتفاقيات جديدة حضور لورميد في دول مجلس التعاون الخليجي، لتصل تشكيلة منتجاتنا الغذائية إلى مجتمعات جديدة.',
     },
   },
 ];
@@ -461,10 +461,10 @@ export const news: {
  *  ------------------------------------------------------------------ */
 export const faqs: { q: Bi; a: Bi }[] = [
   {
-    q: { en: 'Where are Loremed products manufactured?', ar: 'أين تُصنَّع منتجات لوريمد؟' },
+    q: { en: 'Where are Loremed products manufactured?', ar: 'أين تُصنَّع منتجات لورميد؟' },
     a: {
       en: 'Loremed products are produced to GMP-grade standards with documented traceability from raw material to finished pack, and every batch is analytically tested before release.',
-      ar: 'تُنتَج منتجات لوريمد وفق معايير GMP مع تتبّع موثَّق من المادة الخام إلى العبوة النهائية، وتخضع كل دفعة لاختبار تحليلي قبل الإفراج عنها.',
+      ar: 'تُنتَج منتجات لورميد وفق معايير GMP مع تتبّع موثَّق من المادة الخام إلى العبوة النهائية، وتخضع كل دفعة لاختبار تحليلي قبل الإفراج عنها.',
     },
   },
   {
