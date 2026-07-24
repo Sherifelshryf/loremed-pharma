@@ -190,51 +190,62 @@ export function OrderClient() {
             {lines.map((line) => (
               <li
                 key={line.product.slug}
-                className="flex items-center gap-4 rounded-2xl border border-line bg-white p-4 shadow-soft"
+                className="flex gap-3 rounded-2xl border border-line bg-white p-3 shadow-soft sm:gap-4 sm:p-4"
               >
                 <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-neutral-50">
                   {line.product.image && (
                     <Image src={line.product.image} alt={line.product.name} fill className="object-contain p-1.5" sizes="64px" />
                   )}
                 </div>
-                <div className="min-w-0 flex-1">
-                  <Link href={`/products/${line.product.slug}`} className="truncate font-medium text-ink hover:text-primary-800">
-                    {line.product.name}
-                  </Link>
-                  <div className="mt-0.5 text-sm text-ink-muted">
-                    {currency} {line.product.price}
+                {/* Name/remove on top, quantity + line total below — keeps the row from
+                    overflowing on narrow phones (esp. RTL) */}
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0">
+                      <Link
+                        href={`/products/${line.product.slug}`}
+                        className="block truncate font-medium text-ink hover:text-primary-800"
+                      >
+                        {line.product.name}
+                      </Link>
+                      <div className="mt-0.5 text-sm text-ink-muted">
+                        {currency} {line.product.price}
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removeItem(line.product.slug)}
+                      className="-me-1 grid h-8 w-8 shrink-0 place-items-center rounded-full text-ink-muted transition-colors hover:bg-danger-50 hover:text-danger-600"
+                      aria-label={t('order.remove')}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  </div>
+                  <div className="mt-3 flex items-center justify-between gap-2">
+                    <div className="inline-flex shrink-0 items-center rounded-full border border-line">
+                      <button
+                        type="button"
+                        onClick={() => setQuantity(line.product.slug, line.quantity - 1)}
+                        className="grid h-9 w-9 place-items-center text-ink-soft transition-colors hover:text-primary-800"
+                        aria-label={t('order.quantity')}
+                      >
+                        <Minus className="h-3.5 w-3.5" />
+                      </button>
+                      <span className="w-8 text-center text-sm font-semibold text-ink">{line.quantity}</span>
+                      <button
+                        type="button"
+                        onClick={() => setQuantity(line.product.slug, line.quantity + 1)}
+                        className="grid h-9 w-9 place-items-center text-ink-soft transition-colors hover:text-primary-800"
+                        aria-label={t('order.quantity')}
+                      >
+                        <Plus className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                    <div className="font-semibold text-ink">
+                      {currency} {line.lineTotal}
+                    </div>
                   </div>
                 </div>
-                <div className="inline-flex items-center rounded-full border border-line">
-                  <button
-                    type="button"
-                    onClick={() => setQuantity(line.product.slug, line.quantity - 1)}
-                    className="grid h-9 w-9 place-items-center text-ink-soft transition-colors hover:text-primary-800"
-                    aria-label={t('order.quantity')}
-                  >
-                    <Minus className="h-3.5 w-3.5" />
-                  </button>
-                  <span className="w-6 text-center text-sm font-semibold text-ink">{line.quantity}</span>
-                  <button
-                    type="button"
-                    onClick={() => setQuantity(line.product.slug, line.quantity + 1)}
-                    className="grid h-9 w-9 place-items-center text-ink-soft transition-colors hover:text-primary-800"
-                    aria-label={t('order.quantity')}
-                  >
-                    <Plus className="h-3.5 w-3.5" />
-                  </button>
-                </div>
-                <div className="w-20 shrink-0 text-end font-semibold text-ink">
-                  {currency} {line.lineTotal}
-                </div>
-                <button
-                  type="button"
-                  onClick={() => removeItem(line.product.slug)}
-                  className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-ink-muted transition-colors hover:bg-danger-50 hover:text-danger-600"
-                  aria-label={t('order.remove')}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </button>
               </li>
             ))}
           </ul>
