@@ -35,3 +35,6 @@ yarn-error.log*
 /.agents
 /.claude
 skills-lock.json
+
+# generated brag video project (not site code)
+/brag-output
