@@ -30,3 +30,8 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# local Claude Code skill tooling
+/.agents
+/.claude
+skills-lock.json
