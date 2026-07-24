@@ -2,8 +2,9 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Logo } from '@/components/logo/Logo';
+import { LogoMark } from '@/components/logo/Logo';
 import { useI18n } from '@/i18n/LanguageProvider';
+import { cn } from '@/lib/utils';
 
 const SESSION_KEY = 'loremed-intro-seen';
 const MIN_MS = 650; // just enough for the fade to register — not an artificial stall
@@ -12,7 +13,8 @@ const EXIT_MS = 750;
 
 export function LoadingScreen() {
   const reduce = useReducedMotion();
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+  const isAr = locale === 'ar';
   const [visible, setVisible] = useState(true);
   const [removed, setRemoved] = useState(false);
   const [instant, setInstant] = useState(false);
@@ -109,7 +111,8 @@ export function LoadingScreen() {
             animate={reduce ? undefined : { scale: [1, 1.025, 1] }}
             transition={{ duration: 4.4, ease: 'easeInOut', repeat: Infinity }}
           >
-            <Logo orientation="stacked" markClassName="h-[4.5rem]" wordClassName="text-4xl" />
+            {/* h-[4.375rem] = the prior effective h-10 (2.5rem) enlarged 75% */}
+            <LogoMark className="h-[4.375rem] w-auto" />
           </motion.div>
         </motion.div>
 
@@ -127,7 +130,13 @@ export function LoadingScreen() {
               hidden: { opacity: 0, y: reduce ? 0 : 8 },
               show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
             }}
-            className="text-xs font-semibold uppercase tracking-[0.42em] text-ink-muted sm:text-sm"
+            className={cn(
+              'font-semibold text-ink-muted',
+              // sizes bumped 30% from text-xs / sm:text-sm
+              'text-[0.975rem] sm:text-[1.14rem]',
+              // wide Latin letter-spacing shreds connected Arabic script — keep it Latin-only
+              isAr ? 'tracking-normal' : 'uppercase tracking-[0.42em]',
+            )}
           >
             {t('loading.line1')}
           </motion.p>
@@ -136,7 +145,12 @@ export function LoadingScreen() {
               hidden: { opacity: 0, y: reduce ? 0 : 12 },
               show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
             }}
-            className="text-2xl font-extrabold uppercase tracking-[0.16em] text-primary-800 sm:text-[2rem]"
+            className={cn(
+              'font-extrabold text-primary-800',
+              // sizes bumped 30% from text-2xl / sm:text-[2rem]
+              'text-[1.95rem] sm:text-[2.6rem]',
+              isAr ? 'tracking-normal' : 'uppercase tracking-[0.16em]',
+            )}
           >
             <span className="text-gradient">{t('loading.line2')}</span>
           </motion.p>

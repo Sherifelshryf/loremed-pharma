@@ -13,7 +13,7 @@ const copy = {
   titleAccent: { en: 'wider region', ar: 'المنطقة الأوسع' },
   lead: {
     en: 'We build partnerships that carry Loremed quality further — with documentation and registration engineered to open doors across the Middle East and Africa.',
-    ar: 'نبني شراكات تنقل جودة لوريمد إلى أبعد مدى — بتوثيق وتسجيل مصممَين لفتح الأبواب في جميع أنحاء الشرق الأوسط وأفريقيا.',
+    ar: 'نبني شراكات تنقل جودة لورميد إلى أبعد مدى — بتوثيق وتسجيل مصممَين لفتح الأبواب في جميع أنحاء الشرق الأوسط وأفريقيا.',
   },
   cta: { en: 'Become a partner', ar: 'كن شريكًا' },
 };

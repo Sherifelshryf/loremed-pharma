@@ -149,7 +149,7 @@ export const products: Product[] = [
     pack: '100 ml bottle with dosing cup',
     accent: 'purple',
     featured: true,
-    image: '/media/ivylor.png',
+    image: '/media/ivylornew.png',
     price: 160,
     shortDescription:
       'A natural extract syrup combining ivy leaf, black elderberry and black honey with vitamin C and zinc for cough relief.',
@@ -337,7 +337,7 @@ export const products: Product[] = [
     ageGroup: 'Children 3+',
     pack: '150 ml bottle with dosing cup',
     accent: 'purple',
-    image: '/media/coglern.png',
+    image: '/media/coglernnew.png',
     price: 230,
     shortDescription:
       'A children’s syrup with high-strength omega-3 (EPA & DHA) and marigold flower extract to support learning and growth.',

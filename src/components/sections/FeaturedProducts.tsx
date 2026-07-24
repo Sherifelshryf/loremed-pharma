@@ -15,7 +15,7 @@ const copy = {
   titleAccent: { en: 'reach for', ar: 'العائلات' },
   lead: {
     en: 'A cross-section of the Loremed range — from immune and respiratory care to daily essentials and omega nutrition.',
-    ar: 'لمحة عن نطاق منتجات لوريمد — من رعاية المناعة والجهاز التنفسي إلى الأساسيات اليومية وتغذية الأوميغا.',
+    ar: 'لمحة عن نطاق منتجات لورميد — من رعاية المناعة والجهاز التنفسي إلى الأساسيات اليومية وتغذية الأوميغا.',
   },
 };
 
