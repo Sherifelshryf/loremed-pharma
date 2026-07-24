@@ -169,6 +169,14 @@
   .tabular {
     font-variant-numeric: tabular-nums;
   }
+  /* Hide the scrollbar on horizontal chip rows (mobile filter scrollers) */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Content fades in as the loading screen exits (JS-only; no-JS stays visible) */
