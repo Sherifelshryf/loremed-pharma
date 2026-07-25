@@ -34,6 +34,8 @@ export const site = {
   },
   /** Google Maps link to the Loremed HQ pin (used by the contact-page map). */
   mapsUrl: 'https://maps.app.goo.gl/87XziRrbbUxt1NFk7',
+  /** HQ coordinates — power the live embedded map on the contact page. */
+  coordinates: { lat: 30.0934193, lng: 31.3186265 },
   social: {
     facebook: 'https://www.facebook.com/loremedpharma/',
     youtube: 'https://www.youtube.com/',

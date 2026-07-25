@@ -187,32 +187,16 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* branded map panel */}
+            {/* live map panel */}
             <div className="relative min-h-[22rem] overflow-hidden bg-primary-50">
-              <div aria-hidden className="absolute inset-0 bg-grid opacity-60" />
-              <svg viewBox="0 0 500 400" className="absolute inset-0 h-full w-full" aria-hidden fill="none">
-                <path d="M-20 120 C120 90 180 200 340 150 S520 120 540 180" stroke="#B9A9DB" strokeWidth="2" fill="none" />
-                <path d="M-20 240 C140 210 220 300 360 250 S520 240 540 300" stroke="#B9A9DB" strokeWidth="2" fill="none" />
-                <path d="M120 -20 C150 120 90 220 160 360" stroke="#D8CFEC" strokeWidth="2" fill="none" />
-                <path d="M330 -20 C360 140 300 240 380 420" stroke="#D8CFEC" strokeWidth="2" fill="none" />
-              </svg>
-              <a
-                href={site.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View Loremed Pharma on Google Maps"
-                className="absolute inset-0 grid place-items-center"
-              >
-                <div className="group relative flex flex-col items-center">
-                  <span className="absolute -inset-6 animate-breathe rounded-full bg-secondary-500/20 blur-xl" />
-                  <span className="grid h-16 w-16 place-items-center rounded-full bg-secondary-500 text-white shadow-glow-orange transition-transform group-hover:-translate-y-0.5">
-                    <MapPin className="h-8 w-8" />
-                  </span>
-                  <span className="mt-4 rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold text-primary-800 shadow-card">
-                    {site.city}, {site.country}
-                  </span>
-                </div>
-              </a>
+              <iframe
+                title="Loremed Pharma — headquarters location"
+                src={`https://maps.google.com/maps?q=${site.coordinates.lat},${site.coordinates.lng}&z=16&hl=en&output=embed`}
+                className="absolute inset-0 h-full w-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
               <a
                 href={site.mapsUrl}
                 target="_blank"
