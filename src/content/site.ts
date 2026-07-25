@@ -38,7 +38,7 @@ export const site = {
   coordinates: { lat: 30.0934193, lng: 31.3186265 },
   social: {
     facebook: 'https://www.facebook.com/loremedpharma/',
-    youtube: 'https://www.youtube.com/',
+    youtube: 'https://www.youtube.com/channel/UCr8Ll1DsrzHh1JPyyFYHvmA',
     linkedin: 'https://www.linkedin.com/in/loremed-pharma-497361399/',
   },
 } as const;
