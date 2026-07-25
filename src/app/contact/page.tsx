@@ -196,19 +196,25 @@ export default function ContactPage() {
                 <path d="M120 -20 C150 120 90 220 160 360" stroke="#D8CFEC" strokeWidth="2" fill="none" />
                 <path d="M330 -20 C360 140 300 240 380 420" stroke="#D8CFEC" strokeWidth="2" fill="none" />
               </svg>
-              <div className="absolute inset-0 grid place-items-center">
-                <div className="relative flex flex-col items-center">
+              <a
+                href={site.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View Loremed Pharma on Google Maps"
+                className="absolute inset-0 grid place-items-center"
+              >
+                <div className="group relative flex flex-col items-center">
                   <span className="absolute -inset-6 animate-breathe rounded-full bg-secondary-500/20 blur-xl" />
-                  <span className="grid h-16 w-16 place-items-center rounded-full bg-secondary-500 text-white shadow-glow-orange">
+                  <span className="grid h-16 w-16 place-items-center rounded-full bg-secondary-500 text-white shadow-glow-orange transition-transform group-hover:-translate-y-0.5">
                     <MapPin className="h-8 w-8" />
                   </span>
                   <span className="mt-4 rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold text-primary-800 shadow-card">
                     {site.city}, {site.country}
                   </span>
                 </div>
-              </div>
+              </a>
               <a
-                href="https://www.google.com/maps/search/?api=1&query=Cairo%2C+Egypt"
+                href={site.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute bottom-5 end-5 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-medium text-primary-800 shadow-card transition-transform hover:-translate-y-0.5"
