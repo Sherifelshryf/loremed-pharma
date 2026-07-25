@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Minus, Plus, Trash2, MapPin, Send, Check, AlertCircle, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/cart/CartProvider';
 import { useI18n } from '@/i18n/LanguageProvider';
-import type { TranslationKey } from '@/i18n/dictionaries';
+import { dictionaries } from '@/i18n/dictionaries';
 import { site } from '@/content/site';
 import { Container } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
@@ -16,9 +16,13 @@ const copy = {
   paymentValue: { en: 'Cash on Delivery', ar: 'الدفع عند الاستلام' },
 };
 
+// The WhatsApp order message is ALWAYS composed in Arabic, regardless of the
+// language the customer used on the site, so the team receives every order in
+// one consistent format. Product names stay as-is (they're English by design).
+const AR = dictionaries.ar;
+const AR_CURRENCY = site.currency.ar;
+
 function buildWhatsAppMessage({
-  locale,
-  t,
   orderNumber,
   name,
   phone,
@@ -29,10 +33,7 @@ function buildWhatsAppMessage({
   subtotal,
   deliveryFee,
   total,
-  currency,
 }: {
-  locale: 'en' | 'ar';
-  t: (key: TranslationKey) => string;
   orderNumber: string;
   name: string;
   phone: string;
@@ -43,32 +44,31 @@ function buildWhatsAppMessage({
   subtotal: number;
   deliveryFee: number;
   total: number;
-  currency: string;
 }) {
   const lb = '\n';
-  let msg = `🛒 *${t('order.newOrder')} #${orderNumber}*${lb}${lb}`;
-  msg += `👤 *${t('order.messageCustomer')}*${lb}`;
-  msg += `  ${t('order.name')}: ${name}${lb}`;
-  msg += `  ${t('order.phone')}: ${phone}${lb}`;
-  msg += `  ${t('order.address')}: ${address}${lb}`;
+  let msg = `🛒 *${AR['order.newOrder']} #${orderNumber}*${lb}${lb}`;
+  msg += `👤 *${AR['order.messageCustomer']}*${lb}`;
+  msg += `  ${AR['order.name']}: ${name}${lb}`;
+  msg += `  ${AR['order.phone']}: ${phone}${lb}`;
+  msg += `  ${AR['order.address']}: ${address}${lb}`;
   if (notes.trim()) {
-    msg += `  ${t('order.notes')}: ${notes.trim()}${lb}`;
+    msg += `  ${AR['order.notes']}: ${notes.trim()}${lb}`;
   }
   if (locationLink) {
-    msg += `📍 ${t('order.location')}: ${locationLink}${lb}`;
+    msg += `📍 ${AR['order.location']}: ${locationLink}${lb}`;
   }
   msg += lb;
-  msg += `💊 *${t('order.itemsHeading')}*${lb}`;
+  msg += `💊 *${AR['order.itemsHeading']}*${lb}`;
   for (const line of lines) {
-    msg += `  • ${line.product.name} x${line.quantity} = ${currency} ${line.lineTotal}${lb}`;
+    msg += `  • ${line.product.name} x${line.quantity} = ${AR_CURRENCY} ${line.lineTotal}${lb}`;
   }
   msg += lb;
-  msg += `💰 *${t('order.messageTotals')}*${lb}`;
-  msg += `  ${t('order.subtotal')}: ${currency} ${subtotal}${lb}`;
-  msg += `  ${t('order.delivery')}: ${currency} ${deliveryFee}${lb}`;
-  msg += `  *${t('order.total')}: ${currency} ${total}*${lb}${lb}`;
-  msg += `💳 ${t('order.messagePayment')}: ${copy.paymentValue[locale]}${lb}`;
-  msg += `⏱️ ${t('order.messageEta')}: ${t('order.etaValue')}`;
+  msg += `💰 *${AR['order.messageTotals']}*${lb}`;
+  msg += `  ${AR['order.subtotal']}: ${AR_CURRENCY} ${subtotal}${lb}`;
+  msg += `  ${AR['order.delivery']}: ${AR_CURRENCY} ${deliveryFee}${lb}`;
+  msg += `  *${AR['order.total']}: ${AR_CURRENCY} ${total}*${lb}${lb}`;
+  msg += `💳 ${AR['order.messagePayment']}: ${copy.paymentValue.ar}${lb}`;
+  msg += `⏱️ ${AR['order.messageEta']}: ${AR['order.etaValue']}`;
   return msg;
 }
 
@@ -115,8 +115,6 @@ export function OrderClient() {
 
     const orderNumber = String(Math.floor(10000000 + Math.random() * 90000000));
     const message = buildWhatsAppMessage({
-      locale,
-      t,
       orderNumber,
       name: name.trim(),
       phone: phone.trim(),
@@ -127,7 +125,6 @@ export function OrderClient() {
       subtotal,
       deliveryFee,
       total,
-      currency,
     });
 
     window.open(`https://wa.me/${site.orderWhatsAppNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
