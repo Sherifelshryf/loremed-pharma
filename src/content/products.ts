@@ -385,6 +385,35 @@ export const products: Product[] = [
       'Children 6 months – 12 years: 2 to 8 drops daily. Adults: 4 to 10 drops daily, or as advised by a healthcare professional.',
     related: ['smartod', 'vitelormed', 'imulormed'],
   },
+  {
+    slug: 'gotolor',
+    name: 'Gotolor',
+    tagline: 'A step to easier days',
+    category: 'kids-health',
+    status: 'available',
+    form: 'Syrup',
+    ageGroup: 'Infants & children',
+    pack: '100 ml bottle',
+    accent: 'orange',
+    image: '/media/gotolor.png',
+    price: 185,
+    shortDescription:
+      'An alpha-amylase digestive enzyme syrup that soothes sore throat, eases digestion and helps defend against respiratory infections.',
+    description:
+      'Gotolor is a children’s digestive enzyme syrup built around alpha-amylase (200 U.CEIP per ml). Its anti-inflammatory action helps relieve sore throat and reduce swelling — especially after surgery or injury — while the enzyme supports the breakdown of starches for easier carbohydrate digestion. It also helps boost the immune system to prevent and relieve upper respiratory tract infections. A gentle, great-tasting dietary supplement for easier days.',
+    keyIngredients: [
+      { name: 'Alpha-Amylase', note: 'Digestive enzyme — 200 U.CEIP per ml' },
+    ],
+    benefits: [
+      'Helps relieve sore throat and reduce inflammation',
+      'Eases swelling — beneficial post-surgery or injury',
+      'Supports carbohydrate digestion and relieves indigestion',
+      'Boosts immunity against upper respiratory tract infections',
+    ],
+    usage:
+      'Infants & children up to 3 years (15 kg): 5 ml (1 teaspoon, 1000 U.CEIP) three times daily. Children over 3 years (above 15 kg): 10 ml (1 tablespoon, 2000 U.CEIP) three times daily.',
+    related: ['ivylor', 'coglern-syrup', 'imulormed'],
+  },
 ];
 
 export function getProduct(slug: string) {
