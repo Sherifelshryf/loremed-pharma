@@ -74,7 +74,7 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[250] flex items-start justify-center px-4 pt-[12vh]"
+          className="fixed inset-0 z-[250] flex items-start justify-center px-3 pt-[8vh] sm:px-4 sm:pt-[12vh]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -95,14 +95,14 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
             exit={{ opacity: 0, y: -12, scale: 0.98 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="flex items-center gap-3 border-b border-line px-5">
+            <div className="flex items-center gap-3 border-b border-line px-4 sm:px-5">
               <Search className="h-5 w-5 shrink-0 text-ink-muted" aria-hidden />
               <input
                 ref={inputRef}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={t('search.placeholder')}
-                className="h-16 w-full bg-transparent text-lg text-ink outline-none placeholder:text-ink-muted"
+                className="h-14 w-full bg-transparent text-base text-ink outline-none placeholder:text-ink-muted sm:h-16 sm:text-lg"
                 aria-label={t('search.placeholder')}
               />
               <button
@@ -127,7 +127,7 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
                     <Link
                       href={r.href}
                       onClick={onClose}
-                      className="group flex items-center gap-4 rounded-2xl px-4 py-3 transition-colors hover:bg-primary-50"
+                      className="group flex items-center gap-3 rounded-2xl px-3 py-2.5 transition-colors hover:bg-primary-50 sm:gap-4 sm:px-4 sm:py-3"
                     >
                       <span
                         className={cn(
@@ -143,10 +143,11 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
                         <span className="block truncate font-medium text-ink">{r.label}</span>
                         {r.sub && <span className="block truncate text-sm text-ink-muted">{r.sub}</span>}
                       </span>
-                      <span className="text-[0.7rem] font-semibold uppercase tracking-wider text-ink-muted">
+                      {/* Group tag eats width and truncates the tagline on phones — desktop only */}
+                      <span className="hidden shrink-0 text-[0.7rem] font-semibold uppercase tracking-wider text-ink-muted sm:inline">
                         {r.group}
                       </span>
-                      <ArrowUpRight className="h-4 w-4 text-ink-muted opacity-0 transition-opacity group-hover:opacity-100" />
+                      <ArrowUpRight className="hidden h-4 w-4 shrink-0 text-ink-muted opacity-0 transition-opacity group-hover:opacity-100 sm:block" />
                     </Link>
                   </li>
                 ))}

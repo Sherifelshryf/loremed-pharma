@@ -32,7 +32,7 @@ const copy = {
   successTitle: { en: 'Message received', ar: 'تم استلام رسالتك' },
   successBody: {
     en: 'Thank you for reaching out to Loremed. The right team will get back to you shortly.',
-    ar: 'شكرًا لتواصلك مع لوريمد. سيتواصل معك الفريق المعني قريبًا.',
+    ar: 'شكرًا لتواصلك مع لورميد. سيتواصل معك الفريق المعني قريبًا.',
   },
   sendAnother: { en: 'Send another message', ar: 'إرسال رسالة أخرى' },
 };

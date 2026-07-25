@@ -13,7 +13,7 @@ const copy = {
   titleAccent: { en: 'recommend with confidence', ar: 'التوصية به بثقة' },
   lead: {
     en: 'Pharmacists, physicians and specialists rely on Loremed for standardised, transparent formulations — backed by product information whenever they need it.',
-    ar: 'يعتمد الصيادلة والأطباء والأخصائيون على لوريمد لتركيبات موحَّدة وشفافة — مدعومة بمعلومات المنتج متى احتاجوا إليها.',
+    ar: 'يعتمد الصيادلة والأطباء والأخصائيون على لورميد لتركيبات موحَّدة وشفافة — مدعومة بمعلومات المنتج متى احتاجوا إليها.',
   },
   cta: { en: 'Request product information', ar: 'اطلب معلومات المنتج' },
 };

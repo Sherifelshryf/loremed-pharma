@@ -66,8 +66,9 @@ export function ProductCatalogue() {
   return (
     <section className="section pt-4">
       <Container>
-        {/* Toolbar */}
-        <div className="sticky top-20 z-30 -mx-2 mb-8 rounded-3xl border border-line bg-white/85 p-4 shadow-soft backdrop-blur-xl sm:p-5">
+        {/* Toolbar — sticky only from lg up; on mobile it scrolls away so it doesn't
+            pin and eat the screen */}
+        <div className="z-30 -mx-2 mb-8 rounded-3xl border border-line bg-white/85 p-4 shadow-soft backdrop-blur-xl sm:p-5 lg:sticky lg:top-20">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="relative w-full lg:max-w-xs">
               <Search className="pointer-events-none absolute start-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-muted" />
@@ -109,8 +110,9 @@ export function ProductCatalogue() {
             </div>
           </div>
 
-          {/* Category chips */}
-          <div className="mt-4 flex flex-wrap gap-2 border-t border-line pt-4">
+          {/* Category chips — one horizontal-scroll row on mobile (instead of wrapping
+              into several rows); wrap normally from sm up */}
+          <div className="no-scrollbar mt-4 flex gap-2 overflow-x-auto border-t border-line pt-4 sm:flex-wrap sm:overflow-visible">
             <FilterChip active={category === 'all'} onClick={() => setCategory('all')}>
               {copy.allProducts[locale]}
             </FilterChip>
@@ -189,7 +191,7 @@ function FilterChip({
     <button
       onClick={onClick}
       className={cn(
-        'inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all',
+        'inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-all',
         active
           ? 'border-primary-800 bg-primary-800 text-white shadow-sm'
           : 'border-line bg-white text-ink-soft hover:border-primary-300 hover:bg-primary-50 hover:text-primary-800',

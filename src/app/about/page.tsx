@@ -23,7 +23,7 @@ export default function AboutPage() {
     <>
       <JsonLd data={breadcrumbSchema([{ name: 'About', url: '/about' }])} />
       <PageHero
-        eyebrow={<L text={{ en: 'About Loremed', ar: 'عن لوريمد' }} />}
+        eyebrow={<L text={{ en: 'About Loremed', ar: 'عن لورميد' }} />}
         title={
           <>
             <L text={{ en: 'We care about', ar: 'نحن نهتم بـ' }} />{' '}
@@ -34,7 +34,7 @@ export default function AboutPage() {
           <L
             text={{
               en: 'Loremed Pharma pairs pharmaceutical science with genuine human care — building medicines and nutrition that families across the region can trust.',
-              ar: 'تجمع لوريمد فارما بين العلوم الصيدلانية والاهتمام الإنساني الحقيقي — لبناء أدوية وتغذية تثق بها العائلات في جميع أنحاء المنطقة.',
+              ar: 'تجمع لورميد فارما بين العلوم الصيدلانية والاهتمام الإنساني الحقيقي — لبناء أدوية وتغذية تثق بها العائلات في جميع أنحاء المنطقة.',
             }}
           />
         }
@@ -143,7 +143,7 @@ export default function AboutPage() {
               <L
                 text={{
                   en: 'A young company moving with purpose — here’s how Loremed has grown.',
-                  ar: 'شركة فتية تتحرك بهدف واضح — إليك كيف نمت لوريمد.',
+                  ar: 'شركة فتية تتحرك بهدف واضح — إليك كيف نمت لورميد.',
                 }}
               />
             }
@@ -180,7 +180,7 @@ export default function AboutPage() {
         <Container>
           <SectionHeading
             eyebrow={<L text={{ en: 'Leadership', ar: 'القيادة' }} />}
-            title={<L text={{ en: 'The people behind Loremed', ar: 'الأشخاص وراء لوريمد' }} />}
+            title={<L text={{ en: 'The people behind Loremed', ar: 'الأشخاص وراء لورميد' }} />}
             lead={
               <L
                 text={{
@@ -209,7 +209,7 @@ export default function AboutPage() {
             <L
               text={{
                 en: 'Loremed’s leadership structure. For media or partnership enquiries, contact us at',
-                ar: 'الهيكل القيادي للوريمد. لاستفسارات الإعلام أو الشراكة، تواصل معنا عبر',
+                ar: 'الهيكل القيادي للورميد. لاستفسارات الإعلام أو الشراكة، تواصل معنا عبر',
               }}
             />{' '}
             <a href={`mailto:${site.email}`} className="text-primary-700 underline-offset-2 hover:underline">

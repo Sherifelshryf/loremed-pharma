@@ -21,7 +21,7 @@ const copy = {
     en: 'strong — a deliberate, quality-led expansion across six therapeutic areas.',
     ar: 'تركيبة — توسّع مدروس وقائم على الجودة عبر ستة مجالات علاجية.',
   },
-  cta: { en: 'About Loremed', ar: 'عن لوريمد' },
+  cta: { en: 'About Loremed', ar: 'عن لورميد' },
 };
 
 const highlights = [

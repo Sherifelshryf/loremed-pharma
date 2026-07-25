@@ -24,6 +24,14 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  /* Decorative blurs/watermarks bleed past the right edge by design; without this
+     they widen the scrollable area and make mobile browsers zoom the whole page
+     out. `clip` (not `hidden`) contains that bleed without breaking position:sticky. */
+  html,
+  body {
+    overflow-x: clip;
+  }
+
   html.lenis,
   html.lenis body {
     height: auto;
@@ -160,6 +168,14 @@
   /* Logical padding that flips for RTL is handled by Tailwind ps-/pe- utilities */
   .tabular {
     font-variant-numeric: tabular-nums;
+  }
+  /* Hide the scrollbar on horizontal chip rows (mobile filter scrollers) */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 

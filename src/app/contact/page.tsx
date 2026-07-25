@@ -39,7 +39,7 @@ const departments = [
   {
     icon: Users,
     name: { en: 'Human Resources', ar: 'الموارد البشرية' },
-    body: { en: 'Careers, applications and joining the Loremed team.', ar: 'الوظائف والطلبات والانضمام إلى فريق لوريمد.' },
+    body: { en: 'Careers, applications and joining the Loremed team.', ar: 'الوظائف والطلبات والانضمام إلى فريق لورميد.' },
     email: 'careers@loremedpharma.com',
   },
   {
@@ -98,7 +98,7 @@ export default function ContactPage() {
 
               <div className="mt-8">
                 <p className="text-sm font-semibold uppercase tracking-wider text-ink-muted">
-                  <L text={{ en: 'Follow Loremed', ar: 'تابعوا لوريمد' }} />
+                  <L text={{ en: 'Follow Loremed', ar: 'تابعوا لورميد' }} />
                 </p>
                 <div className="mt-3 flex gap-2">
                   {socials.map((s) => (
@@ -172,7 +172,7 @@ export default function ContactPage() {
                 <L
                   text={{
                     en: `Loremed Pharma is proudly headquartered in ${site.city}, ${site.country} — with partnerships reaching across the Middle East and Africa.`,
-                    ar: `يقع المقر الرئيسي لشركة لوريمد فارما بفخر في ${site.city}, ${site.country} — مع شراكات تمتد في جميع أنحاء الشرق الأوسط وأفريقيا.`,
+                    ar: `يقع المقر الرئيسي لشركة لورميد فارما بفخر في ${site.city}, ${site.country} — مع شراكات تمتد في جميع أنحاء الشرق الأوسط وأفريقيا.`,
                   }}
                 />
               </p>

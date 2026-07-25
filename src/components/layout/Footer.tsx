@@ -53,7 +53,7 @@ export function Footer() {
             {subscribed ? (
               <div className="flex items-center gap-3 rounded-full border border-success-500/40 bg-success-500/10 px-6 py-4 text-sm font-medium text-success-100">
                 <Check className="h-5 w-5 text-success-500" />
-                {locale === 'ar' ? 'أنت مشترك الآن — مرحبًا بك في لوريمد.' : 'You’re subscribed — welcome to Loremed.'}
+                {locale === 'ar' ? 'أنت مشترك الآن — مرحبًا بك في لورميد.' : 'You’re subscribed — welcome to Loremed.'}
               </div>
             ) : (
               <div className="flex flex-col gap-3 sm:flex-row">
