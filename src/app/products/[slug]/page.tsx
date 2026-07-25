@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/Button';
 import { ProductVisual, ProductCard } from '@/components/ui/ProductCard';
 import { categoryIcons } from '@/components/ui/categoryIcons';
 import { AddToCartBox } from '@/components/sections/AddToCartBox';
+import { ProductVideo } from '@/components/sections/ProductVideo';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/motion';
 import { GridField, GradientOrb } from '@/components/graphics/BrandBackdrop';
 import { L } from '@/i18n/Localized';
@@ -137,6 +138,9 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
           </div>
         </Container>
       </section>
+
+      {/* Product video */}
+      {product.youtubeId && <ProductVideo youtubeId={product.youtubeId} name={product.name} />}
 
       {/* Ingredients + benefits */}
       <section className="section pt-0">

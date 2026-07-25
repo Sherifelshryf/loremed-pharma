@@ -42,6 +42,9 @@ export type Product = {
   image?: string;
   /** Price in EGP. Placeholder pricing — update with real prices before launch. */
   price: number;
+  /** YouTube video ID (the part after watch?v=). When set, an embedded player
+   *  is shown on the product detail page. */
+  youtubeId?: string;
 };
 
 export const categories: {
