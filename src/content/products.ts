@@ -154,7 +154,7 @@ export const products: Product[] = [
     accent: 'purple',
     featured: true,
     image: '/media/ivylornew.png',
-    price: 160,
+    price: 80,
     shortDescription:
       'A natural extract syrup combining ivy leaf, black elderberry and black honey with vitamin C and zinc for cough relief.',
     description:
@@ -187,7 +187,7 @@ export const products: Product[] = [
     accent: 'purple',
     featured: true,
     image: '/media/Vitelormed.jpg',
-    price: 210,
+    price: 185,
     shortDescription:
       'A comprehensive multivitamin and multimineral syrup for the growth and development the whole family needs.',
     description:
@@ -242,7 +242,7 @@ export const products: Product[] = [
   {
     slug: 'smartod',
     youtubeId: 'DhuSZbBJBMY',
-    name: 'Smartod',
+    name: 'Smartod for kids 30ml',
     tagline: 'Pure omega-3 for heart & mind',
     category: 'omega-brain',
     status: 'available',
@@ -252,7 +252,7 @@ export const products: Product[] = [
     accent: 'orange',
     featured: true,
     image: '/media/smartodkids.png',
-    price: 240,
+    price: 165,
     shortDescription:
       'DHA, vitamin E and vitamin D drops for early brain health, immunity and healthy growth.',
     description:
@@ -284,7 +284,7 @@ export const products: Product[] = [
     pack: '200 ml bottle',
     accent: 'purple',
     image: '/media/welcaderm.png',
-    price: 195,
+    price: 95,
     shortDescription:
       'A dermatologically-guided moisturising lotion that soothes and rebuilds dry, sensitive skin.',
     description:
@@ -315,7 +315,7 @@ export const products: Product[] = [
     pack: '120 ml bottle with dosing cup',
     accent: 'orange',
     image: '/media/ivyloradvance.png',
-    price: 190,
+    price: 65,
     shortDescription:
       'A next-generation ivy leaf, licorice and thyme syrup that supports respiratory system health.',
     description:
@@ -347,7 +347,7 @@ export const products: Product[] = [
     pack: '150 ml bottle with dosing cup',
     accent: 'purple',
     image: '/media/coglernnew.png',
-    price: 230,
+    price: 300,
     shortDescription:
       'A children’s syrup with high-strength omega-3 (EPA & DHA) and marigold flower extract to support learning and growth.',
     description:
@@ -369,7 +369,7 @@ export const products: Product[] = [
   {
     slug: 'smartod-d',
     youtubeId: 'R--0km-crJM',
-    name: 'Smartod D',
+    name: 'Smartod D 15ml',
     tagline: 'Vitamin D3, drop by drop',
     category: 'vitamins-minerals',
     status: 'available',
@@ -378,7 +378,7 @@ export const products: Product[] = [
     pack: 'Dropper bottle',
     accent: 'orange',
     image: '/media/smartodd.png',
-    price: 170,
+    price: 85,
     shortDescription:
       'A vitamin D3 drop formula that supports bone and immune health from six months of age.',
     description:
@@ -407,7 +407,7 @@ export const products: Product[] = [
     pack: '100 ml bottle',
     accent: 'orange',
     image: '/media/gotolor.png',
-    price: 185,
+    price: 90,
     shortDescription:
       'An alpha-amylase digestive enzyme syrup that soothes sore throat, eases digestion and helps defend against respiratory infections.',
     description:
