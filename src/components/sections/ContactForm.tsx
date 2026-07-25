@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Send, AlertCircle } from 'lucide-react';
 import { useRef, useState, type FormEvent } from 'react';
 import { useI18n } from '@/i18n/LanguageProvider';
+import { site } from '@/content/site';
 import { cn } from '@/lib/utils';
 
 const departments = [
@@ -29,10 +30,10 @@ const copy = {
   subjectPlaceholder: { en: 'How can we help?', ar: 'كيف يمكننا مساعدتك؟' },
   messagePlaceholder: { en: 'Tell us a little about your enquiry…', ar: 'أخبرنا قليلاً عن استفسارك…' },
   requiredSuffix: { en: 'fields.', ar: 'حقول إلزامية.' },
-  successTitle: { en: 'Message received', ar: 'تم استلام رسالتك' },
+  successTitle: { en: 'Your email is ready', ar: 'بريدك الإلكتروني جاهز' },
   successBody: {
-    en: 'Thank you for reaching out to Loremed. The right team will get back to you shortly.',
-    ar: 'شكرًا لتواصلك مع لورميد. سيتواصل معك الفريق المعني قريبًا.',
+    en: `We've opened your email app with the message pre-filled — just press send and it will reach the Loremed team. If nothing opened, email us directly at ${site.email}.`,
+    ar: `لقد فتحنا تطبيق البريد لديك والرسالة معبأة مسبقًا — فقط اضغط إرسال وستصل إلى فريق لورميد. إذا لم يفتح شيء، راسلنا مباشرة على ${site.email}.`,
   },
   sendAnother: { en: 'Send another message', ar: 'إرسال رسالة أخرى' },
 };
@@ -64,6 +65,28 @@ export function ContactForm() {
       (formRef.current?.querySelector(`[name="${first}"]`) as HTMLElement | null)?.focus();
       return;
     }
+
+    const name = String(data.get('name') || '').trim();
+    const email = String(data.get('email') || '').trim();
+    const phone = String(data.get('phone') || '').trim();
+    const department = String(data.get('department') || '').trim();
+    const subject = String(data.get('subject') || '').trim();
+    const message = String(data.get('message') || '').trim();
+
+    const mailSubject = subject ? `${subject} — ${department}` : `Website enquiry — ${department}`;
+    const bodyLines = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      ...(phone ? [`Phone: ${phone}`] : []),
+      `Department: ${department}`,
+      '',
+      message,
+    ];
+    const href = `mailto:${site.email}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(
+      bodyLines.join('\n'),
+    )}`;
+    window.location.href = href;
+
     setSubmitted(true);
   }
 
