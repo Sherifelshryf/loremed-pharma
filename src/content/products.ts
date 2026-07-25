@@ -42,6 +42,9 @@ export type Product = {
   image?: string;
   /** Price in EGP. Placeholder pricing — update with real prices before launch. */
   price: number;
+  /** YouTube video ID (the part after watch?v=). When set, an embedded player
+   *  is shown on the product detail page. */
+  youtubeId?: string;
 };
 
 export const categories: {
@@ -140,6 +143,7 @@ export const products: Product[] = [
   },
   {
     slug: 'ivylor',
+    youtubeId: 'AttkQ_uo1DY',
     name: 'Ivylor',
     tagline: 'Breathe easier, naturally',
     category: 'respiratory-care',
@@ -172,6 +176,7 @@ export const products: Product[] = [
   },
   {
     slug: 'vitelormed',
+    youtubeId: 'd_kyUQSb5NM',
     name: 'Vitelormed',
     tagline: 'Complete daily vitality',
     category: 'vitamins-minerals',
@@ -236,6 +241,7 @@ export const products: Product[] = [
   },
   {
     slug: 'smartod',
+    youtubeId: 'DhuSZbBJBMY',
     name: 'Smartod',
     tagline: 'Pure omega-3 for heart & mind',
     category: 'omega-brain',
@@ -267,6 +273,7 @@ export const products: Product[] = [
   },
   {
     slug: 'welcaderm-lotion',
+    youtubeId: 'uklJ3AK7xB8',
     name: 'Welcaderm Lotion',
     tagline: 'Restore the skin barrier',
     category: 'dermatology',
@@ -298,6 +305,7 @@ export const products: Product[] = [
   },
   {
     slug: 'ivylor-advance',
+    youtubeId: 'Enqmj8qD0UU',
     name: 'Ivylor Advance',
     tagline: 'Extended respiratory support',
     category: 'respiratory-care',
@@ -329,6 +337,7 @@ export const products: Product[] = [
   },
   {
     slug: 'coglern-syrup',
+    youtubeId: 'HYnY3uAEvaY',
     name: 'Coglern Syrup',
     tagline: 'Focus & growth for young minds',
     category: 'kids-health',
@@ -359,6 +368,7 @@ export const products: Product[] = [
   },
   {
     slug: 'smartod-d',
+    youtubeId: 'R--0km-crJM',
     name: 'Smartod D',
     tagline: 'Vitamin D3, drop by drop',
     category: 'vitamins-minerals',
@@ -387,6 +397,7 @@ export const products: Product[] = [
   },
   {
     slug: 'gotolor',
+    youtubeId: 'xALva2RDJXQ',
     name: 'Gotolor',
     tagline: 'A step to easier days',
     category: 'kids-health',
