@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ShieldCheck, Leaf, FlaskConical, Sparkles } from 'lucide-react';
 import { useI18n } from '@/i18n/LanguageProvider';
 import { Button } from '@/components/ui/Button';
@@ -8,6 +8,7 @@ import { Container, Eyebrow } from '@/components/ui/Section';
 import { Magnetic, Counter } from '@/components/ui/motion';
 import { LogoBloom, GradientOrb, Molecule, GridField } from '@/components/graphics/BrandBackdrop';
 import { cn } from '@/lib/utils';
+import { useSafeReducedMotion } from '@/lib/useSafeReducedMotion';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -23,7 +24,7 @@ const copy = {
 
 export function Hero() {
   const { locale, t } = useI18n();
-  const reduce = useReducedMotion();
+  const reduce = useSafeReducedMotion();
 
   const fadeUp = (delay: number) => ({
     initial: reduce ? { opacity: 0 } : { opacity: 0, y: 24 },

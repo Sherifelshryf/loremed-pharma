@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Quote, ArrowLeft, ArrowRight } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { testimonials } from '@/content/company';
@@ -8,6 +8,7 @@ import { Container, Eyebrow } from '@/components/ui/Section';
 import { Reveal } from '@/components/ui/motion';
 import { useI18n } from '@/i18n/LanguageProvider';
 import { cn } from '@/lib/utils';
+import { useSafeReducedMotion } from '@/lib/useSafeReducedMotion';
 
 const copy = {
   eyebrow: { en: 'Voices from the field', ar: 'أصوات من الميدان' },
@@ -18,7 +19,7 @@ const copy = {
 
 export function Testimonials() {
   const { locale } = useI18n();
-  const reduce = useReducedMotion();
+  const reduce = useSafeReducedMotion();
   const [index, setIndex] = useState(0);
   const [dir, setDir] = useState(1);
   const [paused, setPaused] = useState(false);

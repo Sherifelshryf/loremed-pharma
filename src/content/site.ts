@@ -20,10 +20,10 @@ export const site = {
   country: 'Egypt',
   city: 'Cairo',
   email: 'info@loremedpharma.com',
-  phoneDisplay: '+20 (0) 000 000 000',
-  phone: '+200000000000',
+  phoneDisplay: '+20 101 164 4300',
+  phone: '+201011644300',
   /** WhatsApp number orders are sent to, digits only (no +), for wa.me links. */
-  orderWhatsAppNumber: '201055999630',
+  orderWhatsAppNumber: '201011644300',
   deliveryFee: 30,
   currency: { en: 'EGP', ar: 'ج.م' } as Bi,
   address: {
