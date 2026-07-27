@@ -4,7 +4,6 @@ import {
   motion,
   useInView,
   useMotionValue,
-  useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
@@ -12,6 +11,7 @@ import {
 } from 'framer-motion';
 import { useRef, type ReactNode } from 'react';
 import { cn } from '@/lib/utils';
+import { useSafeReducedMotion } from '@/lib/useSafeReducedMotion';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -31,7 +31,7 @@ export function Reveal({
   once?: boolean;
   as?: 'div' | 'section' | 'span' | 'li' | 'article';
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useSafeReducedMotion();
   const MotionTag = motion[as] as typeof motion.div;
   return (
     <MotionTag
@@ -85,7 +85,7 @@ export function StaggerItem({
   children: ReactNode;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useSafeReducedMotion();
   return (
     <motion.div className={className} variants={reduce ? undefined : staggerChild}>
       {children}
@@ -103,7 +103,7 @@ export function Magnetic({
   className?: string;
   strength?: number;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useSafeReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -148,7 +148,7 @@ export function Counter({
   className?: string;
   duration?: number;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useSafeReducedMotion();
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: '-40px' });
 
@@ -190,7 +190,7 @@ export function Parallax({
   className?: string;
   distance?: number;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useSafeReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,

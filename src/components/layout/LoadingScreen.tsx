@@ -1,10 +1,11 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { LogoMark } from '@/components/logo/Logo';
 import { useI18n } from '@/i18n/LanguageProvider';
 import { cn } from '@/lib/utils';
+import { useSafeReducedMotion } from '@/lib/useSafeReducedMotion';
 
 const SESSION_KEY = 'loremed-intro-seen';
 const MIN_MS = 650; // just enough for the fade to register — not an artificial stall
@@ -12,7 +13,7 @@ const MAX_MS = 2000; // hard ceiling per brief
 const EXIT_MS = 750;
 
 export function LoadingScreen() {
-  const reduce = useReducedMotion();
+  const reduce = useSafeReducedMotion();
   const { t, locale } = useI18n();
   const isAr = locale === 'ar';
   const [visible, setVisible] = useState(true);
