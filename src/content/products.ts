@@ -382,6 +382,9 @@ export const products: Product[] = [
   {
     slug: 'smartod-d',
     youtubeId: 'R--0km-crJM',
+    // Dosed from 6 months, so it belongs under Kids Health alongside its
+    // primary Vitamins & Minerals category.
+    secondaryCategories: ['kids-health'],
     name: 'Smartod D 15ml',
     tagline: 'Vitamin D3, drop by drop',
     category: 'vitamins-minerals',
