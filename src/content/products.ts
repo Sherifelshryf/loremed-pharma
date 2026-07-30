@@ -125,7 +125,7 @@ export const products: Product[] = [
     ageGroup: 'Infants & children 3 months – 5 years',
     pack: 'Dropper bottle with measuring guide',
     accent: 'orange',
-    image: '/media/Imulormed.jpg',
+    image: '/media/Imulormed.webp',
     price: 180,
     shortDescription:
       'A botanical immune formula combining elderberry extract with vitamin C, zinc, folic acid and vitamin B12.',
@@ -160,7 +160,7 @@ export const products: Product[] = [
     pack: '100 ml bottle with dosing cup',
     accent: 'purple',
     featured: true,
-    image: '/media/ivylornew.png',
+    image: '/media/ivylornew.webp',
     price: 80,
     shortDescription:
       'A natural extract syrup combining ivy leaf, black elderberry and black honey with vitamin C and zinc for cough relief.',
@@ -193,7 +193,7 @@ export const products: Product[] = [
     pack: '100 ml bottle',
     accent: 'purple',
     featured: true,
-    image: '/media/Vitelormed.jpg',
+    image: '/media/Vitelormed.webp',
     price: 185,
     shortDescription:
       'A 12-vitamin, 5-mineral syrup with L-lysine that improves appetite and immunity and supports maximum growth and development.',
@@ -225,7 +225,7 @@ export const products: Product[] = [
     ageGroup: 'Infants & children 3 months – 5 years',
     pack: 'Dropper bottle',
     accent: 'orange',
-    image: '/media/Ferolormed.jpg',
+    image: '/media/Ferolormed.webp',
     price: 150,
     shortDescription:
       'A well-tolerated iron formula with folate and vitamin C to support healthy red blood cell production.',
@@ -261,7 +261,7 @@ export const products: Product[] = [
     pack: '30 ml dropper bottle',
     accent: 'orange',
     featured: true,
-    image: '/media/smartodkids.png',
+    image: '/media/smartodkids.webp',
     price: 165,
     shortDescription:
       'DHA, vitamin E and vitamin D drops for early brain health, immunity and healthy growth.',
@@ -293,7 +293,7 @@ export const products: Product[] = [
     ageGroup: 'All ages',
     pack: '200 ml bottle',
     accent: 'purple',
-    image: '/media/welcaderm.png',
+    image: '/media/welcaderm.webp',
     price: 95,
     shortDescription:
       'A dermatologically-guided moisturising lotion that soothes and rebuilds dry, sensitive skin.',
@@ -324,7 +324,7 @@ export const products: Product[] = [
     ageGroup: 'Infants, children & adults',
     pack: '30 ml bottle',
     accent: 'orange',
-    image: '/media/ivyloradvance.png',
+    image: '/media/ivyloradvance.webp',
     price: 65,
     shortDescription:
       'An orange-flavoured ivy leaf, thyme and licorice cough syrup for paediatric and adult use, supporting respiratory system health.',
@@ -359,7 +359,7 @@ export const products: Product[] = [
     ageGroup: 'Children 3+',
     pack: '150 ml bottle with dosing cup',
     accent: 'purple',
-    image: '/media/coglernnew.png',
+    image: '/media/coglernnew.webp',
     price: 300,
     shortDescription:
       'A children’s syrup with high-strength omega-3 (EPA & DHA) and marigold flower extract to support learning and growth.',
@@ -393,7 +393,7 @@ export const products: Product[] = [
     ageGroup: '6 months & above',
     pack: '15 ml dropper bottle',
     accent: 'orange',
-    image: '/media/smartodd.png',
+    image: '/media/smartodd.webp',
     price: 85,
     shortDescription:
       'A vitamin D3 drop formula that supports bone and immune health from six months of age.',
@@ -422,7 +422,7 @@ export const products: Product[] = [
     ageGroup: 'Infants & children',
     pack: '100 ml bottle',
     accent: 'orange',
-    image: '/media/gotolor.png',
+    image: '/media/gotolor.webp',
     price: 90,
     shortDescription:
       'An alpha-amylase digestive enzyme syrup that soothes sore throat, eases digestion and helps defend against respiratory infections.',
