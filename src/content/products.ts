@@ -241,7 +241,7 @@ export const products: Product[] = [
   },
   {
     slug: 'smartod',
-    youtubeId: 'DhuSZbBJBMY',
+    youtubeId: 'ttFUNOaUUKo',
     name: 'Smartod for kids 30ml',
     tagline: 'Pure omega-3 for heart & mind',
     category: 'omega-brain',
@@ -397,7 +397,7 @@ export const products: Product[] = [
   },
   {
     slug: 'gotolor',
-    youtubeId: 'xALva2RDJXQ',
+    youtubeId: '9gBnA-kvZLo',
     name: 'Gotolor',
     tagline: 'A step to easier days',
     category: 'kids-health',
