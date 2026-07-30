@@ -27,6 +27,13 @@ export type Product = {
   name: string;
   tagline: string;
   category: ProductCategory;
+  /**
+   * Extra categories this product should also surface under when filtering.
+   * `category` stays the single one shown on cards and detail pages; these only
+   * widen the catalogue filter, for products that genuinely belong in more than
+   * one place (e.g. a children's syrup whose actives are omega-3).
+   */
+  secondaryCategories?: ProductCategory[];
   status: ProductStatus;
   form: string;
   ageGroup: string;
@@ -338,6 +345,9 @@ export const products: Product[] = [
   {
     slug: 'coglern-syrup',
     youtubeId: 'HYnY3uAEvaY',
+    // Highest omega-3 content in the range (EPA 718.2 mg + DHA 448.9 mg per
+    // 5 ml), so it belongs under Omega & Brain Health as well as Kids Health.
+    secondaryCategories: ['omega-brain'],
     name: 'Coglern Syrup',
     tagline: 'Focus & growth for young minds',
     category: 'kids-health',
