@@ -70,6 +70,7 @@ export const dictionaries = {
       'You’ll be redirected to WhatsApp with your order details ready — tap “Send” there to complete it. Your order only reaches us once that message is sent.',
     'order.followUpNote':
       'One of our team will contact you within 15–30 minutes to confirm your order. If no one reaches you, please call us on:',
+    'order.reopenWhatsApp': 'WhatsApp didn’t open? Send your order here',
     'order.errorName': 'Please enter your name.',
     'order.errorPhone': 'Please enter your phone number.',
     'order.errorAddress': 'Please enter your delivery address.',
@@ -178,6 +179,7 @@ export const dictionaries = {
       'سيتم تحويلك إلى واتساب مع تفاصيل طلبك جاهزة — اضغط «إرسال» هناك لإتمامه. لا يصلنا طلبك إلا بعد إرسال تلك الرسالة.',
     'order.followUpNote':
       'سيتواصل معك أحد أفراد فريقنا خلال 15–30 دقيقة لتأكيد طلبك. إذا لم يتواصل معك أحد، يُرجى الاتصال بنا على:',
+    'order.reopenWhatsApp': 'لم يفتح واتساب؟ أرسل طلبك من هنا',
     'order.errorName': 'يرجى إدخال اسمك.',
     'order.errorPhone': 'يرجى إدخال رقم هاتفك.',
     'order.errorAddress': 'يرجى إدخال عنوان التوصيل.',
