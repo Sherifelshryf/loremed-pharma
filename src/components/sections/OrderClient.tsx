@@ -46,8 +46,8 @@ function buildWhatsAppMessage({
   total: number;
 }) {
   const lb = '\n';
-  let msg = `🛒 *${AR['order.newOrder']} #${orderNumber}*${lb}${lb}`;
-  msg += `👤 *${AR['order.messageCustomer']}*${lb}`;
+  let msg = `*${AR['order.newOrder']} #${orderNumber}*${lb}${lb}`;
+  msg += `*${AR['order.messageCustomer']}*${lb}`;
   msg += `  ${AR['order.name']}: ${name}${lb}`;
   msg += `  ${AR['order.phone']}: ${phone}${lb}`;
   msg += `  ${AR['order.address']}: ${address}${lb}`;
@@ -55,21 +55,27 @@ function buildWhatsAppMessage({
     msg += `  ${AR['order.notes']}: ${notes.trim()}${lb}`;
   }
   if (locationLink) {
-    msg += `📍 ${AR['order.location']}: ${locationLink}${lb}`;
+    msg += `  ${AR['order.location']}: ${locationLink}${lb}`;
   }
   msg += lb;
-  msg += `💊 *${AR['order.itemsHeading']}*${lb}`;
+  msg += `*${AR['order.itemsHeading']}*${lb}`;
   for (const line of lines) {
     msg += `  • ${line.product.name} x${line.quantity} = ${AR_CURRENCY} ${line.lineTotal}${lb}`;
   }
   msg += lb;
-  msg += `💰 *${AR['order.messageTotals']}*${lb}`;
+  msg += `*${AR['order.messageTotals']}*${lb}`;
   msg += `  ${AR['order.subtotal']}: ${AR_CURRENCY} ${subtotal}${lb}`;
   msg += `  ${AR['order.delivery']}: ${AR_CURRENCY} ${deliveryFee}${lb}`;
   msg += `  *${AR['order.total']}: ${AR_CURRENCY} ${total}*${lb}${lb}`;
-  msg += `💳 ${AR['order.messagePayment']}: ${copy.paymentValue.ar}${lb}`;
-  msg += `⏱️ ${AR['order.messageEta']}: ${AR['order.etaValue']}`;
-  return msg;
+  msg += `${AR['order.messagePayment']}: ${copy.paymentValue.ar}${lb}`;
+  msg += `${AR['order.messageEta']}: ${AR['order.etaValue']}`;
+
+  // Guard rail: astral-plane characters (emoji, U+10000 and above) arrive
+  // corrupted as U+FFFD in the delivered WhatsApp message, so the message is
+  // kept to the Basic Multilingual Plane. Bold markers and the • bullet are
+  // BMP and come through intact. Strip anything astral that reaches this point
+  // via product names or customer input rather than shipping mojibake.
+  return msg.replace(/[\u{10000}-\u{10FFFF}]/gu, '');
 }
 
 export function OrderClient() {
