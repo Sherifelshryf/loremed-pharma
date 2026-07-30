@@ -66,7 +66,10 @@ export const dictionaries = {
     'order.paymentMethod': 'Payment method',
     'order.cashOnDelivery': 'Cash on Delivery',
     'order.placeOrder': 'Place order via WhatsApp',
-    'order.placeOrderHint': 'This opens WhatsApp with your order details ready to send.',
+    'order.placeOrderHint':
+      'You’ll be redirected to WhatsApp with your order details ready — tap “Send” there to complete it. Your order only reaches us once that message is sent.',
+    'order.followUpNote':
+      'One of our team will contact you within 15–30 minutes to confirm your order. If no one reaches you, please call us on:',
     'order.errorName': 'Please enter your name.',
     'order.errorPhone': 'Please enter your phone number.',
     'order.errorAddress': 'Please enter your delivery address.',
@@ -78,7 +81,7 @@ export const dictionaries = {
     'order.messageEta': 'Estimated delivery',
     'order.etaValue': '24–48 hours',
     'order.successTitle': 'Order sent',
-    'order.successBody': 'We opened WhatsApp with your order ready to send — just hit send there to confirm it with our team.',
+    'order.successBody': 'We’ve redirected you to WhatsApp with your order ready — please tap “Send” there to confirm it. Your order only reaches us once that message is sent.',
 
     'search.placeholder': 'Search products, science, quality…',
     'search.title': 'Search Loremed',
@@ -171,7 +174,10 @@ export const dictionaries = {
     'order.paymentMethod': 'طريقة الدفع',
     'order.cashOnDelivery': 'الدفع عند الاستلام',
     'order.placeOrder': 'إرسال الطلب عبر واتساب',
-    'order.placeOrderHint': 'سيؤدي هذا إلى فتح واتساب مع تفاصيل طلبك جاهزة للإرسال.',
+    'order.placeOrderHint':
+      'سيتم تحويلك إلى واتساب مع تفاصيل طلبك جاهزة — اضغط «إرسال» هناك لإتمامه. لا يصلنا طلبك إلا بعد إرسال تلك الرسالة.',
+    'order.followUpNote':
+      'سيتواصل معك أحد أفراد فريقنا خلال 15–30 دقيقة لتأكيد طلبك. إذا لم يتواصل معك أحد، يُرجى الاتصال بنا على:',
     'order.errorName': 'يرجى إدخال اسمك.',
     'order.errorPhone': 'يرجى إدخال رقم هاتفك.',
     'order.errorAddress': 'يرجى إدخال عنوان التوصيل.',
@@ -183,7 +189,7 @@ export const dictionaries = {
     'order.messageEta': 'موعد التوصيل المتوقع',
     'order.etaValue': '24–48 ساعة',
     'order.successTitle': 'تم إرسال الطلب',
-    'order.successBody': 'فتحنا واتساب مع طلبك جاهزًا للإرسال — فقط اضغط إرسال هناك لتأكيده مع فريقنا.',
+    'order.successBody': 'تم تحويلك إلى واتساب مع طلبك جاهزًا — يُرجى الضغط على «إرسال» هناك لتأكيده. لا يصلنا طلبك إلا بعد إرسال تلك الرسالة.',
 
     'search.placeholder': 'ابحث في المنتجات والعلوم والجودة…',
     'search.title': 'ابحث في لورميد',

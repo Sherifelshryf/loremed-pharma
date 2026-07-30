@@ -24,6 +24,8 @@ export const site = {
   phone: '+201011644300',
   /** WhatsApp number orders are sent to, digits only (no +), for wa.me links. */
   orderWhatsAppNumber: '201011644300',
+  /** Same number, human-readable — shown to customers as the order follow-up line. */
+  orderWhatsAppDisplay: '+20 101 164 4300',
   deliveryFee: 30,
   currency: { en: 'EGP', ar: 'ج.م' } as Bi,
   address: {
