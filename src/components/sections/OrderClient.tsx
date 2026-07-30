@@ -40,9 +40,18 @@ const INVOICE = {
 };
 
 /** Shown both on the checkout summary and in the WhatsApp invoice — keep in sync. */
-const PAYMENT_METHOD = { en: 'InstaPay', ar: 'إنستا باي (InstaPay)' };
+const PAYMENT_METHOD = { en: 'Cash on Delivery', ar: 'الدفع عند الاستلام' };
 
 const RULE = '━━━━━━━━━━━━━━';
+
+/**
+ * Product names on the invoice drop the pack size that the catalogue carries
+ * for disambiguation ("Smartod for kids 30ml" → "Smartod for kids"). The site
+ * keeps the full name; only the message is shortened.
+ */
+function invoiceName(name: string) {
+  return name.replace(/\s*\d+\s*ml\b/i, '').trim();
+}
 /** Width the "name ×qty" column is padded to with dot leaders before the price. */
 const LEADER_WIDTH = 28;
 
@@ -75,14 +84,14 @@ function buildWhatsAppMessage({
   const lb = '\n';
   const money = (amount: number) => `${amount} ${AR_CURRENCY}`;
 
-  let msg = `🧾 *${INVOICE.title}*${lb}${lb}`;
+  let msg = `*${INVOICE.title}*${lb}${lb}`;
 
   msg += `${RULE}${lb}`;
-  msg += `📦 *${INVOICE.orderNumber}*${lb}`;
+  msg += `*${INVOICE.orderNumber}*${lb}`;
   msg += `*#${orderNumber}*${lb}`;
   msg += `${RULE}${lb}${lb}`;
 
-  msg += `👤 *${INVOICE.customer}*${lb}${lb}`;
+  msg += `*${INVOICE.customer}*${lb}${lb}`;
   msg += `*${INVOICE.name}:* ${name}${lb}`;
   msg += `*${INVOICE.phone}:* ${phone}${lb}`;
   msg += `*${INVOICE.address}:* ${address}${lb}`;
@@ -90,42 +99,48 @@ function buildWhatsAppMessage({
     msg += `*${INVOICE.notes}:* ${notes.trim()}${lb}`;
   }
   if (locationLink) {
-    msg += `${lb}📍 *${INVOICE.location}:*${lb}`;
+    msg += `${lb}*${INVOICE.location}:*${lb}`;
     msg += `${locationLink}${lb}`;
   }
   msg += lb;
 
   msg += `${RULE}${lb}`;
-  msg += `🛍️ *${INVOICE.items}*${lb}${lb}`;
+  msg += `*${INVOICE.items}*${lb}${lb}`;
   for (const line of lines) {
     // Dot leaders are padded against the rendered width — the bold asterisks
     // are markup and disappear once WhatsApp formats the line.
-    const rendered = `${line.product.name} ×${line.quantity}`;
+    const label = invoiceName(line.product.name);
+    const rendered = `${label} ×${line.quantity}`;
     const dots = '.'.repeat(Math.max(3, LEADER_WIDTH - rendered.length));
-    msg += `• *${line.product.name}* ×${line.quantity} ${dots} *${money(line.lineTotal)}*${lb}`;
+    msg += `• *${label}* ×${line.quantity} ${dots} *${money(line.lineTotal)}*${lb}`;
   }
   msg += lb;
 
   msg += `${RULE}${lb}`;
-  msg += `💰 *${INVOICE.summary}*${lb}${lb}`;
+  msg += `*${INVOICE.summary}*${lb}${lb}`;
   msg += `*${INVOICE.subtotal}:* ${money(subtotal)}${lb}`;
   msg += `*${INVOICE.deliveryFee}:* ${money(deliveryFee)}${lb}${lb}`;
-  msg += `💵 *${INVOICE.grandTotal}: ${money(total)}*${lb}${lb}`;
+  msg += `*${INVOICE.grandTotal}: ${money(total)}*${lb}${lb}`;
 
   msg += `${RULE}${lb}`;
-  msg += `💳 *${INVOICE.payment}*${lb}${lb}`;
+  msg += `*${INVOICE.payment}*${lb}${lb}`;
   msg += `*${PAYMENT_METHOD.ar}*${lb}${lb}`;
 
   msg += `${RULE}${lb}`;
-  msg += `🚚 *${INVOICE.eta}*${lb}${lb}`;
+  msg += `*${INVOICE.eta}*${lb}${lb}`;
   msg += `*${INVOICE.etaValue}*${lb}${lb}`;
 
   msg += `${RULE}${lb}${lb}`;
-  msg += `🙏 *${INVOICE.thanks}*${lb}${lb}`;
+  msg += `*${INVOICE.thanks}*${lb}${lb}`;
   msg += `${INVOICE.closingLine1}${lb}`;
-  msg += `${INVOICE.closingLine2} 💙`;
+  msg += `${INVOICE.closingLine2}`;
 
-  return msg;
+  // Emoji (astral plane, U+10000 and above) do not render reliably in the
+  // delivered message, so the invoice is kept to the Basic Multilingual Plane.
+  // The rules, bold markers, bullets and dot leaders are all BMP and come
+  // through intact. Strip anything astral arriving via a product name or
+  // customer input rather than shipping broken glyphs.
+  return msg.replace(/[\u{10000}-\u{10FFFF}]/gu, '');
 }
 
 export function OrderClient() {
