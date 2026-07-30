@@ -4,13 +4,21 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Search, X, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { products, categories } from '@/content/products';
+import { products, categories, normalizeSearch, productSearchText } from '@/content/products';
 import { primaryNav } from '@/content/site';
 import { NAV_T } from '@/content/navKeys';
 import { useI18n } from '@/i18n/LanguageProvider';
 import { cn } from '@/lib/utils';
 
-type Result = { label: string; href: string; group: string; kind: 'product' | 'category' | 'page'; sub?: string };
+type Result = {
+  label: string;
+  href: string;
+  group: string;
+  kind: 'product' | 'category' | 'page';
+  sub?: string;
+  /** Extra text this result can be matched on beyond its visible label/sub. */
+  haystack?: string;
+};
 
 const groupLabels = {
   Products: { en: 'Products', ar: 'المنتجات' },
@@ -30,6 +38,9 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
       group: groupLabels.Products[locale],
       kind: 'product',
       sub: p.tagline,
+      // Index ingredients, benefits and description too — otherwise a product is
+      // unfindable by what it actually contains unless its tagline says so.
+      haystack: productSearchText(p),
     }));
     const categoryResults: Result[] = categories.map((c) => ({
       label: c.label[locale],
@@ -48,10 +59,12 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
   }, [locale, t]);
 
   const results = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = normalizeSearch(query);
     if (!q) return [];
     return index
-      .filter((r) => r.label.toLowerCase().includes(q) || r.sub?.toLowerCase().includes(q))
+      .filter((r) =>
+        normalizeSearch(`${r.label} ${r.sub ?? ''} ${r.haystack ?? ''}`).includes(q),
+      )
       .slice(0, 8);
   }, [index, query]);
 
