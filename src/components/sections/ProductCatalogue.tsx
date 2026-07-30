@@ -56,7 +56,13 @@ export function ProductCatalogue() {
   const filtered = useMemo(() => {
     const q = normalizeSearch(query);
     return products.filter((p) => {
-      if (category !== 'all' && p.category !== category) return false;
+      if (
+        category !== 'all' &&
+        p.category !== category &&
+        !p.secondaryCategories?.includes(category)
+      ) {
+        return false;
+      }
       if (status !== 'all' && p.status !== status) return false;
       if (q) {
         if (!normalizeSearch(productSearchText(p)).includes(q)) return false;
