@@ -249,6 +249,9 @@ export const products: Product[] = [
   {
     slug: 'smartod',
     youtubeId: 'ttFUNOaUUKo',
+    // A children's product by name and dosing, so it belongs under Kids Health
+    // as well as its primary Omega & Brain Health category.
+    secondaryCategories: ['kids-health'],
     name: 'Smartod for kids 30ml',
     tagline: 'Pure omega-3 for heart & mind',
     category: 'omega-brain',
