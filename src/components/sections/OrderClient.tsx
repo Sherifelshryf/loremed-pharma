@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Minus, Plus, Trash2, MapPin, Send, Check, AlertCircle, ShoppingCart, PhoneCall } from 'lucide-react';
+import { Minus, Plus, Trash2, MapPin, Send, Check, AlertCircle, ShoppingCart, PhoneCall, MessageCircle } from 'lucide-react';
 import { useCart } from '@/cart/CartProvider';
 import { useI18n } from '@/i18n/LanguageProvider';
 import { dictionaries } from '@/i18n/dictionaries';
@@ -83,6 +83,7 @@ export function OrderClient() {
   const [locationState, setLocationState] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
   const [errors, setErrors] = useState<{ name?: string; phone?: string; address?: string }>({});
   const [submitted, setSubmitted] = useState(false);
+  const [waUrl, setWaUrl] = useState<string | null>(null);
 
   const currency = site.currency[locale];
   const deliveryFee = site.deliveryFee;
@@ -127,9 +128,19 @@ export function OrderClient() {
       total,
     });
 
-    window.open(`https://wa.me/${site.orderWhatsAppNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+    const url = `https://wa.me/${site.orderWhatsAppNumber}?text=${encodeURIComponent(message)}`;
+
+    // Show the confirmation (and the follow-up note) *before* handing off to
+    // WhatsApp. Opening WhatsApp switches tabs or apps, so if the state flipped
+    // afterwards the customer would only ever see this screen on their way back.
+    setWaUrl(url);
     setSubmitted(true);
     clear();
+
+    // Must stay inside the click handler — a deferred window.open gets caught by
+    // popup blockers. If it is blocked anyway, the confirmation screen keeps the
+    // link so the order is never lost.
+    window.open(url, '_blank', 'noopener,noreferrer');
   }
 
   const fieldClass = (hasError?: boolean) =>
@@ -153,7 +164,10 @@ export function OrderClient() {
           {/* What happens next: the team calls back, with the same WhatsApp number
               offered as a fallback if nobody does. */}
           <div className="mt-6 w-full max-w-md rounded-2xl border border-line bg-white p-5 text-start shadow-soft">
-            <p className="text-sm leading-relaxed text-ink-soft">{t('order.followUpNote')}</p>
+            <p className="flex items-start gap-2 text-sm leading-relaxed text-ink-soft">
+              <PhoneCall className="mt-0.5 h-4 w-4 shrink-0 text-secondary-500" />
+              <span>{t('order.followUpNote')}</span>
+            </p>
             <a
               href={`tel:${site.orderWhatsAppDisplay.replace(/\s/g, '')}`}
               dir="ltr"
@@ -163,6 +177,20 @@ export function OrderClient() {
               {site.orderWhatsAppDisplay}
             </a>
           </div>
+
+          {/* Safety net: if the browser blocked the WhatsApp popup, the order would
+              otherwise be stranded — the cart is already cleared by this point. */}
+          {waUrl && (
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-success-600 px-6 py-3 text-sm font-medium text-white shadow-soft transition-all hover:bg-success-700 hover:shadow-glow"
+            >
+              <MessageCircle className="h-4 w-4" />
+              {t('order.reopenWhatsApp')}
+            </a>
+          )}
 
           <Link
             href="/products"
