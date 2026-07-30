@@ -52,6 +52,15 @@ const RULE = '━━━━━━━━━━━━━━';
 function invoiceName(name: string) {
   return name.replace(/\s*\d+\s*ml\b/i, '').trim();
 }
+
+/**
+ * The invoice uses a fixed, known-good set of emoji. Anything astral arriving
+ * from what the customer typed is dropped, so an emoji pasted into a name or
+ * address can't introduce glyphs that fail to render alongside them.
+ */
+function sanitizeInput(value: string) {
+  return value.replace(/[\u{10000}-\u{10FFFF}]/gu, '').trim();
+}
 /** Width the "name ×qty" column is padded to with dot leaders before the price. */
 const LEADER_WIDTH = 28;
 
@@ -84,28 +93,28 @@ function buildWhatsAppMessage({
   const lb = '\n';
   const money = (amount: number) => `${amount} ${AR_CURRENCY}`;
 
-  let msg = `*${INVOICE.title}*${lb}${lb}`;
+  let msg = `🧾 *${INVOICE.title}*${lb}${lb}`;
 
   msg += `${RULE}${lb}`;
-  msg += `*${INVOICE.orderNumber}*${lb}`;
+  msg += `📦 *${INVOICE.orderNumber}*${lb}`;
   msg += `*#${orderNumber}*${lb}`;
   msg += `${RULE}${lb}${lb}`;
 
-  msg += `*${INVOICE.customer}*${lb}${lb}`;
-  msg += `*${INVOICE.name}:* ${name}${lb}`;
-  msg += `*${INVOICE.phone}:* ${phone}${lb}`;
-  msg += `*${INVOICE.address}:* ${address}${lb}`;
-  if (notes.trim()) {
-    msg += `*${INVOICE.notes}:* ${notes.trim()}${lb}`;
+  msg += `👤 *${INVOICE.customer}*${lb}${lb}`;
+  msg += `*${INVOICE.name}:* ${sanitizeInput(name)}${lb}`;
+  msg += `*${INVOICE.phone}:* ${sanitizeInput(phone)}${lb}`;
+  msg += `*${INVOICE.address}:* ${sanitizeInput(address)}${lb}`;
+  if (sanitizeInput(notes)) {
+    msg += `*${INVOICE.notes}:* ${sanitizeInput(notes)}${lb}`;
   }
   if (locationLink) {
-    msg += `${lb}*${INVOICE.location}:*${lb}`;
+    msg += `${lb}📍 *${INVOICE.location}:*${lb}`;
     msg += `${locationLink}${lb}`;
   }
   msg += lb;
 
   msg += `${RULE}${lb}`;
-  msg += `*${INVOICE.items}*${lb}${lb}`;
+  msg += `🛍️ *${INVOICE.items}*${lb}${lb}`;
   for (const line of lines) {
     // Dot leaders are padded against the rendered width — the bold asterisks
     // are markup and disappear once WhatsApp formats the line.
@@ -117,30 +126,25 @@ function buildWhatsAppMessage({
   msg += lb;
 
   msg += `${RULE}${lb}`;
-  msg += `*${INVOICE.summary}*${lb}${lb}`;
+  msg += `💰 *${INVOICE.summary}*${lb}${lb}`;
   msg += `*${INVOICE.subtotal}:* ${money(subtotal)}${lb}`;
   msg += `*${INVOICE.deliveryFee}:* ${money(deliveryFee)}${lb}${lb}`;
-  msg += `*${INVOICE.grandTotal}: ${money(total)}*${lb}${lb}`;
+  msg += `💵 *${INVOICE.grandTotal}: ${money(total)}*${lb}${lb}`;
 
   msg += `${RULE}${lb}`;
-  msg += `*${INVOICE.payment}*${lb}${lb}`;
+  msg += `💳 *${INVOICE.payment}*${lb}${lb}`;
   msg += `*${PAYMENT_METHOD.ar}*${lb}${lb}`;
 
   msg += `${RULE}${lb}`;
-  msg += `*${INVOICE.eta}*${lb}${lb}`;
+  msg += `🚚 *${INVOICE.eta}*${lb}${lb}`;
   msg += `*${INVOICE.etaValue}*${lb}${lb}`;
 
   msg += `${RULE}${lb}${lb}`;
-  msg += `*${INVOICE.thanks}*${lb}${lb}`;
+  msg += `🙏 *${INVOICE.thanks}*${lb}${lb}`;
   msg += `${INVOICE.closingLine1}${lb}`;
-  msg += `${INVOICE.closingLine2}`;
+  msg += `${INVOICE.closingLine2} 💙`;
 
-  // Emoji (astral plane, U+10000 and above) do not render reliably in the
-  // delivered message, so the invoice is kept to the Basic Multilingual Plane.
-  // The rules, bold markers, bullets and dot leaders are all BMP and come
-  // through intact. Strip anything astral arriving via a product name or
-  // customer input rather than shipping broken glyphs.
-  return msg.replace(/[\u{10000}-\u{10FFFF}]/gu, '');
+  return msg;
 }
 
 export function OrderClient() {
@@ -199,7 +203,10 @@ export function OrderClient() {
       total,
     });
 
-    const url = `https://wa.me/${site.orderWhatsAppNumber}?text=${encodeURIComponent(message)}`;
+    // api.whatsapp.com/send is WhatsApp's own endpoint; wa.me is a shortener that
+    // redirects to it. Going direct removes a hop that re-encodes the text
+    // parameter, which is the most likely place the emoji were being mangled.
+    const url = `https://api.whatsapp.com/send?phone=${site.orderWhatsAppNumber}&text=${encodeURIComponent(message)}`;
 
     // Show the confirmation (and the follow-up note) *before* handing off to
     // WhatsApp. Opening WhatsApp switches tabs or apps, so if the state flipped
