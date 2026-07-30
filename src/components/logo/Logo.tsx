@@ -14,7 +14,7 @@ export function Logo({
   return (
     <span className={cn('inline-flex select-none items-center', className)}>
       <Image
-        src="/media/logo.png"
+        src="/media/logo.webp"
         alt="Loremed Pharma"
         width={160}
         height={80}
@@ -29,7 +29,7 @@ export function Logo({
 export function LogoMark({ className }: { className?: string }) {
   return (
     <Image
-      src="/media/logo.png"
+      src="/media/logo.webp"
       alt="Loremed Pharma"
       width={160}
       height={80}
