@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Minus, Plus, Trash2, MapPin, Send, Check, AlertCircle, ShoppingCart } from 'lucide-react';
+import { Minus, Plus, Trash2, MapPin, Send, Check, AlertCircle, ShoppingCart, PhoneCall } from 'lucide-react';
 import { useCart } from '@/cart/CartProvider';
 import { useI18n } from '@/i18n/LanguageProvider';
 import { dictionaries } from '@/i18n/dictionaries';
@@ -148,7 +148,22 @@ export function OrderClient() {
             <Check className="h-8 w-8" strokeWidth={3} />
           </span>
           <h2 className="mt-6 text-2xl font-semibold text-ink">{t('order.successTitle')}</h2>
-          <p className="mt-2 max-w-sm text-ink-soft">{t('order.successBody')}</p>
+          <p className="mt-2 max-w-md text-ink-soft">{t('order.successBody')}</p>
+
+          {/* What happens next: the team calls back, with the same WhatsApp number
+              offered as a fallback if nobody does. */}
+          <div className="mt-6 w-full max-w-md rounded-2xl border border-line bg-white p-5 text-start shadow-soft">
+            <p className="text-sm leading-relaxed text-ink-soft">{t('order.followUpNote')}</p>
+            <a
+              href={`tel:${site.orderWhatsAppDisplay.replace(/\s/g, '')}`}
+              dir="ltr"
+              className="mt-3 inline-flex items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm font-semibold text-primary-800 transition-colors hover:border-primary-300 hover:bg-primary-50"
+            >
+              <PhoneCall className="h-4 w-4 text-secondary-500" />
+              {site.orderWhatsAppDisplay}
+            </a>
+          </div>
+
           <Link
             href="/products"
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary-800 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-primary-700 hover:shadow-glow"
@@ -347,7 +362,27 @@ export function OrderClient() {
             <Send className="h-4 w-4" />
             {t('order.placeOrder')}
           </button>
-          <p className="text-xs text-ink-muted">{t('order.placeOrderHint')}</p>
+          {/* Set expectations before submitting: the WhatsApp redirect needs an
+              explicit Send, and the team calls back within 15–30 minutes. */}
+          <div className="rounded-2xl border border-line bg-neutral-50 p-4">
+            <p className="flex items-start gap-2 text-xs leading-relaxed text-ink-soft">
+              <Send className="mt-0.5 h-3.5 w-3.5 shrink-0 text-success-600" />
+              <span>{t('order.placeOrderHint')}</span>
+            </p>
+            <p className="mt-2.5 flex items-start gap-2 text-xs leading-relaxed text-ink-soft">
+              <PhoneCall className="mt-0.5 h-3.5 w-3.5 shrink-0 text-secondary-500" />
+              <span>
+                {t('order.followUpNote')}{' '}
+                <a
+                  href={`tel:${site.orderWhatsAppDisplay.replace(/\s/g, '')}`}
+                  dir="ltr"
+                  className="font-semibold text-primary-800 underline-offset-2 hover:underline"
+                >
+                  {site.orderWhatsAppDisplay}
+                </a>
+              </span>
+            </p>
+          </div>
         </form>
       </div>
     </Container>
