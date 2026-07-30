@@ -64,7 +64,6 @@ export const dictionaries = {
     'order.notes': 'Notes (optional)',
     'order.notesPlaceholder': 'Anything we should know?',
     'order.paymentMethod': 'Payment method',
-    'order.cashOnDelivery': 'Cash on Delivery',
     'order.placeOrder': 'Place order via WhatsApp',
     'order.placeOrderHint':
       'You’ll be redirected to WhatsApp with your order details ready — tap “Send” there to complete it. Your order only reaches us once that message is sent.',
@@ -173,7 +172,6 @@ export const dictionaries = {
     'order.notes': 'ملاحظات (اختياري)',
     'order.notesPlaceholder': 'هل هناك ما تود إخبارنا به؟',
     'order.paymentMethod': 'طريقة الدفع',
-    'order.cashOnDelivery': 'الدفع عند الاستلام',
     'order.placeOrder': 'إرسال الطلب عبر واتساب',
     'order.placeOrderHint':
       'سيتم تحويلك إلى واتساب مع تفاصيل طلبك جاهزة — اضغط «إرسال» هناك لإتمامه. لا يصلنا طلبك إلا بعد إرسال تلك الرسالة.',
