@@ -12,13 +12,40 @@ import { Container } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 
-const copy = {
-  paymentValue: { en: 'Cash on Delivery', ar: 'الدفع عند الاستلام' },
-};
-
-// The WhatsApp order message is ALWAYS composed in Arabic, regardless of the
+// The WhatsApp order invoice is ALWAYS composed in Arabic, regardless of the
 // language the customer used on the site, so the team receives every order in
 // one consistent format. Product names stay as-is (they're English by design).
+// These labels are message-only and intentionally never translated, so they
+// live here rather than in the bilingual UI dictionary.
+const INVOICE = {
+  title: 'فاتورة طلب',
+  orderNumber: 'رقم الطلب',
+  customer: 'بيانات العميل',
+  name: 'الاسم',
+  phone: 'رقم الهاتف',
+  address: 'عنوان التوصيل',
+  notes: 'ملاحظات',
+  location: 'الموقع الجغرافي',
+  items: 'تفاصيل الطلب',
+  summary: 'ملخص الفاتورة',
+  subtotal: 'الإجمالي الفرعي',
+  deliveryFee: 'رسوم التوصيل',
+  grandTotal: 'الإجمالي المستحق',
+  payment: 'طريقة الدفع',
+  eta: 'موعد التوصيل المتوقع',
+  etaValue: 'خلال 24–48 ساعة',
+  thanks: 'شكراً لثقتكم بنا',
+  closingLine1: 'نتمنى لكم دوام الصحة والعافية،',
+  closingLine2: 'ونسعد دائماً بخدمتكم.',
+};
+
+/** Shown both on the checkout summary and in the WhatsApp invoice — keep in sync. */
+const PAYMENT_METHOD = { en: 'InstaPay', ar: 'إنستا باي (InstaPay)' };
+
+const RULE = '━━━━━━━━━━━━━━';
+/** Width the "name ×qty" column is padded to with dot leaders before the price. */
+const LEADER_WIDTH = 28;
+
 const AR = dictionaries.ar;
 const AR_CURRENCY = site.currency.ar;
 
@@ -46,36 +73,59 @@ function buildWhatsAppMessage({
   total: number;
 }) {
   const lb = '\n';
-  let msg = `*${AR['order.newOrder']} #${orderNumber}*${lb}${lb}`;
-  msg += `*${AR['order.messageCustomer']}*${lb}`;
-  msg += `  ${AR['order.name']}: ${name}${lb}`;
-  msg += `  ${AR['order.phone']}: ${phone}${lb}`;
-  msg += `  ${AR['order.address']}: ${address}${lb}`;
+  const money = (amount: number) => `${amount} ${AR_CURRENCY}`;
+
+  let msg = `🧾 *${INVOICE.title}*${lb}${lb}`;
+
+  msg += `${RULE}${lb}`;
+  msg += `📦 *${INVOICE.orderNumber}*${lb}`;
+  msg += `*#${orderNumber}*${lb}`;
+  msg += `${RULE}${lb}${lb}`;
+
+  msg += `👤 *${INVOICE.customer}*${lb}${lb}`;
+  msg += `*${INVOICE.name}:* ${name}${lb}`;
+  msg += `*${INVOICE.phone}:* ${phone}${lb}`;
+  msg += `*${INVOICE.address}:* ${address}${lb}`;
   if (notes.trim()) {
-    msg += `  ${AR['order.notes']}: ${notes.trim()}${lb}`;
+    msg += `*${INVOICE.notes}:* ${notes.trim()}${lb}`;
   }
   if (locationLink) {
-    msg += `  ${AR['order.location']}: ${locationLink}${lb}`;
+    msg += `${lb}📍 *${INVOICE.location}:*${lb}`;
+    msg += `${locationLink}${lb}`;
   }
   msg += lb;
-  msg += `*${AR['order.itemsHeading']}*${lb}`;
-  for (const line of lines) {
-    msg += `  • ${line.product.name} x${line.quantity} = ${AR_CURRENCY} ${line.lineTotal}${lb}`;
-  }
-  msg += lb;
-  msg += `*${AR['order.messageTotals']}*${lb}`;
-  msg += `  ${AR['order.subtotal']}: ${AR_CURRENCY} ${subtotal}${lb}`;
-  msg += `  ${AR['order.delivery']}: ${AR_CURRENCY} ${deliveryFee}${lb}`;
-  msg += `  *${AR['order.total']}: ${AR_CURRENCY} ${total}*${lb}${lb}`;
-  msg += `${AR['order.messagePayment']}: ${copy.paymentValue.ar}${lb}`;
-  msg += `${AR['order.messageEta']}: ${AR['order.etaValue']}`;
 
-  // Guard rail: astral-plane characters (emoji, U+10000 and above) arrive
-  // corrupted as U+FFFD in the delivered WhatsApp message, so the message is
-  // kept to the Basic Multilingual Plane. Bold markers and the • bullet are
-  // BMP and come through intact. Strip anything astral that reaches this point
-  // via product names or customer input rather than shipping mojibake.
-  return msg.replace(/[\u{10000}-\u{10FFFF}]/gu, '');
+  msg += `${RULE}${lb}`;
+  msg += `🛍️ *${INVOICE.items}*${lb}${lb}`;
+  for (const line of lines) {
+    // Dot leaders are padded against the rendered width — the bold asterisks
+    // are markup and disappear once WhatsApp formats the line.
+    const rendered = `${line.product.name} ×${line.quantity}`;
+    const dots = '.'.repeat(Math.max(3, LEADER_WIDTH - rendered.length));
+    msg += `• *${line.product.name}* ×${line.quantity} ${dots} *${money(line.lineTotal)}*${lb}`;
+  }
+  msg += lb;
+
+  msg += `${RULE}${lb}`;
+  msg += `💰 *${INVOICE.summary}*${lb}${lb}`;
+  msg += `*${INVOICE.subtotal}:* ${money(subtotal)}${lb}`;
+  msg += `*${INVOICE.deliveryFee}:* ${money(deliveryFee)}${lb}${lb}`;
+  msg += `💵 *${INVOICE.grandTotal}: ${money(total)}*${lb}${lb}`;
+
+  msg += `${RULE}${lb}`;
+  msg += `💳 *${INVOICE.payment}*${lb}${lb}`;
+  msg += `*${PAYMENT_METHOD.ar}*${lb}${lb}`;
+
+  msg += `${RULE}${lb}`;
+  msg += `🚚 *${INVOICE.eta}*${lb}${lb}`;
+  msg += `*${INVOICE.etaValue}*${lb}${lb}`;
+
+  msg += `${RULE}${lb}${lb}`;
+  msg += `🙏 *${INVOICE.thanks}*${lb}${lb}`;
+  msg += `${INVOICE.closingLine1}${lb}`;
+  msg += `${INVOICE.closingLine2} 💙`;
+
+  return msg;
 }
 
 export function OrderClient() {
@@ -320,7 +370,7 @@ export function OrderClient() {
 
           <div className="mt-4 flex items-center justify-between rounded-2xl border border-primary-100 bg-primary-50/60 px-5 py-3.5 text-sm">
             <span className="font-medium text-ink">{t('order.paymentMethod')}</span>
-            <span className="text-ink-soft">{t('order.cashOnDelivery')}</span>
+            <span className="text-ink-soft">{PAYMENT_METHOD[locale]}</span>
           </div>
         </div>
 
