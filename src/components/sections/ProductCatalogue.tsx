@@ -3,7 +3,14 @@
 import { Search, X, SlidersHorizontal } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
-import { products, categories, type ProductCategory, type ProductStatus } from '@/content/products';
+import {
+  products,
+  categories,
+  normalizeSearch,
+  productSearchText,
+  type ProductCategory,
+  type ProductStatus,
+} from '@/content/products';
 import { Container } from '@/components/ui/Section';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { categoryIcons } from '@/components/ui/categoryIcons';
@@ -47,15 +54,12 @@ export function ProductCatalogue() {
   const [quickView, setQuickView] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = normalizeSearch(query);
     return products.filter((p) => {
       if (category !== 'all' && p.category !== category) return false;
       if (status !== 'all' && p.status !== status) return false;
       if (q) {
-        const hay = `${p.name} ${p.tagline} ${p.shortDescription} ${p.keyIngredients
-          .map((k) => k.name)
-          .join(' ')}`.toLowerCase();
-        if (!hay.includes(q)) return false;
+        if (!normalizeSearch(productSearchText(p)).includes(q)) return false;
       }
       return true;
     });

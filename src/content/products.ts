@@ -258,7 +258,7 @@ export const products: Product[] = [
     description:
       'Smartod combines DHA with vitamin E and vitamin D in an easy-to-dose liquid drop. Formulated for the earliest stages of life, it supports brain health and mood, healthy bone and tooth development, and the normal function of the immune system.',
     keyIngredients: [
-      { name: 'DHA', note: 'Enhances brain health and mood; supports better sleep' },
+      { name: 'Omega-3 DHA', note: 'Enhances brain health and mood; supports better sleep' },
       { name: 'Vitamin D', note: 'Supports bone, tooth and immune development' },
       { name: 'Vitamin E', note: 'Antioxidant that supports immunity and DNA repair' },
     ],
@@ -433,4 +433,32 @@ export function getProduct(slug: string) {
 
 export function getCategory(id: ProductCategory) {
   return categories.find((c) => c.id === id);
+}
+
+/**
+ * Strip everything except letters and digits so punctuation and spacing stop
+ * mattering. Ingredient names are written with hyphens ("Omega-3"), but people
+ * type "omega 3" or "omega3" — all three have to find the same products.
+ * Arabic letters are preserved so the AR side keeps working.
+ */
+export function normalizeSearch(value: string) {
+  return value.toLowerCase().replace(/[^\p{Letter}\p{Number}]+/gu, '');
+}
+
+/**
+ * Everything a product should be findable by. Ingredient notes, benefits and
+ * the long description are included so searches for an active ingredient or an
+ * indication (e.g. "EPA", "asthma") reach the products that actually contain
+ * them, not just the ones that happen to name it in the tagline.
+ */
+export function productSearchText(p: Product) {
+  return [
+    p.name,
+    p.tagline,
+    p.form,
+    p.shortDescription,
+    p.description,
+    ...p.keyIngredients.flatMap((k) => [k.name, k.note]),
+    ...p.benefits,
+  ].join(' ');
 }
