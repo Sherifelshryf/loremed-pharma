@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { site } from '@/content/site';
 import type { Product } from '@/content/products';
 
+/** 1200x630 preview shown when a link is shared on WhatsApp, Facebook or LinkedIn. */
+export const OG_IMAGE = '/og-image.jpg';
+
 export function buildMetadata({
   title,
   description,
@@ -27,11 +30,13 @@ export function buildMetadata({
       siteName: site.name,
       type: 'website',
       locale: 'en_US',
+      images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: site.name }],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${title} · ${site.name}`,
       description: desc,
+      images: [OG_IMAGE],
     },
   };
 }
@@ -42,6 +47,9 @@ export const organizationSchema = {
   name: site.name,
   legalName: site.legalName,
   url: site.url,
+  // Google uses this to associate the mark with the brand in search results.
+  logo: `${site.url}/media/logo.webp`,
+  image: `${site.url}/og-image.jpg`,
   slogan: site.tagline,
   description: site.description,
   foundingDate: String(site.foundingYear),
