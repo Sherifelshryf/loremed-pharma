@@ -2,21 +2,41 @@ import type { MetadataRoute } from 'next';
 import { site } from '@/content/site';
 import { products } from '@/content/products';
 
+/**
+ * The static export sets `trailingSlash`, so pages are served from
+ * `/products/index.html` and Apache 301s `/products` to `/products/`. Next
+ * already emits the trailing-slash form in the canonical tags, so the sitemap
+ * has to agree — otherwise every URL submitted to Search Console redirects and
+ * contradicts the canonical of the page it lands on.
+ */
+const TRAILING_SLASH = process.env.STATIC_EXPORT === '1';
+
+function href(path: string) {
+  if (!TRAILING_SLASH) return `${site.url}${path}`;
+  return path === '' ? `${site.url}/` : `${site.url}${path}/`;
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = site.url;
-  const routes = ['', '/products', '/about', '/quality', '/research', '/contact'].map((path) => ({
-    url: `${base}${path}`,
-    lastModified: new Date('2026-07-01'),
-    changeFrequency: 'monthly' as const,
-    priority: path === '' ? 1 : 0.8,
-  }));
+  // Build time, so a redeploy tells crawlers the content actually changed.
+  const lastModified = new Date();
 
-  const productRoutes = products.map((p) => ({
-    url: `${base}/products/${p.slug}`,
-    lastModified: new Date('2026-07-01'),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+  // `/order` is deliberately absent: it is a checkout step with no standalone
+  // value in search results.
+  const pages = ['', '/products', '/about', '/quality', '/research', '/contact'];
 
-  return [...routes, ...productRoutes];
+  return [
+    ...pages.map((path) => ({
+      url: href(path),
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: path === '' ? 1 : 0.8,
+    })),
+    ...products.map((p) => ({
+      url: href(`/products/${p.slug}`),
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      // Available products are the ones worth ranking; the rest are not yet buyable.
+      priority: p.status === 'available' ? 0.7 : 0.5,
+    })),
+  ];
 }
