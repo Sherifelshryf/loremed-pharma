@@ -16,8 +16,8 @@ export function ShopHero() {
           <h1 className="mx-auto max-w-3xl text-display-lg sm:text-display-xl">
             <L
               text={{
-                en: 'Vitamins, cough syrups and children’s health — delivered',
-                ar: 'فيتامينات وأدوية سعال ومنتجات لصحة الأطفال — توصيل حتى باب بيتك',
+                en: 'Vitamins, cough syrups and children’s health',
+                ar: 'فيتامينات وأدوية سعال ومنتجات لصحة الأطفال',
               }}
             />
           </h1>
