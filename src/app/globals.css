@@ -111,15 +111,13 @@
   }
 
   /* Glass card */
+  /* Was frosted glass. backdrop-filter is the most expensive effect an old
+     GPU can be asked for, so these are now flat surfaces. */
   .glass {
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(18px) saturate(150%);
-    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    background: #ffffff;
   }
   .glass-dark {
-    background: rgba(35, 26, 59, 0.55);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    background: #2a2047;
   }
 
   /* Hairline top highlight for premium cards */

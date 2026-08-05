@@ -48,7 +48,7 @@ export const organizationSchema = {
   legalName: site.legalName,
   url: site.url,
   // Google uses this to associate the mark with the brand in search results.
-  logo: `${site.url}/media/logo.webp`,
+  logo: `${site.url}/media/logo.png`,
   image: `${site.url}/og-image.jpg`,
   slogan: site.tagline,
   description: site.description,

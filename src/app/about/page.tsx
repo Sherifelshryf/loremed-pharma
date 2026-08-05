@@ -66,7 +66,7 @@ export default function AboutPage() {
             <Reveal delay={0.1}>
               <div className="relative mx-auto aspect-square w-full max-w-md">
                 <GradientOrb color="mix" size={420} className="inset-0 m-auto opacity-70" />
-                <div className="relative grid h-full place-items-center rounded-[2.5rem] border border-line bg-white/60 p-10 shadow-glow backdrop-blur-xl">
+                <div className="relative grid h-full place-items-center rounded-[2.5rem] border border-line bg-white/60 p-10 shadow-glow">
                   <LogoBloom className="w-3/4" />
                 </div>
               </div>
@@ -81,7 +81,7 @@ export default function AboutPage() {
           <div className="grid gap-6 lg:grid-cols-2">
             <Reveal>
               <div className="relative h-full overflow-hidden rounded-4xl bg-primary-900 p-10 text-white shadow-glow">
-                <div aria-hidden className="absolute -right-12 -top-12 h-52 w-52 rounded-full bg-primary-700/40 blur-3xl" />
+                <div aria-hidden className="absolute -right-12 -top-12 h-52 w-52 rounded-full bg-primary-700/40" />
                 <span className="relative grid h-14 w-14 place-items-center rounded-2xl bg-white/10">
                   <Compass className="h-6 w-6" />
                 </span>
@@ -91,7 +91,7 @@ export default function AboutPage() {
             </Reveal>
             <Reveal delay={0.05}>
               <div className="relative h-full overflow-hidden rounded-4xl border border-secondary-200 bg-gradient-to-br from-secondary-50 to-white p-10 shadow-soft">
-                <div aria-hidden className="absolute -right-12 -top-12 h-52 w-52 rounded-full bg-secondary-100/60 blur-3xl" />
+                <div aria-hidden className="absolute -right-12 -top-12 h-52 w-52 rounded-full bg-secondary-100/60" />
                 <span className="relative grid h-14 w-14 place-items-center rounded-2xl bg-secondary-500 text-white">
                   <Target className="h-6 w-6" />
                 </span>

@@ -1,6 +1,5 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
 import { X, Check, ArrowRight, Package, Users, Pipette, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -43,28 +42,21 @@ export function QuickView({ slug, onClose }: { slug: string | null; onClose: () 
   }, [slug, onClose]);
 
   return (
-    <AnimatePresence>
+    <>
       {product && (
-        <motion.div
+        <div
           className="fixed inset-0 z-[250] flex items-center justify-center p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
         >
-          <div className="absolute inset-0 bg-primary-950/50 backdrop-blur-sm" onClick={onClose} aria-hidden />
-          <motion.div
+          <div className="absolute inset-0 bg-primary-950/50" onClick={onClose} aria-hidden />
+          <div
             role="dialog"
             aria-modal="true"
             aria-label={product.name}
-            initial={{ opacity: 0, y: 24, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.98 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="relative grid max-h-[90vh] w-full max-w-4xl grid-cols-1 overflow-hidden rounded-3xl border border-line bg-white shadow-glow md:grid-cols-2"
           >
             <button
               onClick={onClose}
-              className="absolute end-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full bg-white/90 text-ink-soft shadow-soft backdrop-blur transition-colors hover:text-ink"
+              className="absolute end-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full bg-white text-ink-soft shadow-soft transition-colors hover:text-ink"
               aria-label={copy.close[locale]}
             >
               <X className="h-5 w-5" />
@@ -141,10 +133,10 @@ export function QuickView({ slug, onClose }: { slug: string | null; onClose: () 
                 </Link>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }
 

@@ -5,7 +5,6 @@ import { site } from '@/content/site';
 import { organizationSchema, websiteSchema, JsonLd, OG_IMAGE } from '@/lib/seo';
 import { LanguageProvider } from '@/i18n/LanguageProvider';
 import { CartProvider } from '@/cart/CartProvider';
-import { LoadingScreen } from '@/components/layout/LoadingScreen';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { L } from '@/i18n/Localized';
@@ -92,7 +91,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={[organizationSchema, websiteSchema]} />
         <LanguageProvider>
           <CartProvider>
-            <LoadingScreen />
             <a
               href="#main"
               className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-primary-800 focus:px-5 focus:py-3 focus:text-sm focus:font-medium focus:text-white"

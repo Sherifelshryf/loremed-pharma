@@ -42,9 +42,9 @@ export function Manufacturing() {
                     <path d="M20 60 H480" stroke="white" strokeOpacity="0.06" strokeWidth="1" />
                     <path d="M20 120 H480" stroke="white" strokeOpacity="0.06" strokeWidth="1" />
                   </svg>
-                  <div aria-hidden className="absolute -right-10 top-10 h-40 w-40 rounded-full bg-secondary-500/25 blur-3xl" />
+                  <div aria-hidden className="absolute -right-10 top-10 h-40 w-40 rounded-full bg-secondary-500/25" />
                   <div className="relative flex h-full flex-col justify-between">
-                    <span className="grid h-14 w-14 place-items-center rounded-2xl bg-white/10 text-white backdrop-blur">
+                    <span className="grid h-14 w-14 place-items-center rounded-2xl bg-white/10 text-white">
                       <Factory className="h-6 w-6" strokeWidth={1.7} />
                     </span>
                     <div>

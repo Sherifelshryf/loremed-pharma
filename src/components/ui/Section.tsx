@@ -140,7 +140,7 @@ export function Badge({
         tone === 'purple' && 'bg-primary-50 text-primary-700',
         tone === 'orange' && 'bg-secondary-50 text-secondary-700',
         tone === 'success' && 'bg-success-50 text-success-700',
-        tone === 'muted' && 'bg-white/10 text-white/80 backdrop-blur',
+        tone === 'muted' && 'bg-white/10 text-white/80',
         className,
       )}
     >

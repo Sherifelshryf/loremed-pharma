@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { AnimatePresence, motion } from 'framer-motion';
 import { Search, ChevronDown, ShoppingCart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { primaryNav } from '@/content/site';
@@ -54,7 +53,7 @@ export function Navbar() {
         className={cn(
           'fixed inset-x-0 top-0 z-[120] transition-all duration-500 ease-out-expo',
           scrolled
-            ? 'border-b border-line bg-white/85 shadow-soft backdrop-blur-xl'
+            ? 'border-b border-line bg-white shadow-soft'
             : 'border-b border-transparent bg-transparent',
         )}
         onMouseLeave={() => setOpenMenu(null)}
@@ -101,8 +100,7 @@ export function Navbar() {
                     )}
                   </Link>
                   {active && (
-                    <motion.span
-                      layoutId="nav-active"
+                    <span
                       className="absolute inset-x-4 -bottom-0.5 h-0.5 rounded-full bg-secondary-500"
                     />
                   )}
@@ -158,7 +156,6 @@ export function Navbar() {
         </nav>
 
         {/* Mega menu */}
-        <AnimatePresence>
           {openMenu && (
             <MegaMenu
               key={openMenu}
@@ -166,7 +163,6 @@ export function Navbar() {
               onNavigate={() => setOpenMenu(null)}
             />
           )}
-        </AnimatePresence>
       </header>
 
       <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} />
@@ -184,15 +180,11 @@ function MegaMenu({ label, onNavigate }: { label: string; onNavigate: () => void
   const rest = item.children.slice(1);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -8 }}
-      transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+    <div
       className="absolute inset-x-0 top-full hidden lg:block"
     >
       <div className="mx-auto max-w-[1320px] px-6 pb-4 lg:px-8">
-        <div className="overflow-hidden rounded-3xl border border-line bg-white/95 p-3 shadow-glow backdrop-blur-xl">
+        <div className="overflow-hidden rounded-3xl border border-line bg-white p-3 shadow-glow">
           <div className="grid grid-cols-3 gap-3">
             <Link
               href={featured.href}
@@ -201,7 +193,7 @@ function MegaMenu({ label, onNavigate }: { label: string; onNavigate: () => void
             >
               <div
                 aria-hidden
-                className="absolute -right-8 -top-10 h-40 w-40 rounded-full bg-white/10 blur-2xl"
+                className="absolute -right-8 -top-10 h-40 w-40 rounded-full bg-white/10"
               />
               <span className="text-eyebrow uppercase text-white/70">{t(NAV_T[item.label] ?? 'nav.home')}</span>
               <span className="mt-8">
@@ -230,6 +222,6 @@ function MegaMenu({ label, onNavigate }: { label: string; onNavigate: () => void
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

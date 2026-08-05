@@ -24,7 +24,7 @@ export function Professionals() {
     <section id="professionals" className="section relative overflow-hidden">
       <Container>
         <div className="relative overflow-hidden rounded-[2.5rem] border border-primary-100 bg-gradient-to-br from-primary-50 via-white to-secondary-50/50 p-8 sm:p-12 lg:p-16">
-          <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-72 w-72 rounded-full bg-secondary-100/50 blur-3xl" />
+          <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-72 w-72 rounded-full bg-secondary-100/50" />
           <div className="relative grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
             <div>
               <Reveal>
@@ -53,7 +53,7 @@ export function Professionals() {
             <Stagger className="grid gap-4">
               {professionalValue.map((v) => (
                 <StaggerItem key={v.title.en}>
-                  <div className="flex items-start gap-4 rounded-2xl border border-line bg-white/80 p-6 shadow-soft backdrop-blur">
+                  <div className="flex items-start gap-4 rounded-2xl border border-line bg-white p-6 shadow-soft">
                     <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-primary-800 text-white">
                       <v.icon className="h-5 w-5" strokeWidth={1.7} />
                     </span>

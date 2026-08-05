@@ -63,7 +63,7 @@ export function News() {
                     <circle cx="330" cy="20" r="90" stroke="white" strokeOpacity="0.14" strokeWidth="1.5" />
                     <circle cx="330" cy="20" r="150" stroke="white" strokeOpacity="0.1" strokeWidth="1.5" />
                   </svg>
-                  <span className="absolute bottom-4 left-5 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primary-800 backdrop-blur">
+                  <span className="absolute bottom-4 left-5 rounded-full bg-white px-3 py-1 text-xs font-semibold text-primary-800">
                     {item.category[locale]}
                   </span>
                 </div>

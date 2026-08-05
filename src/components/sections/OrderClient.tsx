@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { ProductImage } from '@/components/ui/ProductImage';
 import { Minus, Plus, Trash2, MapPin, Send, Check, AlertCircle, ShoppingCart, PhoneCall, MessageCircle } from 'lucide-react';
 import { useCart } from '@/cart/CartProvider';
 import { useI18n } from '@/i18n/LanguageProvider';
@@ -312,7 +312,7 @@ export function OrderClient() {
               >
                 <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-neutral-50">
                   {line.product.image && (
-                    <Image src={line.product.image} alt={line.product.name} fill className="object-contain p-1.5" sizes="64px" />
+                    <ProductImage src={line.product.image} alt={line.product.name} className="absolute inset-0 h-full w-full object-contain p-1.5" />
                   )}
                 </div>
                 {/* Name/remove on top, quantity + line total below — keeps the row from
