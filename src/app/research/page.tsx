@@ -148,9 +148,9 @@ export default function ResearchPage() {
                     <Badge tone="muted"><L text={{ en: 'Under registration', ar: 'قيد التسجيل' }} /></Badge>
                     <ArrowRight className="h-4 w-4 text-white/40 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
                   </div>
-                  <h3 className="mt-5 text-xl font-semibold text-white">{p.name}</h3>
-                  <p className="mt-1 text-sm font-medium text-secondary-300">{p.tagline}</p>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-white/55">{p.shortDescription}</p>
+                  <h3 className="mt-5 text-xl font-semibold text-white"><L text={p.name} /></h3>
+                  <p className="mt-1 text-sm font-medium text-secondary-300"><L text={p.tagline} /></p>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-white/55"><L text={p.shortDescription} /></p>
                 </Link>
               </StaggerItem>
             ))}

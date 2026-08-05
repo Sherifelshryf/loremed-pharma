@@ -32,11 +32,11 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
 
   const index = useMemo<Result[]>(() => {
     const productResults: Result[] = products.map((p) => ({
-      label: p.name,
+      label: p.name[locale],
       href: `/products/${p.slug}`,
       group: groupLabels.Products[locale],
       kind: 'product',
-      sub: p.tagline,
+      sub: p.tagline[locale],
       // Index ingredients, benefits and description too — otherwise a product is
       // unfindable by what it actually contains unless its tagline says so.
       haystack: productSearchText(p),

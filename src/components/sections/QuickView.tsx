@@ -51,7 +51,7 @@ export function QuickView({ slug, onClose }: { slug: string | null; onClose: () 
           <div
             role="dialog"
             aria-modal="true"
-            aria-label={product.name}
+            aria-label={product.name[locale]}
             className="relative grid max-h-[90vh] w-full max-w-4xl grid-cols-1 overflow-hidden rounded-3xl border border-line bg-white shadow-glow md:grid-cols-2"
           >
             <button
@@ -79,27 +79,27 @@ export function QuickView({ slug, onClose }: { slug: string | null; onClose: () 
               >
                 {statusLabels[product.status][locale]}
               </span>
-              <h2 className="mt-4 text-2xl font-semibold text-ink">{product.name}</h2>
-              <p className="mt-1 font-medium text-secondary-600">{product.tagline}</p>
+              <h2 className="mt-4 text-2xl font-semibold text-ink">{product.name[locale]}</h2>
+              <p className="mt-1 font-medium text-secondary-600">{product.tagline[locale]}</p>
               {product.status === 'available' && (
                 <p className="mt-2 text-lg font-bold text-ink">
                   {site.currency[locale]} {product.price}
                 </p>
               )}
-              <p className="mt-4 text-sm leading-relaxed text-ink-soft">{product.description}</p>
+              <p className="mt-4 text-sm leading-relaxed text-ink-soft">{product.description[locale]}</p>
 
               <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
-                <Meta icon={Pipette} label={copy.form[locale]} value={product.form} />
-                <Meta icon={Users} label={copy.for[locale]} value={product.ageGroup} />
-                <Meta icon={Package} label={copy.pack[locale]} value={product.pack} />
+                <Meta icon={Pipette} label={copy.form[locale]} value={product.form[locale]} />
+                <Meta icon={Users} label={copy.for[locale]} value={product.ageGroup[locale]} />
+                <Meta icon={Package} label={copy.pack[locale]} value={product.pack[locale]} />
               </div>
 
               <h3 className="mt-6 text-sm font-semibold uppercase tracking-wider text-ink-muted">{copy.keyBenefits[locale]}</h3>
               <ul className="mt-3 space-y-2">
                 {product.benefits.slice(0, 4).map((b) => (
-                  <li key={b} className="flex items-start gap-2 text-sm text-ink-soft">
+                  <li key={b.en} className="flex items-start gap-2 text-sm text-ink-soft">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-success-500" strokeWidth={2.5} />
-                    {b}
+                    {b[locale]}
                   </li>
                 ))}
               </ul>

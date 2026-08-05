@@ -101,7 +101,7 @@ export function ProductCard({
     >
       <div className="relative overflow-hidden">
         <div className="transition-transform duration-700 ease-out-expo group-hover:scale-[1.04]">
-          <ProductVisual accent={product.accent} category={product.category} image={product.image} name={product.name} />
+          <ProductVisual accent={product.accent} category={product.category} image={product.image} name={product.name[locale]} />
         </div>
         {/* status badge */}
         <span
@@ -124,7 +124,7 @@ export function ProductCard({
           <button
             onClick={() => onQuickView(product.slug)}
             className="absolute right-4 top-4 grid h-9 w-9 translate-y-1 place-items-center rounded-full bg-white text-primary-800 opacity-0 shadow-soft transition-all duration-300 hover:bg-white group-hover:translate-y-0 group-hover:opacity-100"
-            aria-label={`${t('cta.quickView')} ${product.name}`}
+            aria-label={`${t('cta.quickView')} ${product.name[locale]}`}
           >
             <Eye className="h-4 w-4" />
           </button>
@@ -135,20 +135,20 @@ export function ProductCard({
         <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ink-muted">
           <span className="text-secondary-600">{categoryLabel}</span>
           <span className="text-line-strong">·</span>
-          <span>{product.form}</span>
+          <span>{product.form[locale]}</span>
         </div>
         <h3 className="mt-2 text-xl font-semibold text-ink transition-colors group-hover:text-primary-800">
           <Link href={`/products/${product.slug}`} className="after:absolute after:inset-0">
-            {product.name}
+            {product.name[locale]}
           </Link>
         </h3>
-        <p className="mt-1 text-sm font-medium text-secondary-600">{product.tagline}</p>
-        <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">{product.shortDescription}</p>
+        <p className="mt-1 text-sm font-medium text-secondary-600">{product.tagline[locale]}</p>
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">{product.shortDescription[locale]}</p>
 
         {product.status === 'available' ? (
           <div className="mt-5 flex items-center justify-between gap-3 border-t border-line pt-4">
             <div>
-              <div className="text-xs text-ink-muted">{product.ageGroup}</div>
+              <div className="text-xs text-ink-muted">{product.ageGroup[locale]}</div>
               <div className="mt-0.5 text-base font-bold text-ink">
                 {site.currency[locale]} {product.price}
               </div>
@@ -168,7 +168,7 @@ export function ProductCard({
           </div>
         ) : (
           <div className="mt-5 flex items-center justify-between border-t border-line pt-4">
-            <span className="text-xs text-ink-muted">{product.ageGroup}</span>
+            <span className="text-xs text-ink-muted">{product.ageGroup[locale]}</span>
             <span className="inline-flex items-center gap-1 text-sm font-medium text-primary-700 transition-colors group-hover:text-secondary-600">
               {t('cta.viewProduct')}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />

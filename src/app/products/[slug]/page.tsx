@@ -24,10 +24,10 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const product = getProduct(params.slug);
   if (!product) return buildMetadata({ title: 'Product', path: '/products' });
   return buildMetadata({
-    title: product.name,
-    description: product.shortDescription,
+    title: product.name.en,
+    description: product.shortDescription.en,
     path: `/products/${product.slug}`,
-    keywords: [product.name, product.tagline, ...product.keyIngredients.map((k) => k.name)],
+    keywords: [product.name.en, product.tagline.en, ...product.keyIngredients.map((k) => k.name.en)],
   });
 }
 
@@ -49,7 +49,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
           productSchema(product),
           breadcrumbSchema([
             { name: 'Products', url: '/products' },
-            { name: product.name, url: `/products/${product.slug}` },
+            { name: product.name.en, url: `/products/${product.slug}` },
           ]),
         ]}
       />
@@ -78,7 +78,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
             <Reveal>
               <div className="relative">
                 <div className="overflow-hidden rounded-4xl border border-line shadow-glow">
-                  <ProductVisual accent={product.accent} category={product.category} image={product.image} name={product.name} className="aspect-[4/3]" />
+                  <ProductVisual accent={product.accent} category={product.category} image={product.image} name={product.name.en} className="aspect-[4/3]" />
                 </div>
                 <div className="absolute -bottom-5 left-6 flex items-center gap-2 rounded-2xl border border-line bg-white px-4 py-2.5 shadow-card">
                   <CatIcon className="h-5 w-5 text-secondary-500" strokeWidth={1.8} />
@@ -98,20 +98,26 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                 </div>
               </Reveal>
               <Reveal delay={0.05}>
-                <h1 className="mt-4 text-display-lg text-ink">{product.name}</h1>
+                <h1 className="mt-4 text-display-lg text-ink">
+                  <L text={product.name} />
+                </h1>
               </Reveal>
               <Reveal delay={0.1}>
-                <p className="mt-2 text-xl font-medium text-secondary-600">{product.tagline}</p>
+                <p className="mt-2 text-xl font-medium text-secondary-600">
+                  <L text={product.tagline} />
+                </p>
               </Reveal>
               <Reveal delay={0.15}>
-                <p className="mt-5 text-lg leading-relaxed text-ink-soft">{product.description}</p>
+                <p className="mt-5 text-lg leading-relaxed text-ink-soft">
+                  <L text={product.description} />
+                </p>
               </Reveal>
 
               <Reveal delay={0.2}>
                 <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                  <MetaCard icon={Pipette} label={<L text={{ en: 'Form', ar: 'الشكل الدوائي' }} />} value={product.form} />
-                  <MetaCard icon={Users} label={<L text={{ en: 'Suitable for', ar: 'مناسب لـ' }} />} value={product.ageGroup} />
-                  <MetaCard icon={Package} label={<L text={{ en: 'Pack size', ar: 'حجم العبوة' }} />} value={product.pack} />
+                  <MetaCard icon={Pipette} label={<L text={{ en: 'Form', ar: 'الشكل الدوائي' }} />} value={<L text={product.form} />} />
+                  <MetaCard icon={Users} label={<L text={{ en: 'Suitable for', ar: 'مناسب لـ' }} />} value={<L text={product.ageGroup} />} />
+                  <MetaCard icon={Package} label={<L text={{ en: 'Pack size', ar: 'حجم العبوة' }} />} value={<L text={product.pack} />} />
                 </div>
               </Reveal>
 
@@ -126,7 +132,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
               <Reveal delay={0.25}>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Button href="/contact" variant={product.status === 'available' ? 'outline' : 'primary'} withArrow={product.status !== 'available'}>
-                    <L text={{ en: 'Enquire about', ar: 'استفسر عن' }} /> {product.name}
+                    <L text={{ en: 'Enquire about', ar: 'استفسر عن' }} /> <L text={product.name} />
                   </Button>
                   <Button href="/contact#departments" variant="outline">
                     <Download className="h-4 w-4" />
@@ -155,9 +161,9 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                 </div>
                 <ul className="mt-6 space-y-4">
                   {product.keyIngredients.map((k) => (
-                    <li key={k.name} className="flex items-start justify-between gap-4 border-b border-line pb-4 last:border-0 last:pb-0">
-                      <span className="font-medium text-ink">{k.name}</span>
-                      <span className="text-end text-sm text-ink-muted">{k.note}</span>
+                    <li key={k.name.en} className="flex items-start justify-between gap-4 border-b border-line pb-4 last:border-0 last:pb-0">
+                      <span className="font-medium text-ink"><L text={k.name} /></span>
+                      <span className="text-end text-sm text-ink-muted"><L text={k.note} /></span>
                     </li>
                   ))}
                 </ul>
@@ -171,12 +177,12 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                   <h2 className="text-xl font-semibold text-ink"><L text={{ en: 'Benefits', ar: 'الفوائد' }} /></h2>
                   <Stagger className="mt-6 space-y-3">
                     {product.benefits.map((b) => (
-                      <StaggerItem key={b}>
+                      <StaggerItem key={b.en}>
                         <div className="flex items-start gap-3">
                           <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-success-50 text-success-600">
                             <Check className="h-3.5 w-3.5" strokeWidth={3} />
                           </span>
-                          <span className="text-ink-soft">{b}</span>
+                          <span className="text-ink-soft"><L text={b} /></span>
                         </div>
                       </StaggerItem>
                     ))}
@@ -184,7 +190,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                 </div>
                 <div className="rounded-4xl border border-primary-100 bg-primary-50/60 p-8 sm:p-10">
                   <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-700"><L text={{ en: 'How to use', ar: 'طريقة الاستخدام' }} /></h3>
-                  <p className="mt-2 text-ink-soft">{product.usage}</p>
+                  <p className="mt-2 text-ink-soft"><L text={product.usage} /></p>
                 </div>
               </div>
             </Reveal>
@@ -227,7 +233,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
   );
 }
 
-function MetaCard({ icon: Icon, label, value }: { icon: typeof Package; label: React.ReactNode; value: string }) {
+function MetaCard({ icon: Icon, label, value }: { icon: typeof Package; label: React.ReactNode; value: React.ReactNode }) {
   return (
     <div className={cn('rounded-2xl border border-line bg-white p-4 shadow-soft')}>
       <div className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-ink-muted">
