@@ -51,8 +51,8 @@ export function QualityAssurance() {
   return (
     <section id="quality" className="relative overflow-hidden bg-primary-950 py-24 text-white sm:py-28 lg:py-32">
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-24 top-0 h-96 w-96 rounded-full bg-primary-700/30 blur-3xl" />
-        <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-secondary-500/15 blur-3xl" />
+        <div className="absolute -left-24 top-0 h-96 w-96 rounded-full bg-primary-700/30" />
+        <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-secondary-500/15" />
         <LogoMark className="absolute -left-10 bottom-0 hidden h-80 opacity-[0.06] lg:block" />
       </div>
 

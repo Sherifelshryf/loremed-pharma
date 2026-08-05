@@ -2,6 +2,7 @@ import { PlayCircle } from 'lucide-react';
 import { Container, Eyebrow } from '@/components/ui/Section';
 import { Reveal } from '@/components/ui/motion';
 import { L } from '@/i18n/Localized';
+import type { Bi } from '@/i18n/dictionaries';
 
 /**
  * Embedded product video (YouTube). Rendered on the product detail page when a
@@ -9,7 +10,7 @@ import { L } from '@/i18n/Localized';
  * a lazily-loaded iframe so it doesn't slow the initial page load. The 16:9 frame
  * is fully responsive down to mobile.
  */
-export function ProductVideo({ youtubeId, name }: { youtubeId: string; name: string }) {
+export function ProductVideo({ youtubeId, name }: { youtubeId: string; name: Bi }) {
   return (
     <section className="section pt-0">
       <Container>
@@ -21,7 +22,7 @@ export function ProductVideo({ youtubeId, name }: { youtubeId: string; name: str
                 <L text={{ en: 'Watch', ar: 'شاهد' }} />
               </Eyebrow>
               <h2 className="mt-3 text-display-sm sm:text-display-md">
-                <L text={{ en: `${name} in motion`, ar: `${name} بالفيديو` }} />
+                <L text={{ en: `${name.en} in motion`, ar: `${name.ar} بالفيديو` }} />
               </h2>
             </div>
           </div>
@@ -32,7 +33,7 @@ export function ProductVideo({ youtubeId, name }: { youtubeId: string; name: str
             <iframe
               className="absolute inset-0 h-full w-full"
               src={`https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0`}
-              title={`${name} — Loremed Pharma`}
+              title={`${name.en} — Loremed Pharma`}
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"

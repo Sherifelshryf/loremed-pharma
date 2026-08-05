@@ -35,11 +35,11 @@ export function Footer() {
       </div>
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-primary-700/30 blur-3xl"
+        className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-primary-700/30"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute right-0 top-1/3 h-80 w-80 rounded-full bg-secondary-500/10 blur-3xl"
+        className="pointer-events-none absolute right-0 top-1/3 h-80 w-80 rounded-full bg-secondary-500/10"
       />
 
       <div className="relative mx-auto max-w-[1320px] px-5 sm:px-6 lg:px-8">

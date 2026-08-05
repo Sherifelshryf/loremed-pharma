@@ -13,7 +13,7 @@ export function LanguageSwitcher({ inverse = false, className }: { inverse?: boo
     <div
       className={cn(
         'inline-flex items-center gap-1 rounded-full border p-1',
-        inverse ? 'border-white/20 bg-white/10' : 'border-line bg-white/70 backdrop-blur',
+        inverse ? 'border-white/20 bg-white/10' : 'border-line bg-white',
         className,
       )}
       role="group"

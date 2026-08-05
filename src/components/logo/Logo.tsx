@@ -1,5 +1,13 @@
-import Image from 'next/image';
 import { cn } from '@/lib/utils';
+
+/*
+ * Plain <img> rather than next/image: the static export disables the image
+ * optimiser, so next/image would only add client-side JavaScript for no gain.
+ *
+ * The logo stays a PNG while the packshots are WebP — it needs an alpha channel
+ * for the dark footer and the watermarks, and PNG decodes on every browser,
+ * including the older ones this site is built for.
+ */
 
 export function Logo({
   className,
@@ -13,14 +21,13 @@ export function Logo({
 }) {
   return (
     <span className={cn('inline-flex select-none items-center', className)}>
-      <Image
-        src="/media/logo.webp"
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/media/logo.png"
         alt="Loremed Pharma"
         width={160}
         height={80}
         className="h-10 w-auto"
-        priority
-        unoptimized
       />
     </span>
   );
@@ -28,14 +35,13 @@ export function Logo({
 
 export function LogoMark({ className }: { className?: string }) {
   return (
-    <Image
-      src="/media/logo.webp"
+    /* eslint-disable-next-line @next/next/no-img-element */
+    <img
+      src="/media/logo.png"
       alt="Loremed Pharma"
       width={160}
       height={80}
       className={cn('h-auto w-auto', className)}
-      priority
-      unoptimized
     />
   );
 }

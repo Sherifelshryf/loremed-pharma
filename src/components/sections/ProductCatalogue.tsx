@@ -78,7 +78,7 @@ export function ProductCatalogue() {
       <Container>
         {/* Toolbar — sticky only from lg up; on mobile it scrolls away so it doesn't
             pin and eat the screen */}
-        <div className="z-30 -mx-2 mb-8 rounded-3xl border border-line bg-white/85 p-4 shadow-soft backdrop-blur-xl sm:p-5 lg:sticky lg:top-20">
+        <div className="z-30 -mx-2 mb-8 rounded-3xl border border-line bg-white p-4 shadow-soft sm:p-5 lg:sticky lg:top-20">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="relative w-full lg:max-w-xs">
               <Search className="pointer-events-none absolute start-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-muted" />

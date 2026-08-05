@@ -19,7 +19,7 @@ export function GradientOrb({
   return (
     <div
       aria-hidden
-      className={cn('pointer-events-none absolute rounded-full blur-3xl', className)}
+      className={cn('pointer-events-none absolute rounded-full', className)}
       style={{ width: size, height: size, background: bg }}
     />
   );

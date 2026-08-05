@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, FlaskConical, Beaker, Gauge, Droplet } from 'lucide-react';
 import { PageHero } from '@/components/layout/PageHero';
+import { Research } from '@/components/sections/Research';
 import { ContactCTA } from '@/components/sections/ContactCTA';
 import { Container, SectionHeading, Eyebrow, Badge } from '@/components/ui/Section';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/motion';
@@ -108,8 +109,8 @@ export default function ResearchPage() {
       {/* Pipeline */}
       <section id="pipeline" className="section relative overflow-hidden bg-primary-950 text-white">
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute -left-24 top-0 h-96 w-96 rounded-full bg-primary-700/30 blur-3xl" />
-          <div className="absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-secondary-500/15 blur-3xl" />
+          <div className="absolute -left-24 top-0 h-96 w-96 rounded-full bg-primary-700/30" />
+          <div className="absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-secondary-500/15" />
           <Molecule tone="orange" className="right-10 top-24 hidden w-52 opacity-30 lg:block" />
         </div>
         <Container className="relative">
@@ -148,9 +149,9 @@ export default function ResearchPage() {
                     <Badge tone="muted"><L text={{ en: 'Under registration', ar: 'قيد التسجيل' }} /></Badge>
                     <ArrowRight className="h-4 w-4 text-white/40 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
                   </div>
-                  <h3 className="mt-5 text-xl font-semibold text-white">{p.name}</h3>
-                  <p className="mt-1 text-sm font-medium text-secondary-300">{p.tagline}</p>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-white/55">{p.shortDescription}</p>
+                  <h3 className="mt-5 text-xl font-semibold text-white"><L text={p.name} /></h3>
+                  <p className="mt-1 text-sm font-medium text-secondary-300"><L text={p.tagline} /></p>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-white/55"><L text={p.shortDescription} /></p>
                 </Link>
               </StaggerItem>
             ))}
@@ -236,6 +237,8 @@ export default function ResearchPage() {
           </Stagger>
         </Container>
       </section>
+
+      <Research />
 
       <ContactCTA />
     </>

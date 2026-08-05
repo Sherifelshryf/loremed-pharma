@@ -48,7 +48,7 @@ export const organizationSchema = {
   legalName: site.legalName,
   url: site.url,
   // Google uses this to associate the mark with the brand in search results.
-  logo: `${site.url}/media/logo.webp`,
+  logo: `${site.url}/media/logo.png`,
   image: `${site.url}/og-image.jpg`,
   slogan: site.tagline,
   description: site.description,
@@ -87,16 +87,18 @@ export function productSchema(p: Product) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: p.name,
-    description: p.shortDescription,
+    // Structured data is emitted in English: it is machine-read by search
+    // engines, and a Bi object here would serialise as {"en":...,"ar":...}.
+    name: p.name.en,
+    description: p.shortDescription.en,
     category: p.category,
     brand: { '@type': 'Brand', name: site.name },
     manufacturer: { '@type': 'Organization', name: site.name },
-    audience: { '@type': 'PeopleAudience', suggestedMinAge: p.ageGroup },
+    audience: { '@type': 'PeopleAudience', suggestedMinAge: p.ageGroup.en },
     additionalProperty: p.keyIngredients.map((k) => ({
       '@type': 'PropertyValue',
-      name: k.name,
-      value: k.note,
+      name: k.name.en,
+      value: k.note.en,
     })),
   };
 }

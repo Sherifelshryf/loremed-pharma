@@ -1,6 +1,5 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { useI18n } from '@/i18n/LanguageProvider';
@@ -36,19 +35,13 @@ export function Accordion({ items }: { items: { q: Bi; a: Bi }[] }) {
                 <Plus className="h-4 w-4" />
               </span>
             </button>
-            <AnimatePresence initial={false}>
               {isOpen && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                <div
                   className="overflow-hidden"
                 >
                   <p className="px-6 pb-6 text-ink-soft sm:px-8">{item.a[locale]}</p>
-                </motion.div>
+                </div>
               )}
-            </AnimatePresence>
           </div>
         );
       })}

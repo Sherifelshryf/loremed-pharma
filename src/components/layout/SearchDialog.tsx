@@ -1,6 +1,5 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
 import { Search, X, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -33,11 +32,11 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
 
   const index = useMemo<Result[]>(() => {
     const productResults: Result[] = products.map((p) => ({
-      label: p.name,
+      label: p.name[locale],
       href: `/products/${p.slug}`,
       group: groupLabels.Products[locale],
       kind: 'product',
-      sub: p.tagline,
+      sub: p.tagline[locale],
       // Index ingredients, benefits and description too — otherwise a product is
       // unfindable by what it actually contains unless its tagline says so.
       haystack: productSearchText(p),
@@ -84,29 +83,21 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
   }, [open, onClose]);
 
   return (
-    <AnimatePresence>
+    <>
       {open && (
-        <motion.div
+        <div
           className="fixed inset-0 z-[250] flex items-start justify-center px-3 pt-[8vh] sm:px-4 sm:pt-[12vh]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
         >
           <div
-            className="absolute inset-0 bg-primary-950/40 backdrop-blur-sm"
+            className="absolute inset-0 bg-primary-950/40"
             onClick={onClose}
             aria-hidden
           />
-          <motion.div
+          <div
             role="dialog"
             aria-modal="true"
             aria-label={t('search.title')}
             className="relative w-full max-w-2xl overflow-hidden rounded-3xl border border-line bg-white shadow-glow"
-            initial={{ opacity: 0, y: -18, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.98 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="flex items-center gap-3 border-b border-line px-4 sm:px-5">
               <Search className="h-5 w-5 shrink-0 text-ink-muted" aria-hidden />
@@ -166,9 +157,9 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
                 ))}
               </ul>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }

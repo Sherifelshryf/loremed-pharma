@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Send, AlertCircle } from 'lucide-react';
 import { useRef, useState, type FormEvent } from 'react';
 import { useI18n } from '@/i18n/LanguageProvider';
@@ -100,12 +99,9 @@ export function ContactForm() {
 
   return (
     <div className="relative">
-      <AnimatePresence mode="wait">
         {submitted ? (
-          <motion.div
+          <div
             key="success"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
             className="flex flex-col items-center rounded-3xl border border-success-100 bg-success-50/60 px-8 py-16 text-center"
           >
             <span className="grid h-16 w-16 place-items-center rounded-full bg-success-500 text-white">
@@ -122,15 +118,13 @@ export function ContactForm() {
             >
               {copy.sendAnother[locale]}
             </button>
-          </motion.div>
+          </div>
         ) : (
-          <motion.form
+          <form
             key="form"
             ref={formRef}
             onSubmit={onSubmit}
             noValidate
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
             className="space-y-5 rounded-3xl border border-line bg-white p-6 shadow-card sm:p-8"
           >
             <div className="grid gap-5 sm:grid-cols-2">
@@ -178,9 +172,8 @@ export function ContactForm() {
             <p className="text-xs text-ink-muted">
               <span className="text-danger-600">*</span> {t('contact.required')} {copy.requiredSuffix[locale]}
             </p>
-          </motion.form>
+          </form>
         )}
-      </AnimatePresence>
     </div>
   );
 }

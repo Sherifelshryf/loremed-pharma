@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { ProductImage } from '@/components/ui/ProductImage';
 import { Minus, Plus, Trash2, MapPin, Send, Check, AlertCircle, ShoppingCart, PhoneCall, MessageCircle } from 'lucide-react';
 import { useCart } from '@/cart/CartProvider';
 import { useI18n } from '@/i18n/LanguageProvider';
@@ -85,7 +85,7 @@ function buildWhatsAppMessage({
   address: string;
   notes: string;
   locationLink: string | null;
-  lines: { product: { name: string; price: number }; quantity: number; lineTotal: number }[];
+  lines: { product: { name: { en: string }; price: number }; quantity: number; lineTotal: number }[];
   subtotal: number;
   deliveryFee: number;
   total: number;
@@ -118,7 +118,8 @@ function buildWhatsAppMessage({
   for (const line of lines) {
     // Dot leaders are padded against the rendered width — the bold asterisks
     // are markup and disappear once WhatsApp formats the line.
-    const label = invoiceName(line.product.name);
+    // The invoice stays English for product names so they match the carton.
+    const label = invoiceName(line.product.name.en);
     const rendered = `${label} ×${line.quantity}`;
     const dots = '.'.repeat(Math.max(3, LEADER_WIDTH - rendered.length));
     msg += `• *${label}* ×${line.quantity} ${dots} *${money(line.lineTotal)}*${lb}`;
@@ -312,7 +313,7 @@ export function OrderClient() {
               >
                 <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-neutral-50">
                   {line.product.image && (
-                    <Image src={line.product.image} alt={line.product.name} fill className="object-contain p-1.5" sizes="64px" />
+                    <ProductImage src={line.product.image} alt={line.product.name[locale]} className="absolute inset-0 h-full w-full object-contain p-1.5" />
                   )}
                 </div>
                 {/* Name/remove on top, quantity + line total below — keeps the row from
@@ -324,7 +325,7 @@ export function OrderClient() {
                         href={`/products/${line.product.slug}`}
                         className="block truncate font-medium text-ink hover:text-primary-800"
                       >
-                        {line.product.name}
+                        {line.product.name[locale]}
                       </Link>
                       <div className="mt-0.5 text-sm text-ink-muted">
                         {currency} {line.product.price}

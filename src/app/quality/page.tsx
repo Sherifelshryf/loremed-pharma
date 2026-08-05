@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { ShieldCheck, Microscope, Beaker, ClipboardCheck, FlaskConical, Thermometer } from 'lucide-react';
 import { PageHero } from '@/components/layout/PageHero';
 import { Manufacturing } from '@/components/sections/Manufacturing';
+import { QualityAssurance } from '@/components/sections/QualityAssurance';
+import { Certifications } from '@/components/sections/Certifications';
+import { Professionals } from '@/components/sections/Professionals';
 import { ContactCTA } from '@/components/sections/ContactCTA';
 import { Container, SectionHeading, Eyebrow } from '@/components/ui/Section';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/motion';
@@ -227,6 +230,10 @@ export default function QualityPage() {
           </p>
         </Container>
       </section>
+
+      <QualityAssurance />
+      <Certifications />
+      <Professionals />
 
       <ContactCTA />
     </>

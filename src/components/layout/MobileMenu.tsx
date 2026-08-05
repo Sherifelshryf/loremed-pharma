@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, X, ShoppingCart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { primaryNav, site } from '@/content/site';
@@ -31,23 +30,16 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
   }, [open, onClose]);
 
   return (
-    <AnimatePresence>
+    <>
       {open && (
         <>
-          <motion.div
-            className="fixed inset-0 z-[190] bg-primary-950/40 backdrop-blur-sm lg:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <div
+            className="fixed inset-0 z-[190] bg-primary-950/40 lg:hidden"
             onClick={onClose}
             aria-hidden
           />
-          <motion.aside
+          <aside
             className="fixed inset-y-0 end-0 z-[200] flex w-[min(88vw,26rem)] flex-col bg-white shadow-glow lg:hidden"
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', stiffness: 320, damping: 34 }}
             role="dialog"
             aria-modal="true"
             aria-label={t('nav.menu')}
@@ -104,13 +96,8 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
                           </button>
                         )}
                       </div>
-                      <AnimatePresence initial={false}>
                         {hasChildren && isOpen && (
-                          <motion.ul
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                          <ul
                             className="overflow-hidden ps-3"
                           >
                             {item.children!.map((child) => (
@@ -124,9 +111,8 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
                                 </Link>
                               </li>
                             ))}
-                          </motion.ul>
+                          </ul>
                         )}
-                      </AnimatePresence>
                     </li>
                   );
                 })}
@@ -140,9 +126,9 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
               </Button>
               <p className="text-center text-sm text-ink-muted">{site.email}</p>
             </div>
-          </motion.aside>
+          </aside>
         </>
       )}
-    </AnimatePresence>
+    </>
   );
 }
