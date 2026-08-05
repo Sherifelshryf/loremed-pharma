@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, FlaskConical, Beaker, Gauge, Droplet } from 'lucide-react';
 import { PageHero } from '@/components/layout/PageHero';
+import { Research } from '@/components/sections/Research';
 import { ContactCTA } from '@/components/sections/ContactCTA';
 import { Container, SectionHeading, Eyebrow, Badge } from '@/components/ui/Section';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/motion';
@@ -236,6 +237,8 @@ export default function ResearchPage() {
           </Stagger>
         </Container>
       </section>
+
+      <Research />
 
       <ContactCTA />
     </>

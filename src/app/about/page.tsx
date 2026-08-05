@@ -2,6 +2,11 @@ import type { Metadata } from 'next';
 import { Target, Compass } from 'lucide-react';
 import { PageHero } from '@/components/layout/PageHero';
 import { StatsBand } from '@/components/sections/StatsBand';
+import { CompanyOverview } from '@/components/sections/CompanyOverview';
+import { WhyLoremed } from '@/components/sections/WhyLoremed';
+import { Partnerships } from '@/components/sections/Partnerships';
+import { Testimonials } from '@/components/sections/Testimonials';
+import { News } from '@/components/sections/News';
 import { ContactCTA } from '@/components/sections/ContactCTA';
 import { Container, Eyebrow, SectionHeading } from '@/components/ui/Section';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/motion';
@@ -219,6 +224,12 @@ export default function AboutPage() {
           </p>
         </Container>
       </section>
+
+      <CompanyOverview />
+      <WhyLoremed />
+      <Partnerships />
+      <Testimonials />
+      <News />
 
       <ContactCTA />
     </>

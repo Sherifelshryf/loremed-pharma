@@ -1,34 +1,27 @@
-import { Hero } from '@/components/sections/Hero';
-import { CompanyOverview } from '@/components/sections/CompanyOverview';
+import { ShopHero } from '@/components/sections/ShopHero';
+import { CategoryTiles } from '@/components/sections/CategoryTiles';
+import { ShopProducts } from '@/components/sections/ShopProducts';
+import { HowToOrder } from '@/components/sections/HowToOrder';
 import { StatsBand } from '@/components/sections/StatsBand';
-import { WhyLoremed } from '@/components/sections/WhyLoremed';
-import { FeaturedProducts } from '@/components/sections/FeaturedProducts';
-import { Manufacturing } from '@/components/sections/Manufacturing';
-import { Research } from '@/components/sections/Research';
-import { QualityAssurance } from '@/components/sections/QualityAssurance';
-import { Certifications } from '@/components/sections/Certifications';
-import { Partnerships } from '@/components/sections/Partnerships';
-import { Professionals } from '@/components/sections/Professionals';
-import { News } from '@/components/sections/News';
-import { Testimonials } from '@/components/sections/Testimonials';
 import { ContactCTA } from '@/components/sections/ContactCTA';
 
+/**
+ * Shop-first homepage.
+ *
+ * The site sells directly, so the page follows how a shopper actually moves:
+ * what we sell, which shelf, the products with their prices, then how to order.
+ * One compact trust band carries the credibility a buyer needs before ordering
+ * medicine; the fuller company story lives on /about, /quality and /research
+ * rather than sitting between the shopper and the products.
+ */
 export default function HomePage() {
   return (
     <>
-      <Hero />
-      <FeaturedProducts />
-      <CompanyOverview />
+      <ShopHero />
+      <CategoryTiles />
+      <ShopProducts />
       <StatsBand />
-      <WhyLoremed />
-      <Manufacturing />
-      <Research />
-      <QualityAssurance />
-      <Certifications />
-      <Partnerships />
-      <Professionals />
-      <News />
-      <Testimonials />
+      <HowToOrder />
       <ContactCTA />
     </>
   );
