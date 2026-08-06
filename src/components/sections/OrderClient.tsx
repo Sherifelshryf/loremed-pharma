@@ -6,146 +6,21 @@ import { ProductImage } from '@/components/ui/ProductImage';
 import { Minus, Plus, Trash2, MapPin, Send, Check, AlertCircle, ShoppingCart, PhoneCall, MessageCircle } from 'lucide-react';
 import { useCart } from '@/cart/CartProvider';
 import { useI18n } from '@/i18n/LanguageProvider';
-import { dictionaries } from '@/i18n/dictionaries';
 import { site } from '@/content/site';
 import { Container } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
-
-// The WhatsApp order invoice is ALWAYS composed in Arabic, regardless of the
-// language the customer used on the site, so the team receives every order in
-// one consistent format. Product names stay as-is (they're English by design).
-// These labels are message-only and intentionally never translated, so they
-// live here rather than in the bilingual UI dictionary.
-const INVOICE = {
-  title: 'فاتورة طلب',
-  orderNumber: 'رقم الطلب',
-  customer: 'بيانات العميل',
-  name: 'الاسم',
-  phone: 'رقم الهاتف',
-  address: 'عنوان التوصيل',
-  notes: 'ملاحظات',
-  location: 'الموقع الجغرافي',
-  items: 'تفاصيل الطلب',
-  summary: 'ملخص الفاتورة',
-  subtotal: 'الإجمالي الفرعي',
-  deliveryFee: 'رسوم التوصيل',
-  grandTotal: 'الإجمالي المستحق',
-  payment: 'طريقة الدفع',
-  eta: 'موعد التوصيل المتوقع',
-  etaValue: 'خلال 24–48 ساعة',
-  thanks: 'شكراً لثقتكم بنا',
-  closingLine1: 'نتمنى لكم دوام الصحة والعافية،',
-  closingLine2: 'ونسعد دائماً بخدمتكم.',
-};
-
-/** Shown both on the checkout summary and in the WhatsApp invoice — keep in sync. */
-const PAYMENT_METHOD = { en: 'Cash on Delivery', ar: 'الدفع عند الاستلام' };
-
-const RULE = '━━━━━━━━━━━━━━';
+import { buildWhatsAppMessage, generateOrderNumber, PAYMENT_METHOD } from '@/cart/whatsappMessage';
 
 /**
- * Product names on the invoice drop the pack size that the catalogue carries
- * for disambiguation ("Smartod for kids 30ml" → "Smartod for kids"). The site
- * keeps the full name; only the message is shortened.
+ * Accepts Egyptian mobile numbers with an optional +20 / 0020 / trunk-0
+ * prefix ahead of the 01[0125] + 8-digit body, tolerating spaces and dashes
+ * (e.g. "+20 10 5599 9630", "01055999630", "0020-100-1164300").
  */
-function invoiceName(name: string) {
-  return name.replace(/\s*\d+\s*ml\b/i, '').trim();
-}
+const EGYPT_MOBILE_RE = /^(?:\+20|0020|0)?1[0125]\d{8}$/;
 
-/**
- * The invoice uses a fixed, known-good set of emoji. Anything astral arriving
- * from what the customer typed is dropped, so an emoji pasted into a name or
- * address can't introduce glyphs that fail to render alongside them.
- */
-function sanitizeInput(value: string) {
-  return value.replace(/[\u{10000}-\u{10FFFF}]/gu, '').trim();
-}
-/** Width the "name ×qty" column is padded to with dot leaders before the price. */
-const LEADER_WIDTH = 28;
-
-const AR = dictionaries.ar;
-const AR_CURRENCY = site.currency.ar;
-
-function buildWhatsAppMessage({
-  orderNumber,
-  name,
-  phone,
-  address,
-  notes,
-  locationLink,
-  lines,
-  subtotal,
-  deliveryFee,
-  total,
-}: {
-  orderNumber: string;
-  name: string;
-  phone: string;
-  address: string;
-  notes: string;
-  locationLink: string | null;
-  lines: { product: { name: { en: string }; price: number }; quantity: number; lineTotal: number }[];
-  subtotal: number;
-  deliveryFee: number;
-  total: number;
-}) {
-  const lb = '\n';
-  const money = (amount: number) => `${amount} ${AR_CURRENCY}`;
-
-  let msg = `🧾 *${INVOICE.title}*${lb}${lb}`;
-
-  msg += `${RULE}${lb}`;
-  msg += `📦 *${INVOICE.orderNumber}*${lb}`;
-  msg += `*#${orderNumber}*${lb}`;
-  msg += `${RULE}${lb}${lb}`;
-
-  msg += `👤 *${INVOICE.customer}*${lb}${lb}`;
-  msg += `*${INVOICE.name}:* ${sanitizeInput(name)}${lb}`;
-  msg += `*${INVOICE.phone}:* ${sanitizeInput(phone)}${lb}`;
-  msg += `*${INVOICE.address}:* ${sanitizeInput(address)}${lb}`;
-  if (sanitizeInput(notes)) {
-    msg += `*${INVOICE.notes}:* ${sanitizeInput(notes)}${lb}`;
-  }
-  if (locationLink) {
-    msg += `${lb}📍 *${INVOICE.location}:*${lb}`;
-    msg += `${locationLink}${lb}`;
-  }
-  msg += lb;
-
-  msg += `${RULE}${lb}`;
-  msg += `🛍️ *${INVOICE.items}*${lb}${lb}`;
-  for (const line of lines) {
-    // Dot leaders are padded against the rendered width — the bold asterisks
-    // are markup and disappear once WhatsApp formats the line.
-    // The invoice stays English for product names so they match the carton.
-    const label = invoiceName(line.product.name.en);
-    const rendered = `${label} ×${line.quantity}`;
-    const dots = '.'.repeat(Math.max(3, LEADER_WIDTH - rendered.length));
-    msg += `• *${label}* ×${line.quantity} ${dots} *${money(line.lineTotal)}*${lb}`;
-  }
-  msg += lb;
-
-  msg += `${RULE}${lb}`;
-  msg += `💰 *${INVOICE.summary}*${lb}${lb}`;
-  msg += `*${INVOICE.subtotal}:* ${money(subtotal)}${lb}`;
-  msg += `*${INVOICE.deliveryFee}:* ${money(deliveryFee)}${lb}${lb}`;
-  msg += `💵 *${INVOICE.grandTotal}: ${money(total)}*${lb}${lb}`;
-
-  msg += `${RULE}${lb}`;
-  msg += `💳 *${INVOICE.payment}*${lb}${lb}`;
-  msg += `*${PAYMENT_METHOD.ar}*${lb}${lb}`;
-
-  msg += `${RULE}${lb}`;
-  msg += `🚚 *${INVOICE.eta}*${lb}${lb}`;
-  msg += `*${INVOICE.etaValue}*${lb}${lb}`;
-
-  msg += `${RULE}${lb}${lb}`;
-  msg += `🙏 *${INVOICE.thanks}*${lb}${lb}`;
-  msg += `${INVOICE.closingLine1}${lb}`;
-  msg += `${INVOICE.closingLine2} 💙`;
-
-  return msg;
+function isValidEgyptPhone(raw: string) {
+  return EGYPT_MOBILE_RE.test(raw.replace(/[\s-]/g, ''));
 }
 
 export function OrderClient() {
@@ -160,6 +35,7 @@ export function OrderClient() {
   const [errors, setErrors] = useState<{ name?: string; phone?: string; address?: string }>({});
   const [submitted, setSubmitted] = useState(false);
   const [waUrl, setWaUrl] = useState<string | null>(null);
+  const [cartCleared, setCartCleared] = useState(false);
 
   const currency = site.currency[locale];
   const deliveryFee = site.deliveryFee;
@@ -186,11 +62,12 @@ export function OrderClient() {
     const nextErrors: typeof errors = {};
     if (!name.trim()) nextErrors.name = t('order.errorName');
     if (!phone.trim()) nextErrors.phone = t('order.errorPhone');
+    else if (!isValidEgyptPhone(phone)) nextErrors.phone = t('order.errorPhoneInvalid');
     if (!address.trim()) nextErrors.address = t('order.errorAddress');
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    const orderNumber = String(Math.floor(10000000 + Math.random() * 90000000));
+    const orderNumber = generateOrderNumber();
     const message = buildWhatsAppMessage({
       orderNumber,
       name: name.trim(),
@@ -212,14 +89,23 @@ export function OrderClient() {
     // Show the confirmation (and the follow-up note) *before* handing off to
     // WhatsApp. Opening WhatsApp switches tabs or apps, so if the state flipped
     // afterwards the customer would only ever see this screen on their way back.
+    // The cart is deliberately left intact here: WhatsApp may not open (popup
+    // block, the app not installed, the customer backing out before pressing
+    // Send there), and clearing on submit would silently lose the order with
+    // nothing ever having reached us. It's only cleared once the customer
+    // confirms they actually sent it, or leaves via "Continue shopping".
     setWaUrl(url);
     setSubmitted(true);
-    clear();
 
     // Must stay inside the click handler — a deferred window.open gets caught by
     // popup blockers. If it is blocked anyway, the confirmation screen keeps the
     // link so the order is never lost.
     window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
+  function handleConfirmSent() {
+    clear();
+    setCartCleared(true);
   }
 
   const fieldClass = (hasError?: boolean) =>
@@ -240,6 +126,26 @@ export function OrderClient() {
           <h2 className="mt-6 text-2xl font-semibold text-ink">{t('order.successTitle')}</h2>
           <p className="mt-2 max-w-md text-ink-soft">{t('order.successBody')}</p>
 
+          {/* The cart is only cleared once the customer tells us the WhatsApp
+              message actually went out — see handleSubmit for why it isn't
+              cleared on submit. Until then it stays intact so nothing is lost
+              if they back out of WhatsApp or the popup was blocked. */}
+          {cartCleared ? (
+            <p className="mt-5 flex items-center gap-2 text-sm font-medium text-success-700">
+              <Check className="h-4 w-4" />
+              {t('order.confirmSentDone')}
+            </p>
+          ) : (
+            <button
+              type="button"
+              onClick={handleConfirmSent}
+              className="mt-5 inline-flex items-center gap-2 rounded-full border border-success-200 bg-success-50 px-5 py-2.5 text-sm font-medium text-success-700 transition-colors hover:border-success-300 hover:bg-success-100"
+            >
+              <Check className="h-4 w-4" />
+              {t('order.confirmSent')}
+            </button>
+          )}
+
           {/* What happens next: the team calls back, with the same WhatsApp number
               offered as a fallback if nobody does. */}
           <div className="mt-6 w-full max-w-md rounded-2xl border border-line bg-white p-5 text-start shadow-soft">
@@ -257,8 +163,9 @@ export function OrderClient() {
             </a>
           </div>
 
-          {/* Safety net: if the browser blocked the WhatsApp popup, the order would
-              otherwise be stranded — the cart is already cleared by this point. */}
+          {/* Safety net: if the browser blocked the WhatsApp popup, or the customer
+              simply hasn't sent it yet, the order isn't stranded — the cart still
+              holds it and this link re-opens the same pre-filled message. */}
           {waUrl && (
             <a
               href={waUrl}
@@ -271,8 +178,11 @@ export function OrderClient() {
             </a>
           )}
 
+          {/* Leaving the confirmation screen this way means the customer is done
+              with this order either way, so it's the other point the cart clears. */}
           <Link
             href="/products"
+            onClick={clear}
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary-800 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-primary-700 hover:shadow-glow"
           >
             {t('order.continueShopping')}

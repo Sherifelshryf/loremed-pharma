@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { getProduct, type Product } from '@/content/products';
+import { clampQuantity, sanitizeCartItems } from '@/cart/cartMath';
 
 type CartLine = { product: Product; quantity: number; lineTotal: number };
 
@@ -28,8 +29,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) setItems(parsed);
+        // Untrusted: devtools, a stale schema from an older deploy, or a
+        // hand-edited value could all put something malformed here.
+        setItems(sanitizeCartItems(JSON.parse(raw)));
       }
     } catch {
       /* ignore */
@@ -52,9 +54,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setItems((prev) => {
       const existing = prev.find((i) => i.slug === slug);
       if (existing) {
-        return prev.map((i) => (i.slug === slug ? { ...i, quantity: i.quantity + quantity } : i));
+        return prev.map((i) =>
+          i.slug === slug ? { ...i, quantity: clampQuantity(i.quantity + quantity) } : i,
+        );
       }
-      return [...prev, { slug, quantity }];
+      return [...prev, { slug, quantity: clampQuantity(quantity) }];
     });
   }, []);
 
@@ -65,7 +69,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const setQuantity = useCallback((slug: string, quantity: number) => {
     setItems((prev) => {
       if (quantity <= 0) return prev.filter((i) => i.slug !== slug);
-      return prev.map((i) => (i.slug === slug ? { ...i, quantity } : i));
+      return prev.map((i) => (i.slug === slug ? { ...i, quantity: clampQuantity(quantity) } : i));
     });
   }, []);
 
