@@ -10,6 +10,34 @@
  */
 const isStaticExport = process.env.STATIC_EXPORT === '1';
 
+/**
+ * Kept in one place and mirrored — by hand, not by build step — into the
+ * `Header set Content-Security-Policy` line in `public/.htaccess`, since the
+ * static export serves from Apache and never runs this function. Update both
+ * together.
+ *
+ * 'unsafe-inline' on script-src/style-src is a deliberate trade-off: the site
+ * has no per-request nonce (the static export is built once, ahead of any
+ * request), and it ships inline JSON-LD (`src/lib/seo.tsx`) plus Tailwind/
+ * Framer Motion inline `style` attributes that a strict policy would block.
+ * next/font self-hosts under `/_next/static`, so it's covered by 'self' with
+ * no external font host needed. frame-src only opens the two embeds actually
+ * used: the contact-page Google Maps iframe and the YouTube product videos.
+ */
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data:",
+  "font-src 'self' data:",
+  "connect-src 'self'",
+  "frame-src https://maps.google.com https://www.youtube-nocookie.com",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'self'",
+].join('; ');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -38,6 +66,7 @@ const nextConfig = {
                 { key: 'X-Content-Type-Options', value: 'nosniff' },
                 { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
                 { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+                { key: 'Content-Security-Policy', value: CSP },
               ],
             },
           ];
