@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ShieldCheck, Truck, Wallet } from 'lucide-react';
 import { Container } from '@/components/ui/Section';
+import { ProductImage } from '@/components/ui/ProductImage';
 import { L } from '@/i18n/Localized';
 
 /**
@@ -65,6 +66,16 @@ export function ShopHero() {
             ))}
           </ul>
         </div>
+
+        {/* Decorative shelf of the available packshots — purely visual, so it
+            carries no alt text; the real product names/prices live in the
+            cards below. */}
+        <ProductImage
+          src="/media/hero-products.webp"
+          alt=""
+          priority
+          className="mx-auto w-full max-w-5xl select-none"
+        />
       </Container>
     </section>
   );
