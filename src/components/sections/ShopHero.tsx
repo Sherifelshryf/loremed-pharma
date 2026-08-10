@@ -13,7 +13,7 @@ export function ShopHero() {
   return (
     <section className="border-b border-line bg-surface-muted pt-28 sm:pt-32">
       <Container>
-        <div className="pb-12 text-center sm:pb-16">
+        <div className="text-center">
           <h1 className="mx-auto max-w-3xl text-display-lg sm:text-display-xl">
             <L
               text={{
@@ -39,32 +39,6 @@ export function ShopHero() {
               <L text={{ en: 'Shop all products', ar: 'تسوّق كل المنتجات' }} />
             </Link>
           </div>
-
-          {/* The three things a first-time buyer wants to know */}
-          <ul className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3">
-            {[
-              {
-                icon: Wallet,
-                text: { en: 'Cash on delivery', ar: 'الدفع عند الاستلام' },
-              },
-              {
-                icon: Truck,
-                text: { en: 'Delivered in 24–48 hours', ar: 'التوصيل خلال 24–48 ساعة' },
-              },
-              {
-                icon: ShieldCheck,
-                text: { en: 'Genuine, GMP-made products', ar: 'منتجات أصلية بمعايير GMP' },
-              },
-            ].map(({ icon: Icon, text }) => (
-              <li
-                key={text.en}
-                className="flex items-center justify-center gap-2 rounded-2xl border border-line bg-white px-4 py-3 text-sm font-medium text-ink"
-              >
-                <Icon className="h-5 w-5 shrink-0 text-secondary-500" strokeWidth={2} />
-                <L text={text} />
-              </li>
-            ))}
-          </ul>
         </div>
 
         {/* Decorative shelf of the available packshots — purely visual, so it
@@ -74,8 +48,34 @@ export function ShopHero() {
           src="/media/hero-products.webp"
           alt=""
           priority
-          className="mx-auto w-full max-w-5xl select-none"
+          className="mx-auto mt-10 w-full max-w-5xl select-none sm:mt-14"
         />
+
+        {/* The three things a first-time buyer wants to know */}
+        <ul className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-3 pb-12 sm:grid-cols-3 sm:pb-16">
+          {[
+            {
+              icon: Wallet,
+              text: { en: 'Cash on delivery', ar: 'الدفع عند الاستلام' },
+            },
+            {
+              icon: Truck,
+              text: { en: 'Delivered in 24–48 hours', ar: 'التوصيل خلال 24–48 ساعة' },
+            },
+            {
+              icon: ShieldCheck,
+              text: { en: 'Genuine, GMP-made products', ar: 'منتجات أصلية بمعايير GMP' },
+            },
+          ].map(({ icon: Icon, text }) => (
+            <li
+              key={text.en}
+              className="flex items-center justify-center gap-2 rounded-2xl border border-line bg-white px-4 py-3 text-sm font-medium text-ink"
+            >
+              <Icon className="h-5 w-5 shrink-0 text-secondary-500" strokeWidth={2} />
+              <L text={text} />
+            </li>
+          ))}
+        </ul>
       </Container>
     </section>
   );
