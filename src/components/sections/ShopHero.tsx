@@ -48,7 +48,7 @@ export function ShopHero() {
           src="/media/hero-products.webp"
           alt=""
           priority
-          className="relative z-0 mx-auto -mt-4 w-full max-w-5xl select-none sm:-mt-6"
+          className="relative z-0 mx-auto mt-6 w-full max-w-5xl select-none sm:mt-8"
         />
 
         {/* The three things a first-time buyer wants to know */}
