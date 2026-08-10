@@ -13,7 +13,7 @@ export function ShopHero() {
   return (
     <section className="border-b border-line bg-surface-muted pt-28 sm:pt-32">
       <Container>
-        <div className="text-center">
+        <div className="relative z-10 text-center">
           <h1 className="mx-auto max-w-3xl text-display-lg sm:text-display-xl">
             <L
               text={{
@@ -48,7 +48,7 @@ export function ShopHero() {
           src="/media/hero-products.webp"
           alt=""
           priority
-          className="mx-auto mt-10 w-full max-w-5xl select-none sm:mt-14"
+          className="relative z-0 mx-auto -mt-4 w-full max-w-5xl select-none sm:-mt-6"
         />
 
         {/* The three things a first-time buyer wants to know */}
