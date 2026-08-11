@@ -120,7 +120,6 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
             </nav>
 
             <div className="space-y-4 border-t border-line px-5 py-5">
-              <LanguageSwitcher className="w-full justify-center" />
               <Button href="/products" onClick={onClose} className="w-full" variant="primary">
                 {t('cta.navExplore')}
               </Button>
