@@ -11,14 +11,14 @@ import { L } from '@/i18n/Localized';
  */
 export function ShopHero() {
   return (
-    <section className="border-b border-line bg-surface-muted pt-28 sm:pt-32">
+    <section className="border-b border-line bg-surface-muted pt-40 sm:pt-44">
       <Container>
         <div className="relative z-10 text-center">
           <h1 className="mx-auto max-w-3xl text-display-lg sm:text-display-xl">
             <L
               text={{
-                en: 'Vitamins, cough syrups and children’s health',
-                ar: 'فيتامينات وأدوية سعال ومنتجات لصحة الأطفال',
+                en: 'We care about the quality of life',
+                ar: 'نحن نهتم بجودة الحياة',
               }}
             />
           </h1>

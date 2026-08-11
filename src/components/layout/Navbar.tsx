@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Search, ChevronDown, ShoppingCart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { primaryNav } from '@/content/site';
@@ -11,32 +11,19 @@ import { useCart } from '@/cart/CartProvider';
 import { Logo } from '@/components/logo/Logo';
 import { Button } from '@/components/ui/Button';
 import { LanguageSwitcher } from './LanguageSwitcher';
-import { SearchDialog } from './SearchDialog';
 import { MobileMenu } from './MobileMenu';
 import { cn } from '@/lib/utils';
+import { L } from '@/i18n/Localized';
+import { normalizeSearch, products, productSearchText } from '@/content/products';
 
 export function Navbar() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const { count } = useCart();
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
+  const router = useRouter();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  useEffect(() => {
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => setScrolled(window.scrollY > 16));
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
 
   // Close mega menu on route change
   useEffect(() => {
@@ -46,22 +33,21 @@ export function Navbar() {
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href.split('?')[0]);
+  const suggestions = searchQuery.trim()
+    ? products.filter((product) => normalizeSearch(productSearchText(product)).includes(normalizeSearch(searchQuery))).slice(0, 6)
+    : [];
 
   return (
     <>
       <header
         className={cn(
-          'fixed inset-x-0 top-0 z-[120] transition-all duration-500 ease-out-expo',
-          scrolled
-            ? 'border-b border-line bg-white shadow-soft'
-            : 'border-b border-transparent bg-transparent',
+          'fixed inset-x-0 top-0 z-[120] border-b border-line bg-white shadow-soft',
         )}
         onMouseLeave={() => setOpenMenu(null)}
       >
         <nav
           className={cn(
-            'mx-auto flex max-w-[1320px] items-center justify-between gap-4 px-5 transition-all duration-500 sm:px-6 lg:px-8',
-            scrolled ? 'h-[4.5rem]' : 'h-20',
+            'mx-auto flex h-20 max-w-[1320px] items-center justify-between gap-4 px-5 sm:px-6 lg:px-8',
           )}
           aria-label="Primary"
         >
@@ -111,16 +97,6 @@ export function Navbar() {
 
           {/* Right cluster */}
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => setSearchOpen(true)}
-              className={cn(
-                'grid h-10 w-10 place-items-center rounded-full transition-colors',
-                'text-ink-soft hover:bg-neutral-100 hover:text-primary-800',
-              )}
-              aria-label={t('nav.openSearch')}
-            >
-              <Search className="h-[1.15rem] w-[1.15rem]" />
-            </button>
             <Link
               href="/order"
               className="relative grid h-10 w-10 place-items-center rounded-full text-ink-soft transition-colors hover:bg-neutral-100 hover:text-primary-800"
@@ -155,6 +131,45 @@ export function Navbar() {
           </div>
         </nav>
 
+        <form
+          className="border-t border-line bg-surface-muted"
+          onSubmit={(event) => {
+            event.preventDefault();
+            const query = searchQuery.trim();
+            router.push(query ? `/products?q=${encodeURIComponent(query)}` : '/products');
+          }}
+          role="search"
+        >
+          <div className="mx-auto max-w-[1320px] px-5 py-3 sm:px-6 lg:px-8">
+            <label className="relative block">
+              <span className="sr-only"><L text={{ en: 'Search products', ar: 'ابحث عن المنتجات' }} /></span>
+              <Search className="pointer-events-none absolute start-4 top-1/2 h-5 w-5 -translate-y-1/2 text-ink-muted" aria-hidden />
+              <input
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder={t('nav.openSearch')}
+                className="h-11 w-full rounded-xl border border-line bg-white ps-12 pe-4 text-sm text-ink outline-none focus:border-primary-500"
+              />
+            </label>
+            {suggestions.length > 0 && (
+              <ul className="mt-2 overflow-hidden rounded-xl border border-line bg-white shadow-soft">
+                {suggestions.map((product) => (
+                  <li key={product.slug} className="border-b border-line last:border-b-0">
+                    <Link
+                      href={`/products/${product.slug}`}
+                      onClick={() => setSearchQuery('')}
+                      className="flex items-center justify-between gap-4 px-4 py-3 text-sm"
+                    >
+                      <span className="font-semibold text-ink">{product.name[locale]}</span>
+                      <span className="text-ink-muted">{product.form[locale]}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </form>
+
         {/* Mega menu */}
           {openMenu && (
             <MegaMenu
@@ -165,7 +180,6 @@ export function Navbar() {
           )}
       </header>
 
-      <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} />
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
     </>
   );

@@ -18,10 +18,10 @@ export default function HomePage() {
   return (
     <>
       <ShopHero />
-      <CategoryTiles />
       <ShopProducts />
-      <StatsBand />
       <HowToOrder />
+      <StatsBand />
+      <CategoryTiles />
       <ContactCTA />
     </>
   );

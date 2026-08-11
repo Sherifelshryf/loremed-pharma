@@ -19,7 +19,7 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
   }
@@ -143,16 +143,12 @@
     mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
   }
 
-  /* Link underline animation */
+  /* Static link underline: avoids paint-heavy hover animation. */
   .link-underline {
     background-image: linear-gradient(currentColor, currentColor);
-    background-size: 0% 1.5px;
+    background-size: 100% 1.5px;
     background-position: 0 100%;
     background-repeat: no-repeat;
-    transition: background-size 0.4s var(--ease-out-expo);
-  }
-  .link-underline:hover {
-    background-size: 100% 1.5px;
   }
 }
 
@@ -177,22 +173,10 @@
   }
 }
 
-/* Content fades in as the loading screen exits (JS-only; no-JS stays visible) */
-#main {
-  transition: opacity 0.85s ease 0.05s;
-}
-html[data-loading='true'] #main {
-  opacity: 0;
-}
-
-/* Respect reduced motion globally */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
+/* Keep the whole site immediate and low-cost, including utilities in components. */
+*,
+*::before,
+*::after {
+  animation: none !important;
+  transition: none !important;
 }

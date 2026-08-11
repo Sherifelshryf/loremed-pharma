@@ -4,52 +4,17 @@ import { Container } from '@/components/ui/Section';
 import { categories } from '@/content/products';
 import { L } from '@/i18n/Localized';
 
-/**
- * Photo-led category cards give visitors a faster, more intuitive way to
- * discover the right product range.  These use real Loremed pack photography
- * already supplied with the site, rather than illustrative placeholder art.
- */
 const categoryCampaigns = {
-  'respiratory-care': {
-    image: '/media/campaigns/cough-chest.png',
-    eyebrow: { en: 'Breathe easier', ar: 'تنفّس براحة أكبر' },
-    message: { en: 'Comfort for every cough season.', ar: 'راحة لكل موسم سعال.' },
-    theme: 'from-[#eef5eb] via-white to-[#f8dcc7]',
-  },
-  'kids-health': {
-    image: '/media/campaigns/children.png',
-    eyebrow: { en: 'Made for little ones', ar: 'مصمّم للصغار' },
-    message: { en: 'Gentle care for growing days.', ar: 'عناية لطيفة لأيام النمو.' },
-    theme: 'from-[#fff0d9] via-white to-[#f4e8fb]',
-  },
-  'vitamins-minerals': {
-    image: '/media/campaigns/vitamins-minerals.png',
-    eyebrow: { en: 'Everyday essentials', ar: 'أساسيات كل يوم' },
-    message: { en: 'Nourish your best every day.', ar: 'تغذية لأفضل أيامك.' },
-    theme: 'from-[#e9f2ff] via-white to-[#fff1dc]',
-  },
-  'immune-support': {
-    image: '/media/Imulormed.webp',
-    eyebrow: { en: 'Everyday defence', ar: 'دعم يومي' },
-    message: { en: 'Support that fits your routine.', ar: 'دعم ينسجم مع روتينك.' },
-    theme: 'from-[#f2eafb] via-white to-[#fde7d8]',
-  },
-  'omega-brain': {
-    image: '/media/campaigns/omega-focus.png',
-    eyebrow: { en: 'Think brighter', ar: 'تفكير أكثر إشراقاً' },
-    message: { en: 'Focused nutrition for growing minds.', ar: 'تغذية مركّزة لعقول تنمو.' },
-    theme: 'from-[#e6f4f7] via-white to-[#f1eafb]',
-  },
-  dermatology: {
-    image: '/media/campaigns/skin-care.png',
-    eyebrow: { en: 'Skin comfort', ar: 'راحة البشرة' },
-    message: { en: 'Restore softness. Feel like yourself.', ar: 'استعيدي النعومة واشعري بالراحة.' },
-    theme: 'from-[#f8eee8] via-white to-[#e9f0fb]',
-  },
+  'respiratory-care': { image: '/media/campaigns/cough-chest.png', label: { en: 'Cough Care', ar: 'العناية بالسعال' }, description: { en: 'Comfort for clearer breathing.', ar: 'راحة لتنفس أكثر صفاءً.' } },
+  'kids-health': { image: '/media/campaigns/children.png', label: { en: 'Children', ar: 'الأطفال' }, description: { en: 'Gentle support for growing days.', ar: 'دعم لطيف لأيام النمو.' } },
+  'vitamins-minerals': { image: '/media/campaigns/vitamins-minerals.png', label: { en: 'Vitamins', ar: 'الفيتامينات' }, description: { en: 'Daily nutrition, simply covered.', ar: 'تغذية يومية بكل بساطة.' } },
+  'immune-support': { image: '/media/Imulormed.webp', label: { en: 'Immunity', ar: 'المناعة' }, description: { en: 'Everyday defence for your family.', ar: 'دعم يومي لعائلتك.' } },
+  'omega-brain': { image: '/media/campaigns/omega-focus.png', label: { en: 'Focus', ar: 'التركيز' }, description: { en: 'Nutrition for bright young minds.', ar: 'تغذية لعقول صغيرة مشرقة.' } },
+  dermatology: { image: '/media/campaigns/skin-care.png', label: { en: 'Skin Care', ar: 'العناية بالبشرة' }, description: { en: 'Soothing care for soft skin.', ar: 'عناية مهدئة لبشرة ناعمة.' } },
 } as const;
 
 export function CategoryTiles() {
-  // Campaign photography has been supplied for these currently promoted ranges.
+  // These are the categories with dedicated campaign photography.
   const promotedCategories = categories.filter((category) => category.id !== 'immune-support');
 
   return (
@@ -60,7 +25,7 @@ export function CategoryTiles() {
             <L text={{ en: 'Find your everyday care', ar: 'اكتشف عنايتك اليومية' }} />
           </p>
           <h2 className="mt-3 text-display-sm sm:text-display-md">
-            <L text={{ en: 'Care made for every day of life.', ar: 'عناية تناسب كل يوم من حياتك.' }} />
+            <L text={{ en: 'Thoughtful care for every stage of life.', ar: 'عناية مدروسة لكل مرحلة من مراحل الحياة.' }} />
           </h2>
           <p className="mt-3 text-base text-ink-soft sm:text-lg">
             <L text={{ en: 'Explore targeted solutions for the moments that matter most.', ar: 'اكتشف حلولاً مخصّصة للحظات التي تهمك أكثر.' }} />
@@ -74,30 +39,24 @@ export function CategoryTiles() {
               <Link
                 key={category.id}
                 href={`/products?category=${category.id}`}
-                className="group relative isolate aspect-square overflow-hidden rounded-3xl bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-4"
+                className="block overflow-hidden rounded-2xl border border-line bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-4"
               >
-                <Image
-                  src={campaign.image}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary-950/95 via-primary-950/20 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5 text-white">
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-secondary-200">
-                    <L text={campaign.eyebrow} />
-                  </p>
-                  <h3 className="mt-1 text-xl font-semibold leading-tight">
-                    <L text={category.label} />
-                  </h3>
-                  <p className="mt-1 text-sm leading-snug text-white/85">
-                    <L text={campaign.message} />
-                  </p>
-                  <span className="mt-3 inline-flex items-center text-sm font-semibold text-white transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
-                    <L text={{ en: 'Explore range', ar: 'اكتشف المجموعة' }} /> <span aria-hidden="true" className="ms-1">→</span>
-                  </span>
+                <div className="relative aspect-square">
+                  <Image
+                    src={campaign.image}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover"
+                  />
                 </div>
+                <h3 className="p-4 text-center text-lg font-semibold text-ink">
+                  <L text={campaign.label} />
+                </h3>
+                <p className="px-4 pb-2 text-center text-sm text-ink-soft"><L text={campaign.description} /></p>
+                <span className="block px-4 pb-4 text-center text-sm font-semibold text-secondary-600">
+                  <L text={{ en: 'Explore products →', ar: 'اكتشف المنتجات ←' }} />
+                </span>
               </Link>
             );
           })}
