@@ -109,7 +109,7 @@ export function Navbar() {
                 </span>
               )}
             </Link>
-            <div className="hidden md:block">
+            <div className="block">
               <LanguageSwitcher />
             </div>
             <div className="hidden sm:block">
