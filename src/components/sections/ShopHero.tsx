@@ -5,67 +5,42 @@ import { ProductImage } from '@/components/ui/ProductImage';
 import { L } from '@/i18n/Localized';
 
 /**
- * Retail hero. Short on purpose: the job is to say what is sold and get the
- * shopper into the catalogue, so the fold is a headline, one button and the
- * three reassurances people actually ask about before buying.
+ * Image-first retail hero. The desktop shelf and mobile campaign visual are
+ * intentionally separate so each device gets a clear, well-composed image.
  */
 export function ShopHero() {
   return (
     <section className="border-b border-line bg-surface-muted pt-40 sm:pt-44">
       <Container>
-        <div className="relative z-10 text-center">
-          <h1 className="mx-auto max-w-3xl text-display-lg sm:text-display-xl">
-            <L
-              text={{
-                en: 'We care about the quality of life',
-                ar: 'نحن نهتم بجودة الحياة',
-              }}
-            />
-          </h1>
-          <p className="mx-auto mt-5 max-w-xl text-lg text-ink-soft">
-            <L
-              text={{
-                en: 'Order in a minute. Pay cash when it arrives.',
-                ar: 'اطلب في دقيقة. وادفع نقدًا عند الاستلام.',
-              }}
-            />
-          </p>
-
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <Link
-              href="/products"
-              className="inline-flex w-full items-center justify-center rounded-full bg-primary-800 px-8 py-4 text-lg font-semibold text-white shadow-soft hover:bg-primary-700 sm:w-auto"
-            >
-              <L text={{ en: 'Shop all products', ar: 'تسوّق كل المنتجات' }} />
-            </Link>
-          </div>
-        </div>
-
-        {/* Decorative shelf of the available packshots — purely visual, so it
-            carries no alt text; the real product names/prices live in the
-            cards below. */}
+        {/* Existing wide product image is reserved for desktop. */}
         <ProductImage
           src="/media/hero-products.webp"
           alt=""
           priority
-          className="relative z-0 mx-auto mt-6 w-full select-none sm:mt-8"
+          className="mx-auto hidden w-full select-none sm:block"
+        />
+        {/* Client-supplied campaign visual is shown only on mobile. */}
+        <ProductImage
+          src="/media/hero-products-mobile.png"
+          alt=""
+          priority
+          className="mx-auto w-full select-none sm:hidden"
         />
 
-        {/* The three things a first-time buyer wants to know */}
-        <ul className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-3 pb-12 sm:grid-cols-3 sm:pb-16">
+        <div className="mt-6 flex justify-center">
+          <Link
+            href="/products"
+            className="inline-flex w-full items-center justify-center rounded-full bg-primary-800 px-8 py-4 text-lg font-semibold text-white shadow-soft sm:w-auto"
+          >
+            <L text={{ en: 'Shop all products', ar: 'تسوّق كل المنتجات' }} />
+          </Link>
+        </div>
+
+        <ul className="mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-3 pb-12 sm:grid-cols-3 sm:pb-16">
           {[
-            {
-              icon: Wallet,
-              text: { en: 'Cash on delivery', ar: 'الدفع عند الاستلام' },
-            },
-            {
-              icon: Truck,
-              text: { en: 'Delivered in 24–48 hours', ar: 'التوصيل خلال 24–48 ساعة' },
-            },
-            {
-              icon: ShieldCheck,
-              text: { en: 'Genuine, GMP-made products', ar: 'منتجات أصلية بمعايير GMP' },
-            },
+            { icon: Wallet, text: { en: 'Cash on delivery', ar: 'الدفع عند الاستلام' } },
+            { icon: Truck, text: { en: 'Delivered in 24–48 hours', ar: 'التوصيل خلال 24–48 ساعة' } },
+            { icon: ShieldCheck, text: { en: 'Genuine, GMP-made products', ar: 'منتجات أصلية بمعايير GMP' } },
           ].map(({ icon: Icon, text }) => (
             <li
               key={text.en}

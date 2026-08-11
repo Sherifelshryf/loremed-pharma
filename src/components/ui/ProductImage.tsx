@@ -23,13 +23,14 @@ export function ProductImage({
   /** Skip lazy-loading for images visible without scrolling. */
   priority?: boolean;
 }) {
+  const hasJpegFallback = /\.webp$/i.test(src);
   const jpg = src.replace(/\.webp$/i, '.jpg');
   return (
     <picture>
-      <source srcSet={src} type="image/webp" />
+      {hasJpegFallback && <source srcSet={src} type="image/webp" />}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={jpg}
+        src={hasJpegFallback ? jpg : src}
         alt={alt}
         className={className}
         loading={priority ? 'eager' : 'lazy'}
