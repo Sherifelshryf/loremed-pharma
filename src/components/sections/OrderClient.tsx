@@ -10,18 +10,8 @@ import { site } from '@/content/site';
 import { Container } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
+import { isValidEgyptPhone } from '@/lib/egyptPhone';
 import { buildWhatsAppMessage, generateOrderNumber, PAYMENT_METHOD } from '@/cart/whatsappMessage';
-
-/**
- * Accepts Egyptian mobile numbers with an optional +20 / 0020 / trunk-0
- * prefix ahead of the 01[0125] + 8-digit body, tolerating spaces and dashes
- * (e.g. "+20 10 5599 9630", "01055999630", "0020-100-1164300").
- */
-const EGYPT_MOBILE_RE = /^(?:\+20|0020|0)?1[0125]\d{8}$/;
-
-function isValidEgyptPhone(raw: string) {
-  return EGYPT_MOBILE_RE.test(raw.replace(/[\s-]/g, ''));
-}
 
 export function OrderClient() {
   const { locale, t } = useI18n();

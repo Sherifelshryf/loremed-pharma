@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ChevronDown, X, ShoppingCart } from 'lucide-react';
+import { ChevronDown, X, ShoppingCart, Building2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { primaryNav, site } from '@/content/site';
 import { NAV_T } from '@/content/navKeys';
@@ -119,10 +119,16 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
               </ul>
             </nav>
 
-            <div className="space-y-4 border-t border-line px-5 py-5">
+            <div className="space-y-3 border-t border-line px-5 py-5">
               <Button href="/products" onClick={onClose} className="w-full" variant="primary">
                 {t('cta.navExplore')}
               </Button>
+              {/* Same trade door as the desktop navbar */}
+              <Button href="/wholesale" onClick={onClose} className="w-full" variant="outline">
+                <Building2 className="h-4 w-4 text-secondary-500" />
+                {t('cta.wholesale')}
+              </Button>
+              <p className="text-center text-xs text-ink-muted">{t('wholesale.navHint')}</p>
               <p className="text-center text-sm text-ink-muted">{site.email}</p>
             </div>
           </aside>
