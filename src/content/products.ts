@@ -132,12 +132,12 @@ export const products: Product[] = [
     image: '/media/ivylornew.webp',
     price: 80,
     shortDescription: {
-      en: 'A natural extract syrup combining ivy leaf, black elderberry and black honey with vitamin C and zinc for cough relief.',
-      ar: 'شراب بمستخلصات طبيعية يجمع أوراق اللبلاب والبلسان الأسود والعسل الأسود مع فيتامين ج والزنك لتخفيف السعال.',
+      en: 'A natural extract syrup combining ivy leaf, black elderberry and bee honey with vitamin C and zinc for cough relief.',
+      ar: 'شراب بمستخلصات طبيعية يجمع أوراق اللبلاب والبلسان الأسود وعسل النحل مع فيتامين ج والزنك لتخفيف السعال.',
     },
     description: {
-      en: 'Ivylor supports respiratory system health through a natural extract blend: ivy leaf extract (38 mg per 5 ml) acting as a bronchodilator, mucolytic and antispasmodic, black elderberry (25 mg per 5 ml) and black honey (6 g per 5 ml), reinforced with vitamin C and zinc. Together they help relieve cough and support the natural clearing of mucus from the airways, while the antioxidant and immunostimulant botanicals support the body through the cough and cold season.',
-      ar: 'يدعم إيفيلور صحة الجهاز التنفسي عبر مزيج من المستخلصات الطبيعية: مستخلص أوراق اللبلاب (38 مجم لكل 5 مل) الذي يعمل كموسّع للشعب الهوائية ومذيب للبلغم ومضاد للتقلصات، والبلسان الأسود (25 مجم لكل 5 مل)، والعسل الأسود (6 جم لكل 5 مل)، مدعّمة بفيتامين ج والزنك. تساعد معًا على تخفيف السعال ودعم التخلص الطبيعي من البلغم في المجاري التنفسية، بينما تدعم المستخلصات المضادة للأكسدة والمنشّطة للمناعة الجسم خلال موسم البرد والسعال.',
+      en: 'Ivylor supports respiratory system health through a natural extract blend: ivy leaf extract (38 mg per 5 ml) acting as a bronchodilator, mucolytic and antispasmodic, black elderberry (25 mg per 5 ml) and bee honey (6 g per 5 ml), reinforced with vitamin C and zinc. Together they help relieve cough and support the natural clearing of mucus from the airways, while the antioxidant and immunostimulant botanicals support the body through the cough and cold season.',
+      ar: 'يدعم إيفيلور صحة الجهاز التنفسي عبر مزيج من المستخلصات الطبيعية: مستخلص أوراق اللبلاب (38 مجم لكل 5 مل) الذي يعمل كموسّع للشعب الهوائية ومذيب للبلغم ومضاد للتقلصات، والبلسان الأسود (25 مجم لكل 5 مل)، وعسل النحل (6 جم لكل 5 مل)، مدعّمة بفيتامين ج والزنك. تساعد معًا على تخفيف السعال ودعم التخلص الطبيعي من البلغم في المجاري التنفسية، بينما تدعم المستخلصات المضادة للأكسدة والمنشّطة للمناعة الجسم خلال موسم البرد والسعال.',
     },
     keyIngredients: [
       {
@@ -155,7 +155,7 @@ export const products: Product[] = [
         },
       },
       {
-        name: { en: 'Black Honey', ar: 'العسل الأسود' },
+        name: { en: 'Bee Honey', ar: 'عسل النحل' },
         note: {
           en: '6 g per 5 ml — antibacterial, antioxidant, immunostimulant & demulcent',
           ar: '6 جم لكل 5 مل — مضاد للبكتيريا، مضاد للأكسدة، منشّط للمناعة وملطّف للحلق',
@@ -192,12 +192,12 @@ export const products: Product[] = [
     image: '/media/ivyloradvance.webp',
     price: 65,
     shortDescription: {
-      en: 'An orange-flavoured ivy leaf, thyme and licorice cough syrup for paediatric and adult use, supporting respiratory system health.',
-      ar: 'شراب للسعال بنكهة البرتقال يحتوي على أوراق اللبلاب والزعتر وعرق السوس، للأطفال والبالغين، يدعم صحة الجهاز التنفسي.',
+      en: 'A cough syrup of ivy leaf, thyme and licorice — in an orange flavour — for paediatric and adult use, supporting respiratory system health.',
+      ar: 'شراب للسعال من أوراق اللبلاب والزعتر وعرق السوس — بنكهة البرتقال — للأطفال والبالغين، يدعم صحة الجهاز التنفسي.',
     },
     description: {
-      en: 'Ivylor Advance builds on the Ivylor formula with a triple-botanical blend in every 5 ml: ivy leaf extract (35 mg) for its expectorant action, thyme leaf extract (21.5 mg) for its antiseptic and antimicrobial effect, and licorice root (21.7 mg), whose liquiritin apioside acts as an antitussive and expectorant with anti-inflammatory and antiviral activity. Together they help clear mucus from the airways and calm cough inflammation — an orange-flavoured syrup suitable for infants, children and adults.',
-      ar: 'يبني إيفيلور أدفانس على تركيبة إيفيلور بمزيج ثلاثي من النباتات في كل 5 مل: مستخلص أوراق اللبلاب (35 مجم) لعمله الطارد للبلغم، ومستخلص أوراق الزعتر (21.5 مجم) لتأثيره المطهّر والمضاد للميكروبات، وجذر عرق السوس (21.7 مجم) الذي يعمل مركّب الليكويريتين أبيوسيد فيه كمهدّئ للسعال وطارد للبلغم مع نشاط مضاد للالتهاب ومضاد للفيروسات. تساعد معًا على التخلص من البلغم في المجاري التنفسية وتهدئة التهاب السعال — شراب بنكهة البرتقال مناسب للرضع والأطفال والبالغين.',
+      en: 'Ivylor Advance builds on the Ivylor formula with a triple-botanical blend in every 5 ml: ivy leaf extract (35 mg) for its expectorant action, thyme leaf extract (21.5 mg) for its antiseptic and antimicrobial effect, and licorice root (21.7 mg), whose liquiritin apioside acts as an antitussive and expectorant with anti-inflammatory and antiviral activity. Together they help clear mucus from the airways and calm cough inflammation. The syrup is orange-flavoured — the flavouring only, it contains no orange — and is suitable for infants, children and adults.',
+      ar: 'يبني إيفيلور أدفانس على تركيبة إيفيلور بمزيج ثلاثي من النباتات في كل 5 مل: مستخلص أوراق اللبلاب (35 مجم) لعمله الطارد للبلغم، ومستخلص أوراق الزعتر (21.5 مجم) لتأثيره المطهّر والمضاد للميكروبات، وجذر عرق السوس (21.7 مجم) الذي يعمل مركّب الليكويريتين أبيوسيد فيه كمهدّئ للسعال وطارد للبلغم مع نشاط مضاد للالتهاب ومضاد للفيروسات. تساعد معًا على التخلص من البلغم في المجاري التنفسية وتهدئة التهاب السعال. الشراب بنكهة البرتقال — نكهة فقط ولا يحتوي على البرتقال — ومناسب للرضع والأطفال والبالغين.',
     },
     keyIngredients: [
       {
@@ -249,20 +249,20 @@ export const products: Product[] = [
     image: '/media/coglernnew.webp',
     price: 300,
     shortDescription: {
-      en: 'A children’s syrup with high-strength omega-3 (EPA & DHA) and marigold flower extract to support learning and growth.',
-      ar: 'شراب للأطفال بتركيز عالٍ من أوميغا-3 (إي بي إيه ودي إتش إيه) ومستخلص زهرة الآذريون لدعم التعلّم والنمو.',
+      en: 'A children’s syrup with high-strength fish-oil omega-3 (EPA & DHA) and marigold flower extract to support learning and growth.',
+      ar: 'شراب للأطفال بتركيز عالٍ من أوميغا-3 المستخلص من زيت السمك (إي بي إيه ودي إتش إيه) ومستخلص زهرة الآذريون لدعم التعلّم والنمو.',
     },
     description: {
-      en: 'Coglern Syrup is formulated for growing, learning children — combining high-strength omega-3 (EPA and DHA) with marigold flower extract (lutein) in a pleasant, easy-to-take syrup. Created to support brain growth and function, concentration and healthy development during the busy school years.',
-      ar: 'صُمم كوجليرن شراب للأطفال في مرحلة النمو والتعلّم — يجمع أوميغا-3 عالي التركيز (إي بي إيه ودي إتش إيه) مع مستخلص زهرة الآذريون (اللوتين) في شراب لذيذ وسهل التناول. طُوّر لدعم نمو الدماغ ووظائفه والتركيز والنمو الصحي خلال سنوات الدراسة.',
+      en: 'Coglern Syrup is formulated for growing, learning children — combining high-strength omega-3 (EPA and DHA) from fish oil with marigold flower extract (lutein) in a pleasant, easy-to-take syrup. Created to support brain growth and function, concentration and healthy development during the busy school years.',
+      ar: 'صُمم كوجليرن شراب للأطفال في مرحلة النمو والتعلّم — يجمع أوميغا-3 عالي التركيز (إي بي إيه ودي إتش إيه) المستخلص من زيت السمك مع مستخلص زهرة الآذريون (اللوتين) في شراب لذيذ وسهل التناول. طُوّر لدعم نمو الدماغ ووظائفه والتركيز والنمو الصحي خلال سنوات الدراسة.',
     },
     keyIngredients: [
       {
-        name: { en: 'Omega-3 EPA', ar: 'أوميغا-3 إي بي إيه' },
+        name: { en: 'Omega-3 EPA (from fish oil)', ar: 'أوميغا-3 إي بي إيه (من زيت السمك)' },
         note: { en: '718.2 mg per 5 ml', ar: '718.2 مجم لكل 5 مل' },
       },
       {
-        name: { en: 'Omega-3 DHA', ar: 'أوميغا-3 دي إتش إيه' },
+        name: { en: 'Omega-3 DHA (from fish oil)', ar: 'أوميغا-3 دي إتش إيه (من زيت السمك)' },
         note: {
           en: '448.9 mg per 5 ml — supports normal brain function',
           ar: '448.9 مجم لكل 5 مل — يدعم وظائف الدماغ الطبيعية',
@@ -301,16 +301,16 @@ export const products: Product[] = [
     image: '/media/smartodkids.webp',
     price: 165,
     shortDescription: {
-      en: 'DHA, vitamin E and vitamin D drops for early brain health, immunity and healthy growth.',
-      ar: 'نقط تحتوي على دي إتش إيه وفيتامين هـ وفيتامين د لصحة الدماغ المبكرة والمناعة والنمو السليم.',
+      en: 'Fish-oil DHA with vitamin E and vitamin D in drops for early brain health, immunity and healthy growth.',
+      ar: 'نقط تحتوي على دي إتش إيه من زيت السمك وفيتامين هـ وفيتامين د لصحة الدماغ المبكرة والمناعة والنمو السليم.',
     },
     description: {
-      en: 'Smartod combines DHA with vitamin E and vitamin D in an easy-to-dose liquid drop. Formulated for the earliest stages of life, it supports brain health and mood, healthy bone and tooth development, and the normal function of the immune system.',
-      ar: 'يجمع سمارتود بين دي إتش إيه وفيتامين هـ وفيتامين د في نقط سائلة سهلة الجرعة. صُمم لأولى مراحل الحياة، ويدعم صحة الدماغ والمزاج، ونمو العظام والأسنان بشكل سليم، والوظيفة الطبيعية للجهاز المناعي.',
+      en: 'Smartod combines DHA from fish oil with vitamin E and vitamin D in an easy-to-dose liquid drop. Formulated for the earliest stages of life, it supports brain health and mood, healthy bone and tooth development, and the normal function of the immune system.',
+      ar: 'يجمع سمارتود بين دي إتش إيه المستخلص من زيت السمك وفيتامين هـ وفيتامين د في نقط سائلة سهلة الجرعة. صُمم لأولى مراحل الحياة، ويدعم صحة الدماغ والمزاج، ونمو العظام والأسنان بشكل سليم، والوظيفة الطبيعية للجهاز المناعي.',
     },
     keyIngredients: [
       {
-        name: { en: 'Omega-3 DHA', ar: 'أوميغا-3 دي إتش إيه' },
+        name: { en: 'Omega-3 DHA (from fish oil)', ar: 'أوميغا-3 دي إتش إيه (من زيت السمك)' },
         note: {
           en: 'Enhances brain health and mood; supports better sleep',
           ar: 'يعزز صحة الدماغ والمزاج؛ ويدعم نومًا أفضل',
