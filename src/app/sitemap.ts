@@ -21,8 +21,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
   // `/order` is deliberately absent: it is a checkout step with no standalone
-  // value in search results.
-  const pages = ['', '/products', '/about', '/quality', '/research', '/contact'];
+  // value in search results. `/wholesale` is included — unlike the cart, it is a
+  // landing page pharmacies and distributors may find via search.
+  const pages = ['', '/products', '/about', '/quality', '/research', '/contact', '/wholesale'];
 
   return [
     ...pages.map((path) => ({

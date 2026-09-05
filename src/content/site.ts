@@ -26,6 +26,12 @@ export const site = {
   orderWhatsAppNumber: '201011644300',
   /** Same number, human-readable — shown to customers as the order follow-up line. */
   orderWhatsAppDisplay: '+20 101 164 4300',
+  /**
+   * Trade line. Pharmacy and distributor enquiries go to a different number
+   * from retail orders so the wholesale team picks them up directly.
+   */
+  wholesaleWhatsAppNumber: '201222208472',
+  wholesaleWhatsAppDisplay: '+20 122 220 8472',
   deliveryFee: 30,
   currency: { en: 'EGP', ar: 'ج.م' } as Bi,
   address: {

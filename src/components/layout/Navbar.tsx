@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Search, ChevronDown, ShoppingCart } from 'lucide-react';
+import { Search, ChevronDown, ShoppingCart, Building2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { primaryNav } from '@/content/site';
 import { NAV_T } from '@/content/navKeys';
@@ -70,7 +70,9 @@ export function Navbar() {
                   <Link
                     href={item.href}
                     className={cn(
-                      'inline-flex items-center gap-1 rounded-full px-4 py-2 text-[0.92rem] font-medium transition-colors',
+                      // px tightens at lg so the nav list, the language switcher
+                      // and both CTAs still fit on a 1024px viewport.
+                      'inline-flex items-center gap-1 rounded-full px-3 py-2 text-[0.92rem] font-medium transition-colors xl:px-4',
                       active ? 'text-primary-800' : 'text-ink-soft hover:text-primary-800',
                     )}
                     aria-expanded={hasMenu ? openMenu === item.label : undefined}
@@ -111,6 +113,24 @@ export function Navbar() {
             </Link>
             <div className="block">
               <LanguageSwitcher />
+            </div>
+            {/* Trade line, sitting beside the retail CTA: pharmacies and
+                distributors don't use the cart, so they get their own door in. */}
+            <div className="hidden sm:block">
+              <Button
+                href="/wholesale"
+                size="sm"
+                variant="outline"
+                title={t('wholesale.navHint')}
+                aria-label={t('cta.wholesale')}
+                // At lg the full nav list is showing but xl's breathing room
+                // isn't there yet, so the label collapses to the icon rather
+                // than pushing "Shop Now" off the edge.
+                className="px-5 lg:px-3 xl:px-5"
+              >
+                <Building2 className="h-4 w-4 text-secondary-500" />
+                <span className="hidden sm:inline lg:hidden xl:inline">{t('cta.wholesale')}</span>
+              </Button>
             </div>
             <div className="hidden sm:block">
               <Button href="/products" size="sm" variant="primary" className="ms-1">
