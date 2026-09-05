@@ -187,34 +187,42 @@ export const timeline: { year: string; title: Bi; body: Bi }[] = [
 /** ------------------------------------------------------------------
  *  LEADERSHIP (structure — role based)
  *  ------------------------------------------------------------------ */
-export const leadership: { role: Bi; monogram: string; focus: Bi }[] = [
+/**
+ * The leadership team. `monogram` is the initials shown in the avatar circle —
+ * Tamer Ali heads both R&D and Quality, so the same initials appear twice.
+ */
+export const leadership: { name: Bi; role: Bi; monogram: string; focus: Bi }[] = [
   {
+    name: { en: 'Ayman Ayoub', ar: 'أيمن أيوب' },
     role: { en: 'Managing Director', ar: 'المدير العام' },
-    monogram: 'MD',
+    monogram: 'AA',
     focus: {
       en: 'Sets the strategic direction and stewards Loremed’s long-term growth and culture.',
       ar: 'يضع الاتجاه الاستراتيجي ويقود نمو لورميد وثقافتها على المدى الطويل.',
     },
   },
   {
+    name: { en: 'Tamer Ali', ar: 'تامر علي' },
     role: { en: 'Head of Research & Development', ar: 'رئيس قسم البحث والتطوير' },
-    monogram: 'RD',
+    monogram: 'TA',
     focus: {
       en: 'Leads formulation science, from botanical extracts to finished dosage forms.',
       ar: 'يقود علوم التركيب، من المستخلصات النباتية إلى الأشكال الدوائية النهائية.',
     },
   },
   {
+    name: { en: 'Tamer Ali', ar: 'تامر علي' },
     role: { en: 'Quality & Regulatory Director', ar: 'مدير الجودة والشؤون التنظيمية' },
-    monogram: 'QA',
+    monogram: 'TA',
     focus: {
       en: 'Owns quality assurance, GMP compliance and product registration across markets.',
       ar: 'يتولى ضمان الجودة والامتثال لمعايير GMP وتسجيل المنتجات في مختلف الأسواق.',
     },
   },
   {
+    name: { en: 'Dr Mohamed Abdelraouf', ar: 'د. محمد عبدالرؤوف' },
     role: { en: 'Commercial Director', ar: 'المدير التجاري' },
-    monogram: 'CD',
+    monogram: 'MA',
     focus: {
       en: 'Builds the partnerships and channels that put Loremed products in patients’ hands.',
       ar: 'يبني الشراكات والقنوات التي تضع منتجات لورميد في متناول المرضى.',

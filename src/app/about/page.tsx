@@ -204,8 +204,9 @@ export default function AboutPage() {
                   <span className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-gradient-to-br from-primary-700 to-primary-900 text-xl font-bold text-white">
                     {l.monogram}
                   </span>
-                  <h3 className="mt-5 font-semibold text-ink"><L text={l.role} /></h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-soft"><L text={l.focus} /></p>
+                  <h3 className="mt-5 font-semibold text-ink"><L text={l.name} /></h3>
+                  <p className="mt-1 text-sm font-medium text-secondary-600"><L text={l.role} /></p>
+                  <p className="mt-3 text-sm leading-relaxed text-ink-soft"><L text={l.focus} /></p>
                 </div>
               </StaggerItem>
             ))}
@@ -213,8 +214,8 @@ export default function AboutPage() {
           <p className="mx-auto mt-10 max-w-xl text-center text-xs text-ink-muted">
             <L
               text={{
-                en: 'Loremed’s leadership structure. For media or partnership enquiries, contact us at',
-                ar: 'الهيكل القيادي للورميد. لاستفسارات الإعلام أو الشراكة، تواصل معنا عبر',
+                en: 'Loremed’s leadership team. For media or partnership enquiries, contact us at',
+                ar: 'فريق قيادة لورميد. لاستفسارات الإعلام أو الشراكة، تواصل معنا عبر',
               }}
             />{' '}
             <a href={`mailto:${site.email}`} className="text-primary-700 underline-offset-2 hover:underline">
