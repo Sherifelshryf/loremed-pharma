@@ -105,8 +105,8 @@ export const categories: {
     id: 'dermatology',
     label: { en: 'Skin Care', ar: 'العناية بالبشرة' },
     description: {
-      en: 'Lotions that protect and repair dry skin.',
-      ar: 'لوشن يحمي البشرة الجافة ويُصلحها.',
+      en: 'Lotions that soothe and soften the skin.',
+      ar: 'لوشن يهدّئ البشرة ويُنعّمها.',
     },
   },
 ];
@@ -484,46 +484,57 @@ export const products: Product[] = [
     slug: 'welcaderm-lotion',
     youtubeId: 'uklJ3AK7xB8',
     name: { en: 'Welcaderm Lotion', ar: 'ويلكاديرم لوشن' },
-    tagline: { en: 'Restore the skin barrier', ar: 'استعادة حاجز البشرة' },
+    tagline: { en: 'Calamine, chamomile & olive oil', ar: 'كالامين وبابونج وزيت زيتون' },
     category: 'dermatology',
     status: 'available',
     form: { en: 'Lotion', ar: 'لوشن' },
     ageGroup: { en: 'All ages', ar: 'جميع الأعمار' },
-    pack: { en: 'Pump bottle', ar: 'زجاجة بمضخة' },
+    pack: { en: '120 ml bottle', ar: 'زجاجة 120 مل' },
     accent: 'purple',
     image: '/media/welcaderm.webp',
     price: 95,
     shortDescription: {
-      en: 'A dermatologically-guided lotion that protects and restores the skin’s moisture barrier.',
-      ar: 'لوشن موجَّه جلديًا يحمي حاجز الرطوبة في البشرة ويعيد بناءه.',
+      en: 'A skin soothing lotion with calamine, chamomile oil and olive oil, for external use.',
+      ar: 'لوشن ملطّف للبشرة يحتوي على الكالامين وزيت البابونج وزيت الزيتون، للاستعمال الخارجي.',
     },
     description: {
-      en: 'Welcaderm Lotion is built around humectants and skin-identical lipids that draw water into the skin and hold it there. Formulated to calm dryness and tightness and to reinforce a barrier weakened by weather, washing or irritation, it absorbs cleanly and layers well under everyday care.',
-      ar: 'يعتمد ويلكاديرم لوشن على مرطبات جاذبة للماء ودهون مماثلة لدهون البشرة تسحب الماء إلى الجلد وتحافظ عليه. صُمم لتهدئة الجفاف والشد وتقوية الحاجز الذي أضعفه الطقس أو الغسيل المتكرر أو التهيّج، ويمتص بسرعة ويناسب الاستخدام اليومي.',
+      en: 'Welcaderm is a skin soothing lotion built on three familiar ingredients: calamine, long used to calm and protect irritated skin; chamomile oil, a soothing botanical; and olive oil, an emollient that softens the skin and helps it hold moisture. It is a cosmetic product for external use only, supplied in a 120 ml bottle.',
+      ar: 'ويلكاديرم لوشن ملطّف للبشرة يعتمد على ثلاثة مكونات معروفة: الكالامين الذي يُستخدم منذ زمن لتهدئة البشرة المتهيّجة وحمايتها، وزيت البابونج المهدّئ، وزيت الزيتون المُلطّف الذي يُنعّم البشرة ويساعدها على الاحتفاظ بالرطوبة. منتج تجميلي للاستعمال الخارجي فقط، في زجاجة 120 مل.',
     },
+    // Ingredients, net weight and the "cosmetic product / external use only"
+    // wording below are taken straight off the Welcaderm bottle and carton.
     keyIngredients: [
       {
-        name: { en: 'Glycerin & Humectants', ar: 'الجليسرين والمرطبات' },
-        note: { en: 'Draw and hold water in the skin', ar: 'تجذب الماء إلى البشرة وتحافظ عليه' },
+        name: { en: 'Calamine', ar: 'الكالامين' },
+        note: {
+          en: 'Long used to calm and protect irritated skin',
+          ar: 'يُستخدم منذ زمن لتهدئة البشرة المتهيّجة وحمايتها',
+        },
       },
       {
-        name: { en: 'Skin-identical lipids', ar: 'دهون مماثلة لدهون البشرة' },
-        note: { en: 'Reinforce the moisture barrier', ar: 'تقوّي حاجز الرطوبة' },
+        name: { en: 'Chamomile Oil', ar: 'زيت البابونج' },
+        note: { en: 'Soothing botanical oil', ar: 'زيت نباتي مهدّئ للبشرة' },
       },
       {
-        name: { en: 'Soothing emollients', ar: 'ملطّفات مهدّئة' },
-        note: { en: 'Calm dryness and tightness', ar: 'تهدّئ الجفاف والشد' },
+        name: { en: 'Olive Oil', ar: 'زيت الزيتون' },
+        note: {
+          en: 'Emollient — softens skin and helps it hold moisture',
+          ar: 'مُلطّف — يُنعّم البشرة ويساعدها على الاحتفاظ بالرطوبة',
+        },
       },
     ],
     benefits: [
-      { en: 'Protects and restores the skin barrier', ar: 'يحمي حاجز البشرة ويعيد بناءه' },
-      { en: 'Relieves dryness and tightness', ar: 'يخفف الجفاف والشد' },
-      { en: 'Absorbs cleanly, suitable for daily use', ar: 'يمتص بسرعة ومناسب للاستخدام اليومي' },
-      { en: 'Dermatologically guided formulation', ar: 'تركيبة موجَّهة جلديًا' },
+      { en: 'Calamine helps calm and soothe the skin', ar: 'الكالامين يساعد على تهدئة البشرة' },
+      {
+        en: 'Chamomile and olive oil soften and comfort dry skin',
+        ar: 'البابونج وزيت الزيتون يُنعّمان البشرة الجافة ويمنحانها الراحة',
+      },
+      { en: 'Suitable for all ages', ar: 'مناسب لجميع الأعمار' },
+      { en: 'Cosmetic product — for external use only', ar: 'منتج تجميلي — للاستعمال الخارجي فقط' },
     ],
     usage: {
-      en: 'Apply to clean, dry skin as often as needed, especially after washing.',
-      ar: 'يُوضع على بشرة نظيفة وجافة حسب الحاجة، خاصة بعد الغسيل.',
+      en: 'Apply a thin layer to clean, dry skin as often as needed. For external use only.',
+      ar: 'يُوضع طبقة رقيقة على بشرة نظيفة وجافة حسب الحاجة. للاستعمال الخارجي فقط.',
     },
     related: ['vitelormed', 'imulormed', 'ivylor'],
   },
