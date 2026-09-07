@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useI18n } from '@/i18n/LanguageProvider';
 import type { Bi } from '@/i18n/dictionaries';
@@ -12,17 +13,25 @@ const SLIDE_MS = 10_000;
 type Slide = {
   key: string;
   alt: Bi;
+  /** Where the slide takes you when it is clicked. */
+  href: string;
   /** Paths without extension; .webp is served first, .jpg is the fallback. */
   desktop: string;
   mobile: string;
   /** The product banners fill the frame; the wide hero shelf is letterboxed. */
   fit?: 'cover' | 'contain';
+  /** Skip the WebP sources and serve the JPEG to every browser. */
+  jpegOnly?: boolean;
 };
 
-/** Product campaign banner: desktop art is 16:9, mobile 1:1, both in slides/. */
+/**
+ * Product campaign banner: desktop art is 16:9, mobile 1:1, both in slides/.
+ * The key doubles as the product slug, so the banner links to its own product.
+ */
 const banner = (slug: string, alt: Bi): Slide => ({
   key: slug,
   alt,
+  href: `/products/${slug}`,
   desktop: `/media/slides/${slug}-desktop`,
   mobile: `/media/slides/${slug}-mobile`,
 });
@@ -30,17 +39,26 @@ const banner = (slug: string, alt: Bi): Slide => ({
 const SLIDES: Slide[] = [
   // The brand shelf opens the show, as it did before the slideshow existed.
   // Its desktop art is a 4.34:1 strip rather than 16:9, so it is contained
-  // inside the frame — the WebP is transparent and the JPEG fallback is
-  // flattened onto the same surface colour, so no letterbox edge is visible.
+  // inside the frame.
+  //
+  // It is served as JPEG to everyone. The WebP of this particular shot has a
+  // transparent background, which is what the slot wants in theory but not what
+  // it looked like in place; the JPEG is the same artwork flattened onto the
+  // surface colour, and that is the one to ship. The extra ~84 KB buys a hero
+  // that renders the way it is meant to.
   {
     key: 'hero-products',
     alt: {
       en: 'Loremed Pharma — we care about the quality of life',
       ar: 'لورميد فارما — بنهتم بجودة الحياة',
     },
+    // The shelf shows the whole range, so it opens the catalogue rather than
+    // singling out one of the products on it.
+    href: '/products',
     desktop: '/media/hero-products',
     mobile: '/media/slides/hero-products-mobile',
     fit: 'contain',
+    jpegOnly: true,
   },
   banner('ivylor', { en: 'Ivylor cough syrup', ar: 'شراب إيفيلور للكحة' }),
   banner('ivylor-advance', { en: 'Ivylor Advance cough syrup', ar: 'شراب إيفيلور أدفانس للكحة' }),
@@ -165,35 +183,50 @@ export function HeroSlideshow() {
             aria-roledescription="slide"
             aria-label={`${i + 1} / ${SLIDES.length}`}
           >
-            {/* One download per viewport: the browser picks the desktop or the
-                mobile art from the media queries, and older browsers that can't
-                decode WebP fall through to the JPEG. */}
-            <picture>
-              <source media="(min-width: 640px)" srcSet={`${s.desktop}.webp`} type="image/webp" />
-              <source media="(min-width: 640px)" srcSet={`${s.desktop}.jpg`} />
-              <source srcSet={`${s.mobile}.webp`} type="image/webp" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`${s.mobile}.jpg`}
-                alt={label(s.alt)}
-                className={cn(
-                  'aspect-square w-full select-none sm:aspect-video',
-                  s.fit === 'contain' ? 'object-contain' : 'object-cover',
+            {/* The banner is the link: clicking Ivylor's slide opens Ivylor.
+                Only the slide in view is reachable by keyboard, so Tab moves on
+                to the buttons below instead of walking every slide in the deck;
+                the arrows and dots change which one that is. */}
+            <Link
+              href={s.href}
+              tabIndex={i === index ? undefined : -1}
+              className="block"
+            >
+              {/* One download per viewport: the browser picks the desktop or the
+                  mobile art from the media queries, and older browsers that can't
+                  decode WebP fall through to the JPEG. */}
+              <picture>
+                {!s.jpegOnly && (
+                  <source media="(min-width: 640px)" srcSet={`${s.desktop}.webp`} type="image/webp" />
                 )}
-                loading={i === 0 ? 'eager' : 'lazy'}
-                decoding="async"
-                {...(i === 0
-                  ? {
-                      ref: (el: HTMLImageElement | null) => {
-                        if (el?.complete) setStarted(true);
-                      },
-                      onLoad: () => setStarted(true),
-                      // A broken or blocked image must not freeze the show.
-                      onError: () => setStarted(true),
-                    }
-                  : {})}
-              />
-            </picture>
+                <source media="(min-width: 640px)" srcSet={`${s.desktop}.jpg`} />
+                {!s.jpegOnly && <source srcSet={`${s.mobile}.webp`} type="image/webp" />}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`${s.mobile}.jpg`}
+                  alt={label(s.alt)}
+                  // Without this a mouse-drag starts a native image drag instead
+                  // of doing nothing, which feels broken on a swipeable strip.
+                  draggable={false}
+                  className={cn(
+                    'aspect-square w-full select-none sm:aspect-video',
+                    s.fit === 'contain' ? 'object-contain' : 'object-cover',
+                  )}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  {...(i === 0
+                    ? {
+                        ref: (el: HTMLImageElement | null) => {
+                          if (el?.complete) setStarted(true);
+                        },
+                        onLoad: () => setStarted(true),
+                        // A broken or blocked image must not freeze the show.
+                        onError: () => setStarted(true),
+                      }
+                    : {})}
+                />
+              </picture>
+            </Link>
           </li>
         ))}
       </ul>
