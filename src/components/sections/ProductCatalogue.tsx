@@ -15,6 +15,7 @@ import { Container } from '@/components/ui/Section';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { categoryIcons } from '@/components/ui/categoryIcons';
 import { useI18n } from '@/i18n/LanguageProvider';
+import { GOAT, isGoatQuery } from '@/lib/easterEgg';
 import { QuickView } from './QuickView';
 import { cn } from '@/lib/utils';
 
@@ -174,6 +175,10 @@ export function ProductCatalogue() {
             {filtered.map((p) => (
               <ProductCard key={p.slug} product={p} onQuickView={setQuickView} className="h-full" />
             ))}
+          </div>
+        ) : isGoatQuery(query) ? (
+          <div className="rounded-3xl border border-dashed border-line-strong bg-neutral-50 px-8 py-20 text-center">
+            <p className="text-lg font-medium text-ink">{GOAT}</p>
           </div>
         ) : (
           <div className="rounded-3xl border border-dashed border-line-strong bg-neutral-50 px-8 py-20 text-center">
