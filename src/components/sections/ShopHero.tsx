@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ShieldCheck, Truck, Wallet, Building2, Tag } from 'lucide-react';
 import { Container } from '@/components/ui/Section';
 import { HeroSlideshow } from '@/components/sections/HeroSlideshow';
+import { OffersTicker } from '@/components/sections/OffersTicker';
 import { L } from '@/i18n/Localized';
 
 /**
@@ -12,8 +13,10 @@ export function ShopHero() {
   return (
     <section className="border-b border-line bg-surface-muted pt-40 sm:pt-44">
       <Container>
-        {/* Campaign slideshow — one banner per available product, in desktop
-            and mobile crops. Swipeable, and each slide holds for 10 seconds. */}
+        {/* Scrolling announcement strip, then the campaign slideshow — one
+            banner per available product, in desktop and mobile crops.
+            Swipeable, and each slide holds for 10 seconds. */}
+        <OffersTicker />
         <HeroSlideshow />
 
         {/* Three ways in, in priority order: retail, trade, then offers. They
