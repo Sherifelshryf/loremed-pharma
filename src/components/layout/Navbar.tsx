@@ -162,7 +162,7 @@ export function Navbar() {
         >
           <div className="mx-auto max-w-[1320px] px-5 py-3 sm:px-6 lg:px-8">
             <label className="relative block">
-              <span className="sr-only"><L text={{ en: 'Search products', ar: 'ابحث عن المنتجات' }} /></span>
+              <span className="sr-only"><L text={{ en: 'Search products', ar: 'دوّر على المنتجات' }} /></span>
               <Search className="pointer-events-none absolute start-4 top-1/2 h-5 w-5 -translate-y-1/2 text-ink-muted" aria-hidden />
               <input
                 value={searchQuery}

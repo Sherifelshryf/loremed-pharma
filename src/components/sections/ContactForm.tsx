@@ -17,24 +17,24 @@ const departments = [
 type Errors = Partial<Record<'name' | 'email' | 'department' | 'message', string>>;
 
 const errorCopy = {
-  name: { en: 'Please enter your name.', ar: 'يرجى إدخال اسمك.' },
-  email: { en: 'Please enter your email.', ar: 'يرجى إدخال بريدك الإلكتروني.' },
-  emailInvalid: { en: 'Please enter a valid email address.', ar: 'يرجى إدخال بريد إلكتروني صحيح.' },
-  department: { en: 'Please choose a department.', ar: 'يرجى اختيار قسم.' },
-  message: { en: 'Please add a short message.', ar: 'يرجى إضافة رسالة قصيرة.' },
+  name: { en: 'Please enter your name.', ar: 'اكتب اسمك من فضلك.' },
+  email: { en: 'Please enter your email.', ar: 'اكتب بريدك الإلكتروني من فضلك.' },
+  emailInvalid: { en: 'Please enter a valid email address.', ar: 'اكتب بريد إلكتروني صحيح.' },
+  department: { en: 'Please choose a department.', ar: 'اختار القسم من فضلك.' },
+  message: { en: 'Please add a short message.', ar: 'اكتب رسالة قصيرة من فضلك.' },
 };
 
 const copy = {
-  chooseDepartment: { en: 'Choose a department', ar: 'اختر قسمًا' },
-  subjectPlaceholder: { en: 'How can we help?', ar: 'كيف يمكننا مساعدتك؟' },
-  messagePlaceholder: { en: 'Tell us a little about your enquiry…', ar: 'أخبرنا قليلاً عن استفسارك…' },
-  requiredSuffix: { en: 'fields.', ar: 'حقول إلزامية.' },
+  chooseDepartment: { en: 'Choose a department', ar: 'اختار القسم' },
+  subjectPlaceholder: { en: 'How can we help?', ar: 'نقدر نساعدك إزاي؟' },
+  messagePlaceholder: { en: 'Tell us a little about your enquiry…', ar: 'قوللنا شوية عن استفسارك…' },
+  requiredSuffix: { en: 'fields.', ar: 'مطلوبة.' },
   successTitle: { en: 'Your email is ready', ar: 'بريدك الإلكتروني جاهز' },
   successBody: {
     en: `We've opened your email app with the message pre-filled — just press send and it will reach the Loremed team. If nothing opened, email us directly at ${site.email}.`,
-    ar: `لقد فتحنا تطبيق البريد لديك والرسالة معبأة مسبقًا — فقط اضغط إرسال وستصل إلى فريق لورميد. إذا لم يفتح شيء، راسلنا مباشرة على ${site.email}.`,
+    ar: `فتحنالك تطبيق البريد والرسالة مكتوبة جاهزة — اضغط إرسال بس وهتوصل لفريق لورميد. لو مافتحش حاجة، ابعتلنا على طول على ${site.email}.`,
   },
-  sendAnother: { en: 'Send another message', ar: 'إرسال رسالة أخرى' },
+  sendAnother: { en: 'Send another message', ar: 'ابعت رسالة تانية' },
 };
 
 export function ContactForm() {

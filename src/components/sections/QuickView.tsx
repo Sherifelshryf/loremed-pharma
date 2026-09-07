@@ -16,7 +16,7 @@ const copy = {
   for: { en: 'For', ar: 'مناسب لـ' },
   pack: { en: 'Pack', ar: 'العبوة' },
   keyBenefits: { en: 'Key benefits', ar: 'الفوائد الرئيسية' },
-  viewFull: { en: 'View full product', ar: 'عرض المنتج بالكامل' },
+  viewFull: { en: 'View full product', ar: 'شوف المنتج كامل' },
 };
 
 export function QuickView({ slug, onClose }: { slug: string | null; onClose: () => void }) {

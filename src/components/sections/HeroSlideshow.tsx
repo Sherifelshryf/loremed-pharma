@@ -36,14 +36,14 @@ const SLIDES: Slide[] = [
     key: 'hero-products',
     alt: {
       en: 'Loremed Pharma — we care about the quality of life',
-      ar: 'لورميد فارما — نحن نهتم بجودة الحياة',
+      ar: 'لورميد فارما — بنهتم بجودة الحياة',
     },
     desktop: '/media/hero-products',
     mobile: '/media/slides/hero-products-mobile',
     fit: 'contain',
   },
-  banner('ivylor', { en: 'Ivylor cough syrup', ar: 'شراب إيفيلور للسعال' }),
-  banner('ivylor-advance', { en: 'Ivylor Advance cough syrup', ar: 'شراب إيفيلور أدفانس للسعال' }),
+  banner('ivylor', { en: 'Ivylor cough syrup', ar: 'شراب إيفيلور للكحة' }),
+  banner('ivylor-advance', { en: 'Ivylor Advance cough syrup', ar: 'شراب إيفيلور أدفانس للكحة' }),
   banner('coglern-syrup', { en: 'Coglern Syrup for focus and growth', ar: 'كوجليرن شراب للتركيز والنمو' }),
   banner('smartod', { en: 'Smartod for kids omega-3 drops', ar: 'نقط سمارتود للأطفال بأوميغا-3' }),
   banner('smartod-d', { en: 'Smartod D vitamin D3 drops', ar: 'نقط سمارتود د بفيتامين د3' }),
@@ -205,7 +205,7 @@ export function HeroSlideshow() {
       <button
         type="button"
         onClick={() => step(-1)}
-        aria-label={label({ en: 'Previous slide', ar: 'الشريحة السابقة' })}
+        aria-label={label({ en: 'Previous slide', ar: 'الصورة السابقة' })}
         className="absolute start-3 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/85 text-primary-800 opacity-0 shadow-soft backdrop-blur transition-all hover:bg-white focus-visible:opacity-100 group-hover:opacity-100 sm:grid"
       >
         <ChevronLeft className="h-5 w-5 rtl:rotate-180" />
@@ -213,7 +213,7 @@ export function HeroSlideshow() {
       <button
         type="button"
         onClick={() => step(1)}
-        aria-label={label({ en: 'Next slide', ar: 'الشريحة التالية' })}
+        aria-label={label({ en: 'Next slide', ar: 'الصورة التالية' })}
         className="absolute end-3 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/85 text-primary-800 opacity-0 shadow-soft backdrop-blur transition-all hover:bg-white focus-visible:opacity-100 group-hover:opacity-100 sm:grid"
       >
         <ChevronRight className="h-5 w-5 rtl:rotate-180" />
@@ -225,7 +225,7 @@ export function HeroSlideshow() {
             key={s.key}
             type="button"
             onClick={() => goTo(i)}
-            aria-label={`${label({ en: 'Go to slide', ar: 'اذهب إلى الشريحة' })} ${i + 1}`}
+            aria-label={`${label({ en: 'Go to slide', ar: 'روح للصورة' })} ${i + 1}`}
             aria-current={i === index}
             className={cn(
               'h-2.5 rounded-full transition-all',

@@ -9,25 +9,25 @@ import { GradientOrb } from '@/components/graphics/BrandBackdrop';
 import { useI18n } from '@/i18n/LanguageProvider';
 
 const copy = {
-  eyebrow: { en: 'Who we are', ar: 'من نحن' },
-  titlePre: { en: 'A young company with a', ar: 'شركة فتية بطموح' },
+  eyebrow: { en: 'Who we are', ar: 'إحنا مين' },
+  titlePre: { en: 'A young company with a', ar: 'شركة صغيرة بطموح' },
   titleAccent: { en: 'world-class', ar: 'عالمي المستوى' },
   titlePost: { en: 'ambition', ar: '' },
   visualLabel: { en: 'Our growth ambition', ar: 'طموحنا في النمو' },
-  visualHeading: { en: 'Building momentum, year on year', ar: 'بناء الزخم، عامًا بعد عام' },
-  footnotePre: { en: 'From our first formulations toward a pipeline more than', ar: 'من أولى تركيباتنا نحو خط أبحاث يضم أكثر من' },
+  visualHeading: { en: 'Building momentum, year on year', ar: 'بنكبر سنة ورا سنة' },
+  footnotePre: { en: 'From our first formulations toward a pipeline more than', ar: 'من أول تركيباتنا لخط أبحاث فيه أكتر من' },
   footnoteAccent: { en: 'thirty', ar: 'ثلاثين' },
   footnotePost: {
     en: 'strong — a deliberate, quality-led expansion across six therapeutic areas.',
-    ar: 'تركيبة — توسّع مدروس وقائم على الجودة عبر ستة مجالات علاجية.',
+    ar: 'تركيبة — توسّع مدروس وقايم على الجودة في ستة مجالات علاجية.',
   },
   cta: { en: 'About Loremed', ar: 'عن لورميد' },
 };
 
 const highlights = [
-  { en: 'Pharmaceutical precision, from lab to label', ar: 'دقة صيدلانية، من المعمل إلى الملصق' },
-  { en: 'Trusted botanicals meet modern nutrition science', ar: 'مستخلصات نباتية موثوقة تلتقي بعلوم التغذية الحديثة' },
-  { en: 'A range built around real families', ar: 'نطاق منتجات مصمَّم من أجل العائلات الحقيقية' },
+  { en: 'Pharmaceutical precision, from lab to label', ar: 'دقة صيدلانية، من المعمل لحد العلبة' },
+  { en: 'Trusted botanicals meet modern nutrition science', ar: 'مستخلصات نباتية موثوقة بتقابل علوم التغذية الحديثة' },
+  { en: 'A range built around real families', ar: 'تشكيلة منتجات متعملة لعيلات حقيقية' },
 ];
 
 const roadmap = [

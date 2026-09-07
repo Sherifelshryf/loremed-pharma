@@ -21,7 +21,7 @@ export default function OrderPage() {
           <L
             text={{
               en: 'Review your items, add your delivery details, and send your order straight to our team on WhatsApp.',
-              ar: 'راجع منتجاتك، أضف بيانات التوصيل، وأرسل طلبك مباشرة إلى فريقنا عبر واتساب.',
+              ar: 'راجع منتجاتك، وضيف بيانات التوصيل، وابعت طلبك لفريقنا على واتساب على طول.',
             }}
           />
         }

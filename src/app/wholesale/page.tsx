@@ -32,7 +32,7 @@ export default function WholesalePage() {
           <L
             text={{
               en: 'Send us your details and our wholesale team will contact you to complete the order — no cart, no account needed.',
-              ar: 'أرسل لنا بياناتك وسيتواصل معك فريق المبيعات لاستكمال الطلب — بدون سلة أو حساب.',
+              ar: 'ابعتلنا بياناتك وفريق المبيعات هيتواصل معاك لاستكمال الطلب — من غير سلة ولا حساب.',
             }}
           />
         }

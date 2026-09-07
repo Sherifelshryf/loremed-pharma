@@ -31,19 +31,19 @@ export default function AboutPage() {
         eyebrow={<L text={{ en: 'About Loremed', ar: 'عن لورميد' }} />}
         title={
           <>
-            <L text={{ en: 'We care about', ar: 'نحن نهتم بـ' }} />{' '}
-            <span className="text-gradient"><L text={{ en: 'quality of life', ar: 'جودة الحياة' }} /></span>
+            <L text={{ en: 'We care about', ar: 'بنهتم' }} />{' '}
+            <span className="text-gradient"><L text={{ en: 'quality of life', ar: 'بجودة الحياة' }} /></span>
           </>
         }
         lead={
           <L
             text={{
               en: 'Loremed Pharma pairs pharmaceutical science with genuine human care — building medicines and nutrition that families across the region can trust.',
-              ar: 'تجمع لورميد فارما بين العلوم الصيدلانية والاهتمام الإنساني الحقيقي — لبناء أدوية وتغذية تثق بها العائلات في جميع أنحاء المنطقة.',
+              ar: 'لورميد فارما بتجمع بين العلوم الصيدلانية والاهتمام الإنساني الحقيقي — عشان تبني أدوية وتغذية العيلات في المنطقة كلها تثق فيها.',
             }}
           />
         }
-        crumbs={[{ label: <L text={{ en: 'About', ar: 'من نحن' }} />, href: '/about' }]}
+        crumbs={[{ label: <L text={{ en: 'About', ar: 'إحنا مين' }} />, href: '/about' }]}
       />
 
       {/* Story */}
@@ -56,9 +56,9 @@ export default function AboutPage() {
               </Reveal>
               <Reveal delay={0.05}>
                 <h2 className="mt-4 text-display-md sm:text-display-lg">
-                  <L text={{ en: 'Founded to make', ar: 'تأسست من أجل' }} />{' '}
+                  <L text={{ en: 'Founded to make', ar: 'اتأسسنا عشان' }} />{' '}
                   <span className="text-gradient">
-                    <L text={{ en: 'great care accessible', ar: 'جعل الرعاية الجيدة في متناول الجميع' }} />
+                    <L text={{ en: 'great care accessible', ar: 'الرعاية الكويسة تبقى في متناول الكل' }} />
                   </span>
                 </h2>
               </Reveal>
@@ -110,7 +110,7 @@ export default function AboutPage() {
           <div className="mt-16">
             <SectionHeading
               eyebrow={<L text={{ en: 'Our values', ar: 'قيمنا' }} />}
-              title={<L text={{ en: 'What we stand for', ar: 'ما نؤمن به' }} />}
+              title={<L text={{ en: 'What we stand for', ar: 'اللي بنؤمن بيه' }} />}
               align="center"
               className="mx-auto"
             />
@@ -137,18 +137,18 @@ export default function AboutPage() {
       <section id="timeline" className="section">
         <Container>
           <SectionHeading
-            eyebrow={<L text={{ en: 'Our journey', ar: 'مسيرتنا' }} />}
+            eyebrow={<L text={{ en: 'Our journey', ar: 'رحلتنا' }} />}
             title={
               <>
-                <L text={{ en: 'Momentum,', ar: 'زخم' }} />{' '}
-                <span className="text-gradient"><L text={{ en: 'year on year', ar: 'عامًا بعد عام' }} /></span>
+                <L text={{ en: 'Momentum,', ar: 'بنكبر' }} />{' '}
+                <span className="text-gradient"><L text={{ en: 'year on year', ar: 'سنة ورا سنة' }} /></span>
               </>
             }
             lead={
               <L
                 text={{
                   en: 'A young company moving with purpose — here’s how Loremed has grown.',
-                  ar: 'شركة فتية تتحرك بهدف واضح — إليك كيف نمت لورميد.',
+                  ar: 'شركة صغيرة بتتحرك بهدف واضح — ده اللي حصل مع لورميد سنة ورا سنة.',
                 }}
               />
             }
@@ -185,12 +185,12 @@ export default function AboutPage() {
         <Container>
           <SectionHeading
             eyebrow={<L text={{ en: 'Leadership', ar: 'القيادة' }} />}
-            title={<L text={{ en: 'The people behind Loremed', ar: 'الأشخاص وراء لورميد' }} />}
+            title={<L text={{ en: 'The people behind Loremed', ar: 'الناس اللي ورا لورميد' }} />}
             lead={
               <L
                 text={{
                   en: 'An experienced team leading each pillar of the business — from science and quality to commercial growth.',
-                  ar: 'فريق ذو خبرة يقود كل ركيزة من ركائز العمل — من العلم والجودة إلى النمو التجاري.',
+                  ar: 'فريق صاحب خبرة بيقود كل ركن من أركان الشغل — من العلم والجودة لحد النمو التجاري.',
                 }}
               />
             }
@@ -215,7 +215,7 @@ export default function AboutPage() {
             <L
               text={{
                 en: 'Loremed’s leadership team. For media or partnership enquiries, contact us at',
-                ar: 'فريق قيادة لورميد. لاستفسارات الإعلام أو الشراكة، تواصل معنا عبر',
+                ar: 'فريق قيادة لورميد. لاستفسارات الإعلام أو الشراكة، كلّمنا على',
               }}
             />{' '}
             <a href={`mailto:${site.email}`} className="text-primary-700 underline-offset-2 hover:underline">

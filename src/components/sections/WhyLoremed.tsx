@@ -7,12 +7,12 @@ import { DotField } from '@/components/graphics/BrandBackdrop';
 import { useI18n } from '@/i18n/LanguageProvider';
 
 const copy = {
-  eyebrow: { en: 'Why Loremed', ar: 'لماذا لورميد' },
-  titlePre: { en: 'Reasons the region is coming to', ar: 'الأسباب التي تجعل المنطقة' },
+  eyebrow: { en: 'Why Loremed', ar: 'ليه لورميد' },
+  titlePre: { en: 'Reasons the region is coming to', ar: 'الأسباب اللي بتخلي المنطقة' },
   titleAccent: { en: 'trust us', ar: 'تثق بنا' },
   lead: {
     en: 'We pair pharmaceutical rigour with a genuine care for the people who take our products — and it shows in everything we make.',
-    ar: 'نجمع بين الصرامة الصيدلانية والاهتمام الحقيقي بالأشخاص الذين يتناولون منتجاتنا — وهذا يظهر في كل ما نصنعه.',
+    ar: 'بنجمع بين الدقة الصيدلانية والاهتمام الحقيقي بالناس اللي بتاخد منتجاتنا — وده باين في كل حاجة بنعملها.',
   },
 };
 

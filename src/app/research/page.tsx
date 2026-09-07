@@ -23,23 +23,23 @@ export const metadata: Metadata = buildMetadata({
 const platforms = [
   {
     icon: Droplet,
-    title: { en: 'Syrups & drops', ar: 'الشرابات والقطرات' },
-    body: { en: 'Palatable liquid formats engineered for accurate, family-friendly dosing.', ar: 'أشكال سائلة سائغة الطعم مصمَّمة لدقة الجرعات وسهولة الاستخدام العائلي.' },
+    title: { en: 'Syrups & drops', ar: 'الشرابات والنقط' },
+    body: { en: 'Palatable liquid formats engineered for accurate, family-friendly dosing.', ar: 'أشكال سايلة طعمها كويس، متعملة عشان الجرعة تبقى دقيقة والاستخدام سهل على العيلة.' },
   },
   {
     icon: Gauge,
     title: { en: 'Precision dosing', ar: 'دقة الجرعات' },
-    body: { en: 'Dropper and measuring-cup engineering calibrated for accurate, age-based dosing.', ar: 'قطّارات وأكواب قياس مُعايَرة هندسيًا لضمان جرعات دقيقة حسب العمر.' },
+    body: { en: 'Dropper and measuring-cup engineering calibrated for accurate, age-based dosing.', ar: 'قطّارات وكوبايات قياس معايرة بدقة عشان الجرعة تبقى مظبوطة حسب السن.' },
   },
   {
     icon: Beaker,
     title: { en: 'Topical lotions', ar: 'اللوشن الموضعي' },
-    body: { en: 'Dermatologically-guided emulsions that protect and restore the skin barrier.', ar: 'مستحلبات موجَّهة جلديًا تحمي حاجز البشرة وتُعيد بناءه.' },
+    body: { en: 'Dermatologically-guided emulsions that protect and restore the skin barrier.', ar: 'مستحلبات موجّهة للجلد بتحمي حاجز البشرة وبتعيد بناه.' },
   },
   {
     icon: FlaskConical,
     title: { en: 'Botanical extracts', ar: 'المستخلصات النباتية' },
-    body: { en: 'Standardised, characterised plant actives that behave the same every batch.', ar: 'مواد فعّالة نباتية مُوصَّفة وموحَّدة تتصرف بالطريقة ذاتها في كل دفعة.' },
+    body: { en: 'Standardised, characterised plant actives that behave the same every batch.', ar: 'مواد فعّالة نباتية موصّفة وموحّدة، بتشتغل بنفس الطريقة في كل تشغيلة.' },
   },
 ];
 
@@ -53,7 +53,7 @@ export default function ResearchPage() {
         eyebrow={<L text={{ en: 'Research & development', ar: 'البحث والتطوير' }} />}
         title={
           <>
-            <L text={{ en: 'Where every product', ar: 'حيث يبدأ' }} />{' '}
+            <L text={{ en: 'Where every product', ar: 'من هنا بيبدأ' }} />{' '}
             <span className="text-gradient"><L text={{ en: 'begins', ar: 'كل منتج لورميد' }} /></span>
           </>
         }
@@ -61,7 +61,7 @@ export default function ResearchPage() {
           <L
             text={{
               en: 'Loremed R&D turns active ingredients and trusted botanicals into stable, effective, great-to-take products — and keeps a pipeline of thirty-plus formulations moving forward.',
-              ar: 'يحوّل قسم الأبحاث والتطوير لدى لورميد المواد الفعّالة والمستخلصات النباتية الموثوقة إلى منتجات مستقرة وفعّالة وسهلة التناول — ويدفع خط أبحاث يضم أكثر من ثلاثين تركيبة إلى الأمام.',
+              ar: 'قسم البحث والتطوير في لورميد بيحوّل المواد الفعّالة والمستخلصات النباتية الموثوقة لمنتجات ثابتة وفعّالة وسهلة التناول — وبيدفع لقدام خط أبحاث فيه أكتر من تلاتين تركيبة.',
             }}
           />
         }
@@ -75,15 +75,15 @@ export default function ResearchPage() {
             eyebrow={<L text={{ en: 'Innovation', ar: 'الابتكار' }} />}
             title={
               <>
-                <L text={{ en: 'Good science, made', ar: 'علم جيد، يتحول إلى' }} />{' '}
-                <span className="text-gradient"><L text={{ en: 'better products', ar: 'منتجات أفضل' }} /></span>
+                <L text={{ en: 'Good science, made', ar: 'علم كويس، بيتحول' }} />{' '}
+                <span className="text-gradient"><L text={{ en: 'better products', ar: 'لمنتجات أحسن' }} /></span>
               </>
             }
             lead={
               <L
                 text={{
                   en: 'Four disciplines work together to move an idea from concept to a product families can rely on.',
-                  ar: 'تتضافر أربعة تخصصات لنقل فكرة من مرحلة المفهوم إلى منتج يمكن للعائلات الاعتماد عليه.',
+                  ar: 'أربع تخصصات بتشتغل مع بعض عشان تنقل الفكرة من مجرد تصوّر لمنتج العيلة تقدر تعتمد عليه.',
                 }}
               />
             }
@@ -122,7 +122,7 @@ export default function ResearchPage() {
               <Reveal delay={0.05}>
                 <h2 className="mt-4 text-display-md text-white sm:text-display-lg">
                   <span className="text-gradient-orange">30+</span>{' '}
-                  <L text={{ en: 'formulations in development', ar: 'تركيبة قيد التطوير' }} />
+                  <L text={{ en: 'formulations in development', ar: 'تركيبة تحت التطوير' }} />
                 </h2>
               </Reveal>
               <Reveal delay={0.1}>
@@ -130,7 +130,7 @@ export default function ResearchPage() {
                   <L
                     text={{
                       en: 'A deliberate, quality-led pipeline across six therapeutic areas. These formulas are advancing through the final stages of registration.',
-                      ar: 'خط أبحاث مدروس وقائم على الجودة عبر ستة مجالات علاجية. هذه التركيبات تتقدم عبر المراحل النهائية من التسجيل.',
+                      ar: 'خط أبحاث مدروس وقايم على الجودة في ستة مجالات علاجية. التركيبات دي ماشية في المراحل النهائية من التسجيل.',
                     }}
                   />
                 </p>
@@ -174,7 +174,7 @@ export default function ResearchPage() {
               <L
                 text={{
                   en: 'Our formulation and analytical capabilities span the dosage forms that modern nutrition and medicine demand.',
-                  ar: 'تمتد قدراتنا في التركيب والتحليل لتشمل الأشكال الدوائية التي تتطلبها التغذية والطب الحديثان.',
+                  ar: 'قدراتنا في التركيب والتحليل بتغطي الأشكال الدوائية اللي التغذية والطب الحديث محتاجينها.',
                 }}
               />
             }
@@ -207,7 +207,7 @@ export default function ResearchPage() {
               <L
                 text={{
                   en: 'Focused domains where Loremed builds depth — from immune and respiratory care to omega nutrition and dermatology.',
-                  ar: 'مجالات مركّزة تبني فيها لورميد عمقًا معرفيًا — من رعاية المناعة والجهاز التنفسي إلى تغذية الأوميغا والعناية بالبشرة.',
+                  ar: 'مجالات مركّزة لورميد بتبني فيها خبرة عميقة — من رعاية المناعة والجهاز التنفسي لحد تغذية الأوميغا والعناية بالبشرة.',
                 }}
               />
             }

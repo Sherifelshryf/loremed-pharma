@@ -37,7 +37,7 @@ export default function ProductsPage() {
         eyebrow={<L text={{ en: 'Our catalogue', ar: 'كتالوجنا' }} />}
         title={
           <>
-            <L text={{ en: 'Products that raise the', ar: 'منتجات ترفع' }} />{' '}
+            <L text={{ en: 'Products that raise the', ar: 'منتجات بترفع' }} />{' '}
             <span className="text-gradient"><L text={{ en: 'standard of care', ar: 'معايير الرعاية' }} /></span>
           </>
         }
@@ -45,7 +45,7 @@ export default function ProductsPage() {
           <L
             text={{
               en: 'From daily essentials to targeted therapeutic support — every Loremed formula is built on standardised actives, honest labels and GMP-grade quality.',
-              ar: 'من الأساسيات اليومية إلى الدعم العلاجي الموجَّه — كل تركيبة من لورميد مبنية على مواد فعّالة موحَّدة، وملصقات صادقة، وجودة بمعايير GMP.',
+              ar: 'من الأساسيات اليومية لحد الدعم العلاجي الموجّه — كل تركيبة من لورميد مبنية على مواد فعّالة موحّدة، وبيانات صادقة على العلبة، وجودة بمعايير GMP.',
             }}
           />
         }
@@ -55,7 +55,7 @@ export default function ProductsPage() {
       <Suspense
         fallback={
           <div className="py-24 text-center text-ink-muted">
-            <L text={{ en: 'Loading products…', ar: 'جارٍ تحميل المنتجات…' }} />
+            <L text={{ en: 'Loading products…', ar: 'بنحمّل المنتجات…' }} />
           </div>
         }
       >

@@ -11,12 +11,12 @@ const steps = [
   {
     n: '01',
     title: { en: 'Responsible sourcing', ar: 'مصادر مسؤولة' },
-    body: { en: 'Every raw material is qualified and verified before it enters our process.', ar: 'يخضع كل مادة خام للتأهيل والتحقق قبل دخولها في عملية الإنتاج.' },
+    body: { en: 'Every raw material is qualified and verified before it enters our process.', ar: 'كل مادة خام بتتأهّل وبيتأكد منها قبل ما تدخل الإنتاج.' },
   },
   {
     n: '02',
     title: { en: 'Precise formulation', ar: 'تركيب دقيق' },
-    body: { en: 'Validated methods turn actives and botanicals into a consistent product.', ar: 'طرق معتمَدة تحوّل المواد الفعّالة والمستخلصات النباتية إلى منتج ثابت الجودة.' },
+    body: { en: 'Validated methods turn actives and botanicals into a consistent product.', ar: 'طرق معتمدة بتحوّل المواد الفعّالة والمستخلصات النباتية لمنتج ثابت الجودة.' },
   },
   {
     n: '03',
@@ -25,25 +25,25 @@ const steps = [
   },
   {
     n: '04',
-    title: { en: 'Test & release', ar: 'اختبار وإفراج' },
-    body: { en: 'Analytical testing confirms identity, purity and potency before release.', ar: 'يؤكد الاختبار التحليلي الهوية والنقاء والفعالية قبل الإفراج عن المنتج.' },
+    title: { en: 'Test & release', ar: 'فحص وإفراج' },
+    body: { en: 'Analytical testing confirms identity, purity and potency before release.', ar: 'الفحص التحليلي بيأكد الهوية والنقاء والفعالية قبل الإفراج عن المنتج.' },
   },
 ];
 
 const copy = {
   eyebrow: { en: 'Quality assurance', ar: 'ضمان الجودة' },
   titlePre: { en: 'Trust is', ar: 'الثقة' },
-  titleAccent: { en: 'built', ar: 'تُبنى' },
-  titlePost: { en: ', one batch at a time', ar: '، دفعة تلو الأخرى' },
+  titleAccent: { en: 'built', ar: 'بتتبني' },
+  titlePost: { en: ', one batch at a time', ar: '، تشغيلة ورا تشغيلة' },
   lead: {
     en: 'Quality is not a final checkpoint — it is designed into every stage. From the first raw material to the sealed pack, nothing reaches a family until it meets our specification in full.',
-    ar: 'الجودة ليست نقطة تفتيش أخيرة — بل هي مصمَّمة في كل مرحلة. من أول مادة خام إلى العبوة المختومة، لا يصل شيء إلى أي أسرة قبل أن يستوفي مواصفاتنا بالكامل.',
+    ar: 'الجودة مش نقطة تفتيش في الآخر — دي متبنية في كل مرحلة. من أول مادة خام لحد العبوة المقفولة، مفيش حاجة بتوصل أي بيت قبل ما تستوفي مواصفاتنا بالكامل.',
   },
   badge: {
     en: 'GMP-grade production · Full batch traceability · Analytical release testing',
-    ar: 'إنتاج بمعايير GMP · تتبّع كامل للدفعات · اختبار تحليلي للإفراج',
+    ar: 'إنتاج بمعايير GMP · تتبّع كامل للتشغيلات · فحص تحليلي قبل الإفراج',
   },
-  cta: { en: 'Inside our quality system', ar: 'داخل نظام الجودة لدينا' },
+  cta: { en: 'Inside our quality system', ar: 'جوه نظام الجودة عندنا' },
 };
 
 export function QualityAssurance() {

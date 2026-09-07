@@ -5,11 +5,11 @@ import { categories } from '@/content/products';
 import { L } from '@/i18n/Localized';
 
 const categoryCampaigns = {
-  'respiratory-care': { image: '/media/campaigns/cough-chest.png', label: { en: 'Cough Care', ar: 'العناية بالسعال' }, description: { en: 'Comfort for clearer breathing.', ar: 'راحة لتنفس أكثر صفاءً.' } },
+  'respiratory-care': { image: '/media/campaigns/cough-chest.png', label: { en: 'Cough Care', ar: 'العناية بالكحة' }, description: { en: 'Comfort for clearer breathing.', ar: 'راحة وتنفس أسهل.' } },
   'kids-health': { image: '/media/campaigns/children.png', label: { en: 'Children', ar: 'الأطفال' }, description: { en: 'Gentle support for growing days.', ar: 'دعم لطيف لأيام النمو.' } },
   'vitamins-minerals': { image: '/media/campaigns/vitamins-minerals.png', label: { en: 'Vitamins', ar: 'الفيتامينات' }, description: { en: 'Daily nutrition, simply covered.', ar: 'تغذية يومية بكل بساطة.' } },
-  'immune-support': { image: '/media/Imulormed.webp', label: { en: 'Immunity', ar: 'المناعة' }, description: { en: 'Everyday defence for your family.', ar: 'دعم يومي لعائلتك.' } },
-  'omega-brain': { image: '/media/campaigns/omega-focus.png', label: { en: 'Focus', ar: 'التركيز' }, description: { en: 'Nutrition for bright young minds.', ar: 'تغذية لعقول صغيرة مشرقة.' } },
+  'immune-support': { image: '/media/Imulormed.webp', label: { en: 'Immunity', ar: 'المناعة' }, description: { en: 'Everyday defence for your family.', ar: 'دعم يومي لعيلتك.' } },
+  'omega-brain': { image: '/media/campaigns/omega-focus.png', label: { en: 'Focus', ar: 'التركيز' }, description: { en: 'Nutrition for bright young minds.', ar: 'تغذية لعقول صغيرة نشيطة.' } },
   dermatology: { image: '/media/campaigns/skin-care.png', label: { en: 'Skin Care', ar: 'العناية بالبشرة' }, description: { en: 'Soothing care for soft skin.', ar: 'عناية مهدئة لبشرة ناعمة.' } },
 } as const;
 
@@ -22,13 +22,13 @@ export function CategoryTiles() {
       <Container>
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-secondary-600">
-            <L text={{ en: 'Find your everyday care', ar: 'اكتشف عنايتك اليومية' }} />
+            <L text={{ en: 'Find your everyday care', ar: 'اعرف عنايتك اليومية' }} />
           </p>
           <h2 className="mt-3 text-display-sm sm:text-display-md">
             <L text={{ en: 'Thoughtful care for every stage of life.', ar: 'عناية مدروسة لكل مرحلة من مراحل الحياة.' }} />
           </h2>
           <p className="mt-3 text-base text-ink-soft sm:text-lg">
-            <L text={{ en: 'Explore targeted solutions for the moments that matter most.', ar: 'اكتشف حلولاً مخصّصة للحظات التي تهمك أكثر.' }} />
+            <L text={{ en: 'Explore targeted solutions for the moments that matter most.', ar: 'هتلاقي حلول مخصوصة للحظات اللي بتهمك أكتر.' }} />
           </p>
         </div>
 
@@ -55,7 +55,7 @@ export function CategoryTiles() {
                 </h3>
                 <p className="px-4 pb-2 text-center text-sm text-ink-soft"><L text={campaign.description} /></p>
                 <span className="block px-4 pb-4 text-center text-sm font-semibold text-secondary-600">
-                  <L text={{ en: 'Explore products →', ar: 'اكتشف المنتجات ←' }} />
+                  <L text={{ en: 'Explore products →', ar: 'شوف المنتجات ←' }} />
                 </span>
               </Link>
             );
