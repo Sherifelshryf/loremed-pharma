@@ -15,6 +15,7 @@ import { MobileMenu } from './MobileMenu';
 import { cn } from '@/lib/utils';
 import { L } from '@/i18n/Localized';
 import { normalizeSearch, products, productSearchText } from '@/content/products';
+import { GOAT, isGoatQuery } from '@/lib/easterEgg';
 
 export function Navbar() {
   const { t, locale } = useI18n();
@@ -33,6 +34,7 @@ export function Navbar() {
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href.split('?')[0]);
+  const goat = isGoatQuery(searchQuery);
   const suggestions = searchQuery.trim()
     ? products.filter((product) => normalizeSearch(productSearchText(product)).includes(normalizeSearch(searchQuery))).slice(0, 6)
     : [];
@@ -171,7 +173,11 @@ export function Navbar() {
                 className="h-11 w-full rounded-xl border border-line bg-white ps-12 pe-4 text-sm text-ink outline-none focus:border-primary-500"
               />
             </label>
-            {suggestions.length > 0 && (
+            {goat ? (
+              <ul className="mt-2 overflow-hidden rounded-xl border border-line bg-white shadow-soft">
+                <li className="px-4 py-3 text-sm font-semibold text-ink">{GOAT}</li>
+              </ul>
+            ) : suggestions.length > 0 && (
               <ul className="mt-2 overflow-hidden rounded-xl border border-line bg-white shadow-soft">
                 {suggestions.map((product) => (
                   <li key={product.slug} className="border-b border-line last:border-b-0">
