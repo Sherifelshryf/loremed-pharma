@@ -1,31 +1,20 @@
 import Link from 'next/link';
 import { ShieldCheck, Truck, Wallet, Building2, Tag } from 'lucide-react';
 import { Container } from '@/components/ui/Section';
-import { ProductImage } from '@/components/ui/ProductImage';
+import { HeroSlideshow } from '@/components/sections/HeroSlideshow';
 import { L } from '@/i18n/Localized';
 
 /**
- * Image-first retail hero. The desktop shelf and mobile campaign visual are
- * intentionally separate so each device gets a clear, well-composed image.
+ * Image-first retail hero: a campaign slideshow, then the three ways in
+ * (retail, trade, offers), then the three reassurances a first-time buyer wants.
  */
 export function ShopHero() {
   return (
     <section className="border-b border-line bg-surface-muted pt-40 sm:pt-44">
       <Container>
-        {/* Existing wide product image is reserved for desktop. */}
-        <ProductImage
-          src="/media/hero-products.webp"
-          alt=""
-          priority
-          className="mx-auto hidden w-full select-none sm:block"
-        />
-        {/* Client-supplied campaign visual is shown only on mobile. */}
-        <ProductImage
-          src="/media/hero-products-mobile.png"
-          alt=""
-          priority
-          className="mx-auto w-full select-none sm:hidden"
-        />
+        {/* Campaign slideshow — one banner per available product, in desktop
+            and mobile crops. Swipeable, and each slide holds for 10 seconds. */}
+        <HeroSlideshow />
 
         {/* Three ways in, in priority order: retail, trade, then offers. They
             stack full-width on phones and sit in one centred row from sm up. */}
