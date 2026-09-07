@@ -194,8 +194,31 @@
   animation: marquee-right 26s linear infinite !important;
 }
 
+/*
+ * RTL needs its own keyframes. `translateX` is not direction-aware, but the
+ * track's resting position is: under dir="rtl" the flex track is anchored to
+ * the right edge and extends leftwards, so the LTR keyframes (-50% → 0) drag it
+ * further off to the left and leave most of the band empty. Travelling 0 → +50%
+ * instead keeps the strip covered for the whole cycle and still reads as
+ * rightward drift — and it is equally seamless, because after half the track's
+ * width the second copy sits exactly where the first one started.
+ */
+@keyframes marquee-right-rtl {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(50%);
+  }
+}
+
+[dir='rtl'] .ticker-track {
+  animation: marquee-right-rtl 26s linear infinite !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ticker-track {
+  .ticker-track,
+  [dir='rtl'] .ticker-track {
     animation: none !important;
   }
 }
