@@ -105,8 +105,8 @@ export const categories: {
     id: 'dermatology',
     label: { en: 'Skin Care', ar: 'العناية بالبشرة' },
     description: {
-      en: 'Lotions that protect and repair dry skin.',
-      ar: 'لوشن يحمي البشرة الجافة ويُصلحها.',
+      en: 'Lotions that soothe and soften the skin.',
+      ar: 'لوشن يهدّئ البشرة ويُنعّمها.',
     },
   },
 ];
@@ -132,12 +132,12 @@ export const products: Product[] = [
     image: '/media/ivylornew.webp',
     price: 80,
     shortDescription: {
-      en: 'A natural extract syrup combining ivy leaf, black elderberry and black honey with vitamin C and zinc for cough relief.',
-      ar: 'شراب بمستخلصات طبيعية يجمع أوراق اللبلاب والبلسان الأسود والعسل الأسود مع فيتامين ج والزنك لتخفيف السعال.',
+      en: 'A natural extract syrup combining ivy leaf, black elderberry and bee honey with vitamin C and zinc for cough relief.',
+      ar: 'شراب بمستخلصات طبيعية يجمع أوراق اللبلاب والبلسان الأسود وعسل النحل مع فيتامين ج والزنك لتخفيف السعال.',
     },
     description: {
-      en: 'Ivylor supports respiratory system health through a natural extract blend: ivy leaf extract (38 mg per 5 ml) acting as a bronchodilator, mucolytic and antispasmodic, black elderberry (25 mg per 5 ml) and black honey (6 g per 5 ml), reinforced with vitamin C and zinc. Together they help relieve cough and support the natural clearing of mucus from the airways, while the antioxidant and immunostimulant botanicals support the body through the cough and cold season.',
-      ar: 'يدعم إيفيلور صحة الجهاز التنفسي عبر مزيج من المستخلصات الطبيعية: مستخلص أوراق اللبلاب (38 مجم لكل 5 مل) الذي يعمل كموسّع للشعب الهوائية ومذيب للبلغم ومضاد للتقلصات، والبلسان الأسود (25 مجم لكل 5 مل)، والعسل الأسود (6 جم لكل 5 مل)، مدعّمة بفيتامين ج والزنك. تساعد معًا على تخفيف السعال ودعم التخلص الطبيعي من البلغم في المجاري التنفسية، بينما تدعم المستخلصات المضادة للأكسدة والمنشّطة للمناعة الجسم خلال موسم البرد والسعال.',
+      en: 'Ivylor supports respiratory system health through a natural extract blend: ivy leaf extract (38 mg per 5 ml) acting as a bronchodilator, mucolytic and antispasmodic, black elderberry (25 mg per 5 ml) and bee honey (6 g per 5 ml), reinforced with vitamin C and zinc. Together they help relieve cough and support the natural clearing of mucus from the airways, while the antioxidant and immunostimulant botanicals support the body through the cough and cold season.',
+      ar: 'يدعم إيفيلور صحة الجهاز التنفسي عبر مزيج من المستخلصات الطبيعية: مستخلص أوراق اللبلاب (38 مجم لكل 5 مل) الذي يعمل كموسّع للشعب الهوائية ومذيب للبلغم ومضاد للتقلصات، والبلسان الأسود (25 مجم لكل 5 مل)، وعسل النحل (6 جم لكل 5 مل)، مدعّمة بفيتامين ج والزنك. تساعد معًا على تخفيف السعال ودعم التخلص الطبيعي من البلغم في المجرى التنفسي، بينما تدعم المستخلصات المضادة للأكسدة والمنشّطة للمناعة الجسم خلال موسم البرد والسعال.',
     },
     keyIngredients: [
       {
@@ -155,7 +155,7 @@ export const products: Product[] = [
         },
       },
       {
-        name: { en: 'Black Honey', ar: 'العسل الأسود' },
+        name: { en: 'Bee Honey', ar: 'عسل النحل' },
         note: {
           en: '6 g per 5 ml — antibacterial, antioxidant, immunostimulant & demulcent',
           ar: '6 جم لكل 5 مل — مضاد للبكتيريا، مضاد للأكسدة، منشّط للمناعة وملطّف للحلق',
@@ -173,7 +173,7 @@ export const products: Product[] = [
       { en: 'Indicated for cough, asthma and bronchitis', ar: 'يُستخدم للسعال والربو والتهاب الشعب الهوائية' },
       { en: 'Supports relief of common cold and flu', ar: 'يساعد على تخفيف نزلات البرد والإنفلونزا' },
       { en: 'Immunostimulant support', ar: 'دعم منشّط للمناعة' },
-      { en: 'Supports the airways in COPD', ar: 'يدعم المجاري التنفسية في حالات الانسداد الرئوي المزمن' },
+      { en: 'Supports the airways in COPD', ar: 'يدعم المجرى التنفسي في حالات الانسداد الرئوي المزمن' },
     ],
     usage: { en: '5 ml three times daily.', ar: '5 مل ثلاث مرات يوميًا.' },
     related: ['ivylor-advance', 'imulormed', 'coglern-syrup'],
@@ -192,19 +192,19 @@ export const products: Product[] = [
     image: '/media/ivyloradvance.webp',
     price: 65,
     shortDescription: {
-      en: 'An orange-flavoured ivy leaf, thyme and licorice cough syrup for paediatric and adult use, supporting respiratory system health.',
-      ar: 'شراب للسعال بنكهة البرتقال يحتوي على أوراق اللبلاب والزعتر وعرق السوس، للأطفال والبالغين، يدعم صحة الجهاز التنفسي.',
+      en: 'A cough syrup of ivy leaf, thyme and licorice — in an orange flavour — for paediatric and adult use, supporting respiratory system health.',
+      ar: 'شراب للسعال من أوراق اللبلاب والزعتر وعرق السوس — بنكهة البرتقال — للأطفال والبالغين، يدعم صحة الجهاز التنفسي.',
     },
     description: {
-      en: 'Ivylor Advance builds on the Ivylor formula with a triple-botanical blend in every 5 ml: ivy leaf extract (35 mg) for its expectorant action, thyme leaf extract (21.5 mg) for its antiseptic and antimicrobial effect, and licorice root (21.7 mg), whose liquiritin apioside acts as an antitussive and expectorant with anti-inflammatory and antiviral activity. Together they help clear mucus from the airways and calm cough inflammation — an orange-flavoured syrup suitable for infants, children and adults.',
-      ar: 'يبني إيفيلور أدفانس على تركيبة إيفيلور بمزيج ثلاثي من النباتات في كل 5 مل: مستخلص أوراق اللبلاب (35 مجم) لعمله الطارد للبلغم، ومستخلص أوراق الزعتر (21.5 مجم) لتأثيره المطهّر والمضاد للميكروبات، وجذر عرق السوس (21.7 مجم) الذي يعمل مركّب الليكويريتين أبيوسيد فيه كمهدّئ للسعال وطارد للبلغم مع نشاط مضاد للالتهاب ومضاد للفيروسات. تساعد معًا على التخلص من البلغم في المجاري التنفسية وتهدئة التهاب السعال — شراب بنكهة البرتقال مناسب للرضع والأطفال والبالغين.',
+      en: 'Ivylor Advance builds on the Ivylor formula with a triple-botanical blend in every 5 ml: ivy leaf extract (35 mg) for its expectorant action, thyme leaf extract (21.5 mg) for its antiseptic and antimicrobial effect, and licorice root (21.7 mg), whose liquiritin apioside acts as an antitussive and expectorant with anti-inflammatory and antiviral activity. Together they help clear mucus from the airways and calm cough inflammation. The syrup is orange-flavoured — the flavouring only, it contains no orange — and is suitable for infants, children and adults.',
+      ar: 'يبني إيفيلور أدفانس على تركيبة إيفيلور بمزيج ثلاثي من النباتات في كل 5 مل: مستخلص أوراق اللبلاب (35 مجم) لعمله الطارد للبلغم، ومستخلص أوراق الزعتر (21.5 مجم) لتأثيره المطهّر والمضاد للميكروبات، وجذر عرق السوس (21.7 مجم) الذي يعمل مركّب الليكويريتين أبيوسيد فيه كمهدّئ للسعال وطارد للبلغم مع نشاط مضاد للالتهاب ومضاد للفيروسات. تساعد معًا على التخلص من البلغم في المجرى التنفسي وتهدئة التهاب السعال. الشراب بنكهة البرتقال — نكهة فقط ولا يحتوي على البرتقال — ومناسب للرضع والأطفال والبالغين.',
     },
     keyIngredients: [
       {
         name: { en: 'Ivy Leaf Extract', ar: 'مستخلص أوراق اللبلاب' },
         note: {
           en: '35 mg per 5 ml — expectorant; helps clear mucus from the airways',
-          ar: '35 مجم لكل 5 مل — طارد للبلغم؛ يساعد على تنظيف المجاري التنفسية',
+          ar: '35 مجم لكل 5 مل — طارد للبلغم؛ يساعد على تنظيف المجرى التنفسي',
         },
       },
       {
@@ -224,7 +224,7 @@ export const products: Product[] = [
     ],
     benefits: [
       { en: 'Indicated for cough and for acute and chronic bronchitis', ar: 'يُستخدم للسعال والتهاب الشعب الهوائية الحاد والمزمن' },
-      { en: 'Expectorant action helps clear mucus from the airways', ar: 'عمل طارد للبلغم يساعد على تنظيف المجاري التنفسية' },
+      { en: 'Expectorant action helps clear mucus from the airways', ar: 'عمل طارد للبلغم يساعد على تنظيف المجرى التنفسي' },
       { en: 'Helps reduce cough inflammation', ar: 'يساعد على تقليل التهاب السعال' },
       { en: 'Suitable for infants, children and adults', ar: 'مناسب للرضع والأطفال والبالغين' },
     ],
@@ -249,20 +249,20 @@ export const products: Product[] = [
     image: '/media/coglernnew.webp',
     price: 300,
     shortDescription: {
-      en: 'A children’s syrup with high-strength omega-3 (EPA & DHA) and marigold flower extract to support learning and growth.',
-      ar: 'شراب للأطفال بتركيز عالٍ من أوميغا-3 (إي بي إيه ودي إتش إيه) ومستخلص زهرة الآذريون لدعم التعلّم والنمو.',
+      en: 'A children’s syrup with high-strength fish-oil omega-3 (EPA & DHA) and marigold flower extract to support learning and growth.',
+      ar: 'شراب للأطفال بتركيز عالٍ من أوميغا-3 المستخلص من زيت السمك (إي بي إيه ودي إتش إيه) ومستخلص زهرة الآذريون لدعم التعلّم والنمو.',
     },
     description: {
-      en: 'Coglern Syrup is formulated for growing, learning children — combining high-strength omega-3 (EPA and DHA) with marigold flower extract (lutein) in a pleasant, easy-to-take syrup. Created to support brain growth and function, concentration and healthy development during the busy school years.',
-      ar: 'صُمم كوجليرن شراب للأطفال في مرحلة النمو والتعلّم — يجمع أوميغا-3 عالي التركيز (إي بي إيه ودي إتش إيه) مع مستخلص زهرة الآذريون (اللوتين) في شراب لذيذ وسهل التناول. طُوّر لدعم نمو الدماغ ووظائفه والتركيز والنمو الصحي خلال سنوات الدراسة.',
+      en: 'Coglern Syrup is formulated for growing, learning children — combining high-strength omega-3 (EPA and DHA) from fish oil with marigold flower extract (lutein) in a pleasant, easy-to-take syrup. Created to support brain growth and function, concentration and healthy development during the busy school years.',
+      ar: 'صُمم كوجليرن شراب للأطفال في مرحلة النمو والتعلّم — يجمع أوميغا-3 عالي التركيز (إي بي إيه ودي إتش إيه) المستخلص من زيت السمك مع مستخلص زهرة الآذريون (اللوتين) في شراب لذيذ وسهل التناول. طُوّر لدعم نمو الدماغ ووظائفه والتركيز والنمو الصحي خلال سنوات الدراسة.',
     },
     keyIngredients: [
       {
-        name: { en: 'Omega-3 EPA', ar: 'أوميغا-3 إي بي إيه' },
+        name: { en: 'Omega-3 EPA (from fish oil)', ar: 'أوميغا-3 إي بي إيه (من زيت السمك)' },
         note: { en: '718.2 mg per 5 ml', ar: '718.2 مجم لكل 5 مل' },
       },
       {
-        name: { en: 'Omega-3 DHA', ar: 'أوميغا-3 دي إتش إيه' },
+        name: { en: 'Omega-3 DHA (from fish oil)', ar: 'أوميغا-3 دي إتش إيه (من زيت السمك)' },
         note: {
           en: '448.9 mg per 5 ml — supports normal brain function',
           ar: '448.9 مجم لكل 5 مل — يدعم وظائف الدماغ الطبيعية',
@@ -301,16 +301,16 @@ export const products: Product[] = [
     image: '/media/smartodkids.webp',
     price: 165,
     shortDescription: {
-      en: 'DHA, vitamin E and vitamin D drops for early brain health, immunity and healthy growth.',
-      ar: 'نقط تحتوي على دي إتش إيه وفيتامين هـ وفيتامين د لصحة الدماغ المبكرة والمناعة والنمو السليم.',
+      en: 'Fish-oil DHA with vitamin E and vitamin D in drops for early brain health, immunity and healthy growth.',
+      ar: 'نقط تحتوي على دي إتش إيه من زيت السمك وفيتامين هـ وفيتامين د لصحة الدماغ المبكرة والمناعة والنمو السليم.',
     },
     description: {
-      en: 'Smartod combines DHA with vitamin E and vitamin D in an easy-to-dose liquid drop. Formulated for the earliest stages of life, it supports brain health and mood, healthy bone and tooth development, and the normal function of the immune system.',
-      ar: 'يجمع سمارتود بين دي إتش إيه وفيتامين هـ وفيتامين د في نقط سائلة سهلة الجرعة. صُمم لأولى مراحل الحياة، ويدعم صحة الدماغ والمزاج، ونمو العظام والأسنان بشكل سليم، والوظيفة الطبيعية للجهاز المناعي.',
+      en: 'Smartod combines DHA from fish oil with vitamin E and vitamin D in an easy-to-dose liquid drop. Formulated for the earliest stages of life, it supports brain health and mood, healthy bone and tooth development, and the normal function of the immune system.',
+      ar: 'يجمع سمارتود بين دي إتش إيه المستخلص من زيت السمك وفيتامين هـ وفيتامين د في نقط سائلة سهلة الجرعة. صُمم لأولى مراحل الحياة، ويدعم صحة الدماغ والمزاج، ونمو العظام والأسنان بشكل سليم، والوظيفة الطبيعية للجهاز المناعي.',
     },
     keyIngredients: [
       {
-        name: { en: 'Omega-3 DHA', ar: 'أوميغا-3 دي إتش إيه' },
+        name: { en: 'Omega-3 DHA (from fish oil)', ar: 'أوميغا-3 دي إتش إيه (من زيت السمك)' },
         note: {
           en: 'Enhances brain health and mood; supports better sleep',
           ar: 'يعزز صحة الدماغ والمزاج؛ ويدعم نومًا أفضل',
@@ -380,7 +380,7 @@ export const products: Product[] = [
   {
     slug: 'vitelormed',
     youtubeId: 'd_kyUQSb5NM',
-    name: { en: 'Vitelormed', ar: 'فيتالورميد' },
+    name: { en: 'Vitelormed', ar: 'فيتيلورميد' },
     tagline: { en: 'Build bodies, bright minds & big appetites', ar: 'أجسام قوية وعقول نشطة وشهية مفتوحة' },
     category: 'vitamins-minerals',
     status: 'available',
@@ -397,7 +397,7 @@ export const products: Product[] = [
     },
     description: {
       en: 'Vitelormed combines 12 vitamins and 5 minerals with the essential amino acid L-lysine in a single daily syrup formulated for maximum growth and development. A full B-complex (B1, B2, B3, B5, B6, B7, B9 and B12) supports energy metabolism, vitamins A, C, D3 and E add antioxidant, immune and bone support, and zinc, iron, magnesium, calcium and iodine cover the essential minerals. Together they help improve appetite and immunity, support the management of malnutrition, and sustain mental and physical activity.',
-      ar: 'يجمع فيتالورميد 12 فيتامينًا و5 معادن مع الحمض الأميني الأساسي إل-ليسين في شراب يومي واحد صُمم لأقصى نمو وتطور. تدعم مجموعة فيتامينات ب الكاملة (ب1، ب2، ب3، ب5، ب6، ب7، ب9 وب12) استقلاب الطاقة، بينما تضيف فيتامينات أ وج ود3 وهـ دعمًا مضادًا للأكسدة وللمناعة والعظام، ويغطي الزنك والحديد والمغنيسيوم والكالسيوم واليود المعادن الأساسية. تساعد معًا على تحسين الشهية والمناعة، ودعم علاج سوء التغذية، والحفاظ على النشاط الذهني والبدني.',
+      ar: 'يجمع فيتيلورميد 12 فيتامينًا و5 معادن مع الحمض الأميني الأساسي إل-ليسين في شراب يومي واحد صُمم لأقصى نمو وتطور. تدعم مجموعة فيتامينات ب الكاملة (ب1، ب2، ب3، ب5، ب6، ب7، ب9 وب12) استقلاب الطاقة، بينما تضيف فيتامينات أ وج ود3 وهـ دعمًا مضادًا للأكسدة وللمناعة والعظام، ويغطي الزنك والحديد والمغنيسيوم والكالسيوم واليود المعادن الأساسية. تساعد معًا على تحسين الشهية والمناعة، ودعم علاج سوء التغذية، والحفاظ على النشاط الذهني والبدني.',
     },
     keyIngredients: [
       {
@@ -484,46 +484,57 @@ export const products: Product[] = [
     slug: 'welcaderm-lotion',
     youtubeId: 'uklJ3AK7xB8',
     name: { en: 'Welcaderm Lotion', ar: 'ويلكاديرم لوشن' },
-    tagline: { en: 'Restore the skin barrier', ar: 'استعادة حاجز البشرة' },
+    tagline: { en: 'Calamine, chamomile & olive oil', ar: 'كالامين وبابونج وزيت زيتون' },
     category: 'dermatology',
     status: 'available',
     form: { en: 'Lotion', ar: 'لوشن' },
     ageGroup: { en: 'All ages', ar: 'جميع الأعمار' },
-    pack: { en: 'Pump bottle', ar: 'زجاجة بمضخة' },
+    pack: { en: '120 ml bottle', ar: 'زجاجة 120 مل' },
     accent: 'purple',
     image: '/media/welcaderm.webp',
     price: 95,
     shortDescription: {
-      en: 'A dermatologically-guided lotion that protects and restores the skin’s moisture barrier.',
-      ar: 'لوشن موجَّه جلديًا يحمي حاجز الرطوبة في البشرة ويعيد بناءه.',
+      en: 'A skin soothing lotion with calamine, chamomile oil and olive oil, for external use.',
+      ar: 'لوشن ملطّف للبشرة يحتوي على الكالامين وزيت البابونج وزيت الزيتون، للاستعمال الخارجي.',
     },
     description: {
-      en: 'Welcaderm Lotion is built around humectants and skin-identical lipids that draw water into the skin and hold it there. Formulated to calm dryness and tightness and to reinforce a barrier weakened by weather, washing or irritation, it absorbs cleanly and layers well under everyday care.',
-      ar: 'يعتمد ويلكاديرم لوشن على مرطبات جاذبة للماء ودهون مماثلة لدهون البشرة تسحب الماء إلى الجلد وتحافظ عليه. صُمم لتهدئة الجفاف والشد وتقوية الحاجز الذي أضعفه الطقس أو الغسيل المتكرر أو التهيّج، ويمتص بسرعة ويناسب الاستخدام اليومي.',
+      en: 'Welcaderm is a skin soothing lotion built on three familiar ingredients: calamine, long used to calm and protect irritated skin; chamomile oil, a soothing botanical; and olive oil, an emollient that softens the skin and helps it hold moisture. It is a cosmetic product for external use only, supplied in a 120 ml bottle.',
+      ar: 'ويلكاديرم لوشن ملطّف للبشرة يعتمد على ثلاثة مكونات معروفة: الكالامين الذي يُستخدم منذ زمن لتهدئة البشرة المتهيّجة وحمايتها، وزيت البابونج المهدّئ، وزيت الزيتون المُلطّف الذي يُنعّم البشرة ويساعدها على الاحتفاظ بالرطوبة. منتج تجميلي للاستعمال الخارجي فقط، في زجاجة 120 مل.',
     },
+    // Ingredients, net weight and the "cosmetic product / external use only"
+    // wording below are taken straight off the Welcaderm bottle and carton.
     keyIngredients: [
       {
-        name: { en: 'Glycerin & Humectants', ar: 'الجليسرين والمرطبات' },
-        note: { en: 'Draw and hold water in the skin', ar: 'تجذب الماء إلى البشرة وتحافظ عليه' },
+        name: { en: 'Calamine', ar: 'الكالامين' },
+        note: {
+          en: 'Long used to calm and protect irritated skin',
+          ar: 'يُستخدم منذ زمن لتهدئة البشرة المتهيّجة وحمايتها',
+        },
       },
       {
-        name: { en: 'Skin-identical lipids', ar: 'دهون مماثلة لدهون البشرة' },
-        note: { en: 'Reinforce the moisture barrier', ar: 'تقوّي حاجز الرطوبة' },
+        name: { en: 'Chamomile Oil', ar: 'زيت البابونج' },
+        note: { en: 'Soothing botanical oil', ar: 'زيت نباتي مهدّئ للبشرة' },
       },
       {
-        name: { en: 'Soothing emollients', ar: 'ملطّفات مهدّئة' },
-        note: { en: 'Calm dryness and tightness', ar: 'تهدّئ الجفاف والشد' },
+        name: { en: 'Olive Oil', ar: 'زيت الزيتون' },
+        note: {
+          en: 'Emollient — softens skin and helps it hold moisture',
+          ar: 'مُلطّف — يُنعّم البشرة ويساعدها على الاحتفاظ بالرطوبة',
+        },
       },
     ],
     benefits: [
-      { en: 'Protects and restores the skin barrier', ar: 'يحمي حاجز البشرة ويعيد بناءه' },
-      { en: 'Relieves dryness and tightness', ar: 'يخفف الجفاف والشد' },
-      { en: 'Absorbs cleanly, suitable for daily use', ar: 'يمتص بسرعة ومناسب للاستخدام اليومي' },
-      { en: 'Dermatologically guided formulation', ar: 'تركيبة موجَّهة جلديًا' },
+      { en: 'Calamine helps calm and soothe the skin', ar: 'الكالامين يساعد على تهدئة البشرة' },
+      {
+        en: 'Chamomile and olive oil soften and comfort dry skin',
+        ar: 'البابونج وزيت الزيتون يُنعّمان البشرة الجافة ويمنحانها الراحة',
+      },
+      { en: 'Suitable for all ages', ar: 'مناسب لجميع الأعمار' },
+      { en: 'Cosmetic product — for external use only', ar: 'منتج تجميلي — للاستعمال الخارجي فقط' },
     ],
     usage: {
-      en: 'Apply to clean, dry skin as often as needed, especially after washing.',
-      ar: 'يُوضع على بشرة نظيفة وجافة حسب الحاجة، خاصة بعد الغسيل.',
+      en: 'Apply a thin layer to clean, dry skin as often as needed. For external use only.',
+      ar: 'يُوضع طبقة رقيقة على بشرة نظيفة وجافة حسب الحاجة. للاستعمال الخارجي فقط.',
     },
     related: ['vitelormed', 'imulormed', 'ivylor'],
   },
