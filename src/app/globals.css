@@ -180,3 +180,22 @@
   animation: none !important;
   transition: none !important;
 }
+
+/*
+ * One deliberate exception to the blanket rule above: the offers ticker is a
+ * marquee, and a marquee that does not move is just a red bar with the message
+ * cropped. It needs !important to outrank the universal selector.
+ *
+ * Cheap to run — a single compositor-only transform on one element — and it
+ * still yields to anyone who has asked for reduced motion, where the track
+ * simply centres itself and sits still.
+ */
+.ticker-track {
+  animation: marquee-right 26s linear infinite !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none !important;
+  }
+}

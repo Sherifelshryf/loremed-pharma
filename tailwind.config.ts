@@ -196,6 +196,12 @@ const config: Config = {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
         },
+        // Same loop travelling the other way: the track holds two identical
+        // copies, so ending at 0 from -50% reads as continuous rightward drift.
+        'marquee-right': {
+          '0%': { transform: 'translateX(-50%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
         'spin-slow': {
           '100%': { transform: 'rotate(360deg)' },
         },
@@ -208,6 +214,7 @@ const config: Config = {
         shimmer: 'shimmer 2.2s infinite',
         'gradient-pan': 'gradient-pan 9s ease infinite',
         marquee: 'marquee 38s linear infinite',
+        'marquee-right': 'marquee-right 26s linear infinite',
         'spin-slow': 'spin-slow 26s linear infinite',
       },
     },
