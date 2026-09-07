@@ -9,18 +9,47 @@ import { cn } from '@/lib/utils';
 /** How long a slide stays put before the show moves on. */
 const SLIDE_MS = 10_000;
 
-type Slide = { slug: string; alt: Bi };
+type Slide = {
+  key: string;
+  alt: Bi;
+  /** Paths without extension; .webp is served first, .jpg is the fallback. */
+  desktop: string;
+  mobile: string;
+  /** The product banners fill the frame; the wide hero shelf is letterboxed. */
+  fit?: 'cover' | 'contain';
+};
 
-/** Campaign banners, one per available product. Desktop art is 16:9, mobile 1:1. */
+/** Product campaign banner: desktop art is 16:9, mobile 1:1, both in slides/. */
+const banner = (slug: string, alt: Bi): Slide => ({
+  key: slug,
+  alt,
+  desktop: `/media/slides/${slug}-desktop`,
+  mobile: `/media/slides/${slug}-mobile`,
+});
+
 const SLIDES: Slide[] = [
-  { slug: 'ivylor', alt: { en: 'Ivylor cough syrup', ar: 'شراب إيفيلور للسعال' } },
-  { slug: 'ivylor-advance', alt: { en: 'Ivylor Advance cough syrup', ar: 'شراب إيفيلور أدفانس للسعال' } },
-  { slug: 'coglern-syrup', alt: { en: 'Coglern Syrup for focus and growth', ar: 'كوجليرن شراب للتركيز والنمو' } },
-  { slug: 'smartod', alt: { en: 'Smartod for kids omega-3 drops', ar: 'نقط سمارتود للأطفال بأوميغا-3' } },
-  { slug: 'smartod-d', alt: { en: 'Smartod D vitamin D3 drops', ar: 'نقط سمارتود د بفيتامين د3' } },
-  { slug: 'vitelormed', alt: { en: 'Vitelormed multivitamin syrup', ar: 'شراب فيتيلورميد متعدد الفيتامينات' } },
-  { slug: 'gotolor', alt: { en: 'Gotolor digestive enzyme syrup', ar: 'جوتولور شراب الإنزيم الهضمي' } },
-  { slug: 'welcaderm-lotion', alt: { en: 'Welcaderm skin soothing lotion', ar: 'ويلكاديرم لوشن ملطّف للبشرة' } },
+  // The brand shelf opens the show, as it did before the slideshow existed.
+  // Its desktop art is a 4.34:1 strip rather than 16:9, so it is contained
+  // inside the frame — the WebP is transparent and the JPEG fallback is
+  // flattened onto the same surface colour, so no letterbox edge is visible.
+  {
+    key: 'hero-products',
+    alt: {
+      en: 'Loremed Pharma — we care about the quality of life',
+      ar: 'لورميد فارما — نحن نهتم بجودة الحياة',
+    },
+    desktop: '/media/hero-products',
+    mobile: '/media/slides/hero-products-mobile',
+    fit: 'contain',
+  },
+  banner('ivylor', { en: 'Ivylor cough syrup', ar: 'شراب إيفيلور للسعال' }),
+  banner('ivylor-advance', { en: 'Ivylor Advance cough syrup', ar: 'شراب إيفيلور أدفانس للسعال' }),
+  banner('coglern-syrup', { en: 'Coglern Syrup for focus and growth', ar: 'كوجليرن شراب للتركيز والنمو' }),
+  banner('smartod', { en: 'Smartod for kids omega-3 drops', ar: 'نقط سمارتود للأطفال بأوميغا-3' }),
+  banner('smartod-d', { en: 'Smartod D vitamin D3 drops', ar: 'نقط سمارتود د بفيتامين د3' }),
+  banner('vitelormed', { en: 'Vitelormed multivitamin syrup', ar: 'شراب فيتيلورميد متعدد الفيتامينات' }),
+  banner('gotolor', { en: 'Gotolor digestive enzyme syrup', ar: 'جوتولور شراب الإنزيم الهضمي' }),
+  banner('welcaderm-lotion', { en: 'Welcaderm skin soothing lotion', ar: 'ويلكاديرم لوشن ملطّف للبشرة' }),
 ];
 
 /**
@@ -38,6 +67,8 @@ export function HeroSlideshow() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
+  /** Autoplay holds off until the opening image is on screen. */
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -85,11 +116,16 @@ export function HeroSlideshow() {
 
   // Autoplay. Keyed on `index`, so the timer resets every time the current
   // slide changes — by timer, by arrow or by the visitor's own swipe.
+  //
+  // It also waits for the opening image to actually paint. Counting from mount
+  // would spend part of the first slide's ten seconds on an image the visitor
+  // cannot see yet, which is worst on the slow connections that need the time
+  // most.
   useEffect(() => {
-    if (paused || reduced || SLIDES.length < 2) return;
+    if (!started || paused || reduced || SLIDES.length < 2) return;
     const id = window.setTimeout(() => goTo((index + 1) % SLIDES.length), SLIDE_MS);
     return () => window.clearTimeout(id);
-  }, [index, paused, reduced, goTo]);
+  }, [index, started, paused, reduced, goTo]);
 
   // Don't cycle through the deck while the tab is in the background.
   useEffect(() => {
@@ -124,7 +160,7 @@ export function HeroSlideshow() {
       >
         {SLIDES.map((s, i) => (
           <li
-            key={s.slug}
+            key={s.key}
             className="w-full shrink-0 snap-start"
             aria-roledescription="slide"
             aria-label={`${i + 1} / ${SLIDES.length}`}
@@ -133,29 +169,44 @@ export function HeroSlideshow() {
                 mobile art from the media queries, and older browsers that can't
                 decode WebP fall through to the JPEG. */}
             <picture>
-              <source media="(min-width: 640px)" srcSet={`/media/slides/${s.slug}-desktop.webp`} type="image/webp" />
-              <source media="(min-width: 640px)" srcSet={`/media/slides/${s.slug}-desktop.jpg`} />
-              <source srcSet={`/media/slides/${s.slug}-mobile.webp`} type="image/webp" />
+              <source media="(min-width: 640px)" srcSet={`${s.desktop}.webp`} type="image/webp" />
+              <source media="(min-width: 640px)" srcSet={`${s.desktop}.jpg`} />
+              <source srcSet={`${s.mobile}.webp`} type="image/webp" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`/media/slides/${s.slug}-mobile.jpg`}
+                src={`${s.mobile}.jpg`}
                 alt={label(s.alt)}
-                className="aspect-square w-full select-none object-cover sm:aspect-video"
+                className={cn(
+                  'aspect-square w-full select-none sm:aspect-video',
+                  s.fit === 'contain' ? 'object-contain' : 'object-cover',
+                )}
                 loading={i === 0 ? 'eager' : 'lazy'}
                 decoding="async"
+                {...(i === 0
+                  ? {
+                      ref: (el: HTMLImageElement | null) => {
+                        if (el?.complete) setStarted(true);
+                      },
+                      onLoad: () => setStarted(true),
+                      // A broken or blocked image must not freeze the show.
+                      onError: () => setStarted(true),
+                    }
+                  : {})}
               />
             </picture>
           </li>
         ))}
       </ul>
 
-      {/* Arrows sit inside the frame on desktop; on phones the swipe is the
-          primary gesture and the dots below are enough. */}
+      {/* Arrows sit inside the frame on desktop, revealed on hover so they
+          never cover artwork at rest — the hero's slogan sits right where the
+          left arrow would be. On phones the swipe is the gesture and the dots
+          below are enough. */}
       <button
         type="button"
         onClick={() => step(-1)}
         aria-label={label({ en: 'Previous slide', ar: 'الشريحة السابقة' })}
-        className="absolute start-3 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/85 text-primary-800 shadow-soft backdrop-blur transition-colors hover:bg-white sm:grid"
+        className="absolute start-3 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/85 text-primary-800 opacity-0 shadow-soft backdrop-blur transition-all hover:bg-white focus-visible:opacity-100 group-hover:opacity-100 sm:grid"
       >
         <ChevronLeft className="h-5 w-5 rtl:rotate-180" />
       </button>
@@ -163,7 +214,7 @@ export function HeroSlideshow() {
         type="button"
         onClick={() => step(1)}
         aria-label={label({ en: 'Next slide', ar: 'الشريحة التالية' })}
-        className="absolute end-3 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/85 text-primary-800 shadow-soft backdrop-blur transition-colors hover:bg-white sm:grid"
+        className="absolute end-3 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/85 text-primary-800 opacity-0 shadow-soft backdrop-blur transition-all hover:bg-white focus-visible:opacity-100 group-hover:opacity-100 sm:grid"
       >
         <ChevronRight className="h-5 w-5 rtl:rotate-180" />
       </button>
@@ -171,7 +222,7 @@ export function HeroSlideshow() {
       <div className="mt-4 flex justify-center gap-2">
         {SLIDES.map((s, i) => (
           <button
-            key={s.slug}
+            key={s.key}
             type="button"
             onClick={() => goTo(i)}
             aria-label={`${label({ en: 'Go to slide', ar: 'اذهب إلى الشريحة' })} ${i + 1}`}
