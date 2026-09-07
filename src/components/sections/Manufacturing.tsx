@@ -10,17 +10,17 @@ import { useI18n } from '@/i18n/LanguageProvider';
 const copy = {
   statBody: {
     en: 'of production held to GMP-grade discipline — validated, documented and traceable.',
-    ar: 'من الإنتاج يخضع لانضباط بمعايير GMP — معتمَد وموثَّق وقابل للتتبع.',
+    ar: 'من الإنتاج ماشي بانضباط بمعايير GMP — معتمد وموثّق وقابل للتتبع.',
   },
-  chip: { en: 'Every batch tested & released', ar: 'كل دفعة تُختبر ويُفرج عنها' },
+  chip: { en: 'Every batch tested & released', ar: 'كل تشغيلة بتتفحص ويتفرج عنها' },
   eyebrow: { en: 'Manufacturing excellence', ar: 'التميّز في التصنيع' },
-  titlePre: { en: 'Precision from raw material to', ar: 'دقة من المادة الخام إلى' },
+  titlePre: { en: 'Precision from raw material to', ar: 'دقة من المادة الخام لحد' },
   titleAccent: { en: 'finished pack', ar: 'العبوة النهائية' },
   lead: {
     en: 'Great science only matters if it is made consistently. Our production is engineered for control at every step — so what leaves the line is exactly what we designed.',
-    ar: 'العلم الجيد لا قيمة له إن لم يُصنَع باتساق. إنتاجنا مصمَّم للتحكم في كل خطوة — بحيث يكون ما يغادر الخط هو بالضبط ما صممناه.',
+    ar: 'العلم الكويس مالوش قيمة لو مش متصنّع بثبات. إنتاجنا متعمل عشان نتحكم في كل خطوة — واللي بيخرج من الخط يبقى بالظبط اللي صمّمناه.',
   },
-  cta: { en: 'Explore our quality standards', ar: 'اكتشف معايير الجودة لدينا' },
+  cta: { en: 'Explore our quality standards', ar: 'اعرف معايير الجودة عندنا' },
 };
 
 export function Manufacturing() {

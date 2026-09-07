@@ -22,19 +22,19 @@ type CategoryFilter = ProductCategory | 'all';
 type StatusFilter = ProductStatus | 'all';
 
 const copy = {
-  searchPlaceholder: { en: 'Search products & ingredients', ar: 'ابحث عن المنتجات والمكونات' },
+  searchPlaceholder: { en: 'Search products & ingredients', ar: 'دوّر على المنتجات والمكونات' },
   searchLabel: { en: 'Search products', ar: 'البحث في المنتجات' },
   status: { en: 'Status', ar: 'الحالة' },
   statusAll: { en: 'All', ar: 'الكل' },
   statusAvailable: { en: 'Available', ar: 'متوفر' },
   statusUnderReg: { en: 'Under Reg.', ar: 'قيد التسجيل' },
   allProducts: { en: 'All products', ar: 'كل المنتجات' },
-  clearFilters: { en: 'Clear filters', ar: 'مسح الفلاتر' },
+  clearFilters: { en: 'Clear filters', ar: 'امسح الفلاتر' },
   in: { en: 'in', ar: 'في' },
   product: { en: 'product', ar: 'منتج' },
   productsPlural: { en: 'products', ar: 'منتجات' },
-  emptyTitle: { en: 'No products match your filters', ar: 'لا توجد منتجات مطابقة لفلاترك' },
-  emptyBody: { en: 'Try clearing the search or choosing a different category.', ar: 'جرّب مسح البحث أو اختيار فئة مختلفة.' },
+  emptyTitle: { en: 'No products match your filters', ar: 'مفيش منتجات مطابقة للفلاتر' },
+  emptyBody: { en: 'Try clearing the search or choosing a different category.', ar: 'جرّب تمسح البحث أو تختار فئة تانية.' },
 };
 
 export function ProductCatalogue() {

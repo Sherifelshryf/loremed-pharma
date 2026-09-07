@@ -209,14 +209,14 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
             <Container>
               <div className="mb-10 flex items-end justify-between">
                 <div>
-                  <Eyebrow><L text={{ en: 'You might also like', ar: 'قد يعجبك أيضًا' }} /></Eyebrow>
-                  <h2 className="mt-3 text-display-sm sm:text-display-md"><L text={{ en: 'Related products', ar: 'منتجات ذات صلة' }} /></h2>
+                  <Eyebrow><L text={{ en: 'You might also like', ar: 'ممكن يعجبك كمان' }} /></Eyebrow>
+                  <h2 className="mt-3 text-display-sm sm:text-display-md"><L text={{ en: 'Related products', ar: 'منتجات ليها علاقة' }} /></h2>
                 </div>
                 <Link
                   href="/products"
                   className="hidden items-center gap-1 text-sm font-medium text-primary-700 hover:text-secondary-600 sm:inline-flex"
                 >
-                  <L text={{ en: 'View all', ar: 'عرض الكل' }} />
+                  <L text={{ en: 'View all', ar: 'شوف الكل' }} />
                   <ArrowRight className="h-4 w-4 rtl:rotate-180" />
                 </Link>
               </div>

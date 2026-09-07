@@ -9,6 +9,9 @@ const PER_COPY = 6;
  * Red announcement strip above the hero slideshow: "Offers and bundles coming
  * soon", drifting rightwards forever.
  *
+ * Full-bleed by design — it is rendered outside the hero's Container so the
+ * band runs edge to edge with square corners, the way a broadcast ticker does.
+ *
  * The track holds the phrase twice; the animation moves it from -50% to 0, so
  * the moment the first copy finishes crossing, the second is exactly where the
  * first began and the reset is invisible. Pure CSS — no JavaScript and no
@@ -26,7 +29,7 @@ export function OffersTicker() {
   return (
     <Link
       href="/offers"
-      className="group mb-4 block overflow-hidden rounded-full bg-danger-600 py-2.5 text-sm font-semibold uppercase tracking-wider text-white shadow-soft transition-colors hover:bg-danger-700 sm:text-base"
+      className="group mb-4 block w-full overflow-hidden bg-danger-600 py-2.5 text-sm font-semibold uppercase tracking-wider text-white transition-colors hover:bg-danger-700 sm:text-base"
     >
       {/* One accessible copy of the message; the moving band is decorative so a
           screen reader isn't read the same phrase twelve times. */}

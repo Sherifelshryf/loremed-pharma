@@ -9,10 +9,10 @@ import { useI18n } from '@/i18n/LanguageProvider';
 import { cn } from '@/lib/utils';
 
 const copy = {
-  eyebrow: { en: 'Voices from the field', ar: 'أصوات من الميدان' },
-  prev: { en: 'Previous testimonial', ar: 'الشهادة السابقة' },
-  next: { en: 'Next testimonial', ar: 'الشهادة التالية' },
-  goTo: { en: 'Go to testimonial', ar: 'الانتقال إلى الشهادة' },
+  eyebrow: { en: 'Voices from the field', ar: 'آراء من السوق' },
+  prev: { en: 'Previous testimonial', ar: 'الرأي السابق' },
+  next: { en: 'Next testimonial', ar: 'الرأي التالي' },
+  goTo: { en: 'Go to testimonial', ar: 'روح للرأي' },
 };
 
 export function Testimonials() {

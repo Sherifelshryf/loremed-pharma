@@ -9,11 +9,11 @@ import { useI18n } from '@/i18n/LanguageProvider';
 
 const copy = {
   eyebrow: { en: 'Research & development', ar: 'البحث والتطوير' },
-  titlePre: { en: 'Where every Loremed product', ar: 'حيث تبدأ رحلة كل منتج من' },
+  titlePre: { en: 'Where every Loremed product', ar: 'من هنا بتبدأ رحلة كل منتج من' },
   titleAccent: { en: 'begins', ar: 'لورميد' },
   lead: {
     en: 'Our R&D turns active ingredients and trusted botanicals into stable, effective, great-to-take products — and keeps a pipeline of thirty-plus formulations moving forward.',
-    ar: 'يحوّل قسم الأبحاث والتطوير لدينا المواد الفعّالة والمستخلصات النباتية الموثوقة إلى منتجات مستقرة وفعّالة وسهلة التناول — ويدفع خط أبحاث يضم أكثر من ثلاثين تركيبة إلى الأمام.',
+    ar: 'قسم البحث والتطوير عندنا بيحوّل المواد الفعّالة والمستخلصات النباتية الموثوقة لمنتجات ثابتة وفعّالة وسهلة التناول — وبيدفع لقدام خط أبحاث فيه أكتر من تلاتين تركيبة.',
   },
 };
 

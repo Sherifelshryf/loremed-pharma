@@ -27,7 +27,7 @@ export function ShopProducts() {
             href="/products"
             className="inline-flex items-center gap-1.5 text-base font-semibold text-primary-700 hover:text-secondary-600"
           >
-            <L text={{ en: 'See all', ar: 'عرض الكل' }} />
+            <L text={{ en: 'See all', ar: 'شوف الكل' }} />
             <ArrowRight className="h-4 w-4 rtl:rotate-180" />
           </Link>
         </div>

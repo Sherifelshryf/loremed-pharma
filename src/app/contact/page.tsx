@@ -21,31 +21,31 @@ const departments = [
   {
     icon: Briefcase,
     name: { en: 'Sales', ar: 'المبيعات' },
-    body: { en: 'Orders, pricing and product availability for pharmacies and retailers.', ar: 'الطلبات والأسعار وتوفر المنتجات للصيدليات وتجار التجزئة.' },
+    body: { en: 'Orders, pricing and product availability for pharmacies and retailers.', ar: 'الطلبات والأسعار وتوفّر المنتجات للصيدليات وتجار التجزئة.' },
     email: 'sales@loremedpharma.com',
   },
   {
     icon: Stethoscope,
     name: { en: 'Medical Information', ar: 'المعلومات الطبية' },
-    body: { en: 'Product dossiers and scientific information for healthcare professionals.', ar: 'الملفات الفنية للمنتجات والمعلومات العلمية لأخصائيي الرعاية الصحية.' },
+    body: { en: 'Product dossiers and scientific information for healthcare professionals.', ar: 'الملفات الفنية للمنتجات والمعلومات العلمية للمتخصصين في الرعاية الصحية.' },
     email: 'medical@loremedpharma.com',
   },
   {
     icon: Globe2,
     name: { en: 'Export', ar: 'التصدير' },
-    body: { en: 'Distribution and registration partnerships across the Middle East and Africa.', ar: 'شراكات التوزيع والتسجيل في جميع أنحاء الشرق الأوسط وأفريقيا.' },
+    body: { en: 'Distribution and registration partnerships across the Middle East and Africa.', ar: 'شراكات التوزيع والتسجيل في الشرق الأوسط وأفريقيا كلها.' },
     email: 'export@loremedpharma.com',
   },
   {
     icon: Users,
     name: { en: 'Human Resources', ar: 'الموارد البشرية' },
-    body: { en: 'Careers, applications and joining the Loremed team.', ar: 'الوظائف والطلبات والانضمام إلى فريق لورميد.' },
+    body: { en: 'Careers, applications and joining the Loremed team.', ar: 'الوظائف والتقديم والانضمام لفريق لورميد.' },
     email: 'careers@loremedpharma.com',
   },
   {
     icon: LifeBuoy,
     name: { en: 'Support', ar: 'الدعم' },
-    body: { en: 'General enquiries and help with anything else.', ar: 'الاستفسارات العامة والمساعدة في أي شيء آخر.' },
+    body: { en: 'General enquiries and help with anything else.', ar: 'الاستفسارات العامة والمساعدة في أي حاجة تانية.' },
     email: 'info@loremedpharma.com',
   },
 ];
@@ -64,14 +64,14 @@ export default function ContactPage() {
         eyebrow={<L text={{ en: 'Contact', ar: 'تواصل معنا' }} />}
         title={
           <>
-            <L text={{ en: 'Let’s', ar: 'لنتحدث' }} /> <span className="text-gradient"><L text={{ en: 'talk', ar: '' }} /></span>
+            <L text={{ en: 'Let’s', ar: 'يلا' }} /> <span className="text-gradient"><L text={{ en: 'talk', ar: 'نتكلم' }} /></span>
           </>
         }
         lead={
           <L
             text={{
               en: 'Whether you’re a distributor, a healthcare professional or simply curious about our products, our team is ready to help.',
-              ar: 'سواء كنت موزّعًا أو أخصائي رعاية صحية أو مجرد فضولي بشأن منتجاتنا، فريقنا جاهز لمساعدتك.',
+              ar: 'سواء كنت موزّع أو متخصص في الرعاية الصحية أو بس حابب تعرف أكتر عن منتجاتنا، فريقنا جاهز يساعدك.',
             }}
           />
         }
@@ -85,20 +85,20 @@ export default function ContactPage() {
             {/* Channels */}
             <div>
               <Reveal>
-                <Eyebrow><L text={{ en: 'Reach us directly', ar: 'تواصل معنا مباشرة' }} /></Eyebrow>
+                <Eyebrow><L text={{ en: 'Reach us directly', ar: 'كلّمنا على طول' }} /></Eyebrow>
                 <h2 className="mt-4 text-display-sm sm:text-display-md">
-                  <L text={{ en: 'We’re here to help', ar: 'نحن هنا للمساعدة' }} />
+                  <L text={{ en: 'We’re here to help', ar: 'إحنا هنا نساعدك' }} />
                 </h2>
               </Reveal>
               <div className="mt-8 space-y-4">
                 <ChannelRow icon={Mail} label={<L text={{ en: 'Email', ar: 'البريد الإلكتروني' }} />} value={site.email} href={`mailto:${site.email}`} />
                 <ChannelRow icon={MapPin} label={<L text={{ en: 'Location', ar: 'الموقع' }} />} value={`${site.city}, ${site.country}`} />
-                <ChannelRow icon={Clock} label={<L text={{ en: 'Hours', ar: 'ساعات العمل' }} />} value="Sunday – Thursday · 9:00 – 17:00" />
+                <ChannelRow icon={Clock} label={<L text={{ en: 'Hours', ar: 'ساعات العمل' }} />} value={<L text={{ en: 'Sunday – Thursday · 9:00 – 17:00', ar: 'الأحد – الخميس · 9:00 – 17:00' }} />} />
               </div>
 
               <div className="mt-8">
                 <p className="text-sm font-semibold uppercase tracking-wider text-ink-muted">
-                  <L text={{ en: 'Follow Loremed', ar: 'تابعوا لورميد' }} />
+                  <L text={{ en: 'Follow Loremed', ar: 'تابع لورميد' }} />
                 </p>
                 <div className="mt-3 flex gap-2">
                   {socials.map((s) => (
@@ -130,8 +130,8 @@ export default function ContactPage() {
         <Container>
           <SectionHeading
             eyebrow={<L text={{ en: 'Departments', ar: 'الأقسام' }} />}
-            title={<L text={{ en: 'Reach the right team', ar: 'تواصل مع الفريق المناسب' }} />}
-            lead={<L text={{ en: 'Direct your enquiry to the department that can help you fastest.', ar: 'وجّه استفسارك إلى القسم الذي يمكنه مساعدتك بأسرع وقت.' }} />}
+            title={<L text={{ en: 'Reach the right team', ar: 'كلّم الفريق المناسب' }} />}
+            lead={<L text={{ en: 'Direct your enquiry to the department that can help you fastest.', ar: 'ابعت استفسارك للقسم اللي هيساعدك أسرع.' }} />}
             align="center"
             className="mx-auto"
           />
@@ -164,15 +164,15 @@ export default function ContactPage() {
           <div className="grid items-stretch gap-6 overflow-hidden rounded-4xl border border-line shadow-glow lg:grid-cols-2">
             {/* details */}
             <div className="flex flex-col justify-center gap-6 bg-primary-900 p-10 text-white sm:p-14">
-              <Eyebrow variant="inverse"><L text={{ en: 'Find us', ar: 'تجدنا هنا' }} /></Eyebrow>
+              <Eyebrow variant="inverse"><L text={{ en: 'Find us', ar: 'هتلاقينا هنا' }} /></Eyebrow>
               <h2 className="text-display-sm text-white sm:text-display-md">
-                <L text={{ en: 'Based in Cairo, serving the region', ar: 'مقرنا في القاهرة، ونخدم المنطقة بأكملها' }} />
+                <L text={{ en: 'Based in Cairo, serving the region', ar: 'مقرنا في القاهرة، وبنخدم المنطقة كلها' }} />
               </h2>
               <p className="text-white/60">
                 <L
                   text={{
                     en: `Loremed Pharma is proudly headquartered in ${site.city}, ${site.country} — with partnerships reaching across the Middle East and Africa.`,
-                    ar: `يقع المقر الرئيسي لشركة لورميد فارما بفخر في ${site.city}, ${site.country} — مع شراكات تمتد في جميع أنحاء الشرق الأوسط وأفريقيا.`,
+                    ar: `مقر لورميد فارما الرئيسي في ${site.city}, ${site.country} وإحنا فخورين بكده — وشراكاتنا ممتدة في الشرق الأوسط وأفريقيا.`,
                   }}
                 />
               </p>
@@ -204,7 +204,7 @@ export default function ContactPage() {
                 className="absolute bottom-5 end-5 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-medium text-primary-800 shadow-card transition-transform hover:-translate-y-0.5"
               >
                 <Navigation className="h-4 w-4 text-secondary-500" />
-                <L text={{ en: 'Get directions', ar: 'احصل على الاتجاهات' }} />
+                <L text={{ en: 'Get directions', ar: 'اعرف الطريق' }} />
               </a>
             </div>
           </div>
@@ -239,7 +239,7 @@ function ChannelRow({
 }: {
   icon: typeof Mail;
   label: React.ReactNode;
-  value: string;
+  value: React.ReactNode;
   href?: string;
 }) {
   const content = (

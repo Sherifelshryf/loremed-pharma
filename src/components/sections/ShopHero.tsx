@@ -12,11 +12,14 @@ import { L } from '@/i18n/Localized';
 export function ShopHero() {
   return (
     <section className="border-b border-line bg-surface-muted pt-40 sm:pt-44">
+      {/* Full-bleed announcement strip: outside the Container so it spans the
+          whole viewport width rather than the padded content column. */}
+      <OffersTicker />
+
       <Container>
-        {/* Scrolling announcement strip, then the campaign slideshow — one
-            banner per available product, in desktop and mobile crops.
-            Swipeable, and each slide holds for 10 seconds. */}
-        <OffersTicker />
+        {/* The campaign slideshow — one banner per available product, in
+            desktop and mobile crops. Swipeable, and each slide holds for
+            10 seconds. */}
         <HeroSlideshow />
 
         {/* Three ways in, in priority order: retail, trade, then offers. They

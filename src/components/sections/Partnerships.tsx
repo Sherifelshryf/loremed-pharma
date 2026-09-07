@@ -9,13 +9,13 @@ import { useI18n } from '@/i18n/LanguageProvider';
 
 const copy = {
   eyebrow: { en: 'Global partnerships', ar: 'شراكات عالمية' },
-  titlePre: { en: 'From Egypt to the', ar: 'من مصر إلى' },
-  titleAccent: { en: 'wider region', ar: 'المنطقة الأوسع' },
+  titlePre: { en: 'From Egypt to the', ar: 'من مصر' },
+  titleAccent: { en: 'wider region', ar: 'للمنطقة كلها' },
   lead: {
     en: 'We build partnerships that carry Loremed quality further — with documentation and registration engineered to open doors across the Middle East and Africa.',
-    ar: 'نبني شراكات تنقل جودة لورميد إلى أبعد مدى — بتوثيق وتسجيل مصممَين لفتح الأبواب في جميع أنحاء الشرق الأوسط وأفريقيا.',
+    ar: 'بنبني شراكات بتوصّل جودة لورميد لأبعد مدى — بتوثيق وتسجيل متعملين عشان يفتحوا الأبواب في الشرق الأوسط وأفريقيا كلها.',
   },
-  cta: { en: 'Become a partner', ar: 'كن شريكًا' },
+  cta: { en: 'Become a partner', ar: 'ابقى شريك' },
 };
 
 export function Partnerships() {

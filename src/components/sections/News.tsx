@@ -19,7 +19,7 @@ function formatDate(iso: string, locale: Locale) {
 
 const copy = {
   eyebrow: { en: 'Latest news', ar: 'آخر الأخبار' },
-  titlePre: { en: 'What’s new at', ar: 'ما الجديد لدى' },
+  titlePre: { en: 'What’s new at', ar: 'إيه الجديد في' },
   titleAccent: { en: 'Loremed', ar: 'لورميد' },
 };
 

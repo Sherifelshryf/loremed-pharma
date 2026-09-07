@@ -11,24 +11,24 @@ import { L } from '@/i18n/Localized';
  */
 const steps = [
   {
-    title: { en: 'Pick your products', ar: 'اختر منتجاتك' },
+    title: { en: 'Pick your products', ar: 'اختار منتجاتك' },
     body: {
       en: 'Tap “Add to cart” on anything you want. You can change the amount later.',
-      ar: 'اضغط «أضف إلى السلة» على ما تريد. يمكنك تغيير الكمية لاحقًا.',
+      ar: 'اضغط «ضيف للسلة» على اللي عايزه. تقدر تغيّر الكمية بعدين.',
     },
   },
   {
-    title: { en: 'Send your order on WhatsApp', ar: 'أرسل طلبك عبر واتساب' },
+    title: { en: 'Send your order on WhatsApp', ar: 'ابعت طلبك على واتساب' },
     body: {
       en: 'Fill in your name, phone and address. WhatsApp opens with your order written out — press Send.',
-      ar: 'اكتب اسمك ورقم هاتفك وعنوانك. سيفتح واتساب وطلبك مكتوب بالفعل — اضغط إرسال.',
+      ar: 'اكتب اسمك ورقم موبايلك وعنوانك. واتساب هيفتح وطلبك مكتوب جاهز — اضغط إرسال.',
     },
   },
   {
-    title: { en: 'We call you, then deliver', ar: 'نتصل بك ثم نوصّل الطلب' },
+    title: { en: 'We call you, then deliver', ar: 'بنتصل بيك وبنوصّل الطلب' },
     body: {
       en: 'Someone rings within 15–30 minutes to confirm. Pay cash when the order reaches your door.',
-      ar: 'سيتصل بك أحد أفراد الفريق خلال 15–30 دقيقة للتأكيد. وتدفع نقدًا عند وصول الطلب إلى باب بيتك.',
+      ar: 'حد من الفريق هيتصل بيك خلال 15–30 دقيقة عشان يأكد. وتدفع كاش لما الطلب يوصل باب بيتك.',
     },
   },
 ];
@@ -38,13 +38,13 @@ export function HowToOrder() {
     <section className="section-tight">
       <Container>
         <h2 className="text-center text-display-sm sm:text-display-md">
-          <L text={{ en: 'How to order', ar: 'كيف تطلب' }} />
+          <L text={{ en: 'How to order', ar: 'إزاي تطلب' }} />
         </h2>
         <p className="mx-auto mt-3 max-w-lg text-center text-ink-soft">
           <L
             text={{
               en: 'No account, no card, no app to install.',
-              ar: 'بدون حساب، وبدون بطاقة، وبدون تطبيق تُثبّته.',
+              ar: 'من غير حساب، ولا كارت، ولا تطبيق تنزّله.',
             }}
           />
         </p>

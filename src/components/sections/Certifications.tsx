@@ -7,15 +7,15 @@ import { useI18n } from '@/i18n/LanguageProvider';
 
 const copy = {
   eyebrow: { en: 'Standards & compliance', ar: 'المعايير والامتثال' },
-  titlePre: { en: 'Held to the standards the', ar: 'ملتزمون بالمعايير التي' },
+  titlePre: { en: 'Held to the standards the', ar: 'ملتزمين بالمعايير اللي' },
   titleAccent: { en: 'world expects', ar: 'يتوقعها العالم' },
   lead: {
     en: 'Our quality and operations are built around the internationally recognised frameworks that define modern pharmaceutical practice.',
-    ar: 'تُبنى جودتنا وعملياتنا حول الأطر المعترف بها دوليًا التي تُحدّد الممارسات الصيدلانية الحديثة.',
+    ar: 'جودتنا وعملياتنا مبنية على الأطر المعترف بيها دوليًا اللي بتحدد الممارسات الصيدلانية الحديثة.',
   },
   footnote: {
     en: 'Codes shown represent the standards and regulatory frameworks that guide Loremed’s quality system and product development.',
-    ar: 'الرموز الموضحة تمثل المعايير والأطر التنظيمية التي توجّه نظام الجودة وتطوير المنتجات لدى لورميد.',
+    ar: 'الرموز الموضحة بتمثل المعايير والأطر التنظيمية اللي بتوجّه نظام الجودة وتطوير المنتجات في لورميد.',
   },
 };
 

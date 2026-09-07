@@ -9,12 +9,12 @@ import { LogoMark } from '@/components/logo/Logo';
 import { useI18n } from '@/i18n/LanguageProvider';
 
 const copy = {
-  eyebrow: { en: 'Let’s talk', ar: 'لنتحدث' },
-  titlePre: { en: 'Building healthier lives,', ar: 'نبني حياة أكثر صحة،' },
+  eyebrow: { en: 'Let’s talk', ar: 'يلا نتكلم' },
+  titlePre: { en: 'Building healthier lives,', ar: 'نبني حياة أصح،' },
   titleAccent: { en: 'together', ar: 'معًا' },
   lead: {
     en: 'Whether you’re a distributor, a healthcare professional or simply curious about our products — our team would love to hear from you.',
-    ar: 'سواء كنت موزّعًا أو أخصائي رعاية صحية أو مجرد فضولي بشأن منتجاتنا — يسعد فريقنا بالتواصل معك.',
+    ar: 'سواء كنت موزّع أو متخصص في الرعاية الصحية أو بس حابب تعرف أكتر عن منتجاتنا — فريقنا هيسعد إنه يتكلم معاك.',
   },
 };
 

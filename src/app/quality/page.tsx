@@ -24,25 +24,25 @@ const process = [
     n: '01',
     icon: ClipboardCheck,
     title: { en: 'Responsible sourcing', ar: 'مصادر مسؤولة' },
-    body: { en: 'Every raw material is qualified and verified against specification before it enters our process.', ar: 'يخضع كل مادة خام للتأهيل والتحقق من مطابقتها للمواصفات قبل دخولها في عملية الإنتاج.' },
+    body: { en: 'Every raw material is qualified and verified against specification before it enters our process.', ar: 'كل مادة خام بتتأهّل وبيتأكد إنها مطابقة للمواصفات قبل ما تدخل الإنتاج.' },
   },
   {
     n: '02',
     icon: FlaskConical,
     title: { en: 'Precise formulation', ar: 'تركيب دقيق' },
-    body: { en: 'Validated methods turn actives and standardised botanicals into a consistent, effective product.', ar: 'طرق معتمَدة تحوّل المواد الفعّالة والمستخلصات النباتية الموحَّدة إلى منتج ثابت وفعّال.' },
+    body: { en: 'Validated methods turn actives and standardised botanicals into a consistent, effective product.', ar: 'طرق معتمدة بتحوّل المواد الفعّالة والمستخلصات النباتية الموحّدة لمنتج ثابت وفعّال.' },
   },
   {
     n: '03',
     icon: Thermometer,
     title: { en: 'Controlled production', ar: 'إنتاج محكوم' },
-    body: { en: 'GMP-grade manufacturing with documented in-process checks at every critical control point.', ar: 'تصنيع بمعايير GMP مع فحوصات موثَّقة أثناء الإنتاج في كل نقطة تحكم حرجة.' },
+    body: { en: 'GMP-grade manufacturing with documented in-process checks at every critical control point.', ar: 'تصنيع بمعايير GMP مع فحوصات موثّقة أثناء الإنتاج في كل نقطة تحكم حرجة.' },
   },
   {
     n: '04',
     icon: Beaker,
-    title: { en: 'Test & release', ar: 'اختبار وإفراج' },
-    body: { en: 'Analytical testing confirms identity, purity and potency — nothing ships until it passes.', ar: 'يؤكد الاختبار التحليلي الهوية والنقاء والفعالية — ولا يُشحن شيء قبل اجتيازه.' },
+    title: { en: 'Test & release', ar: 'فحص وإفراج' },
+    body: { en: 'Analytical testing confirms identity, purity and potency — nothing ships until it passes.', ar: 'الفحص التحليلي بيأكد الهوية والنقاء والفعالية — ومفيش حاجة بتتشحن قبل ما تعدّي.' },
   },
 ];
 
@@ -50,22 +50,22 @@ const labs = [
   {
     icon: Microscope,
     title: { en: 'Analytical laboratory', ar: 'المعمل التحليلي' },
-    body: { en: 'Instrumental analysis for identity, assay and purity, supporting both release and stability testing.', ar: 'تحليل آلي للهوية والمقايسة والنقاء، يدعم اختبارات الإفراج والثبات.' },
+    body: { en: 'Instrumental analysis for identity, assay and purity, supporting both release and stability testing.', ar: 'تحليل بالأجهزة للهوية والمقايسة والنقاء، بيدعم فحوصات الإفراج والثبات.' },
   },
   {
     icon: Beaker,
-    title: { en: 'Physical & chemical testing', ar: 'الاختبارات الفيزيائية والكيميائية' },
-    body: { en: 'From dissolution and pH to viscosity and uniformity — the checks that prove a product performs.', ar: 'من الذوبان والأس الهيدروجيني إلى اللزوجة والتجانس — الفحوصات التي تثبت أداء المنتج.' },
+    title: { en: 'Physical & chemical testing', ar: 'الفحوصات الفيزيائية والكيميائية' },
+    body: { en: 'From dissolution and pH to viscosity and uniformity — the checks that prove a product performs.', ar: 'من الذوبان والأس الهيدروجيني لحد اللزوجة والتجانس — الفحوصات اللي بتثبت إن المنتج شغال زي ما المفروض.' },
   },
   {
     icon: Thermometer,
     title: { en: 'Stability program', ar: 'برنامج الثبات' },
-    body: { en: 'Real-time and accelerated studies confirm shelf life and behaviour across storage conditions.', ar: 'دراسات آنية ومُسرَّعة تؤكد مدة الصلاحية والسلوك عبر ظروف التخزين المختلفة.' },
+    body: { en: 'Real-time and accelerated studies confirm shelf life and behaviour across storage conditions.', ar: 'دراسات طبيعية ومُسرّعة بتأكد مدة الصلاحية وسلوك المنتج في ظروف التخزين المختلفة.' },
   },
   {
     icon: ShieldCheck,
     title: { en: 'Microbiological control', ar: 'الرقابة الميكروبيولوجية' },
-    body: { en: 'Environmental monitoring and product testing safeguard against contamination.', ar: 'مراقبة بيئية واختبار للمنتجات يحميان من التلوث.' },
+    body: { en: 'Environmental monitoring and product testing safeguard against contamination.', ar: 'مراقبة للبيئة وفحص للمنتجات بيحميوا من التلوث.' },
   },
 ];
 
@@ -78,16 +78,16 @@ export default function QualityPage() {
         title={
           <>
             <L text={{ en: 'Quality is', ar: 'الجودة' }} />{' '}
-            <span className="text-gradient"><L text={{ en: 'designed in', ar: 'مصمَّمة داخليًا' }} /></span>
-            {', '}
-            <L text={{ en: 'not inspected on', ar: 'وليست مجرد فحص لاحق' }} />
+            <span className="text-gradient"><L text={{ en: 'designed in', ar: 'متبنية جوه المنتج' }} /></span>
+            <L text={{ en: ', ', ar: '، ' }} />
+            <L text={{ en: 'not inspected on', ar: 'مش مجرد فحص في الآخر' }} />
           </>
         }
         lead={
           <L
             text={{
               en: 'From the first raw material to the sealed pack, every Loremed product is built and verified to standards that protect the families who use it.',
-              ar: 'من أول مادة خام إلى العبوة المختومة، يُبنى كل منتج من لورميد ويُتحقق منه وفق معايير تحمي العائلات التي تستخدمه.',
+              ar: 'من أول مادة خام لحد العبوة المقفولة، كل منتج من لورميد بيتبني ويتفحص على معايير بتحمي العيلات اللي بتستخدمه.',
             }}
           />
         }
@@ -102,14 +102,14 @@ export default function QualityPage() {
             title={
               <>
                 <L text={{ en: 'Four stages,', ar: 'أربع مراحل،' }} />{' '}
-                <span className="text-gradient"><L text={{ en: 'zero compromise', ar: 'بلا أي تنازل' }} /></span>
+                <span className="text-gradient"><L text={{ en: 'zero compromise', ar: 'من غير أي تنازل' }} /></span>
               </>
             }
             lead={
               <L
                 text={{
                   en: 'Quality is not a final checkpoint — it is engineered into every stage of how a Loremed product comes to life.',
-                  ar: 'الجودة ليست نقطة تفتيش أخيرة — بل هي مصمَّمة في كل مرحلة من مراحل إنتاج منتج لورميد.',
+                  ar: 'الجودة مش نقطة تفتيش في الآخر — دي متبنية في كل مرحلة من مراحل إنتاج منتج لورميد.',
                 }}
               />
             }
@@ -144,11 +144,11 @@ export default function QualityPage() {
           <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div>
               <Reveal>
-                <Eyebrow><L text={{ en: 'Laboratories & testing', ar: 'المعامل والاختبارات' }} /></Eyebrow>
+                <Eyebrow><L text={{ en: 'Laboratories & testing', ar: 'المعامل والفحوصات' }} /></Eyebrow>
               </Reveal>
               <Reveal delay={0.05}>
                 <h2 className="mt-4 text-display-md sm:text-display-lg">
-                  <L text={{ en: 'Proof, not', ar: 'إثبات، لا' }} />{' '}
+                  <L text={{ en: 'Proof, not', ar: 'إثبات، مش' }} />{' '}
                   <span className="text-gradient"><L text={{ en: 'promises', ar: 'وعود' }} /></span>
                 </h2>
               </Reveal>
@@ -157,7 +157,7 @@ export default function QualityPage() {
                   <L
                     text={{
                       en: 'Our laboratories do the quiet, essential work that turns a formulation into a product you can trust — verifying every claim before it reaches the shelf.',
-                      ar: 'تقوم معاملنا بالعمل الهادئ والأساسي الذي يحوّل التركيبة إلى منتج يمكنك الوثوق به — من خلال التحقق من كل ادّعاء قبل وصوله إلى الرف.',
+                      ar: 'معاملنا بتعمل الشغل الهادي والأساسي اللي بيحوّل التركيبة لمنتج تقدر تثق فيه — بالتأكد من كل معلومة قبل ما توصل الرف.',
                     }}
                   />
                 </p>
@@ -187,15 +187,15 @@ export default function QualityPage() {
             eyebrow={<L text={{ en: 'Standards & compliance', ar: 'المعايير والامتثال' }} />}
             title={
               <>
-                <L text={{ en: 'Built to the frameworks the', ar: 'مبنيّون وفق الأطر التي' }} />{' '}
-                <span className="text-gradient"><L text={{ en: 'world trusts', ar: 'يثق بها العالم' }} /></span>
+                <L text={{ en: 'Built to the frameworks the', ar: 'شغالين على الأطر اللي' }} />{' '}
+                <span className="text-gradient"><L text={{ en: 'world trusts', ar: 'العالم بيثق فيها' }} /></span>
               </>
             }
             lead={
               <L
                 text={{
                   en: 'Our quality system and operations are aligned with the internationally recognised standards that define modern pharmaceutical practice.',
-                  ar: 'يتماشى نظام الجودة وعملياتنا مع المعايير المعترف بها دوليًا التي تُحدّد الممارسة الصيدلانية الحديثة.',
+                  ar: 'نظام الجودة وعملياتنا ماشيين مع المعايير المعترف بيها دوليًا اللي بتحدد الممارسة الصيدلانية الحديثة.',
                 }}
               />
             }
@@ -224,7 +224,7 @@ export default function QualityPage() {
             <L
               text={{
                 en: 'Codes shown represent the standards and regulatory frameworks that guide Loremed’s quality system and product development.',
-                ar: 'الرموز الموضحة تمثل المعايير والأطر التنظيمية التي توجّه نظام الجودة وتطوير المنتجات لدى لورميد.',
+                ar: 'الرموز الموضحة بتمثل المعايير والأطر التنظيمية اللي بتوجّه نظام الجودة وتطوير المنتجات في لورميد.',
               }}
             />
           </p>

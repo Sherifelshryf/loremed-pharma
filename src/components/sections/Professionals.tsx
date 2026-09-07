@@ -8,12 +8,12 @@ import { Stethoscope } from 'lucide-react';
 import { useI18n } from '@/i18n/LanguageProvider';
 
 const copy = {
-  badge: { en: 'For healthcare professionals', ar: 'لأخصائيي الرعاية الصحية' },
-  titlePre: { en: 'A partner you can', ar: 'شريك يمكنك' },
-  titleAccent: { en: 'recommend with confidence', ar: 'التوصية به بثقة' },
+  badge: { en: 'For healthcare professionals', ar: 'للمتخصصين في الرعاية الصحية' },
+  titlePre: { en: 'A partner you can', ar: 'شريك تقدر' },
+  titleAccent: { en: 'recommend with confidence', ar: 'توصي بيه بثقة' },
   lead: {
     en: 'Pharmacists, physicians and specialists rely on Loremed for standardised, transparent formulations — backed by product information whenever they need it.',
-    ar: 'يعتمد الصيادلة والأطباء والأخصائيون على لورميد لتركيبات موحَّدة وشفافة — مدعومة بمعلومات المنتج متى احتاجوا إليها.',
+    ar: 'الصيادلة والأطباء والأخصائيين بيعتمدوا على لورميد في تركيبات موحّدة وواضحة — ومعاها معلومات المنتج وقت ما يحتاجوها.',
   },
   cta: { en: 'Request product information', ar: 'اطلب معلومات المنتج' },
 };
