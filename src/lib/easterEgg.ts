@@ -8,7 +8,7 @@ import { normalizeSearch } from '@/content/products';
  * do not. Nothing on the site points at this — it is only found by someone who
  * already knows to look.
  */
-const GOATS = ['sherif', 'youssef', 'ahmed'];
+const GOATS = ['sherif', 'youssef', 'salma'];
 
 /** The reply. Deliberately the same in both languages. */
 export const GOAT = 'Goat';
