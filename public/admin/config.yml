@@ -373,8 +373,12 @@ collections:
                 widget: image
                 required: false
                 hint: >-
-                  Optional. Upload a JPEG. Without one the card shows a plain
-                  tag icon, which is fine but plainer.
+                  Optional. Upload a JPEG. If this bundle is Featured, the photo
+                  becomes the whole slide on the home page, so a wide picture
+                  (16:9, like a banner) suits it best — a square one gets its
+                  top and bottom cropped on a computer screen. Leave it empty
+                  and the slide shows the products inside it instead, with the
+                  name and price written beside them.
 
               - name: featured
                 label: Feature this bundle

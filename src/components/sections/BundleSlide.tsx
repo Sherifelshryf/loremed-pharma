@@ -13,13 +13,19 @@ const MAX_PACKSHOTS = 4;
 /**
  * A featured bundle's slide in the home-page slideshow.
  *
- * Unlike the product banners either side of it, this slide is composed rather
- * than a piece of artwork: the deck's frame is 1:1 on phones and 16:9 on
- * desktop, and neither a square campaign illustration nor a portrait packshot
- * survives being cropped to both. So the picture sits in a panel at its own
- * aspect ratio and the name, price and saving are real text beside it — which
- * also means they are readable, translatable and selectable, rather than baked
- * into a JPEG that would need redrawing every time a price changed.
+ * Two shapes, chosen by whether the editor uploaded a photo.
+ *
+ * **With a photo** the photo is the whole slide, exactly like the product
+ * banners either side of it — no panel, no text, nothing but the artwork. An
+ * uploaded image is a designed thing, and putting furniture around it makes the
+ * deck look like two different websites.
+ *
+ * **Without one** the slide is composed instead: the products inside stand side
+ * by side in a white panel, with the name, price and saving as real text beside
+ * them. That keeps the words translatable and the price a number rather than
+ * something baked into a JPEG that would need redrawing every time it moved —
+ * and it means a bundle is presentable the moment it is created, before anyone
+ * has drawn anything for it.
  *
  * The panel is white because packshots are photographed on white. Dropping them
  * straight onto the purple would leave each one sitting in its own pale box.
@@ -29,19 +35,33 @@ export function BundleSlide({ bundle }: { bundle: Bundle }) {
   const currency = site.currency[locale];
   const saving = bundleSaving(bundle);
 
-  // The bundle's own photo if the editor uploaded one; otherwise the products
-  // themselves, side by side. Anything without a packshot drops out rather than
-  // leaving a hole in the row.
+  // A photo takes over the slide. `object-cover` fills the frame the way every
+  // other banner does, which crops: the frame is 1:1 on phones and 16:9 on
+  // desktop, so a square upload loses its top and bottom on a wide screen.
+  // Cropping is the price of a picture that fills the slot, and the CMS says so
+  // where the photo is uploaded.
+  if (bundle.image) {
+    return (
+      <ProductImage
+        src={bundle.image}
+        // The only text this slide has. It carries the tagline too, since with
+        // the panel gone there is nothing else to say what the bundle is.
+        alt={`${bundle.name[locale]} — ${bundle.tagline[locale]}`}
+        draggable={false}
+        className="aspect-square w-full select-none object-cover sm:aspect-video"
+      />
+    );
+  }
+
+  // No photo: the products themselves, side by side. Anything without a
+  // packshot drops out rather than leaving a hole in the row.
   const packshots = bundle.items
     .map((item) => getProduct(item.slug))
     .filter((p): p is NonNullable<typeof p> => Boolean(p?.image))
     .map((p) => ({ key: p.slug, src: p.image as string, alt: p.name[locale] }));
 
-  const pictures = bundle.image
-    ? [{ key: 'bundle', src: bundle.image, alt: bundle.name[locale] }]
-    : packshots;
-  const shown = pictures.slice(0, MAX_PACKSHOTS);
-  const hidden = pictures.length - shown.length;
+  const shown = packshots.slice(0, MAX_PACKSHOTS);
+  const hidden = packshots.length - shown.length;
 
   return (
     // Both columns stretch to the full height of the frame on purpose. In row

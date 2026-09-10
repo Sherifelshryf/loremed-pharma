@@ -15,6 +15,7 @@ export function ProductImage({
   alt,
   className,
   priority = false,
+  draggable,
 }: {
   /** Path to the .webp; the .jpg beside it is used as the fallback. */
   src: string;
@@ -22,6 +23,12 @@ export function ProductImage({
   className?: string;
   /** Skip lazy-loading for images visible without scrolling. */
   priority?: boolean;
+  /**
+   * Pass `false` inside anything the visitor drags, such as the slideshow: a
+   * mouse-drag would otherwise start a native image drag rather than scroll the
+   * strip, which feels broken.
+   */
+  draggable?: boolean;
 }) {
   const hasJpegFallback = /\.webp$/i.test(src);
   const jpg = src.replace(/\.webp$/i, '.jpg');
@@ -33,6 +40,7 @@ export function ProductImage({
         src={hasJpegFallback ? jpg : src}
         alt={alt}
         className={className}
+        draggable={draggable}
         loading={priority ? 'eager' : 'lazy'}
         decoding="async"
       />
