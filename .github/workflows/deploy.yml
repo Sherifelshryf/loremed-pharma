@@ -8,9 +8,12 @@
 # this file.
 #
 # Required repository secrets (Settings → Secrets and variables → Actions):
-#   FTP_SERVER    the cPanel server hostname, e.g. serverNNN.web-hosting.com
-#                 (use this, NOT loremedpharma.com — the TLS certificate is
-#                 issued for the server name, so the domain fails verification)
+#   FTP_SERVER    the cPanel server hostname — currently premium177-5.web-hosting.com.
+#                 It must be a *.web-hosting.com name: that is what the server's
+#                 wildcard certificate covers, and anything else (the domain, an
+#                 ftp. subdomain) aborts the upload on certificate verification.
+#                 If it ever changes, the failure diagnostic below prints the
+#                 names the certificate is valid for.
 #   FTP_USERNAME  the full FTP user, e.g. deploy@loremedpharma.com
 #   FTP_PASSWORD  that account's password
 
@@ -88,13 +91,21 @@ jobs:
           # The FTP account is scoped to public_html, so login lands there and
           # "." is the web root. A wrong path cannot escape that directory.
           #
-          # Transfers run one at a time. --parallel=4 was tried first and the
-          # upload died instantly with no output, while a dry run over the same
-          # credentials minutes earlier had succeeded — the difference being
-          # that a dry run transfers nothing and so opens no extra connections.
-          # cPanel hosts cap simultaneous FTP connections per account and reject
-          # the extras immediately, which matches exactly. Serial is slower and
-          # it works.
+          # Three transfers at a time.
+          #
+          # An earlier version blamed --parallel for an instant, silent upload
+          # failure and dropped to serial. That was wrong. The real cause was a
+          # TLS certificate name mismatch — FTP_SERVER held a hostname the
+          # server's wildcard certificate did not cover — and the next serial
+          # run failed identically. Once FTP_SERVER named a *.web-hosting.com
+          # host, the upload went through. Parallelism was never the problem, so
+          # it is restored; 3 rather than 4 only because shared hosting does cap
+          # concurrent connections and there is no reason to sit near the limit.
+          #
+          # The first successful run took 43 minutes, almost all of it deleting
+          # a disused WordPress install of several thousand files one command at
+          # a time. That was a one-off: what remains to sync is around 150
+          # files.
           #
           # --delete removes files the build no longer produces (a product
           # deleted in the CMS should take its page with it), with the paths
@@ -102,11 +113,11 @@ jobs:
           # Encrypt challenge that renews your certificate, and deleting it
           # would eventually break HTTPS.
           #
-          # On the first run --delete also clears out a disused WordPress
-          # install that occupies this directory. That is deliberate and the
-          # owner confirmed it: WordPress ships an index.php, and Apache's
-          # DirectoryIndex usually prefers it over index.html, so leaving those
-          # files in place would keep serving the old site over the new one.
+          # On the first run --delete also cleared a disused WordPress install
+          # that occupied this directory, which the owner confirmed could go.
+          # That was necessary rather than tidy: WordPress ships an index.php,
+          # and Apache's DirectoryIndex generally prefers it over index.html,
+          # so leaving it would have kept serving the old site over the new.
           #
           # No --only-newer, deliberately. Every CI run rebuilds out/ from
           # scratch, so all files carry a fresh timestamp and a time-based
@@ -114,8 +125,8 @@ jobs:
           # instead would be worse than useless here: editing a price from 80
           # to 85 leaves the page exactly the same length, so the change would
           # be skipped and the site would quietly keep serving the old figure.
-          # This is a full sync — about a minute for 26 MB — which is cheap
-          # next to a deploy that silently drops an edit.
+          # This is a full sync of about 26 MB, which on this host runs to a
+          # few minutes — cheap next to a deploy that silently drops an edit.
           lftp -c "
             set ftp:ssl-force true;
             set ftp:ssl-protect-data true;
@@ -123,7 +134,7 @@ jobs:
             set net:max-retries 3;
             set net:timeout 20;
             open -u '$FTP_USER' --env-password '$FTP_HOST';
-            mirror --reverse --delete $MODE \
+            mirror --reverse --delete --parallel=3 $MODE \
               --exclude '^\.well-known/' \
               --exclude '^cgi-bin/' \
               --exclude '^\.ftpquota$' \
