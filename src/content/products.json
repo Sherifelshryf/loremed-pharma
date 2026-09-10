@@ -1,17 +1,18 @@
 [
   {
-    "slug": "ivylor",
-    "youtubeId": "AttkQ_uo1DY",
     "name": {
       "en": "Ivylor",
       "ar": "إيفيلور"
     },
+    "slug": "ivylor",
     "tagline": {
       "en": "Ivy & more",
       "ar": "لبلاب وأكتر"
     },
-    "category": "respiratory-care",
+    "price": 85,
     "status": "available",
+    "category": "respiratory-care",
+    "secondaryCategories": [],
     "form": {
       "en": "Syrup",
       "ar": "شراب"
@@ -24,10 +25,9 @@
       "en": "100 ml bottle with dosing cup",
       "ar": "زجاجة 100 مل ومعاها كوباية قياس"
     },
+    "image": "/media/ivylornew.webp",
     "accent": "purple",
     "featured": true,
-    "image": "/media/ivylornew.webp",
-    "price": 80,
     "shortDescription": {
       "en": "A natural extract syrup combining ivy leaf, black elderberry and bee honey with vitamin C and zinc for cough relief.",
       "ar": "شراب بمستخلصات طبيعية بيجمع ورق اللبلاب والبلسان الأسود وعسل النحل مع فيتامين ج والزنك عشان يخفف الكحة."
@@ -104,21 +104,23 @@
       "ivylor-advance",
       "imulormed",
       "coglern-syrup"
-    ]
+    ],
+    "youtubeId": "AttkQ_uo1DY"
   },
   {
-    "slug": "ivylor-advance",
-    "youtubeId": "Enqmj8qD0UU",
     "name": {
       "en": "Ivylor Advance",
       "ar": "إيفيلور أدفانس"
     },
+    "slug": "ivylor-advance",
     "tagline": {
       "en": "Relief cough naturally",
       "ar": "راحة من الكحة بشكل طبيعي"
     },
-    "category": "respiratory-care",
+    "price": 65,
     "status": "available",
+    "category": "respiratory-care",
+    "secondaryCategories": [],
     "form": {
       "en": "Syrup (orange flavour)",
       "ar": "شراب (بنكهة البرتقال)"
@@ -131,9 +133,9 @@
       "en": "30 ml bottle",
       "ar": "زجاجة 30 مل"
     },
-    "accent": "orange",
     "image": "/media/ivyloradvance.webp",
-    "price": 65,
+    "accent": "orange",
+    "featured": false,
     "shortDescription": {
       "en": "A cough syrup of ivy leaf, thyme and licorice — in an orange flavour — for paediatric and adult use, supporting respiratory system health.",
       "ar": "شراب للكحة من ورق اللبلاب والزعتر وعرق السوس — بنكهة البرتقال — للأطفال والكبار، وبيدعم صحة الجهاز التنفسي."
@@ -200,24 +202,25 @@
       "ivylor",
       "imulormed",
       "coglern-syrup"
-    ]
+    ],
+    "youtubeId": "Enqmj8qD0UU"
   },
   {
-    "slug": "coglern-syrup",
-    "youtubeId": "HYnY3uAEvaY",
-    "secondaryCategories": [
-      "omega-brain"
-    ],
     "name": {
       "en": "Coglern Syrup",
       "ar": "كوجليرن شراب"
     },
+    "slug": "coglern-syrup",
     "tagline": {
       "en": "Focus & growth for young minds",
       "ar": "تركيز ونمو للعقول الصغيرة"
     },
-    "category": "kids-health",
+    "price": 300,
     "status": "available",
+    "category": "kids-health",
+    "secondaryCategories": [
+      "omega-brain"
+    ],
     "form": {
       "en": "Syrup",
       "ar": "شراب"
@@ -230,9 +233,9 @@
       "en": "Bottle with dosing cup",
       "ar": "زجاجة ومعاها كوباية قياس"
     },
-    "accent": "purple",
     "image": "/media/coglernnew.webp",
-    "price": 300,
+    "accent": "purple",
+    "featured": false,
     "shortDescription": {
       "en": "A children’s syrup with high-strength fish-oil omega-3 (EPA & DHA) and marigold flower extract to support learning and growth.",
       "ar": "شراب للأطفال بتركيز عالي من أوميغا-3 المستخلص من زيت السمك (إي بي إيه ودي إتش إيه) ومستخلص زهرة الآذريون عشان يدعم التعلّم والنمو."
@@ -299,24 +302,25 @@
       "smartod",
       "imulormed",
       "ivylor"
-    ]
+    ],
+    "youtubeId": "HYnY3uAEvaY"
   },
   {
-    "slug": "smartod",
-    "youtubeId": "ttFUNOaUUKo",
-    "secondaryCategories": [
-      "kids-health"
-    ],
     "name": {
       "en": "Smartod for kids 30ml",
       "ar": "سمارتود للأطفال 30 مل"
     },
+    "slug": "smartod",
     "tagline": {
       "en": "Pure omega-3 for heart & mind",
       "ar": "أوميغا-3 نقي للقلب والعقل"
     },
-    "category": "omega-brain",
+    "price": 165,
     "status": "available",
+    "category": "omega-brain",
+    "secondaryCategories": [
+      "kids-health"
+    ],
     "form": {
       "en": "Oral drops",
       "ar": "نقط بالفم"
@@ -329,10 +333,9 @@
       "en": "30 ml dropper bottle",
       "ar": "زجاجة بقطارة 30 مل"
     },
+    "image": "/media/smartodkids.webp",
     "accent": "orange",
     "featured": true,
-    "image": "/media/smartodkids.webp",
-    "price": 165,
     "shortDescription": {
       "en": "Fish-oil DHA with vitamin E and vitamin D in drops for early brain health, immunity and healthy growth.",
       "ar": "نقط فيها دي إتش إيه من زيت السمك وفيتامين هـ وفيتامين د لصحة المخ من بدري وللمناعة والنمو السليم."
@@ -399,24 +402,25 @@
       "smartod-d",
       "vitelormed",
       "coglern-syrup"
-    ]
+    ],
+    "youtubeId": "ttFUNOaUUKo"
   },
   {
-    "slug": "smartod-d",
-    "youtubeId": "R--0km-crJM",
-    "secondaryCategories": [
-      "kids-health"
-    ],
     "name": {
       "en": "Smartod D 15ml",
       "ar": "سمارتود د 15 مل"
     },
+    "slug": "smartod-d",
     "tagline": {
       "en": "Vitamin D3, drop by drop",
       "ar": "فيتامين د3، نقطة بنقطة"
     },
-    "category": "vitamins-minerals",
+    "price": 85,
     "status": "available",
+    "category": "vitamins-minerals",
+    "secondaryCategories": [
+      "kids-health"
+    ],
     "form": {
       "en": "Oral drops",
       "ar": "نقط بالفم"
@@ -429,9 +433,9 @@
       "en": "15 ml dropper bottle",
       "ar": "زجاجة بقطارة 15 مل"
     },
-    "accent": "orange",
     "image": "/media/smartodd.webp",
-    "price": 85,
+    "accent": "orange",
+    "featured": false,
     "shortDescription": {
       "en": "A vitamin D3 drop formula that supports bone and immune health from six months of age.",
       "ar": "نقط فيتامين د3 بتدعم صحة العظام والمناعة من عمر 6 شهور."
@@ -478,21 +482,23 @@
       "smartod",
       "imulormed",
       "ivylor"
-    ]
+    ],
+    "youtubeId": "R--0km-crJM"
   },
   {
-    "slug": "vitelormed",
-    "youtubeId": "d_kyUQSb5NM",
     "name": {
       "en": "Vitelormed",
       "ar": "فيتيلورميد"
     },
+    "slug": "vitelormed",
     "tagline": {
       "en": "Build bodies, bright minds & big appetites",
       "ar": "أجسام قوية وعقول نشطة وشهية مفتوحة"
     },
-    "category": "vitamins-minerals",
+    "price": 185,
     "status": "available",
+    "category": "vitamins-minerals",
+    "secondaryCategories": [],
     "form": {
       "en": "Syrup",
       "ar": "شراب"
@@ -505,10 +511,9 @@
       "en": "100 ml bottle",
       "ar": "زجاجة 100 مل"
     },
+    "image": "/media/Vitelormed.webp",
     "accent": "purple",
     "featured": true,
-    "image": "/media/Vitelormed.webp",
-    "price": 185,
     "shortDescription": {
       "en": "A 12-vitamin, 5-mineral syrup with L-lysine that improves appetite and immunity and supports maximum growth and development.",
       "ar": "شراب فيه 12 فيتامين و5 معادن مع إل-ليسين، بيحسّن الشهية والمناعة وبيدعم أقصى نمو وتطور."
@@ -585,21 +590,23 @@
       "ferolormed",
       "imulormed",
       "smartod-d"
-    ]
+    ],
+    "youtubeId": "d_kyUQSb5NM"
   },
   {
-    "slug": "gotolor",
-    "youtubeId": "9gBnA-kvZLo",
     "name": {
       "en": "Gotolor",
       "ar": "جوتولور"
     },
+    "slug": "gotolor",
     "tagline": {
       "en": "A step to easier days",
       "ar": "خطوة لأيام أسهل"
     },
-    "category": "kids-health",
+    "price": 90,
     "status": "available",
+    "category": "kids-health",
+    "secondaryCategories": [],
     "form": {
       "en": "Syrup",
       "ar": "شراب"
@@ -612,9 +619,9 @@
       "en": "100 ml bottle",
       "ar": "زجاجة 100 مل"
     },
-    "accent": "orange",
     "image": "/media/gotolor.webp",
-    "price": 90,
+    "accent": "orange",
+    "featured": false,
     "shortDescription": {
       "en": "An alpha-amylase digestive enzyme syrup that soothes sore throat, eases digestion and helps defend against respiratory infections.",
       "ar": "شراب إنزيم هضمي ألفا-أميليز بيهدّي التهاب الزور ويسهّل الهضم ويساعد الجسم يقاوم التهابات الجهاز التنفسي."
@@ -661,21 +668,23 @@
       "ivylor",
       "coglern-syrup",
       "imulormed"
-    ]
+    ],
+    "youtubeId": "9gBnA-kvZLo"
   },
   {
-    "slug": "welcaderm-lotion",
-    "youtubeId": "uklJ3AK7xB8",
     "name": {
       "en": "Welcaderm Lotion",
       "ar": "ويلكاديرم لوشن"
     },
+    "slug": "welcaderm-lotion",
     "tagline": {
       "en": "Calamine, chamomile & olive oil",
       "ar": "كالامين وبابونج وزيت زيتون"
     },
-    "category": "dermatology",
+    "price": 95,
     "status": "available",
+    "category": "dermatology",
+    "secondaryCategories": [],
     "form": {
       "en": "Lotion",
       "ar": "لوشن"
@@ -688,9 +697,9 @@
       "en": "120 ml bottle",
       "ar": "زجاجة 120 مل"
     },
-    "accent": "purple",
     "image": "/media/welcaderm.webp",
-    "price": 95,
+    "accent": "purple",
+    "featured": false,
     "shortDescription": {
       "en": "A skin soothing lotion with calamine, chamomile oil and olive oil, for external use.",
       "ar": "لوشن بيلطّف البشرة، وفيه كالامين وزيت بابونج وزيت زيتون، للاستعمال الخارجي."
@@ -757,20 +766,23 @@
       "vitelormed",
       "imulormed",
       "ivylor"
-    ]
+    ],
+    "youtubeId": "uklJ3AK7xB8"
   },
   {
-    "slug": "imulormed",
     "name": {
       "en": "Imulormed",
       "ar": "إميولورميد"
     },
+    "slug": "imulormed",
     "tagline": {
       "en": "Everyday immune resilience",
       "ar": "مناعة قوية كل يوم"
     },
-    "category": "immune-support",
+    "price": 180,
     "status": "under-registration",
+    "category": "immune-support",
+    "secondaryCategories": [],
     "form": {
       "en": "Oral drops",
       "ar": "نقط بالفم"
@@ -783,9 +795,9 @@
       "en": "Dropper bottle with measuring guide",
       "ar": "زجاجة بقطارة ومعاها دليل للقياس"
     },
-    "accent": "orange",
     "image": "/media/Imulormed.webp",
-    "price": 180,
+    "accent": "orange",
+    "featured": false,
     "shortDescription": {
       "en": "A botanical immune formula combining elderberry extract with vitamin C, zinc, folic acid and vitamin B12.",
       "ar": "تركيبة نباتية لدعم المناعة بتجمع مستخلص البلسان مع فيتامين ج والزنك وحمض الفوليك وفيتامين ب12."
@@ -872,20 +884,23 @@
       "vitelormed",
       "ivylor",
       "smartod"
-    ]
+    ],
+    "youtubeId": ""
   },
   {
-    "slug": "ferolormed",
     "name": {
       "en": "Ferolormed",
       "ar": "فيرولورميد"
     },
+    "slug": "ferolormed",
     "tagline": {
       "en": "Gentle iron, restored energy",
       "ar": "حديد لطيف وطاقة متجددة"
     },
-    "category": "vitamins-minerals",
+    "price": 150,
     "status": "under-registration",
+    "category": "vitamins-minerals",
+    "secondaryCategories": [],
     "form": {
       "en": "Syrup",
       "ar": "شراب"
@@ -898,9 +913,9 @@
       "en": "Bottle with dosing cup",
       "ar": "زجاجة ومعاها كوباية قياس"
     },
-    "accent": "purple",
     "image": "/media/Ferolormed.webp",
-    "price": 150,
+    "accent": "purple",
+    "featured": false,
     "shortDescription": {
       "en": "A gentle iron formula with folate and vitamin C to support red blood cell formation and reduce tiredness.",
       "ar": "تركيبة حديد لطيفة مع الفولات وفيتامين ج، بتدعم تكوين كرات الدم الحمرا وبتقلل الإرهاق."
@@ -967,6 +982,7 @@
       "vitelormed",
       "imulormed",
       "smartod-d"
-    ]
+    ],
+    "youtubeId": ""
   }
 ]
