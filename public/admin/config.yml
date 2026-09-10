@@ -1,0 +1,261 @@
+# Sveltia CMS — the editing UI at /admin.
+#
+# Saving here writes a commit to src/content/products.json on main, which the
+# deploy workflow picks up and pushes to Namecheap. There is no database: this
+# file describes the form, git holds the data.
+#
+# The six category IDs below are duplicated from ProductCategory in
+# src/content/products.ts. They are structural — each ID is also a key in
+# categoryIcons — so adding one is a code change in three places, and
+# productsSchema.ts will fail the build if this list ever drifts from that one.
+
+backend:
+  name: github
+  repo: Sherifelshryf/loremed-pharma
+  branch: main
+  # Sign in with a GitHub personal access token. The alternative, `oauth`,
+  # needs an OAuth app plus a server-side endpoint holding its client secret —
+  # and this repo is public, so that secret would have nowhere safe to live.
+  auth_methods:
+    - token
+  # Without this the CMS may tag its commits [skip ci], which would stop the
+  # deploy workflow and leave edits saved but never published.
+  automatic_deployments: true
+  commit_messages:
+    update: 'Update {{collection}} via CMS'
+    delete: 'Delete from {{collection}} via CMS'
+    uploadMedia: 'Upload {{path}} via CMS'
+    deleteMedia: 'Delete {{path}} via CMS'
+
+# Uploads land beside the existing packshots and are referenced the same way.
+media_folder: public/media
+public_folder: /media
+
+# The admin UI itself, not the content. Arabic is available if an editor
+# prefers it — the language picker is in the CMS settings.
+locale: en
+
+collections:
+  - name: catalogue
+    label: Catalogue
+    files:
+      - name: products
+        label: Products
+        file: src/content/products.json
+        format: json
+        description: >-
+          The product catalogue. Changes go live a couple of minutes after
+          saving. Every field marked with both English and العربية appears on
+          the site in that language, so leaving one side blank leaves a gap for
+          half your visitors.
+        fields:
+          - name: products
+            label: Products
+            label_singular: Product
+            widget: list
+            # products.json is a bare array with no wrapper object; `root`
+            # keeps it that way rather than nesting it under a "products" key.
+            root: true
+            collapsed: true
+            summary: '{{fields.name.en}} — {{fields.price}} EGP'
+            fields:
+              # --- identity -------------------------------------------------
+              - name: name
+                label: Product name
+                widget: object
+                collapsed: false
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ar, label: العربية, widget: string }
+
+              - name: slug
+                label: URL slug
+                widget: string
+                hint: >-
+                  Appears in the web address, e.g. "ivylor" gives
+                  /products/ivylor. Lower-case letters, numbers and hyphens
+                  only. Changing it breaks any existing link to this product.
+                pattern:
+                  - '^[a-z0-9-]+$'
+                  - Only a-z, 0-9 and hyphens
+
+              - name: tagline
+                label: Tagline
+                widget: object
+                collapsed: false
+                hint: The short line under the product name on the card.
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ar, label: العربية, widget: string }
+
+              # --- commercial -----------------------------------------------
+              - name: price
+                label: Price (EGP)
+                widget: number
+                value_type: int
+                min: 0
+
+              - name: status
+                label: Status
+                widget: select
+                default: available
+                options:
+                  - { label: Available now, value: available }
+                  - { label: Coming soon (under registration), value: under-registration }
+
+              - name: category
+                label: Category
+                widget: select
+                options:
+                  - { label: Cough & Chest, value: respiratory-care }
+                  - { label: For Children, value: kids-health }
+                  - { label: Vitamins & Minerals, value: vitamins-minerals }
+                  - { label: Immunity, value: immune-support }
+                  - { label: Omega-3 & Focus, value: omega-brain }
+                  - { label: Skin Care, value: dermatology }
+
+              - name: secondaryCategories
+                label: Also list under
+                widget: select
+                multiple: true
+                required: false
+                hint: Optional. Extra categories this product shows up in when filtering.
+                options:
+                  - { label: Cough & Chest, value: respiratory-care }
+                  - { label: For Children, value: kids-health }
+                  - { label: Vitamins & Minerals, value: vitamins-minerals }
+                  - { label: Immunity, value: immune-support }
+                  - { label: Omega-3 & Focus, value: omega-brain }
+                  - { label: Skin Care, value: dermatology }
+
+              # --- presentation ---------------------------------------------
+              - name: form
+                label: Dosage form
+                widget: object
+                collapsed: false
+                hint: e.g. Syrup, Oral drops, Lotion.
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ar, label: العربية, widget: string }
+
+              - name: ageGroup
+                label: Suitable for
+                widget: object
+                collapsed: false
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ar, label: العربية, widget: string }
+
+              - name: pack
+                label: Pack size
+                widget: object
+                collapsed: false
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ar, label: العربية, widget: string }
+
+              - name: image
+                label: Photo
+                widget: image
+                required: false
+                hint: >-
+                  Upload a JPEG. A WebP works too, but only if a .jpg of the
+                  same name sits beside it — older phones cannot read WebP and
+                  fall back to the JPEG.
+
+              - name: accent
+                label: Card colour
+                widget: select
+                default: purple
+                options:
+                  - { label: Purple, value: purple }
+                  - { label: Orange, value: orange }
+
+              - name: featured
+                label: Feature on the home page
+                widget: boolean
+                required: false
+                default: false
+
+              # --- copy ------------------------------------------------------
+              - name: shortDescription
+                label: Short description
+                widget: object
+                collapsed: false
+                hint: One or two sentences. Shown on the product card and in search results.
+                fields:
+                  - { name: en, label: English, widget: text }
+                  - { name: ar, label: العربية, widget: text }
+
+              - name: description
+                label: Full description
+                widget: object
+                collapsed: false
+                hint: >-
+                  The main paragraph on the product page. Doses and ingredient
+                  amounts here must match the carton exactly.
+                fields:
+                  - { name: en, label: English, widget: text }
+                  - { name: ar, label: العربية, widget: text }
+
+              - name: keyIngredients
+                label: Key ingredients
+                label_singular: Ingredient
+                widget: list
+                collapsed: true
+                summary: '{{fields.name.en}}'
+                fields:
+                  - name: name
+                    label: Ingredient
+                    widget: object
+                    collapsed: false
+                    fields:
+                      - { name: en, label: English, widget: string }
+                      - { name: ar, label: العربية, widget: string }
+                  - name: note
+                    label: Amount and action
+                    widget: object
+                    collapsed: false
+                    hint: e.g. "38 mg per 5 ml — bronchodilator, mucolytic".
+                    fields:
+                      - { name: en, label: English, widget: text }
+                      - { name: ar, label: العربية, widget: text }
+
+              - name: benefits
+                label: Benefits
+                label_singular: Benefit
+                widget: list
+                collapsed: true
+                summary: '{{fields.en}}'
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ar, label: العربية, widget: string }
+
+              - name: usage
+                label: How to use
+                widget: object
+                collapsed: false
+                hint: Dosing instructions. Must match the carton exactly.
+                fields:
+                  - { name: en, label: English, widget: text }
+                  - { name: ar, label: العربية, widget: text }
+
+              # --- links -----------------------------------------------------
+              - name: related
+                label: Related products
+                label_singular: Slug
+                widget: list
+                required: false
+                hint: >-
+                  Slugs of other products, one per line, e.g. "ivylor". Shown at
+                  the bottom of this product's page. A slug that does not match
+                  a real product will fail the build rather than break the site.
+                field: { name: slug, label: Slug, widget: string }
+
+              - name: youtubeId
+                label: YouTube video ID
+                widget: string
+                required: false
+                hint: >-
+                  Just the ID, the part after watch?v= — not the whole address.
+                  Leave blank for no video.
