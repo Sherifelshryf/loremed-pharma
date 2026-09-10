@@ -1,0 +1,44 @@
+# Prints the response headers the live site actually sends.
+#
+# Exists because the headers are set in .htaccess files, and whether a shared
+# host honours a given directive — particularly a nested .htaccess overriding a
+# parent — is not knowable from the repository. The only authority is what the
+# server sends back.
+#
+# Written when the CMS at /admin failed to sign in with "Failed to fetch",
+# which is what a browser reports when Content-Security-Policy blocks a
+# request. The question this answers: which CSP is actually in force on /admin —
+# the relaxed one from public/admin/.htaccess, or the strict site-wide one from
+# public/.htaccess, whose connect-src 'self' would block api.github.com.
+#
+# Read-only, manual, and it touches nothing.
+
+name: Check live headers
+
+on:
+  workflow_dispatch:
+
+jobs:
+  headers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch headers
+        run: |
+          set -uo pipefail
+          for path in / /admin/ /admin/config.yml /admin/sveltia-cms.js; do
+            echo "═════ https://loremedpharma.com$path ═════"
+            curl -sS -m 25 -D- -o /dev/null "https://loremedpharma.com$path" 2>&1 \
+              | tr -d '\r' \
+              | grep -viE '^(date|server|connection|keep-alive|transfer-encoding|accept-ranges|vary|etag|last-modified|upgrade|age):' \
+              || echo "(request failed)"
+            echo
+          done
+
+          echo "═════ how many Content-Security-Policy headers on /admin/? ═════"
+          n=$(curl -sS -m 25 -D- -o /dev/null https://loremedpharma.com/admin/ 2>/dev/null \
+                | tr -d '\r' | grep -ci '^content-security-policy:' || true)
+          echo "$n"
+          echo
+          echo "A browser enforces every CSP header it receives, so two means the"
+          echo "strictest wins on each directive — the relaxed admin policy would"
+          echo "not take effect even though it is present."
