@@ -12,9 +12,18 @@ import { L } from '@/i18n/Localized';
  * button, so a shopper never has to navigate before they can buy. Products
  * still in registration are deliberately left out — they cannot be ordered, and
  * mixing them in makes the page look like a brochure rather than a shop.
+ *
+ * "Feature on the home page" at /admin lifts a product to the front of the
+ * grid. Everything still appears — the whole range fits on one screenful and
+ * hiding stock from the shop would be a strange thing for a shop to do — so
+ * featuring is about order, not membership.
  */
 export function ShopProducts() {
-  const available = products.filter((p) => p.status === 'available');
+  const available = products
+    .filter((p) => p.status === 'available')
+    // Stable by specification: unfeatured products keep the catalogue's own
+    // order rather than being shuffled by the sort.
+    .sort((a, b) => Number(b.featured ?? false) - Number(a.featured ?? false));
 
   return (
     <section className="section-tight bg-surface-muted">

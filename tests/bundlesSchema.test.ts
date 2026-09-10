@@ -5,6 +5,8 @@ import {
   bundles,
   activeBundles,
   sellableBundles,
+  featuredBundles,
+  featuredFirst,
   bundleSaving,
   contentsTotal,
   isBundleSellable,
@@ -57,6 +59,37 @@ test('the bundle lists stay consistent with each other', () => {
   // inside is on sale.
   assert.ok(active.every((b) => b.status === 'active'));
   assert.ok(sellable.every((b) => isBundleSellable(b)));
+
+  // Featured is a subset again, and every one of them is sellable — a hidden
+  // bundle must not reach the slideshow just because the box is ticked.
+  assert.ok(featuredBundles().every((b) => sellable.includes(b) && b.featured));
+});
+
+test('featured bundles come first, and the rest keep their order', () => {
+  for (const list of [activeBundles(), sellableBundles()]) {
+    const flags = list.map((b) => Boolean(b.featured));
+    // Once an unfeatured bundle appears, no featured one may follow it.
+    for (let i = 1; i < flags.length; i++) {
+      assert.ok(!(flags[i] && !flags[i - 1]), `featured bundle behind an unfeatured one at ${i}`);
+    }
+  }
+
+  // The relative order of two bundles that share a flag is the file's, not the
+  // sort's. Built here rather than read from bundles.json so the assertion
+  // holds whatever the shop happens to be selling today.
+  const list = [
+    { ...(good() as unknown as Bundle), slug: 'plain-one' },
+    { ...(good() as unknown as Bundle), slug: 'starred', featured: true },
+    { ...(good() as unknown as Bundle), slug: 'plain-two' },
+    { ...(good() as unknown as Bundle), slug: 'starred-too', featured: true },
+  ];
+  assert.deepEqual(
+    featuredFirst(list).map((b) => b.slug),
+    ['starred', 'starred-too', 'plain-one', 'plain-two'],
+  );
+
+  // And it does not reorder the caller's array underneath them.
+  assert.equal(list[0].slug, 'plain-one');
 });
 
 test('a well-formed bundle passes', () => {

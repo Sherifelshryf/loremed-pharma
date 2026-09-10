@@ -49,9 +49,21 @@ export type Bundle = {
 /** See the note in products.ts: importing JSON widens the literal types. */
 export const bundles = bundlesData as unknown as Bundle[];
 
+/**
+ * Featured bundles first, file order kept within each group.
+ *
+ * `sort` is stable by specification, so two bundles that are both featured —
+ * or both not — stay in the order the editor arranged them in at /admin.
+ * `bundles` itself is left alone: the cart looks bundles up by slug and should
+ * not have its lists reshuffled by a flag that only means "show this first".
+ */
+export function featuredFirst(list: Bundle[]): Bundle[] {
+  return [...list].sort((a, b) => Number(b.featured ?? false) - Number(a.featured ?? false));
+}
+
 /** Only these reach the storefront. */
 export function activeBundles(): Bundle[] {
-  return bundles.filter((b) => b.status === 'active');
+  return featuredFirst(bundles.filter((b) => b.status === 'active'));
 }
 
 export function getBundle(slug: string): Bundle | undefined {
@@ -72,9 +84,22 @@ export function isBundleSellable(bundle: Bundle): boolean {
   );
 }
 
-/** The bundles a shopper should actually be shown. */
+/** The bundles a shopper should actually be shown, featured ones first. */
 export function sellableBundles(): Bundle[] {
-  return bundles.filter(isBundleSellable);
+  return featuredFirst(bundles.filter(isBundleSellable));
+}
+
+/**
+ * The bundles that earn a slide in the home-page slideshow.
+ *
+ * Featured is the editor's way of saying "put this in front of people", so it
+ * does two things: lifts the bundle to the top of /offers, and gives it a slide
+ * in the deck on the home page. A featured bundle that stops being sellable —
+ * hidden, or something inside it went out of registration — loses both without
+ * anyone having to remember to untick the box.
+ */
+export function featuredBundles(): Bundle[] {
+  return sellableBundles().filter((b) => b.featured);
 }
 
 /**
