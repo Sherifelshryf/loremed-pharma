@@ -15,6 +15,7 @@
  */
 
 import { categories } from './products';
+import { isBlank } from './schemaUtils';
 
 const CATEGORY_IDS = categories.map((c) => c.id) as string[];
 const STATUSES = ['available', 'under-registration'];
@@ -105,7 +106,7 @@ export function validateProducts(data: unknown): string[] {
       p.benefits.forEach((b, j) => checkBi(b, `${at}.benefits[${j}]`, problems));
     }
 
-    if (p.secondaryCategories !== undefined) {
+    if (!isBlank(p.secondaryCategories)) {
       if (!Array.isArray(p.secondaryCategories)) {
         problems.push(`${at}.secondaryCategories: expected a list`);
       } else {
@@ -115,16 +116,21 @@ export function validateProducts(data: unknown): string[] {
       }
     }
 
-    if (p.featured !== undefined && typeof p.featured !== 'boolean') {
+    // Each of these is optional, and blank is how /admin records "cleared" —
+    // see isBlank. A removed photo or an emptied video ID is a decision, not a
+    // broken field.
+    if (!isBlank(p.featured) && typeof p.featured !== 'boolean') {
       problems.push(`${at}.featured: expected true or false`);
     }
-    if (p.image !== undefined && (typeof p.image !== 'string' || !p.image.startsWith('/'))) {
+    if (!isBlank(p.image) && (typeof p.image !== 'string' || !p.image.startsWith('/'))) {
       problems.push(`${at}.image: expected a path starting with "/"`);
     }
-    if (p.youtubeId !== undefined && typeof p.youtubeId !== 'string') {
+    if (!isBlank(p.youtubeId) && typeof p.youtubeId !== 'string') {
       problems.push(`${at}.youtubeId: expected a string`);
     }
-    if (!Array.isArray(p.related)) {
+    // Removing the last related product can drop the key entirely rather than
+    // leave an empty list, so absent has to mean the same as none.
+    if (!isBlank(p.related) && !Array.isArray(p.related)) {
       problems.push(`${at}.related: expected a list of product slugs`);
     }
   });
