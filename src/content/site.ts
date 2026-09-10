@@ -153,5 +153,21 @@ export const footerNav: { title: Bi; links: { label: Bi; href: string }[] }[] = 
   },
 ];
 
-export const medicalDisclaimer =
-  'The information on this website is provided for general awareness and is not a substitute for professional medical advice, diagnosis or treatment. Nutritional supplements are not intended to diagnose, treat, cure or prevent any disease. Always read the label and consult a qualified healthcare professional or pharmacist before use.';
+/**
+ * The medical disclaimer, shown in the footer of every page and again on the
+ * catalogue and each product page.
+ *
+ * Bilingual like everything else on the site. It was English-only for a while,
+ * which meant an Arabic-speaking visitor — most of them — read every claim the
+ * site makes about a product and none of the qualification of those claims.
+ * That is the one piece of copy where leaving a language out is not merely
+ * untidy.
+ *
+ * The Arabic is a faithful rendering, not a paraphrase: the four verbs
+ * (diagnose, treat, cure, prevent) are all there, and nothing is softened. If
+ * the English is ever revised, revise both halves together.
+ */
+export const medicalDisclaimer: Bi = {
+  en: 'The information on this website is provided for general awareness and is not a substitute for professional medical advice, diagnosis or treatment. Nutritional supplements are not intended to diagnose, treat, cure or prevent any disease. Always read the label and consult a qualified healthcare professional or pharmacist before use.',
+  ar: 'المعلومات اللي على الموقع ده للتوعية العامة، ومش بديل عن استشارة طبية متخصصة ولا تشخيص ولا علاج. المكمّلات الغذائية مش مخصصة لتشخيص أي مرض أو علاجه أو الشفاء منه أو الوقاية منه. اقرا دايمًا البيانات المكتوبة على العبوة، واستشير مختص رعاية صحية مؤهل أو صيدلي قبل الاستخدام.',
+};

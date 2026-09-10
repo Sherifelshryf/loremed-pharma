@@ -135,7 +135,9 @@ export function Footer() {
           <p className="text-xs font-semibold uppercase tracking-wider text-white/40">
             {t('footer.disclaimerTitle')}
           </p>
-          <p className="mt-2 max-w-4xl text-sm leading-relaxed text-white/45">{medicalDisclaimer}</p>
+          <p className="mt-2 max-w-4xl text-sm leading-relaxed text-white/45">
+            {medicalDisclaimer[locale]}
+          </p>
         </div>
 
         {/* Bottom bar */}

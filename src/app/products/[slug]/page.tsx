@@ -197,7 +197,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
           </div>
 
           <p className="mt-10 rounded-2xl border border-line bg-neutral-50 px-6 py-5 text-xs leading-relaxed text-ink-muted">
-            {medicalDisclaimer}
+            <L text={medicalDisclaimer} />
           </p>
         </Container>
       </section>
