@@ -113,6 +113,59 @@ jobs:
             bye;
           "
 
+      # `lftp -c` reports every connection problem as "max-retries exceeded",
+      # which is true and useless — a wrong hostname, a rejected password, a
+      # certificate mismatch and a blocked port all look identical.
+      #
+      # This runs only when the upload failed. It reconnects with protocol
+      # tracing on, twice: once exactly as the deploy does, once with
+      # certificate verification off. Comparing the two separates "the
+      # certificate does not match the hostname" from everything else. It lists
+      # a directory and writes nothing.
+      #
+      # Secret values appear as *** — GitHub masks them — and lftp masks the
+      # password in its own trace. What matters is the server's replies.
+      - name: Say why the upload failed
+        if: failure()
+        env:
+          FTP_HOST: ${{ secrets.FTP_SERVER }}
+          FTP_USER: ${{ secrets.FTP_USERNAME }}
+          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          for secret in FTP_HOST FTP_USER LFTP_PASSWORD; do
+            [ -n "${!secret}" ] || echo "::warning::$secret is empty — is the repository secret set, and spelled exactly?"
+          done
+
+          probe () {
+            echo ""
+            echo "───── $1 ─────"
+            lftp -c "
+              debug 3;
+              set ftp:ssl-force true;
+              set ftp:ssl-protect-data true;
+              set ssl:verify-certificate $2;
+              set net:max-retries 1;
+              set net:timeout 15;
+              open -u '$FTP_USER' --env-password '$FTP_HOST';
+              pwd;
+              cls -1;
+              bye;
+            " 2>&1 | tail -n 30 || echo "(this attempt failed)"
+          }
+
+          probe "as the deploy runs it: certificate verification ON" true
+          probe "same, but certificate verification OFF" false
+
+          echo ""
+          echo "How to read the above:"
+          echo "  * second worked, first did not  -> certificate mismatch. FTP_SERVER is"
+          echo "    probably the domain; it needs the cPanel server hostname the"
+          echo "    certificate is issued for, e.g. serverNNN.web-hosting.com"
+          echo "  * '530 Login incorrect'          -> username or password. The username is"
+          echo "    the full user@domain form, and it is case-sensitive"
+          echo "  * neither connects at all        -> wrong hostname, or the host blocks FTP"
+          echo "    from outside its own network"
+
       # FTP reporting success only means the bytes moved. This checks the site
       # actually serves the build that was just uploaded.
       - name: Verify the live site
