@@ -1,16 +1,16 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import { ProductImage } from '@/components/ui/ProductImage';
 import { Container } from '@/components/ui/Section';
 import { categories } from '@/content/products';
 import { L } from '@/i18n/Localized';
 
 const categoryCampaigns = {
-  'respiratory-care': { image: '/media/campaigns/cough-chest.png', label: { en: 'Cough Care', ar: 'العناية بالكحة' }, description: { en: 'Comfort for clearer breathing.', ar: 'راحة وتنفس أسهل.' } },
-  'kids-health': { image: '/media/campaigns/children.png', label: { en: 'Children', ar: 'الأطفال' }, description: { en: 'Gentle support for growing days.', ar: 'دعم لطيف لأيام النمو.' } },
-  'vitamins-minerals': { image: '/media/campaigns/vitamins-minerals.png', label: { en: 'Vitamins', ar: 'الفيتامينات' }, description: { en: 'Daily nutrition, simply covered.', ar: 'تغذية يومية بكل بساطة.' } },
+  'respiratory-care': { image: '/media/campaigns/cough-chest.webp', label: { en: 'Cough Care', ar: 'العناية بالكحة' }, description: { en: 'Comfort for clearer breathing.', ar: 'راحة وتنفس أسهل.' } },
+  'kids-health': { image: '/media/campaigns/children.webp', label: { en: 'Children', ar: 'الأطفال' }, description: { en: 'Gentle support for growing days.', ar: 'دعم لطيف لأيام النمو.' } },
+  'vitamins-minerals': { image: '/media/campaigns/vitamins-minerals.webp', label: { en: 'Vitamins', ar: 'الفيتامينات' }, description: { en: 'Daily nutrition, simply covered.', ar: 'تغذية يومية بكل بساطة.' } },
   'immune-support': { image: '/media/Imulormed.webp', label: { en: 'Immunity', ar: 'المناعة' }, description: { en: 'Everyday defence for your family.', ar: 'دعم يومي لعيلتك.' } },
-  'omega-brain': { image: '/media/campaigns/omega-focus.png', label: { en: 'Focus', ar: 'التركيز' }, description: { en: 'Nutrition for bright young minds.', ar: 'تغذية لعقول صغيرة نشيطة.' } },
-  dermatology: { image: '/media/campaigns/skin-care.png', label: { en: 'Skin Care', ar: 'العناية بالبشرة' }, description: { en: 'Soothing care for soft skin.', ar: 'عناية مهدئة لبشرة ناعمة.' } },
+  'omega-brain': { image: '/media/campaigns/omega-focus.webp', label: { en: 'Focus', ar: 'التركيز' }, description: { en: 'Nutrition for bright young minds.', ar: 'تغذية لعقول صغيرة نشيطة.' } },
+  dermatology: { image: '/media/campaigns/skin-care.webp', label: { en: 'Skin Care', ar: 'العناية بالبشرة' }, description: { en: 'Soothing care for soft skin.', ar: 'عناية مهدئة لبشرة ناعمة.' } },
 } as const;
 
 export function CategoryTiles() {
@@ -41,13 +41,17 @@ export function CategoryTiles() {
                 href={`/products?category=${category.id}`}
                 className="block overflow-hidden rounded-2xl border border-line bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-4"
               >
+                {/* ProductImage rather than next/image: the static export turns
+                    the optimiser off, so next/image emitted a plain <img> with
+                    no srcset — `sizes` did nothing and every phone downloaded
+                    the full file. ProductImage serves the WebP with a JPEG
+                    beside it for browsers too old to decode WebP, which is the
+                    fallback the rest of the site already relies on. */}
                 <div className="relative aspect-square">
-                  <Image
+                  <ProductImage
                     src={campaign.image}
                     alt=""
-                    fill
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover"
+                    className="absolute inset-0 h-full w-full object-cover"
                   />
                 </div>
                 <h3 className="p-4 text-center text-lg font-semibold text-ink">

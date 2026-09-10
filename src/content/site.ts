@@ -17,8 +17,6 @@ export const site = {
   description:
     'Loremed Pharma is a fast-growing pharmaceutical and nutraceutical company crafting science-backed medicines and nutritional supplements that raise the quality of life for families across the region.',
   foundingYear: 2023,
-  country: 'Egypt',
-  city: 'Cairo',
   email: 'info@loremedpharma.com',
   phoneDisplay: '+20 101 164 4300',
   phone: '+201011644300',
@@ -34,12 +32,25 @@ export const site = {
   wholesaleWhatsAppDisplay: '+20 122 220 8472',
   deliveryFee: 30,
   currency: { en: 'EGP', ar: 'ج.م' } as Bi,
+  /**
+   * The postal address as a machine reads it — this is what goes into the
+   * schema.org PostalAddress, so it stays in English and in the shape search
+   * engines expect. Anything shown to a visitor uses the two labels below.
+   */
   address: {
     line1: 'Loremed Pharma',
     city: 'Cairo',
     region: 'Greater Cairo',
     country: 'Egypt',
   },
+  /**
+   * The same place, as a person reads it. Held as one string per language
+   * rather than assembled from city and country at each call site: the
+   * separator differs — Arabic uses ، rather than , — and it was being written
+   * by hand in four places, in Latin, on the Arabic side of the site.
+   */
+  locationLabel: { en: 'Cairo, Egypt', ar: 'القاهرة، مصر' } as Bi,
+  regionLabel: { en: 'Greater Cairo', ar: 'القاهرة الكبرى' } as Bi,
   /** Google Maps link to the Loremed HQ pin (used by the contact-page map). */
   mapsUrl: 'https://maps.app.goo.gl/87XziRrbbUxt1NFk7',
   /** HQ coordinates — power the live embedded map on the contact page. */

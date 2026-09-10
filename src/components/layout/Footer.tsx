@@ -87,7 +87,7 @@ export function Footer() {
             <Logo variant="inverse" />
             <p className="mt-5 text-white/60">{t('footer.tagline')}</p>
             <p className="mt-5 text-sm leading-relaxed text-white/50">
-              {site.city}, {site.country}
+              {site.locationLabel[locale]}
             </p>
             <a
               href={`mailto:${site.email}`}

@@ -92,7 +92,7 @@ export default function ContactPage() {
               </Reveal>
               <div className="mt-8 space-y-4">
                 <ChannelRow icon={Mail} label={<L text={{ en: 'Email', ar: 'البريد الإلكتروني' }} />} value={site.email} href={`mailto:${site.email}`} />
-                <ChannelRow icon={MapPin} label={<L text={{ en: 'Location', ar: 'الموقع' }} />} value={`${site.city}, ${site.country}`} />
+                <ChannelRow icon={MapPin} label={<L text={{ en: 'Location', ar: 'الموقع' }} />} value={<L text={site.locationLabel} />} />
                 <ChannelRow icon={Clock} label={<L text={{ en: 'Hours', ar: 'ساعات العمل' }} />} value={<L text={{ en: 'Sunday – Thursday · 9:00 – 17:00', ar: 'الأحد – الخميس · 9:00 – 17:00' }} />} />
               </div>
 
@@ -171,8 +171,8 @@ export default function ContactPage() {
               <p className="text-white/60">
                 <L
                   text={{
-                    en: `Loremed Pharma is proudly headquartered in ${site.city}, ${site.country} — with partnerships reaching across the Middle East and Africa.`,
-                    ar: `مقر لورميد فارما الرئيسي في ${site.city}, ${site.country} وإحنا فخورين بكده — وشراكاتنا ممتدة في الشرق الأوسط وأفريقيا.`,
+                    en: `Loremed Pharma is proudly headquartered in ${site.locationLabel.en} — with partnerships reaching across the Middle East and Africa.`,
+                    ar: `مقر لورميد فارما الرئيسي في ${site.locationLabel.ar} وإحنا فخورين بكده — وشراكاتنا ممتدة في الشرق الأوسط وأفريقيا.`,
                   }}
                 />
               </p>
@@ -181,8 +181,8 @@ export default function ContactPage() {
                   <MapPin className="h-5 w-5" />
                 </span>
                 <div>
-                  <div className="font-medium text-white">{site.city}, {site.country}</div>
-                  <div className="text-sm text-white/50">{site.address.region}</div>
+                  <div className="font-medium text-white"><L text={site.locationLabel} /></div>
+                  <div className="text-sm text-white/50"><L text={site.regionLabel} /></div>
                 </div>
               </div>
             </div>

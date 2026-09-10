@@ -9,6 +9,14 @@ RewriteEngine On
 RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
+# One canonical host. Every canonical tag, the sitemap and robots.txt name the
+# bare domain, so www has to end up there too — otherwise the site is reachable
+# at two addresses that each declare the other to be the real one, and the
+# ranking signals are split between them. Harmless if www never resolves: the
+# rule simply never fires.
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
 # Build assets carry a content hash, so they can be cached indefinitely.
 # HTML must never be cached or visitors keep seeing the previous deploy.
 <IfModule mod_expires.c>

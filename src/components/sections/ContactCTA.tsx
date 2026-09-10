@@ -70,7 +70,7 @@ export function ContactCTA() {
                   <span className="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/5">
                     <MapPin className="h-4 w-4" />
                   </span>
-                  {site.city}, {site.country}
+                  {site.locationLabel[locale]}
                 </div>
               </div>
             </Reveal>
