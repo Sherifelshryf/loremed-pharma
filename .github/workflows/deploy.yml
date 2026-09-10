@@ -1,0 +1,127 @@
+# Builds the static site and uploads it to Namecheap (cPanel) over FTPS.
+#
+# Runs on every push to main, so a save in the CMS — which lands as a commit —
+# reaches the live site without anyone touching a terminal.
+#
+# Deliberately uses plain `lftp` rather than a third-party deploy action: this
+# job holds the FTP credentials, and everything it does with them is visible in
+# this file.
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#   FTP_SERVER    the cPanel server hostname, e.g. serverNNN.web-hosting.com
+#                 (use this, NOT loremedpharma.com — the TLS certificate is
+#                 issued for the server name, so the domain fails verification)
+#   FTP_USERNAME  the full FTP user, e.g. deploy@loremedpharma.com
+#   FTP_PASSWORD  that account's password
+
+name: Deploy to Namecheap
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'List what would change without uploading anything'
+        type: boolean
+        default: true
+
+concurrency:
+  # FTP has no atomic swap. Two overlapping deploys would interleave writes and
+  # leave the site half-updated, so runs queue instead of racing.
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # ci.yml covers pull requests, but content edits can land on main directly
+      # from the GitHub web editor or from the CMS. Nothing reaches the live
+      # site without passing here first.
+      - run: npm test
+
+      - name: Build the static export
+        run: npm run build:static
+
+      # The upload deletes remote files that are no longer in the build, so a
+      # build that silently produced nothing would empty the site. Refuse to
+      # upload unless the output looks like the real thing.
+      - name: Refuse to deploy a broken build
+        run: |
+          set -euo pipefail
+          test -f out/index.html      || { echo "::error::out/index.html missing"; exit 1; }
+          test -f out/.htaccess       || { echo "::error::out/.htaccess missing — 404s, HTTPS and headers would break"; exit 1; }
+          pages=$(find out -name '*.html' | wc -l)
+          echo "built $pages pages"
+          [ "$pages" -ge 15 ] || { echo "::error::only $pages pages, expected ~21"; exit 1; }
+
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Upload to public_html
+        env:
+          FTP_HOST: ${{ secrets.FTP_SERVER }}
+          FTP_USER: ${{ secrets.FTP_USERNAME }}
+          # Read by lftp itself via --env-password, so the password is never part
+          # of a command string or visible in the process list.
+          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          [ "${DRY_RUN:-false}" = "true" ] && MODE="--dry-run" || MODE=""
+          [ -n "$MODE" ] && echo "DRY RUN — nothing will be uploaded"
+
+          # The FTP account is scoped to public_html, so login lands there and
+          # "." is the web root. A wrong path cannot escape that directory.
+          #
+          # --delete removes files the build no longer produces (a product
+          # deleted in the CMS should take its page with it), with the paths
+          # cPanel manages itself held back: .well-known carries the Let's
+          # Encrypt challenge that renews your certificate, and deleting it
+          # would eventually break HTTPS.
+          #
+          # No --only-newer, deliberately. Every CI run rebuilds out/ from
+          # scratch, so all files carry a fresh timestamp and a time-based
+          # comparison would re-upload them regardless. Comparing on size
+          # instead would be worse than useless here: editing a price from 80
+          # to 85 leaves the page exactly the same length, so the change would
+          # be skipped and the site would quietly keep serving the old figure.
+          # This is a full sync — about a minute for 26 MB — which is cheap
+          # next to a deploy that silently drops an edit.
+          lftp -c "
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            set ssl:verify-certificate true;
+            set net:max-retries 3;
+            set net:timeout 20;
+            open -u '$FTP_USER' --env-password '$FTP_HOST';
+            mirror --reverse --delete --parallel=4 $MODE \
+              --exclude '^\.well-known/' \
+              --exclude '^cgi-bin/' \
+              --exclude '^\.ftpquota$' \
+              out/ .;
+            bye;
+          "
+
+      # FTP reporting success only means the bytes moved. This checks the site
+      # actually serves the build that was just uploaded.
+      - name: Verify the live site
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          set -euo pipefail
+          url="https://loremedpharma.com/products/ivylor/"
+          code=$(curl -sS -o /tmp/live.html -w '%{http_code}' --retry 3 --retry-delay 5 "$url")
+          [ "$code" = "200" ] || { echo "::error::$url returned $code"; exit 1; }
+          grep -q "Ivy Leaves Extract" /tmp/live.html \
+            || { echo "::error::page served but product content is missing"; exit 1; }
+          echo "live site is serving the new build"
