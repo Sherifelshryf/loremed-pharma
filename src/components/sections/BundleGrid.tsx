@@ -41,7 +41,11 @@ export function BundleGrid({ bundles }: { bundles: Bundle[] }) {
         return (
           <article
             key={bundle.slug}
-            className="flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-card"
+            // The slide in the home-page slideshow links to /offers#<slug>, so
+            // the card needs the anchor. scroll-mt clears the sticky header,
+            // which would otherwise land on top of what you just jumped to.
+            id={bundle.slug}
+            className="flex h-full scroll-mt-28 flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-card"
           >
             <div className="relative aspect-[4/3] bg-neutral-50">
               {bundle.image ? (

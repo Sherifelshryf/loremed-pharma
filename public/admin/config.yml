@@ -172,10 +172,14 @@ collections:
                   - { label: Orange, value: orange }
 
               - name: featured
-                label: Feature on the home page
+                label: Show first on the home page
                 widget: boolean
                 required: false
                 default: false
+                hint: >-
+                  Moves this product to the front of the grid on the home page.
+                  Everything still appears either way — this only changes the
+                  order.
 
               # --- copy ------------------------------------------------------
               - name: shortDescription
@@ -377,3 +381,8 @@ collections:
                 widget: boolean
                 required: false
                 default: false
+                hint: >-
+                  Gives the bundle a slide in the slideshow on the home page,
+                  and puts it first on the Offers page. The slide shows the
+                  photo above if there is one, and the products inside it side
+                  by side if there isn't. Only works while the bundle is Active.

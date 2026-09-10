@@ -5,12 +5,16 @@ import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useI18n } from '@/i18n/LanguageProvider';
 import type { Bi } from '@/i18n/dictionaries';
+import { featuredBundles, type Bundle } from '@/content/bundles';
+import { BundleSlide } from '@/components/sections/BundleSlide';
 import { cn } from '@/lib/utils';
 
 /** How long a slide stays put before the show moves on. */
 const SLIDE_MS = 10_000;
 
-type Slide = {
+/** A piece of campaign artwork, drawn in advance and shipped with the site. */
+type BannerSlide = {
+  kind: 'banner';
   key: string;
   alt: Bi;
   /** Where the slide takes you when it is clicked. */
@@ -24,11 +28,22 @@ type Slide = {
   jpegOnly?: boolean;
 };
 
+/** A bundle someone ticked "Featured" on at /admin, composed at render time. */
+type BundleSlideEntry = {
+  kind: 'bundle';
+  key: string;
+  href: string;
+  bundle: Bundle;
+};
+
+type Slide = BannerSlide | BundleSlideEntry;
+
 /**
  * Product campaign banner: desktop art is 16:9, mobile 1:1, both in slides/.
  * The key doubles as the product slug, so the banner links to its own product.
  */
-const banner = (slug: string, alt: Bi): Slide => ({
+const banner = (slug: string, alt: Bi): BannerSlide => ({
+  kind: 'banner',
   key: slug,
   alt,
   href: `/products/${slug}`,
@@ -36,7 +51,7 @@ const banner = (slug: string, alt: Bi): Slide => ({
   mobile: `/media/slides/${slug}-mobile`,
 });
 
-const SLIDES: Slide[] = [
+const BANNERS: BannerSlide[] = [
   // The brand shelf opens the show, as it did before the slideshow existed.
   // Its desktop art is a 4.34:1 strip rather than 16:9, so it is contained
   // inside the frame.
@@ -47,6 +62,7 @@ const SLIDES: Slide[] = [
   // surface colour, and that is the one to ship. The extra ~84 KB buys a hero
   // that renders the way it is meant to.
   {
+    kind: 'banner',
     key: 'hero-products',
     alt: {
       en: 'Loremed Pharma — we care about the quality of life',
@@ -68,6 +84,31 @@ const SLIDES: Slide[] = [
   banner('vitelormed', { en: 'Vitelormed multivitamin syrup', ar: 'شراب فيتيلورميد متعدد الفيتامينات' }),
   banner('gotolor', { en: 'Gotolor digestive enzyme syrup', ar: 'جوتولور شراب الإنزيم الهضمي' }),
   banner('welcaderm-lotion', { en: 'Welcaderm skin soothing lotion', ar: 'ويلكاديرم لوشن ملطّف للبشرة' }),
+];
+
+/**
+ * The deck: the brand shelf, then any featured bundles, then the product
+ * banners.
+ *
+ * Second place rather than first is deliberate. The shelf is the opening image
+ * and the one that loads eagerly, so it stays put; an offer immediately behind
+ * it is seen before the product banners without the home page ever opening on
+ * a price. The list is fixed at build time — adding a bundle at /admin commits,
+ * the deploy rebuilds, and its slide appears with everything else.
+ */
+const SLIDES: Slide[] = [
+  BANNERS[0],
+  ...featuredBundles().map(
+    (bundle): BundleSlideEntry => ({
+      kind: 'bundle',
+      key: `bundle-${bundle.slug}`,
+      // No page of its own yet, so the slide lands on the offers page with the
+      // bundle scrolled into view — the anchor is on its card in BundleGrid.
+      href: `/offers#${bundle.slug}`,
+      bundle,
+    }),
+  ),
+  ...BANNERS.slice(1),
 ];
 
 /**
@@ -183,49 +224,55 @@ export function HeroSlideshow() {
             aria-roledescription="slide"
             aria-label={`${i + 1} / ${SLIDES.length}`}
           >
-            {/* The banner is the link: clicking Ivylor's slide opens Ivylor.
-                Only the slide in view is reachable by keyboard, so Tab moves on
-                to the buttons below instead of walking every slide in the deck;
-                the arrows and dots change which one that is. */}
+            {/* The slide is the link: clicking Ivylor's banner opens Ivylor,
+                clicking a bundle opens it on the offers page. Only the slide in
+                view is reachable by keyboard, so Tab moves on to the buttons
+                below instead of walking every slide in the deck; the arrows and
+                dots change which one that is. */}
             <Link
               href={s.href}
               tabIndex={i === index ? undefined : -1}
               className="block"
             >
-              {/* One download per viewport: the browser picks the desktop or the
-                  mobile art from the media queries, and older browsers that can't
-                  decode WebP fall through to the JPEG. */}
-              <picture>
-                {!s.jpegOnly && (
-                  <source media="(min-width: 640px)" srcSet={`${s.desktop}.webp`} type="image/webp" />
-                )}
-                <source media="(min-width: 640px)" srcSet={`${s.desktop}.jpg`} />
-                {!s.jpegOnly && <source srcSet={`${s.mobile}.webp`} type="image/webp" />}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`${s.mobile}.jpg`}
-                  alt={label(s.alt)}
-                  // Without this a mouse-drag starts a native image drag instead
-                  // of doing nothing, which feels broken on a swipeable strip.
-                  draggable={false}
-                  className={cn(
-                    'aspect-square w-full select-none sm:aspect-video',
-                    s.fit === 'contain' ? 'object-contain' : 'object-cover',
+              {s.kind === 'bundle' ? (
+                <BundleSlide bundle={s.bundle} />
+              ) : (
+                /* One download per viewport: the browser picks the desktop or
+                   the mobile art from the media queries, and older browsers that
+                   can't decode WebP fall through to the JPEG. */
+                <picture>
+                  {!s.jpegOnly && (
+                    <source media="(min-width: 640px)" srcSet={`${s.desktop}.webp`} type="image/webp" />
                   )}
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                  decoding="async"
-                  {...(i === 0
-                    ? {
-                        ref: (el: HTMLImageElement | null) => {
-                          if (el?.complete) setStarted(true);
-                        },
-                        onLoad: () => setStarted(true),
-                        // A broken or blocked image must not freeze the show.
-                        onError: () => setStarted(true),
-                      }
-                    : {})}
-                />
-              </picture>
+                  <source media="(min-width: 640px)" srcSet={`${s.desktop}.jpg`} />
+                  {!s.jpegOnly && <source srcSet={`${s.mobile}.webp`} type="image/webp" />}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`${s.mobile}.jpg`}
+                    alt={label(s.alt)}
+                    // Without this a mouse-drag starts a native image drag
+                    // instead of doing nothing, which feels broken on a
+                    // swipeable strip.
+                    draggable={false}
+                    className={cn(
+                      'aspect-square w-full select-none sm:aspect-video',
+                      s.fit === 'contain' ? 'object-contain' : 'object-cover',
+                    )}
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    {...(i === 0
+                      ? {
+                          ref: (el: HTMLImageElement | null) => {
+                            if (el?.complete) setStarted(true);
+                          },
+                          onLoad: () => setStarted(true),
+                          // A broken or blocked image must not freeze the show.
+                          onError: () => setStarted(true),
+                        }
+                      : {})}
+                  />
+                </picture>
+              )}
             </Link>
           </li>
         ))}
