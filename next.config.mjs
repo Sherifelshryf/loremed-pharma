@@ -38,6 +38,25 @@ const CSP = [
   "frame-ancestors 'self'",
 ].join('; ');
 
+/**
+ * Policy for /admin only — see the long note in public/admin/.htaccess, which
+ * is the copy that actually applies in production. Kept alongside CSP so the
+ * two are read together and neither is edited alone.
+ */
+const ADMIN_CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https://*.githubusercontent.com",
+  "font-src 'self' data: https://cdn.jsdelivr.net",
+  "connect-src 'self' blob: data: https://api.github.com https://raw.githubusercontent.com https://*.githubusercontent.com",
+  "worker-src 'self' blob:",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+].join('; ');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -67,6 +86,21 @@ const nextConfig = {
                 { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
                 { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
                 { key: 'Content-Security-Policy', value: CSP },
+              ],
+            },
+            // The editor at /admin needs to reach api.github.com, which the
+            // policy above forbids. Listed second on purpose: Next applies
+            // header rules in order and a later match wins for the same key,
+            // so this replaces the CSP for /admin only.
+            //
+            // Production is the static export, where Apache decides — the
+            // authoritative copy of this is public/admin/.htaccess. This rule
+            // exists so the editor also works on a Vercel preview build.
+            {
+              source: '/admin/:path*',
+              headers: [
+                { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
+                { key: 'Content-Security-Policy', value: ADMIN_CSP },
               ],
             },
           ];

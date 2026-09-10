@@ -4,9 +4,9 @@
   "private": true,
   "description": "Loremed Pharma — premium corporate pharmaceutical website",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "build:static": "STATIC_EXPORT=1 next build",
+    "dev": "node scripts/copy-cms.mjs && next dev",
+    "build": "node scripts/copy-cms.mjs && next build",
+    "build:static": "node scripts/copy-cms.mjs && STATIC_EXPORT=1 next build",
     "start": "next start",
     "lint": "next lint",
     "test": "node --import tsx --test tests/*.test.ts"
@@ -20,6 +20,7 @@
     "tailwind-merge": "2.5.2"
   },
   "devDependencies": {
+    "@sveltia/cms": "^0.209.0",
     "@types/node": "20.14.15",
     "@types/react": "18.3.4",
     "@types/react-dom": "18.3.0",

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Loremed — Edit products</title>
+    <!-- Nothing here should ever be indexed or previewed as a link. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/icon.svg" />
+    <style>
+      /* Shown only until the CMS bundle takes over the page. */
+      .boot {
+        font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+        color: #322353;
+        max-width: 34rem;
+        margin: 18vh auto 0;
+        padding: 0 1.5rem;
+        text-align: center;
+      }
+      .boot h1 { font-size: 1.25rem; margin: 0 0 0.5rem; }
+      .boot p { color: #5b5470; margin: 0; }
+    </style>
+  </head>
+  <body>
+    <div class="boot" id="boot">
+      <h1>Loading the editor…</h1>
+      <p>If this message stays, the editor script failed to load — tell whoever looks after the site.</p>
+    </div>
+
+    <!--
+      Self-hosted rather than loaded from a CDN, deliberately. The site's
+      Content-Security-Policy is script-src 'self', and a CDN would either be
+      blocked or force that policy open for every page. scripts/copy-cms.mjs
+      copies this file out of node_modules at build time, which also pins the
+      version to the one in package.json instead of whatever a CDN serves today.
+    -->
+    <script src="/admin/sveltia-cms.js"></script>
+
+    <!--
+      The editor mounts its own UI into <body> rather than replacing what is
+      already there, so the message above would otherwise sit on top of the
+      login screen. Drop it the moment anything else appears.
+    -->
+    <script>
+      (function () {
+        var boot = document.getElementById('boot');
+        if (!boot) return;
+        var seen = new MutationObserver(function () {
+          for (var i = 0; i < document.body.children.length; i++) {
+            var el = document.body.children[i];
+            if (el !== boot && el.tagName !== 'SCRIPT') {
+              boot.remove();
+              seen.disconnect();
+              return;
+            }
+          }
+        });
+        seen.observe(document.body, { childList: true });
+      })();
+    </script>
+  </body>
+</html>
