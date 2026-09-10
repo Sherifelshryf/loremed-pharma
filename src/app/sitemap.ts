@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { site } from '@/content/site';
 import { products } from '@/content/products';
+import { sellableBundles } from '@/content/bundles';
 
 /**
  * The static export sets `trailingSlash`, so pages are served from
@@ -24,6 +25,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // value in search results. `/wholesale` is included — unlike the cart, it is a
   // landing page pharmacies and distributors may find via search.
   const pages = ['', '/products', '/about', '/quality', '/research', '/contact', '/wholesale'];
+
+  // /offers only when there is something on it. The page sets itself `noindex`
+  // while it is a coming-soon placeholder, and a sitemap that submits a URL the
+  // page itself tells crawlers to ignore is a contradiction worth avoiding.
+  if (sellableBundles().length > 0) pages.push('/offers');
 
   return [
     ...pages.map((path) => ({
