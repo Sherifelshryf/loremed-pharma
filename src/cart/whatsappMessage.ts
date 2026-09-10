@@ -78,7 +78,13 @@ export function buildWhatsAppMessage({
   address: string;
   notes: string;
   locationLink: string | null;
-  lines: { product: { name: { en: string }; price: number }; quantity: number; lineTotal: number }[];
+  lines: {
+    name: { en: string };
+    quantity: number;
+    lineTotal: number;
+    /** Bundles only — what is in the box, so the order can be packed from this. */
+    contents?: { name: { en: string }; quantity: number }[];
+  }[];
   subtotal: number;
   deliveryFee: number;
   total: number;
@@ -112,10 +118,16 @@ export function buildWhatsAppMessage({
     // Dot leaders are padded against the rendered width — the bold asterisks
     // are markup and disappear once WhatsApp formats the line.
     // The invoice stays English for product names so they match the carton.
-    const label = invoiceName(line.product.name.en);
+    const label = invoiceName(line.name.en);
     const rendered = `${label} ×${line.quantity}`;
     const dots = '.'.repeat(Math.max(3, LEADER_WIDTH - rendered.length));
     msg += `• *${label}* ×${line.quantity} ${dots} *${money(line.lineTotal)}*${lb}`;
+    // A bundle is one priced line, but whoever packs it needs the contents.
+    // Indented under the line rather than as separate items, so the arithmetic
+    // above still reads as one price per row.
+    for (const part of line.contents ?? []) {
+      msg += `      ↳ ${invoiceName(part.name.en)} ×${part.quantity}${lb}`;
+    }
   }
   msg += lb;
 

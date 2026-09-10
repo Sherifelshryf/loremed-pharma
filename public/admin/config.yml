@@ -259,3 +259,121 @@ collections:
                 hint: >-
                   Just the ID, the part after watch?v= — not the whole address.
                   Leave blank for no video.
+
+  - name: offers
+    label: Offers
+    files:
+      - name: bundles
+        label: Bundles
+        file: src/content/bundles.json
+        format: json
+        description: >-
+          Sets of products sold together at one price. While this list is empty
+          the Offers page on the site says "coming soon" — add a bundle and set
+          it to Active, and the page turns into a shop a couple of minutes
+          later. Both prices are typed here by hand: the site does not work
+          them out from the products inside.
+        fields:
+          - name: bundles
+            label: Bundles
+            label_singular: Bundle
+            widget: list
+            # bundles.json is a bare array, same as products.json.
+            root: true
+            collapsed: true
+            summary: '{{fields.name.en}} — {{fields.price}} EGP'
+            required: false
+            fields:
+              - name: name
+                label: Bundle name
+                widget: object
+                collapsed: false
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ar, label: العربية, widget: string }
+
+              - name: slug
+                label: URL slug
+                widget: string
+                hint: >-
+                  Lower-case letters, numbers and hyphens, e.g. "immunity-pack".
+                  Used internally to identify the bundle in someone's cart, so
+                  changing it empties it from any basket it is already sitting
+                  in.
+                pattern:
+                  - '^[a-z0-9-]+$'
+                  - Only a-z, 0-9 and hyphens
+
+              - name: status
+                label: Status
+                widget: select
+                default: hidden
+                hint: >-
+                  Hidden keeps a bundle off the site while you work on it.
+                  Nothing appears to customers until this is set to Active.
+                options:
+                  - { label: Active — visible and buyable, value: active }
+                  - { label: Hidden — draft, not on the site, value: hidden }
+
+              - name: tagline
+                label: Tagline
+                widget: object
+                collapsed: false
+                hint: The short line under the bundle name on the card.
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ar, label: العربية, widget: string }
+
+              - name: description
+                label: Description
+                widget: object
+                collapsed: false
+                fields:
+                  - { name: en, label: English, widget: text }
+                  - { name: ar, label: العربية, widget: text }
+
+              - name: items
+                label: What's in the bundle
+                label_singular: Product
+                widget: list
+                collapsed: false
+                summary: '{{fields.slug}} ×{{fields.quantity}}'
+                hint: >-
+                  One row per product, using its slug exactly as it appears in
+                  Products — "ivylor", "smartod-d". A slug that does not match a
+                  product on sale will fail the build rather than show a broken
+                  bundle, so check the spelling against the Products list.
+                fields:
+                  - { name: slug, label: Product slug, widget: string }
+                  - { name: quantity, label: How many, widget: number, value_type: int, min: 1, default: 1 }
+
+              - name: price
+                label: Bundle price (EGP)
+                widget: number
+                value_type: int
+                min: 0
+                hint: What the customer actually pays for the whole bundle.
+
+              - name: compareAtPrice
+                label: Was price (EGP)
+                widget: number
+                value_type: int
+                required: false
+                hint: >-
+                  Optional. Shown struck through next to the price, and the
+                  difference becomes the "Save X" badge. Must be higher than the
+                  bundle price — leave it blank if there is no saving to show.
+
+              - name: image
+                label: Photo
+                widget: image
+                required: false
+                hint: >-
+                  Optional. Upload a JPEG. Without one the card shows a plain
+                  tag icon, which is fine but plainer.
+
+              - name: featured
+                label: Feature this bundle
+                widget: boolean
+                required: false
+                default: false

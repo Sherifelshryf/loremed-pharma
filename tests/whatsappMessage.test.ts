@@ -11,8 +11,8 @@ test('buildWhatsAppMessage renders a two-line order', () => {
     notes: '',
     locationLink: null,
     lines: [
-      { product: { name: { en: 'Imulormed' }, price: 180 }, quantity: 1, lineTotal: 180 },
-      { product: { name: { en: 'Vitelormed' }, price: 210 }, quantity: 2, lineTotal: 420 },
+      { name: { en: 'Imulormed' }, quantity: 1, lineTotal: 180 },
+      { name: { en: 'Vitelormed' }, quantity: 2, lineTotal: 420 },
     ],
     subtotal: 600,
     deliveryFee: 30,
@@ -47,7 +47,7 @@ test('buildWhatsAppMessage includes notes and location only when provided', () =
     address: 'Cairo',
     notes: 'Ring the bell',
     locationLink: 'https://maps.google.com/?q=30,31',
-    lines: [{ product: { name: { en: 'Ivylor' }, price: 160 }, quantity: 1, lineTotal: 160 }],
+    lines: [{ name: { en: 'Ivylor' }, quantity: 1, lineTotal: 160 }],
     subtotal: 160,
     deliveryFee: 30,
     total: 190,
@@ -65,7 +65,7 @@ test('buildWhatsAppMessage drops astral emoji pasted into free-text fields', () 
     address: 'Cairo 🏠',
     notes: '',
     locationLink: null,
-    lines: [{ product: { name: { en: 'Ivylor' }, price: 160 }, quantity: 1, lineTotal: 160 }],
+    lines: [{ name: { en: 'Ivylor' }, quantity: 1, lineTotal: 160 }],
     subtotal: 160,
     deliveryFee: 30,
     total: 190,
@@ -95,4 +95,52 @@ test('generateOrderNumber does not collide for two calls in the same millisecond
   assert.equal(a.split('-')[0], b.split('-')[0]);
   assert.match(a, /^[0-9A-Z]+-\d{4}$/);
   assert.match(b, /^[0-9A-Z]+-\d{4}$/);
+});
+
+test('a bundle line lists its contents under the priced row', () => {
+  const message = buildWhatsAppMessage({
+    orderNumber: 'LP-2001',
+    name: 'Mona',
+    phone: '01012345678',
+    address: 'Nasr City',
+    notes: '',
+    locationLink: null,
+    lines: [
+      {
+        name: { en: 'Immunity Pack' },
+        quantity: 2,
+        lineTotal: 480,
+        contents: [
+          { name: { en: 'Ivylor' }, quantity: 1 },
+          { name: { en: 'Vitelormed' }, quantity: 1 },
+        ],
+      },
+    ],
+    subtotal: 480,
+    deliveryFee: 30,
+    total: 510,
+  });
+
+  // One priced row for the bundle itself...
+  assert.match(message, /Immunity Pack.*×2.*480 ج\.م/);
+  // ...and its contents indented beneath, with no prices of their own.
+  assert.match(message, /↳ Ivylor ×1/);
+  assert.match(message, /↳ Vitelormed ×1/);
+  assert.doesNotMatch(message, /↳ Ivylor ×1.*ج\.م/);
+});
+
+test('a product line has no contents and gains no arrow', () => {
+  const message = buildWhatsAppMessage({
+    orderNumber: 'LP-2002',
+    name: 'Mona',
+    phone: '01012345678',
+    address: 'Nasr City',
+    notes: '',
+    locationLink: null,
+    lines: [{ name: { en: 'Ivylor' }, quantity: 1, lineTotal: 80 }],
+    subtotal: 80,
+    deliveryFee: 30,
+    total: 110,
+  });
+  assert.doesNotMatch(message, /↳/);
 });

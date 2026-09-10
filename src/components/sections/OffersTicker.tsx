@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Tag } from 'lucide-react';
+import { sellableBundles } from '@/content/bundles';
 import { L } from '@/i18n/Localized';
 
 /** Repeats per copy. Two identical copies make the loop seamless. */
@@ -19,10 +20,17 @@ const PER_COPY = 6;
  * endlessly moving band is exactly what a visitor asked not to see.
  */
 export function OffersTicker() {
+  // The strip promises what the page delivers. While there are no bundles the
+  // /offers page says "coming soon", so the ticker does too; once one is added
+  // in the CMS both change together on the next deploy.
+  const message = sellableBundles().length
+    ? { en: 'Offers and bundles — shop the sets', ar: 'العروض والباقات — اتفرج على المجموعات' }
+    : { en: 'Offers and bundles coming soon', ar: 'العروض والباقات قريبًا' };
+
   const phrase = (
     <span className="inline-flex items-center gap-2.5 px-6">
       <Tag className="h-4 w-4 shrink-0" strokeWidth={2.5} aria-hidden />
-      <L text={{ en: 'Offers and bundles coming soon', ar: 'العروض والباقات قريبًا' }} />
+      <L text={message} />
     </span>
   );
 
@@ -34,7 +42,7 @@ export function OffersTicker() {
       {/* One accessible copy of the message; the moving band is decorative so a
           screen reader isn't read the same phrase twelve times. */}
       <span className="sr-only">
-        <L text={{ en: 'Offers and bundles coming soon', ar: 'العروض والباقات قريبًا' }} />
+        <L text={message} />
       </span>
       <div
         aria-hidden

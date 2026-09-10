@@ -208,12 +208,12 @@ export function OrderClient() {
           <ul className="mt-4 space-y-4">
             {lines.map((line) => (
               <li
-                key={line.product.slug}
+                key={`${line.kind}:${line.slug}`}
                 className="flex gap-3 rounded-2xl border border-line bg-white p-3 shadow-soft sm:gap-4 sm:p-4"
               >
                 <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-neutral-50">
-                  {line.product.image && (
-                    <ProductImage src={line.product.image} alt={line.product.name[locale]} className="absolute inset-0 h-full w-full object-contain p-1.5" />
+                  {line.image && (
+                    <ProductImage src={line.image} alt={line.name[locale]} className="absolute inset-0 h-full w-full object-contain p-1.5" />
                   )}
                 </div>
                 {/* Name/remove on top, quantity + line total below — keeps the row from
@@ -222,18 +222,28 @@ export function OrderClient() {
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
                       <Link
-                        href={`/products/${line.product.slug}`}
+                        href={line.href}
                         className="block truncate font-medium text-ink hover:text-primary-800"
                       >
-                        {line.product.name[locale]}
+                        {line.name[locale]}
                       </Link>
                       <div className="mt-0.5 text-sm text-ink-muted">
-                        {currency} {line.product.price}
+                        {currency} {line.price}
                       </div>
+                      {/* A bundle's name alone does not say what is in the box. */}
+                      {line.contents && line.contents.length > 0 && (
+                        <ul className="mt-1 space-y-0.5 text-xs text-ink-muted">
+                          {line.contents.map((c) => (
+                            <li key={c.name.en} className="truncate">
+                              {c.name[locale]} ×{c.quantity}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
                     <button
                       type="button"
-                      onClick={() => removeItem(line.product.slug)}
+                      onClick={() => removeItem(line.slug, line.kind)}
                       className="-me-1 grid h-8 w-8 shrink-0 place-items-center rounded-full text-ink-muted transition-colors hover:bg-danger-50 hover:text-danger-600"
                       aria-label={t('order.remove')}
                     >
@@ -244,7 +254,7 @@ export function OrderClient() {
                     <div className="inline-flex shrink-0 items-center rounded-full border border-line">
                       <button
                         type="button"
-                        onClick={() => setQuantity(line.product.slug, line.quantity - 1)}
+                        onClick={() => setQuantity(line.slug, line.quantity - 1, line.kind)}
                         className="grid h-9 w-9 place-items-center text-ink-soft transition-colors hover:text-primary-800"
                         aria-label={t('order.quantity')}
                       >
@@ -253,7 +263,7 @@ export function OrderClient() {
                       <span className="w-8 text-center text-sm font-semibold text-ink">{line.quantity}</span>
                       <button
                         type="button"
-                        onClick={() => setQuantity(line.product.slug, line.quantity + 1)}
+                        onClick={() => setQuantity(line.slug, line.quantity + 1, line.kind)}
                         className="grid h-9 w-9 place-items-center text-ink-soft transition-colors hover:text-primary-800"
                         aria-label={t('order.quantity')}
                       >
