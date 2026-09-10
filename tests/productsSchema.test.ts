@@ -81,3 +81,37 @@ test('all problems are reported at once, not just the first', () => {
   p.name.ar = '';
   assert.ok(validateProducts([p]).length >= 3);
 });
+
+/**
+ * The same trap that broke a deploy on the bundles side: clearing a field at
+ * /admin leaves it in the JSON as `""` or `null` rather than removing it, and
+ * the validator has to read that as "unset" — the storefront already does.
+ */
+test('a field cleared in the CMS reads as unset, not as invalid', () => {
+  const cases: Array<[string, unknown]> = [
+    ['image', ''],
+    ['image', null],
+    ['youtubeId', ''],
+    ['youtubeId', null],
+    ['featured', null],
+    ['secondaryCategories', null],
+    ['related', null],
+  ];
+  for (const [field, cleared] of cases) {
+    const p = good();
+    p.related = [];
+    p[field] = cleared;
+    assert.deepEqual(
+      validateProducts([p]),
+      [],
+      `${field} = ${JSON.stringify(cleared)}`,
+    );
+  }
+});
+
+test('a genuinely wrong photo path is still caught', () => {
+  const p = good();
+  p.related = [];
+  p.image = 'media/missing-leading-slash.webp';
+  assert.ok(validateProducts([p]).some((m) => m.includes('image')));
+});

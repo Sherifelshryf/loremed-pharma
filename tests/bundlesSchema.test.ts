@@ -126,6 +126,36 @@ test('omitting the "was" price entirely is fine', () => {
   assert.deepEqual(validateBundles([b]), []);
 });
 
+/**
+ * Clearing a field at /admin does not remove it from the JSON — the CMS writes
+ * back the empty control, so a removed photo arrives as `""` and a cleared
+ * number can arrive as `null`.
+ *
+ * This is not a hypothetical. Removing a bundle's photo wrote `"image": ""`,
+ * the validator called it invalid, `npm test` failed, the deploy refused to
+ * upload — and so the photo stayed on the live site, with nothing to tell the
+ * person who removed it why. Every one of these cases has to pass.
+ */
+test('a field cleared in the CMS reads as unset, not as invalid', () => {
+  for (const [field, cleared] of [
+    ['image', ''],
+    ['image', null],
+    ['compareAtPrice', null],
+    ['compareAtPrice', ''],
+    ['featured', null],
+  ] as const) {
+    const b = good();
+    b[field] = cleared;
+    assert.deepEqual(validateBundles([b]), [], `${field} = ${JSON.stringify(cleared)}`);
+  }
+});
+
+test('a genuinely wrong photo path is still caught', () => {
+  const b = good();
+  b.image = 'media/not-a-path.jpg';
+  assert.ok(validateBundles([b]).some((m) => m.includes('image')));
+});
+
 test('an empty bundle is caught', () => {
   const b = good();
   b.items = [];

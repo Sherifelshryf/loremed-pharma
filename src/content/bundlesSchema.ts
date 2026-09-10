@@ -15,6 +15,7 @@
  */
 
 import { getProduct } from './products';
+import { isBlank } from './schemaUtils';
 
 const STATUSES = ['active', 'hidden'];
 
@@ -72,7 +73,7 @@ export function validateBundles(data: unknown): string[] {
     // The "was" price is optional, but a bundle claiming a saving that is zero
     // or negative would render as a strike-through above an equal or higher
     // number, which reads as a mistake because it is one.
-    if (b.compareAtPrice !== undefined) {
+    if (!isBlank(b.compareAtPrice)) {
       if (typeof b.compareAtPrice !== 'number' || !Number.isFinite(b.compareAtPrice)) {
         problems.push(`${at}.compareAtPrice: expected a number of EGP or nothing at all`);
       } else if (typeof b.price === 'number' && b.compareAtPrice <= b.price) {
@@ -120,10 +121,11 @@ export function validateBundles(data: unknown): string[] {
       });
     }
 
-    if (b.image !== undefined && (typeof b.image !== 'string' || !b.image.startsWith('/'))) {
+    // Blank means the editor removed the photo, which is allowed — see isBlank.
+    if (!isBlank(b.image) && (typeof b.image !== 'string' || !b.image.startsWith('/'))) {
       problems.push(`${at}.image: expected a path starting with "/"`);
     }
-    if (b.featured !== undefined && typeof b.featured !== 'boolean') {
+    if (!isBlank(b.featured) && typeof b.featured !== 'boolean') {
       problems.push(`${at}.featured: expected true or false`);
     }
   });
