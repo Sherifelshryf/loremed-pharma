@@ -166,6 +166,24 @@ export function Footer() {
             </button>
           </div>
         </div>
+
+        {/* Build credit — the last line on the page, quieter than the legal
+            notice above it so it reads as a signature rather than a promotion.
+            "WebLite" stays in Latin in both languages: it is a name, and the
+            site does not translate names. */}
+        <div className="border-t border-white/10 py-5 text-center">
+          <p className="text-xs text-white/35">
+            {locale === 'ar' ? 'من تنفيذ ' : 'Made by '}
+            <a
+              href="https://webliteeg.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-white/55 underline-offset-4 transition-colors hover:text-secondary-300 hover:underline"
+            >
+              WebLite
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
