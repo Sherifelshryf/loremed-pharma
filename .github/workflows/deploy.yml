@@ -17,8 +17,18 @@
 name: Deploy to Namecheap
 
 on:
-  push:
-    branches: [main]
+  # DISABLED until the upload target is confirmed.
+  #
+  # A dry run against the configured FTP account listed wp-settings.php,
+  # wp-signup.php, wp-trackback.php and xmlrpc.php — the account lands in a
+  # directory holding a WordPress site, not an empty public_html. This job
+  # syncs with --delete, so an automatic run would remove those files.
+  #
+  # Re-enable by restoring the push trigger below, once it is established
+  # which directory the site should go to and what that WordPress is.
+  #
+  # push:
+  #   branches: [main]
   workflow_dispatch:
     inputs:
       dry_run:
