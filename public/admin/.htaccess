@@ -1,46 +1,23 @@
-# Apache config for /admin only.
+# Apache/LiteSpeed config for /admin only.
 #
-# Apache applies the nearest .htaccess, and `Header set` here replaces the value
-# set by the one in the parent directory — so this relaxes the policy for the
-# editor without touching the policy the public site is served under. The HTTPS
-# redirect and cache rules from the parent still apply; only the CSP changes.
+# No headers here. They used to live in this file — the relaxed CSP the editor
+# needs, plus X-Frame-Options and X-Robots-Tag — on the assumption that a
+# nested .htaccess overrides its parent for that directory. On this host it
+# only half did: LiteSpeed applied these headers to /admin/config.yml while
+# /admin/ itself and the editor bundle kept the site-wide policy, whose
+# connect-src 'self' blocks api.github.com. The editor loaded, looked fine, and
+# failed to sign in with "Failed to fetch".
 #
-# The site-wide policy is connect-src 'self', which blocks the editor from
-# reaching api.github.com. That failure is silent: the editor loads, looks
-# fine, and saving does nothing. Hence this file.
+# Both policies now live in public/.htaccess, selected by request path with
+# SetEnvIf. One file, one set of rules, no dependence on merge order.
+#
+# What is left here is caching, which does work per-directory and has no
+# equivalent conflict.
 
-# The editor is not content. Keep it out of search results even if someone links to it.
-<IfModule mod_headers.c>
-  Header set X-Robots-Tag "noindex, nofollow"
-
-  # Wider than the site policy, and only here.
-  #
-  #  connect-src  api.github.com is the REST and GraphQL API the editor reads
-  #               and writes through; raw.githubusercontent.com serves media
-  #               previews; blob:/data: cover files picked locally before upload
-  #  script-src   'unsafe-eval' and blob: are what a bundled single-page app of
-  #               this size needs to boot; acceptable on one page reachable only
-  #               with a GitHub token, not acceptable site-wide
-  #  img-src      githubusercontent.com serves the signed-in user's avatar
-  #  font-src     the editor pulls its own UI fonts from jsdelivr, including
-  #               the icon font — block it and every button reads "delete" or
-  #               "add" in words instead of showing a glyph
-  #  worker-src   the editor spawns workers from blob: URLs
-  #
-  # Two things stay blocked on purpose, and both fail quietly: the editor's
-  # check for a newer version on unpkg.com (the version is pinned in
-  # package.json deliberately, so there is nothing to act on) and its ping to
-  # githubstatus.com (cosmetic). Neither is worth widening the policy for.
-  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.githubusercontent.com; font-src 'self' data: https://cdn.jsdelivr.net; connect-src 'self' blob: data: https://api.github.com https://raw.githubusercontent.com https://*.githubusercontent.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
-
-  # X-Frame-Options is inherited as SAMEORIGIN; the editor should not be framed
-  # at all, so tighten it here to match frame-ancestors 'none' above.
-  Header set X-Frame-Options "DENY"
-</IfModule>
-
-# The bundle is 2 MB and its contents change only when the version in
-# package.json does, so let browsers keep it. index.html and config.yml must
-# not be cached or an editor keeps loading the previous form.
+# The 2 MB editor bundle changes only when the version in package.json does, so
+# it keeps the year-long cache the parent gives hashed assets. index.html and
+# config.yml must not be cached, or an editor keeps loading the previous form
+# after the schema changes.
 <IfModule mod_expires.c>
   ExpiresActive On
   <FilesMatch "\.(html|yml)$">
