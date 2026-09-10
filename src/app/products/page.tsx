@@ -64,7 +64,7 @@ export default function ProductsPage() {
 
       <Container className="pb-20">
         <p className="rounded-2xl border border-line bg-neutral-50 px-6 py-5 text-xs leading-relaxed text-ink-muted">
-          {medicalDisclaimer}
+          <L text={medicalDisclaimer} />
         </p>
       </Container>
     </>
