@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "name": {
+      "en": "immunity",
+      "ar": "مناعة"
+    },
+    "slug": "immunity-pack",
+    "status": "active",
+    "tagline": {
+      "en": "Immunity TESTING",
+      "ar": "تيست مناعة"
+    },
+    "description": {
+      "en": "immu test",
+      "ar": "تيست"
+    },
+    "items": [
+      {
+        "slug": "ivylor",
+        "quantity": 1
+      },
+      {
+        "slug": "coglern-syrup",
+        "quantity": 1
+      }
+    ],
+    "price": 200,
+    "compareAtPrice": 350,
+    "image": "/media/campaigns/children.png",
+    "featured": true
+  }
+]
