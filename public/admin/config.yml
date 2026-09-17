@@ -343,12 +343,26 @@ collections:
                 collapsed: false
                 summary: '{{fields.slug}} ×{{fields.quantity}}'
                 hint: >-
-                  One row per product, using its slug exactly as it appears in
-                  Products — "ivylor", "smartod-d". A slug that does not match a
-                  product on sale will fail the build rather than show a broken
-                  bundle, so check the spelling against the Products list.
+                  One row per product, using its URL slug — NOT its display
+                  name. The slugs are: ivylor, ivylor-advance, coglern-syrup,
+                  smartod, smartod-d, vitelormed, gotolor, welcaderm-lotion,
+                  imulormed, ferolormed. A slug that does not match a product on
+                  sale stops the deploy rather than publishing a broken bundle,
+                  and nothing you changed reaches the site until it is fixed.
                 fields:
-                  - { name: slug, label: Product slug, widget: string }
+                  # Free text, but shaped. Typing the product's display name —
+                  # "SMARTOD D" rather than "smartod-d" — stopped a deploy, and
+                  # the editor had no way of knowing: the CMS said "saved" and
+                  # the site simply never changed. This pattern rejects capitals
+                  # and spaces in the form, where the mistake is made and can be
+                  # seen, instead of thirty seconds later in a build log nobody
+                  # is watching.
+                  - name: slug
+                    label: Product slug
+                    widget: string
+                    pattern:
+                      - '^[a-z0-9-]+$'
+                      - Slugs are lower-case with hyphens, e.g. smartod-d — not the product name
                   - { name: quantity, label: How many, widget: number, value_type: int, min: 1, default: 1 }
 
               - name: price

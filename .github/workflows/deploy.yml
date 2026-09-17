@@ -51,7 +51,34 @@ jobs:
       # ci.yml covers pull requests, but content edits can land on main directly
       # from the GitHub web editor or from the CMS. Nothing reaches the live
       # site without passing here first.
-      - run: npm test
+      - name: Check the content is valid
+        id: content
+        run: npm test
+
+      # When that fails the deploy stops and the live site keeps its previous
+      # copy — correct, but from inside the CMS it looks like nothing happened
+      # at all: it says "saved", and the site never changes. This turns the TAP
+      # output nobody reads into a plain sentence at the top of the run, so the
+      # person who made the edit can see which field is wrong and fix it.
+      - name: Explain what is wrong with the content
+        if: failure() && steps.content.outcome == 'failure'
+        run: |
+          {
+            echo "## The edit was saved, but the site was not updated"
+            echo ""
+            echo "Something in the content is not valid, so the deploy stopped before"
+            echo "uploading. **The live site still shows the previous version.**"
+            echo ""
+            echo "### What needs fixing"
+            echo ""
+            echo '```'
+            npx tsx scripts/explain-content-errors.ts 2>&1 \
+              || echo "Could not read the content; see the failing test above."
+            echo '```'
+            echo ""
+            echo "Fix it at [/admin](https://loremedpharma.com/admin/) and save again."
+            echo "The deploy re-runs by itself and takes about two minutes."
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Build the static export
         run: npm run build:static
@@ -127,7 +154,24 @@ jobs:
           # be skipped and the site would quietly keep serving the old figure.
           # This is a full sync of about 26 MB, which on this host runs to a
           # few minutes — cheap next to a deploy that silently drops an edit.
-          lftp -c "
+          #
+          # Wrapped in a retry. `net:max-retries` above only retries individual
+          # transfers once a session exists; a session that never opens — a
+          # refused connection, a TLS handshake that times out, the host briefly
+          # unreachable — fails the whole command, and on shared hosting that is
+          # a matter of luck rather than of configuration. Three attempts with a
+          # widening gap turns most of those into a slower deploy instead of a
+          # failed one.
+          #
+          # A repeated failure is left to fail: it means something is actually
+          # wrong — a rotated password, a moved host — and the diagnostic step
+          # below says which. Retrying past that would only hide it.
+          #
+          # Each attempt re-runs the same mirror. That is safe: mirror is a sync,
+          # not an append, so resuming a half-finished upload converges on the
+          # same result rather than duplicating anything.
+          attempt=1
+          until lftp -c "
             set ftp:ssl-force true;
             set ftp:ssl-protect-data true;
             set ssl:verify-certificate true;
@@ -140,7 +184,17 @@ jobs:
               --exclude '^\.ftpquota$' \
               out/ .;
             bye;
-          "
+          "; do
+            if [ "$attempt" -ge 3 ]; then
+              echo "Upload failed on all 3 attempts — this is not a passing glitch."
+              exit 1
+            fi
+            wait=$((attempt * 20))
+            echo "Upload attempt $attempt failed; retrying in ${wait}s."
+            sleep "$wait"
+            attempt=$((attempt + 1))
+          done
+          echo "Uploaded on attempt $attempt."
 
       # `lftp -c` reports every connection problem as "max-retries exceeded",
       # which is true and useless — a wrong hostname, a rejected password, a
