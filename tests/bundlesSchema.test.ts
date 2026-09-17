@@ -13,7 +13,23 @@ import {
   type Bundle,
 } from '../src/content/bundles';
 import raw from '../src/content/bundles.json';
-import { getProduct } from '../src/content/products';
+import { getProduct, products } from '../src/content/products';
+
+/**
+ * Products chosen at run time, not written in.
+ *
+ * These tests exercise functions that read the live catalogue, so naming
+ * "ivylor" and its price of 80 tied them to content an editor can change. A
+ * routine price change in the CMS failed `contentsTotal adds up the real
+ * product prices` — and these run in the deploy, so a price change would have
+ * stopped the site updating. Deriving the fixture from whatever is in the
+ * catalogue keeps the assertions true at any prices, under any names.
+ */
+const onSale = products.filter((p) => p.status === 'available');
+const [FIRST, SECOND] = onSale;
+const CONTENTS_TOTAL = FIRST.price + SECOND.price;
+/** A product that exists but cannot be sold; there may not be one. */
+const NOT_FOR_SALE = products.find((p) => p.status !== 'available');
 
 /** A valid bundle built from two products that really exist and are available. */
 const good = (): Record<string, unknown> => ({
@@ -22,11 +38,13 @@ const good = (): Record<string, unknown> => ({
   tagline: { en: 'Two ways to stay well', ar: 'طريقتين تفضل بيهم بصحة' },
   description: { en: 'Ivylor and Vitelormed together.', ar: 'إيفيلور وفيتيلورميد مع بعض.' },
   items: [
-    { slug: 'ivylor', quantity: 1 },
-    { slug: 'vitelormed', quantity: 1 },
+    { slug: FIRST.slug, quantity: 1 },
+    { slug: SECOND.slug, quantity: 1 },
   ],
-  price: 240,
-  compareAtPrice: 265,
+  // Priced against the real contents, so the "was" price is always above the
+  // price whatever those products happen to cost today.
+  price: CONTENTS_TOTAL - 10,
+  compareAtPrice: CONTENTS_TOTAL,
   status: 'active',
 });
 
@@ -117,15 +135,15 @@ test('a bundle containing a product that does not exist is caught', () => {
   assert.ok(validateBundles([b]).some((m) => m.includes('not an existing product')));
 });
 
-test('a bundle containing an unavailable product is caught', () => {
+test('a bundle containing an unavailable product is caught', (t) => {
+  if (!NOT_FOR_SALE) return t.skip('every product is currently on sale');
   const b = good();
-  // imulormed is real but under registration, so it cannot be sold.
-  (b.items as unknown[])[0] = { slug: 'imulormed', quantity: 1 };
+  (b.items as unknown[])[0] = { slug: NOT_FOR_SALE.slug, quantity: 1 };
   assert.ok(validateBundles([b]).some((m) => m.includes('not available to buy')));
 });
 
 test('a "was" price at or below the price is caught', () => {
-  for (const compareAtPrice of [240, 200]) {
+  for (const compareAtPrice of [CONTENTS_TOTAL - 10, CONTENTS_TOTAL - 50]) {
     const b = good();
     b.compareAtPrice = compareAtPrice;
     assert.ok(
@@ -180,8 +198,8 @@ test('an empty bundle is caught', () => {
 test('the same product listed twice is caught', () => {
   const b = good();
   b.items = [
-    { slug: 'ivylor', quantity: 1 },
-    { slug: 'ivylor', quantity: 2 },
+    { slug: FIRST.slug, quantity: 1 },
+    { slug: FIRST.slug, quantity: 2 },
   ];
   assert.ok(validateBundles([b]).some((m) => m.includes('listed twice')));
 });
@@ -189,7 +207,7 @@ test('the same product listed twice is caught', () => {
 test('a fractional or zero quantity is caught', () => {
   for (const quantity of [0, -1, 1.5, '2']) {
     const b = good();
-    b.items = [{ slug: 'ivylor', quantity }];
+    b.items = [{ slug: FIRST.slug, quantity }];
     assert.ok(validateBundles([b]).some((m) => m.includes('quantity')), String(quantity));
   }
 });
@@ -214,23 +232,29 @@ test('all problems are reported at once', () => {
 
 test('saving is the difference, and zero when no "was" price is set', () => {
   const b = good() as unknown as Bundle;
-  assert.equal(bundleSaving(b), 25);
+  assert.equal(bundleSaving(b), 10);
   const noCompare = { ...b, compareAtPrice: undefined };
   assert.equal(bundleSaving(noCompare), 0);
 });
 
 test('contentsTotal adds up the real product prices', () => {
   const b = good() as unknown as Bundle;
-  // Ivylor 80 + Vitelormed 185. Read from the catalogue, not hard-coded twice.
-  assert.equal(contentsTotal(b), 265);
+  // Derived from the catalogue rather than written in: a price change at
+  // /admin must not be able to fail this.
+  assert.equal(contentsTotal(b), CONTENTS_TOTAL);
 });
 
 test('a bundle is only sellable when active and everything in it is available', () => {
   const b = good() as unknown as Bundle;
   assert.equal(isBundleSellable(b), true);
   assert.equal(isBundleSellable({ ...b, status: 'hidden' }), false);
-  assert.equal(
-    isBundleSellable({ ...b, items: [{ slug: 'imulormed', quantity: 1 }] }),
-    false,
-  );
+  // A slug that is not a product at all can never be sellable, whatever the
+  // catalogue looks like.
+  assert.equal(isBundleSellable({ ...b, items: [{ slug: 'not-a-product', quantity: 1 }] }), false);
+  if (NOT_FOR_SALE) {
+    assert.equal(
+      isBundleSellable({ ...b, items: [{ slug: NOT_FOR_SALE.slug, quantity: 1 }] }),
+      false,
+    );
+  }
 });
