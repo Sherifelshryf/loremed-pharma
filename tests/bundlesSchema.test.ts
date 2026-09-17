@@ -12,7 +12,6 @@ import {
   isBundleSellable,
   type Bundle,
 } from '../src/content/bundles';
-import raw from '../src/content/bundles.json';
 import { getProduct, products } from '../src/content/products';
 
 /**
