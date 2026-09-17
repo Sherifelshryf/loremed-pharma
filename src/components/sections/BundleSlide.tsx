@@ -7,7 +7,7 @@ import { bundleSaving, type Bundle } from '@/content/bundles';
 import { site } from '@/content/site';
 import { useI18n } from '@/i18n/LanguageProvider';
 
-/** Beyond this many packshots the row is too small to read; the rest count up. */
+/** Beyond this many bottles the row is too small to read; the rest count up. */
 const MAX_PACKSHOTS = 4;
 
 /**
@@ -53,12 +53,24 @@ export function BundleSlide({ bundle }: { bundle: Bundle }) {
     );
   }
 
-  // No photo: the products themselves, side by side. Anything without a
-  // packshot drops out rather than leaving a hole in the row.
-  const packshots = bundle.items
-    .map((item) => getProduct(item.slug))
-    .filter((p): p is NonNullable<typeof p> => Boolean(p?.image))
-    .map((p) => ({ key: p.slug, src: p.image as string, alt: p.name[locale] }));
+  // No photo: the products themselves, side by side — one bottle drawn per
+  // bottle in the box. A bundle of two Smartod and one Ivylor shows two Smartod
+  // and one Ivylor, because that is what arrives, and a single bottle standing
+  // for three of them undersells the offer to anyone glancing at it.
+  //
+  // Anything without a packshot drops out rather than leaving a hole in the row.
+  const packshots = bundle.items.flatMap((item) => {
+    const product = getProduct(item.slug);
+    if (!product?.image) return [];
+    return Array.from({ length: Math.max(1, item.quantity) }, (_, i) => ({
+      key: `${product.slug}-${i}`,
+      src: product.image as string,
+      // Only the first of a repeated product is described; the rest are the
+      // same bottle again, and a screen reader does not need to hear "Smartod
+      // D" three times to understand a picture of three of them.
+      alt: i === 0 ? product.name[locale] : '',
+    }));
+  });
 
   const shown = packshots.slice(0, MAX_PACKSHOTS);
   const hidden = packshots.length - shown.length;

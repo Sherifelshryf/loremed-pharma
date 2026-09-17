@@ -6,7 +6,11 @@
     <title>Loremed — Edit products</title>
     <!-- Nothing here should ever be indexed or previewed as a link. -->
     <meta name="robots" content="noindex, nofollow" />
-    <link rel="icon" href="/icon.svg" />
+    <!-- Hard-coded rather than generated: this page is plain HTML in public/,
+         outside Next's routing, so it does not get the icon tags the site's
+         own pages do. It has to be updated by hand when the icon changes —
+         which is how it came to point at an icon.svg that no longer exists. -->
+    <link rel="icon" href="/icon.png" type="image/png" />
     <style>
       /* Shown only until the CMS bundle takes over the page. */
       .boot {
