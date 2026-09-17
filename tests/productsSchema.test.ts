@@ -2,18 +2,41 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { validateProducts } from '../src/content/productsSchema';
 import { products } from '../src/content/products';
-import raw from '../src/content/products.json';
+import { aProduct } from './fixtures';
 
-/** A known-good product, cloned per test so mutations don't leak between them. */
-const good = () => JSON.parse(JSON.stringify(raw[0]));
+/**
+ * Synthetic, not cloned from products.json. A fixture taken from the real
+ * catalogue makes every test here fail whenever the catalogue is imperfect —
+ * and these run in the deploy, which would put content back in the position of
+ * being able to stop the site updating.
+ */
+const good = () => aProduct();
 
-test('the real catalogue is valid', () => {
-  assert.deepEqual(validateProducts(raw), []);
+/**
+ * Deliberately NOT asserting the shipped file is perfect.
+ *
+ * That assertion used to run in the deploy, so one mistyped field in the CMS
+ * stopped every other edit from reaching the site — twice. What matters is that
+ * the catalogue the site actually renders is sound, which is what the sanitiser
+ * guarantees; imperfections are reported after a deploy, not instead of one.
+ */
+test('the catalogue the site renders is sound', () => {
+  assert.ok(products.length > 0, 'a catalogue with nothing in it is a broken build');
+  for (const p of products) {
+    assert.ok(/^[a-z0-9-]+$/.test(p.slug), `bad slug reached the site: ${p.slug}`);
+    assert.ok(Number.isFinite(p.price) && p.price >= 0, `bad price reached the site: ${p.slug}`);
+    assert.ok(p.name.en.trim() || p.name.ar.trim(), `nameless product reached the site: ${p.slug}`);
+    assert.ok(Array.isArray(p.related));
+    // Every related link resolves, so no card can render empty.
+    for (const r of p.related) assert.ok(products.some((q) => q.slug === r), `${p.slug} -> ${r}`);
+  }
+  // No duplicate slugs, which would make two products share a URL.
+  assert.equal(new Set(products.map((p) => p.slug)).size, products.length);
 });
 
-test('every product survives the cast into Product[]', () => {
-  assert.equal(products.length, raw.length);
-  assert.ok(products.length >= 10);
+test('whatever reached the site really has the Product shape', () => {
+  // No minimum count: that would depend on the content being good, which is
+  // exactly the coupling the sanitiser removes.
   for (const p of products) {
     assert.equal(typeof p.slug, 'string');
     assert.equal(typeof p.price, 'number');
@@ -28,7 +51,7 @@ test('an empty catalogue is rejected', () => {
 
 test('a missing Arabic translation is caught', () => {
   const p = good();
-  p.description.ar = '';
+  (p.description as Record<string, string>).ar = '';
   const problems = validateProducts([p]);
   assert.ok(problems.some((m) => m.includes('description.ar')), problems.join(' | '));
 });
@@ -61,7 +84,7 @@ test('a related product that no longer exists is caught', () => {
 
 test('an ingredient missing its note is caught', () => {
   const p = good();
-  delete p.keyIngredients[0].note;
+  delete (p.keyIngredients as Record<string, unknown>[])[0].note;
   assert.ok(validateProducts([p]).some((m) => m.includes('keyIngredients[0].note')));
 });
 
@@ -78,7 +101,7 @@ test('all problems are reported at once, not just the first', () => {
   const p = good();
   p.price = 'free';
   p.category = 'nonsense';
-  p.name.ar = '';
+  (p.name as Record<string, string>).ar = '';
   assert.ok(validateProducts([p]).length >= 3);
 });
 

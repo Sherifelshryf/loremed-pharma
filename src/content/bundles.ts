@@ -10,13 +10,15 @@
  * inside. That is deliberate — the shop decides what a bundle is worth, and a
  * computed "was" price would silently change whenever a product's price moved.
  * The trade-off is that `compareAtPrice` can drift out of step with the real
- * total; `bundlesSchema.ts` checks it is at least above `price`, which catches
- * the mistake that would show a negative saving on the storefront.
+ * total. A "was" price that is not above the price is dropped on the way in
+ * rather than rendered as a negative saving, and rather than stopping a deploy
+ * as it once did.
  */
 
 import type { Bi } from '@/i18n/dictionaries';
 import bundlesData from './bundles.json';
-import { getProduct } from './products';
+import { getProduct, products } from './products';
+import { sanitiseBundles } from './sanitise';
 
 export type BundleStatus = 'active' | 'hidden';
 
@@ -46,8 +48,27 @@ export type Bundle = {
   featured?: boolean;
 };
 
-/** See the note in products.ts: importing JSON widens the literal types. */
-export const bundles = bundlesData as unknown as Bundle[];
+/**
+ * See the note in products.ts: importing JSON widens the literal types, and
+ * `sanitiseBundles` is what makes the cast below honest.
+ *
+ * A bundle that cannot be drawn — no slug, no name, a price that is not a
+ * number, nothing in it that is a real product — is left out and the rest of
+ * the site publishes as normal. A bundle that is merely wrong in a recoverable
+ * way is corrected: an unrecognised status becomes hidden, a "was" price that
+ * is not above the price is dropped so no saving is claimed. Neither stops a
+ * deploy, which is the whole point; both are reported after one.
+ */
+const sanitised = sanitiseBundles(
+  bundlesData,
+  new Set(products.map((p) => p.slug)),
+  ['active', 'hidden'],
+);
+
+export const bundles = sanitised.bundles as unknown as Bundle[];
+
+/** What was dropped or corrected on the way in. Reported after a deploy. */
+export const bundlesOutcome = sanitised.outcome;
 
 /**
  * Featured bundles first, file order kept within each group.

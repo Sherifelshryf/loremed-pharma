@@ -14,6 +14,7 @@
 
 import type { Bi } from '@/i18n/dictionaries';
 import productsData from './products.json';
+import { sanitiseProducts } from './sanitise';
 
 export type ProductStatus = 'available' | 'under-registration';
 
@@ -127,11 +128,38 @@ export const statusLabels: Record<ProductStatus, Bi> = {
  *
  * Importing JSON widens the literal types (`accent` becomes `string`, not
  * `'purple' | 'orange'`), so the cast below is the boundary where static
- * checking stops. `validateProducts` in `productsSchema.ts` is what actually
- * guarantees the shape, and `npm test` runs it — including in the deploy
- * workflow, so a malformed CMS write fails there rather than on the live site.
+ * checking stops. `sanitiseProducts` is what makes the cast safe: anything that
+ * could not be drawn has already been dropped, and anything with a safe answer
+ * has been corrected, so what survives really does have the shape claimed here.
+ *
+ * A record that fails is left out rather than failing the build. One mistyped
+ * field used to hold back every other edit on the site, and the person who made
+ * it saw only a CMS that said "saved" and a site that never changed. What was
+ * dropped is reported after the deploy instead — see scripts/content-report.ts.
  */
-export const products = productsData as unknown as Product[];
+const sanitised = sanitiseProducts(
+  productsData,
+  categories.map((c) => c.id),
+  ['available', 'under-registration'],
+  ['purple', 'orange'],
+);
+
+/**
+ * The floor. Skipping a bad product keeps the shop open; ending up with no
+ * products at all is not a content mistake, it is a broken file, and a shop
+ * with nothing in it should not replace the one that is live.
+ */
+if (sanitised.products.length === 0) {
+  throw new Error(
+    'No usable products in products.json — refusing to build an empty catalogue.\n' +
+      sanitised.outcome.skipped.map((s) => `  - ${s}`).join('\n'),
+  );
+}
+
+export const products = sanitised.products as unknown as Product[];
+
+/** What was dropped or corrected on the way in. Reported after a deploy. */
+export const productsOutcome = sanitised.outcome;
 
 export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);
