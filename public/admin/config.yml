@@ -19,8 +19,10 @@ backend:
   auth_methods:
     - token
   # Without this the CMS may tag its commits [skip ci], which would stop the
-  # deploy workflow and leave edits saved but never published.
-  automatic_deployments: true
+  # deploy workflow and leave edits saved but never published. `skip_ci: false`
+  # is the current spelling; `automatic_deployments: true` meant the same thing
+  # and is deprecated.
+  skip_ci: false
   commit_messages:
     update: 'Update {{collection}} via CMS'
     delete: 'Delete from {{collection}} via CMS'
@@ -31,10 +33,6 @@ backend:
 media_folder: public/media
 public_folder: /media
 
-# The admin UI itself, not the content. Arabic is available if an editor
-# prefers it — the language picker is in the CMS settings.
-locale: en
-
 collections:
   - name: catalogue
     label: Catalogue
@@ -43,16 +41,18 @@ collections:
         label: Products
         file: src/content/products.json
         format: json
-        description: >-
-          The product catalogue. Changes go live a couple of minutes after
-          saving. Every field marked with both English and العربية appears on
-          the site in that language, so leaving one side blank leaves a gap for
-          half your visitors.
         fields:
           - name: products
             label: Products
             label_singular: Product
             widget: list
+            # `hint`, not `description`: the CMS has no `description` option on
+            # a file, so this guidance was being parsed and then thrown away —
+            # no editor ever saw it. Its own config validator said so.
+            hint: >-
+              Changes go live a couple of minutes after saving. Every field with
+              both English and العربية appears on the site in that language, so
+              leaving one side blank leaves a gap for half your visitors.
             # products.json is a bare array with no wrapper object; `root`
             # keeps it that way rather than nesting it under a "products" key.
             root: true
@@ -271,17 +271,17 @@ collections:
         label: Bundles
         file: src/content/bundles.json
         format: json
-        description: >-
-          Sets of products sold together at one price. While this list is empty
-          the Offers page on the site says "coming soon" — add a bundle and set
-          it to Active, and the page turns into a shop a couple of minutes
-          later. Both prices are typed here by hand: the site does not work
-          them out from the products inside.
         fields:
           - name: bundles
             label: Bundles
             label_singular: Bundle
             widget: list
+            hint: >-
+              Sets of products sold together at one price. While this list is
+              empty the Offers page says "coming soon" — add a bundle, set it to
+              Active, and the page becomes a shop a couple of minutes later.
+              Both prices are typed by hand: the site does not work them out
+              from the products inside.
             # bundles.json is a bare array, same as products.json.
             root: true
             collapsed: true
@@ -316,8 +316,12 @@ collections:
                   Hidden keeps a bundle off the site while you work on it.
                   Nothing appears to customers until this is set to Active.
                 options:
-                  - { label: Active — visible and buyable, value: active }
-                  - { label: Hidden — draft, not on the site, value: hidden }
+                  # Quoted: an unquoted comma inside a flow mapping ends the
+                  # value, so "Hidden — draft, not on the site" parsed as a
+                  # label of "Hidden — draft" plus a stray key. The CMS config
+                  # validator caught it; nothing else would have.
+                  - { label: 'Active — visible and buyable', value: active }
+                  - { label: 'Hidden — draft, not on the site', value: hidden }
 
               - name: tagline
                 label: Tagline
@@ -343,26 +347,34 @@ collections:
                 collapsed: false
                 summary: '{{fields.slug}} ×{{fields.quantity}}'
                 hint: >-
-                  One row per product, using its URL slug — NOT its display
-                  name. The slugs are: ivylor, ivylor-advance, coglern-syrup,
-                  smartod, smartod-d, vitelormed, gotolor, welcaderm-lotion,
-                  imulormed, ferolormed. A slug that does not match a product on
-                  sale stops the deploy rather than publishing a broken bundle,
-                  and nothing you changed reaches the site until it is fixed.
+                  One row per product. Pick each one from the list — it is your
+                  own Products catalogue, so a product that does not exist
+                  cannot be chosen.
                 fields:
-                  # Free text, but shaped. Typing the product's display name —
-                  # "SMARTOD D" rather than "smartod-d" — stopped a deploy, and
-                  # the editor had no way of knowing: the CMS said "saved" and
-                  # the site simply never changed. This pattern rejects capitals
-                  # and spaces in the form, where the mistake is made and can be
-                  # seen, instead of thirty seconds later in a build log nobody
-                  # is watching.
+                  # A menu reading the real catalogue, not free text.
+                  #
+                  # Typing the name on the carton — "SMARTOD D" rather than
+                  # "smartod-d" — stopped a deploy, twice, and the editor had no
+                  # way of knowing: the CMS said "saved" and the site simply
+                  # never changed. A pattern refuses the capitals but still
+                  # accepts "smartodd", which is shaped correctly and is not a
+                  # product. Choosing from the catalogue puts the whole class of
+                  # mistake out of reach.
+                  #
+                  # `products.*.slug` is the path into the Products file: the
+                  # list field there is named `products`, and `*` walks it. The
+                  # value stored is still the slug, so bundles.json keeps its
+                  # shape and nothing downstream knows this became a menu.
                   - name: slug
-                    label: Product slug
-                    widget: string
-                    pattern:
-                      - '^[a-z0-9-]+$'
-                      - Slugs are lower-case with hyphens, e.g. smartod-d — not the product name
+                    label: Product
+                    widget: relation
+                    collection: catalogue
+                    file: products
+                    value_field: 'products.*.slug'
+                    # Name first, then slug, so a row reads "Smartod D smartod-d"
+                    # — recognisable, while still showing what gets stored.
+                    display_fields: ['products.*.name.en', 'products.*.slug']
+                    search_fields: ['products.*.name.en', 'products.*.slug']
                   - { name: quantity, label: How many, widget: number, value_type: int, min: 1, default: 1 }
 
               - name: price
