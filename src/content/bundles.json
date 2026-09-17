@@ -28,5 +28,31 @@
     "compareAtPrice": 350,
     "image": "",
     "featured": true
+  },
+  {
+    "name": {
+      "en": "SMARTOD D 3 BOTTELS OFFER",
+      "ar": "3 عبوات سمارتو د بخصم 15%"
+    },
+    "slug": "smartodd-offer",
+    "status": "active",
+    "tagline": {
+      "en": "Vitamin D3, drop by drop",
+      "ar": "فيتامين د3، نقطة بنقطة"
+    },
+    "description": {
+      "en": "Smartod D delivers vitamin D3 (cholecalciferol) in a simple daily drop. Vitamin D supports the normal absorption of calcium, the development of healthy bones and teeth, and the normal function of the immune system — especially valuable where sunlight exposure is limited.",
+      "ar": "سمارتود د بيقدّم فيتامين د3 (كوليكالسيفيرول) في نقطة واحدة كل يوم. فيتامين د بيدعم امتصاص الكالسيوم بشكل طبيعي، ونمو عظام وسنان صحية، والوظيفة الطبيعية للجهاز المناعي — وده مهم بشكل خاص لما يكون التعرض للشمس قليل."
+    },
+    "items": [
+      {
+        "slug": "SMARTOD D",
+        "quantity": 3
+      }
+    ],
+    "price": 205,
+    "compareAtPrice": 240,
+    "image": "/media/عرض سمارت د 3 عبوات.png",
+    "featured": false
   }
 ]
