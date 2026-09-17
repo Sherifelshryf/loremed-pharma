@@ -13,6 +13,7 @@ import {
   type Bundle,
 } from '../src/content/bundles';
 import raw from '../src/content/bundles.json';
+import { getProduct } from '../src/content/products';
 
 /** A valid bundle built from two products that really exist and are available. */
 const good = (): Record<string, unknown> => ({
@@ -29,8 +30,22 @@ const good = (): Record<string, unknown> => ({
   status: 'active',
 });
 
-test('the shipped bundles file is valid', () => {
-  assert.deepEqual(validateBundles(raw), []);
+/**
+ * Same reasoning as the catalogue test: what ships has to be sound, not
+ * perfect. A bad bundle is skipped on the way in and reported after the deploy
+ * rather than stopping it.
+ */
+test('the bundles the site renders are sound', () => {
+  for (const b of bundles) {
+    assert.ok(/^[a-z0-9-]+$/.test(b.slug), `bad slug reached the site: ${b.slug}`);
+    assert.ok(Number.isFinite(b.price) && b.price >= 0);
+    assert.ok(b.items.length > 0, `empty bundle reached the site: ${b.slug}`);
+    // Every line is a real product, so no card can render a blank row.
+    for (const i of b.items) assert.ok(getProduct(i.slug), `${b.slug} -> ${i.slug}`);
+    // A "was" price, if shown at all, is above the price.
+    if (b.compareAtPrice !== undefined) assert.ok(b.compareAtPrice > b.price, b.slug);
+  }
+  assert.equal(new Set(bundles.map((b) => b.slug)).size, bundles.length);
 });
 
 test('an empty list is valid — it is the coming-soon state', () => {

@@ -48,40 +48,15 @@ jobs:
 
       - run: npm ci
 
-      # ci.yml covers pull requests, but content edits can land on main directly
-      # from the GitHub web editor or from the CMS. Nothing reaches the live
-      # site without passing here first.
-      - name: Check the content is valid
-        id: content
-        run: npm test
-
-      # When that fails the deploy stops and the live site keeps its previous
-      # copy — correct, but from inside the CMS it looks like nothing happened
-      # at all: it says "saved", and the site never changes. This turns the TAP
-      # output nobody reads into a plain sentence at the top of the run, so the
-      # person who made the edit can see which field is wrong and fix it.
-      - name: Explain what is wrong with the content
-        if: failure() && steps.content.outcome == 'failure'
-        run: |
-          {
-            echo "## The edit was saved, but the site was not updated"
-            echo ""
-            echo "Something in the content is not valid, so the deploy stopped before"
-            echo "uploading. **The live site still shows the previous version.**"
-            echo ""
-            echo "### What needs fixing"
-            echo ""
-            echo '```'
-            npx tsx scripts/explain-content-errors.ts 2>&1 \
-              || echo "Could not read the content; see the failing test above."
-            echo '```'
-            echo ""
-            echo "Fix it at [/admin](https://loremedpharma.com/admin/) and save again."
-            echo "The deploy re-runs by itself and takes about two minutes."
-          } >> "$GITHUB_STEP_SUMMARY"
+      # ci.yml covers pull requests, but content edits land on main directly
+      # from the CMS. These are the code's own tests — they do not gate on
+      # whether the content is perfect, because content that cannot be drawn is
+      # skipped on the way in rather than allowed to stop a deploy.
+      - run: npm test
 
       - name: Build the static export
         run: npm run build:static
+
 
       # The upload deletes remote files that are no longer in the build, so a
       # build that silently produced nothing would empty the site. Refuse to
@@ -275,3 +250,21 @@ jobs:
           grep -q "Ivy Leaves Extract" /tmp/live.html \
             || { echo "::error::page served but product content is missing"; exit 1; }
           echo "live site is serving the new build"
+
+      # Nothing an editor types stops a deploy any more: a record that cannot be
+      # drawn is skipped and the rest of the site publishes. That is the right
+      # trade, but content disappearing quietly is its own kind of failure, so
+      # whatever was skipped or corrected is said out loud here — after a deploy
+      # that worked, rather than instead of one.
+      #
+      # `if: always()` so the report still appears when a later step failed, and
+      # the script exits 0 on purpose: a report that can fail the run would be
+      # the blockage it replaced.
+      - name: Say what was skipped or corrected
+        if: always()
+        run: |
+          {
+            echo "## Content report"
+            echo ""
+            npx tsx scripts/content-report.ts 2>&1 || echo "Could not read the content."
+          } >> "$GITHUB_STEP_SUMMARY"
